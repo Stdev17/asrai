@@ -1,0 +1,240 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:art-direction:instruction:schema:2.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "status",
+    "intent",
+    "target",
+    "context",
+    "changes",
+    "constraints",
+    "acceptance",
+    "execution"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "2.0.0"
+    },
+    "id": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "proposed",
+        "previewed",
+        "approved",
+        "applied",
+        "rejected",
+        "superseded"
+      ]
+    },
+    "target": {
+      "type": "object",
+      "required": [
+        "asset_ref",
+        "selector",
+        "selector_language"
+      ],
+      "properties": {
+        "asset_ref": {
+          "type": "string"
+        },
+        "selector": {
+          "type": "string"
+        },
+        "selector_language": {
+          "type": "string"
+        }
+      }
+    },
+    "context": {
+      "type": "object"
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "description"
+        ]
+      }
+    },
+    "changes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "term_id",
+          "operation",
+          "property_binding",
+          "magnitude_basis"
+        ],
+        "properties": {
+          "term_id": {
+            "type": "string"
+          },
+          "operation": {
+            "enum": [
+              "set",
+              "add_delta",
+              "multiply",
+              "relative_delta",
+              "percentage_point_delta",
+              "set_relation",
+              "set_sequence",
+              "define_metric",
+              "measure",
+              "propose_variation",
+              "compare",
+              "describe"
+            ]
+          },
+          "quantity": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "value",
+              "unit"
+            ],
+            "properties": {
+              "value": {
+                "oneOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    },
+                    "minItems": 1
+                  }
+                ]
+              },
+              "unit": {
+                "type": "string"
+              }
+            }
+          },
+          "metric": {
+            "type": "object",
+            "required": [
+              "id",
+              "definition"
+            ]
+          },
+          "property_binding": {
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "sequence": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "relation": {
+            "type": "object"
+          },
+          "magnitude_basis": {
+            "enum": [
+              "none",
+              "example",
+              "precedent",
+              "measurement",
+              "llm"
+            ],
+            "description": "Where the size of the change came from. Direction may be observed; size may not be invented. \"llm\" must never reach apply; \"example\" marks an illustrative serialization value."
+          },
+          "precedent_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Case or record ids that justify the magnitude."
+          }
+        }
+      }
+    },
+    "acceptance": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "kind",
+          "status"
+        ],
+        "properties": {
+          "kind": {
+            "enum": [
+              "numeric",
+              "human",
+              "graph"
+            ]
+          },
+          "status": {
+            "const": "not_evaluated"
+          }
+        }
+      }
+    },
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "adapter",
+        "binding_resolved",
+        "authorized",
+        "run_ref"
+      ],
+      "properties": {
+        "adapter": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Adapter that would carry it out; null while none is bound."
+        },
+        "binding_resolved": {
+          "type": "boolean"
+        },
+        "authorized": {
+          "type": "boolean"
+        },
+        "run_ref": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "RecipeRun id once applied; null otherwise."
+        }
+      }
+    },
+    "intent": {
+      "type": "string"
+    },
+    "note": {
+      "type": "string"
+    },
+    "axis": {
+      "enum": [
+        "direction_compliance",
+        "asset_cohesion",
+        "intentional_contrast"
+      ],
+      "description": "Which of the three judgment axes this instruction answers. The axes are never summed."
+    }
+  }
+}

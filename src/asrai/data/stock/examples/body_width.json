@@ -1,0 +1,69 @@
+{
+  "$schema": "instruction.v2.schema.json",
+  "schema_version": "2.0.0",
+  "id": "example.body_width",
+  "status": "proposed",
+  "axis": "direction_compliance",
+  "intent": "Increase only the horizontal proportion of the drone body by 20% relative to the reference state.",
+  "target": {
+    "asset_ref": "example://assets/drone-study",
+    "selector": "Drone/Body",
+    "selector_language": "illustrative_scene_path"
+  },
+  "context": {
+    "baseline_ref": "example://snapshots/drone-r0",
+    "baseline_values": {
+      "scale_x": 1.0
+    },
+    "space": "object",
+    "axis": "local_x",
+    "origin": "object_origin",
+    "parent_transform": "preserved",
+    "unit_scale": "unchanged"
+  },
+  "changes": [
+    {
+      "term_id": "space.scale",
+      "operation": "relative_delta",
+      "quantity": {
+        "value": 20,
+        "unit": "percent_relative"
+      },
+      "property_binding": null,
+      "metric": {
+        "id": "scale_x",
+        "definition": "Local X scale of the reference object"
+      },
+      "magnitude_basis": "example"
+    }
+  ],
+  "constraints": [
+    {
+      "id": "preserve_yz",
+      "description": "Local Y and Z scale, the camera, the rig pivot and the wing positions are preserved."
+    }
+  ],
+  "acceptance": [
+    {
+      "status": "not_evaluated",
+      "kind": "numeric",
+      "metric_id": "scale_x",
+      "operator": "approx",
+      "value": 1.2,
+      "unit": "factor",
+      "tolerance": 1e-06
+    },
+    {
+      "status": "not_evaluated",
+      "kind": "human",
+      "description": "Compare whether the original rounded body identity and the principal silhouette are preserved."
+    }
+  ],
+  "execution": {
+    "adapter": null,
+    "binding_resolved": false,
+    "authorized": false,
+    "run_ref": null
+  },
+  "note": "The numbers and target names are a serialization example. They are not recommended thresholds, real assets, or verified results."
+}

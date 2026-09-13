@@ -1,0 +1,2525 @@
+{
+  "schema_version": "2.0.0",
+  "locale": "ja",
+  "language_label_en": "Japanese",
+  "language_label_native": "日本語",
+  "base": "vocab.v2.json",
+  "base_entry_count": 475,
+  "spec_language": "en",
+  "translation_basis": "editorial_translation_not_verified_against_localized_industry_corpus",
+  "note_en": "Head-term labels and spoken-form descriptions only. Units, operations, quantification profiles, operational guidance and provenance stay in the English/base bundle and are never duplicated here.",
+  "covers": [
+    "ja"
+  ],
+  "term_count": 475,
+  "terms": {
+    "perception.visual_hierarchy": {
+      "label": "視覚的階層",
+      "description": "画面の要素を先に読ませるか後に読ませるかを決める重要度の関係。",
+      "aliases": [
+        "ビジュアルヒエラルキー"
+      ]
+    },
+    "perception.readability": {
+      "label": "視認性・可読性",
+      "description": "対象や動作の意味が、必要なサイズと時間の中で見分けられる度合い。",
+      "aliases": [
+        "可読性",
+        "リーダビリティ"
+      ]
+    },
+    "perception.silhouette_readability": {
+      "label": "シルエットの視認性",
+      "description": "内部の描き込みなしに外形の塊だけで対象や姿勢を読める度合い。"
+    },
+    "perception.icon_readability": {
+      "label": "アイコンの視認性",
+      "description": "小さく表示される記号の種類と機能を見分けられる度合い。"
+    },
+    "perception.scale_readability": {
+      "label": "拡大縮小への視認性",
+      "description": "拡大・縮小や視距離が変わっても主要な特徴が保たれる度合い。"
+    },
+    "perception.material_readability": {
+      "label": "質感の視認性",
+      "description": "表面の視覚的手がかりだけで意図した質感を見分けられる度合い。"
+    },
+    "perception.affordance": {
+      "label": "アフォーダンス",
+      "description": "ゲーム画面で何ができるか、その可能性がどう伝わるかを扱う語。"
+    },
+    "perception.figure_ground": {
+      "label": "図と地",
+      "description": "どの領域が対象でどの領域が背景かを分離して知覚する関係。",
+      "aliases": [
+        "フィギュア・グラウンド"
+      ]
+    },
+    "perception.attention": {
+      "label": "注意",
+      "description": "観察者が画面の一部に処理資源を向ける現象。",
+      "aliases": [
+        "アテンション"
+      ]
+    },
+    "perception.visual_saliency": {
+      "label": "視覚的顕著性",
+      "description": "周囲との差によってある要素が目立つ性質。",
+      "aliases": [
+        "サリエンシー"
+      ]
+    },
+    "perception.preattentive_processing": {
+      "label": "前注意処理",
+      "description": "意識的な探索より前に一部の視覚特徴が分離される現象を扱う概念。"
+    },
+    "perception.gestalt": {
+      "label": "ゲシュタルト原理",
+      "description": "部分がひとつのまとまりや形として組織されて見える傾向を扱う原理群。"
+    },
+    "perception.perceptual_grouping": {
+      "label": "知覚的群化",
+      "description": "複数の要素がひとつの塊として読まれる関係。",
+      "aliases": [
+        "グルーピング"
+      ]
+    },
+    "perception.depth_perception": {
+      "label": "奥行き知覚",
+      "description": "平面の映像から前後の距離と立体関係を読み取る現象。"
+    },
+    "perception.visual_cognition": {
+      "label": "視覚認知",
+      "description": "視覚情報を対象・関係・意味として解釈する過程。"
+    },
+    "perception.contextual_perception": {
+      "label": "文脈依存の知覚",
+      "description": "周囲の要素や状況によって同じ対象の印象が変わる性質。"
+    },
+    "perception.semiotics": {
+      "label": "記号論",
+      "description": "形・色・標識が特定の意味を伝える関係。"
+    },
+    "perception.style_coherence": {
+      "label": "スタイルの一貫性",
+      "description": "複数のアセットや効果が共有する視覚ルールに沿って見える度合い。"
+    },
+    "perception.gameplay_clarity": {
+      "label": "ゲームプレイの明瞭性",
+      "description": "プレイに必要な対象・事象・行動可能性が視覚的に伝わる度合い。"
+    },
+    "perception.visual_clutter": {
+      "label": "視覚的な煩雑さ",
+      "description": "競合する視覚要素のせいで必要な情報が埋もれる状態。",
+      "aliases": [
+        "ビジュアルノイズ"
+      ]
+    },
+    "perception.visual_weight": {
+      "label": "視覚的重量感",
+      "description": "サイズ・位置・色・コントラストが作る相対的な重さ。"
+    },
+    "perception.visual_intent": {
+      "label": "ビジュアルインテント",
+      "description": "操作を通じて画面で伝えようとする役割・感情・情報。",
+      "aliases": [
+        "視覚的意図"
+      ]
+    },
+    "perception.spectacle": {
+      "label": "スペクタクル",
+      "description": "強い規模感・刺激・変化で目を引く表現目標。"
+    },
+    "composition.composition": {
+      "label": "構図",
+      "description": "画面の中の要素と余白を組織した関係。",
+      "aliases": [
+        "コンポジション"
+      ]
+    },
+    "composition.balance": {
+      "label": "バランス",
+      "description": "画面の視覚的重量が安定しているか意図的に偏っているかの度合い。"
+    },
+    "composition.focal_point": {
+      "label": "焦点",
+      "description": "画面で最初に読ませることを意図した点や対象。",
+      "aliases": [
+        "フォーカルポイント"
+      ]
+    },
+    "composition.staging": {
+      "label": "ステージング",
+      "description": "行動と関係が明確に伝わるよう人物・小道具・カメラを配置すること。"
+    },
+    "composition.framing": {
+      "label": "フレーミング",
+      "description": "カメラのフレームに何を入れ何を外すかを決めること。"
+    },
+    "composition.positive_space": {
+      "label": "ポジティブスペース",
+      "description": "対象の形が占める画面領域。"
+    },
+    "composition.negative_space": {
+      "label": "ネガティブスペース",
+      "description": "対象の周囲や間に残る空いて見える領域。",
+      "aliases": [
+        "余白"
+      ]
+    },
+    "composition.overlap": {
+      "label": "重なり",
+      "description": "画面投影で二つの対象の領域が重なる関係。",
+      "aliases": [
+        "オーバーラップ"
+      ]
+    },
+    "composition.foreground": {
+      "label": "前景",
+      "description": "視点から手前に読まれる画面の層。"
+    },
+    "composition.midground": {
+      "label": "中景",
+      "description": "前景と背景の間で事象や空間をつなぐ層。"
+    },
+    "composition.background": {
+      "label": "背景",
+      "description": "主要な対象を囲むか後ろに読まれる画面の層。"
+    },
+    "composition.line_direction": {
+      "label": "線の方向性",
+      "description": "境界と配置が作る画面の方向性。"
+    },
+    "composition.rhythm": {
+      "label": "リズム",
+      "description": "要素や事象の反復・間隔・強弱が作るパターン。"
+    },
+    "composition.affinity": {
+      "label": "アフィニティ",
+      "description": "色・明度・形・動きなどが互いに似て組織される関係。",
+      "aliases": [
+        "類似性"
+      ]
+    },
+    "composition.contrast_structure": {
+      "label": "コントラスト",
+      "description": "二つの要素または集合の視覚特性が異なって区別される関係。",
+      "aliases": [
+        "対比"
+      ]
+    },
+    "composition.visual_progression": {
+      "label": "視覚的な段階変化",
+      "description": "時間や場面の進行に応じて視覚特性が段階的に変わる構造。"
+    },
+    "composition.visual_component": {
+      "label": "視覚要素",
+      "description": "画面を空間・線・形・明度・色・動き・リズムなどで分析する観点。"
+    },
+    "composition.screen_direction": {
+      "label": "画面内の向き",
+      "description": "物体がフレームの中で向く方向や動く方向。",
+      "aliases": [
+        "スクリーンディレクション"
+      ]
+    },
+    "composition.screen_occupancy": {
+      "label": "画面占有率",
+      "description": "対象がフレームで占める大きさ。"
+    },
+    "composition.reveal": {
+      "label": "リビール",
+      "description": "隠れている情報や未知の情報を順序に沿って見せる演出。",
+      "aliases": [
+        "見せ方の段取り"
+      ]
+    },
+    "composition.continuity": {
+      "label": "視覚的連続性",
+      "description": "カットや状態変化の間で空間・行動・視覚関係がつながって読まれる度合い。"
+    },
+    "composition.tension_release": {
+      "label": "緊張と緩和",
+      "description": "事象の圧迫感と解放感を時間的に組織する演出。"
+    },
+    "composition.storytelling": {
+      "label": "ストーリーテリング",
+      "description": "形・配置・時間変化で事象と関係を伝える目標。"
+    },
+    "composition.storyboard": {
+      "label": "絵コンテ",
+      "description": "事象を主要な画面として事前に表現した連続した絵。",
+      "aliases": [
+        "ストーリーボード"
+      ]
+    },
+    "composition.previs": {
+      "label": "プリビズ",
+      "description": "コンテと演出を簡易アセットで実行してみる事前ビジュアライゼーション。"
+    },
+    "composition.localization_safe": {
+      "label": "ローカライズ耐性のある構図",
+      "description": "言語や表示内容が変わっても機能と階層が保たれる配置。"
+    },
+    "shape.shape": {
+      "label": "シェイプ",
+      "description": "画面や平面で領域と輪郭として読まれる形。",
+      "aliases": [
+        "形"
+      ]
+    },
+    "shape.form": {
+      "label": "フォルム",
+      "description": "体積と面の向きを持つものとして理解される物体の形。",
+      "aliases": [
+        "立体"
+      ]
+    },
+    "shape.silhouette": {
+      "label": "シルエット",
+      "description": "内部の細部を取り除いたときに残る対象の投影外形と塊。"
+    },
+    "shape.contour": {
+      "label": "輪郭",
+      "description": "形の外側の境界、またはその境界線。",
+      "aliases": [
+        "コンター"
+      ]
+    },
+    "shape.outer_contour": {
+      "label": "外形線",
+      "description": "物体と背景を分ける外側の境界。",
+      "aliases": [
+        "アウトライン"
+      ]
+    },
+    "shape.edge_control": {
+      "label": "エッジコントロール",
+      "description": "境界が鋭いか柔らかいか、つながるか消えるかを調整すること。"
+    },
+    "shape.proportion": {
+      "label": "プロポーション",
+      "description": "部分どうし、または部分と全体の大きさの関係。",
+      "aliases": [
+        "比例"
+      ]
+    },
+    "shape.shape_language": {
+      "label": "シェイプランゲージ",
+      "description": "反復する形の特性で役割・性格・スタイルを伝えるルール。"
+    },
+    "shape.mass": {
+      "label": "マッス",
+      "description": "物体を大きくまとめて見たときの体積感や視覚的な塊。",
+      "aliases": [
+        "量感"
+      ]
+    },
+    "shape.primary_form": {
+      "label": "プライマリフォーム",
+      "description": "全体の印象とシルエットを支配する大きな形。",
+      "aliases": [
+        "大きな形"
+      ]
+    },
+    "shape.secondary_form": {
+      "label": "セカンダリフォーム",
+      "description": "主要な形に付随して機能と分節を読ませる中規模の形。"
+    },
+    "shape.tertiary_detail": {
+      "label": "ターシャリディテール",
+      "description": "パネルラインや小さな凹凸など、大きな形より小さい描き込みの層。"
+    },
+    "shape.shape_hierarchy": {
+      "label": "形の階層",
+      "description": "大・中・小の形が担う役割と優先順位。"
+    },
+    "shape.plane": {
+      "label": "面",
+      "description": "立体を単純化したときに向きが比較的一定な面の領域。"
+    },
+    "shape.planar_break": {
+      "label": "面の変わり目",
+      "description": "立体の面の向きが変わって形を分節する箇所。"
+    },
+    "shape.planar_transition": {
+      "label": "面のつながり",
+      "description": "ひとつの面や塊から別の面へ移る形の変化。"
+    },
+    "shape.primitive_decomposition": {
+      "label": "プリミティブ分解",
+      "description": "複雑な対象を箱・円柱・くさびなど単純な構成に分けること。"
+    },
+    "shape.primitive_massing": {
+      "label": "プリミティブによるマッス出し",
+      "description": "細部なしに基本立体で全体の体積と比例を作る段階。"
+    },
+    "shape.blockout": {
+      "label": "ブロックアウト",
+      "description": "最終アセットの代わりに単純な図形で空間や物体を作った下書き。"
+    },
+    "shape.box": {
+      "label": "ボックス",
+      "description": "直線的な面で構成する箱状の塊。"
+    },
+    "shape.sphere": {
+      "label": "球",
+      "description": "曲面の形と照明・質感を試すための球形の基本立体。",
+      "aliases": [
+        "スフィア"
+      ]
+    },
+    "shape.cylinder": {
+      "label": "円柱",
+      "description": "円形の断面が長さ方向に続く基本立体。",
+      "aliases": [
+        "シリンダー"
+      ]
+    },
+    "shape.wedge": {
+      "label": "くさび形",
+      "description": "傾いた面で方向性と厚みの変化を作る塊。",
+      "aliases": [
+        "ウェッジ"
+      ]
+    },
+    "shape.capsule": {
+      "label": "カプセル形状",
+      "description": "ドローンの例で用いた、細長く両端が丸い胴体の形。"
+    },
+    "shape.trapezoid": {
+      "label": "台形",
+      "description": "長さの異なる平行な辺を持つ平面の形。"
+    },
+    "shape.ellipse": {
+      "label": "楕円",
+      "description": "円形断面の投影や平面造形に使う楕円。"
+    },
+    "shape.circle": {
+      "label": "円",
+      "description": "平面上の円形の要素。"
+    },
+    "shape.triangle": {
+      "label": "三角形",
+      "description": "三つの辺で読まれる平面の形。"
+    },
+    "shape.rectangle": {
+      "label": "矩形",
+      "description": "配置や塊の構成に使う四角い形。",
+      "aliases": [
+        "長方形"
+      ]
+    },
+    "shape.notch": {
+      "label": "抜き",
+      "description": "隣り合う塊の間でシルエットを分離する切り込みの空間。",
+      "aliases": [
+        "ノッチ"
+      ]
+    },
+    "shape.panel_line": {
+      "label": "パネルライン",
+      "description": "外形を変えずに表面の分節を表す内部の線。"
+    },
+    "shape.contour_economy": {
+      "label": "輪郭の省略",
+      "description": "少ない境界変化で必要な特徴を伝える性質。"
+    },
+    "shape.modular_construction": {
+      "label": "モジュール構成",
+      "description": "再利用できる部分を組み合わせてアセットを作る方式。"
+    },
+    "shape.anatomy": {
+      "label": "解剖学",
+      "description": "人体の形と動作を支える構造の知識。",
+      "aliases": [
+        "アナトミー"
+      ]
+    },
+    "shape.ribcage": {
+      "label": "胸郭",
+      "description": "単純化した人体構成で胴の上部を表す塊。"
+    },
+    "shape.pelvis": {
+      "label": "骨盤",
+      "description": "単純化した人体構成で胴の下部を表す塊。"
+    },
+    "shape.mannequin": {
+      "label": "マネキン",
+      "description": "棒人間に基本的な体積を加えた姿勢の表現。"
+    },
+    "space.position": {
+      "label": "位置",
+      "description": "選んだ座標系で対象が置かれる位置。"
+    },
+    "space.rotation": {
+      "label": "回転",
+      "description": "対象や基準軸の向きの変化。"
+    },
+    "space.scale": {
+      "label": "スケール",
+      "description": "対象の軸ごとの大きさを乗算で変える変換。",
+      "aliases": [
+        "拡大縮小"
+      ]
+    },
+    "space.transform": {
+      "label": "トランスフォーム",
+      "description": "位置・回転・スケールなどの空間変換をまとめた表現。",
+      "aliases": [
+        "変換"
+      ]
+    },
+    "space.affine": {
+      "label": "アフィン変換",
+      "description": "平行関係を保つ線形変換と平行移動の組み合わせ。"
+    },
+    "space.projection": {
+      "label": "投影",
+      "description": "3D 空間の位置をカメラ映像の位置に対応させる変換。",
+      "aliases": [
+        "プロジェクション"
+      ]
+    },
+    "space.object_space": {
+      "label": "オブジェクト空間",
+      "description": "対象自身の基準軸と原点で位置を表す空間。",
+      "aliases": [
+        "ローカル空間"
+      ]
+    },
+    "space.world_space": {
+      "label": "ワールド空間",
+      "description": "シーン共通の基準で位置と向きを表す空間。"
+    },
+    "space.view_space": {
+      "label": "ビュー空間",
+      "description": "カメラを基準に位置と向きを表す空間。"
+    },
+    "space.clip_space": {
+      "label": "クリップ空間",
+      "description": "投影とクリッピングに使う同次座標の空間。"
+    },
+    "space.screen_space": {
+      "label": "スクリーン空間",
+      "description": "出力映像上の位置で対象を表す空間。"
+    },
+    "space.depth": {
+      "label": "奥行き",
+      "description": "前後の配置、またはカメラからの深度の関係。",
+      "aliases": [
+        "デプス"
+      ]
+    },
+    "space.depth_cue": {
+      "label": "奥行き手がかり",
+      "description": "重なり・遠近・照明など前後と立体を読ませる視覚的な手がかり。"
+    },
+    "space.foreshortening": {
+      "label": "短縮法",
+      "description": "見る方向によって物体の一部の長さが短く投影される現象。",
+      "aliases": [
+        "パース短縮"
+      ]
+    },
+    "space.perspective_grid": {
+      "label": "パースグリッド",
+      "description": "遠近関係を合わせるための補助線の構造。"
+    },
+    "space.axis": {
+      "label": "軸",
+      "description": "変換と方向を解釈する基準の方向。"
+    },
+    "space.origin": {
+      "label": "原点",
+      "description": "オブジェクトの位置と変換の基準となる点。"
+    },
+    "space.pivot": {
+      "label": "ピボット",
+      "description": "回転・スケール・配置の基準点。"
+    },
+    "space.parent_child_transform": {
+      "label": "親子のトランスフォーム",
+      "description": "上位の対象の変換に従属する下位の対象の変換関係。"
+    },
+    "space.size": {
+      "label": "サイズ",
+      "description": "対象の長さ・幅・高さ、または画面上の大きさを包括する表現。"
+    },
+    "space.direction": {
+      "label": "方向",
+      "description": "対象が向く、伸びる、移動する方向。"
+    },
+    "camera.camera": {
+      "label": "カメラ",
+      "description": "シーンをどの視点と投影で観察するかを決める構成要素。"
+    },
+    "camera.camera_position": {
+      "label": "カメラ位置",
+      "description": "カメラがシーンで置かれる位置。"
+    },
+    "camera.camera_angle": {
+      "label": "カメラアングル",
+      "description": "対象を見るカメラの向きと視点。"
+    },
+    "camera.camera_distance": {
+      "label": "カメラ距離",
+      "description": "カメラと指定した対象または基準点の間の距離。"
+    },
+    "camera.fov": {
+      "label": "画角",
+      "description": "カメラが取り込む角度の範囲。",
+      "aliases": [
+        "FOV",
+        "視野角"
+      ]
+    },
+    "camera.perspective": {
+      "label": "透視投影",
+      "description": "距離に応じて投影サイズが変わるカメラ方式。",
+      "aliases": [
+        "パース"
+      ]
+    },
+    "camera.orthographic": {
+      "label": "平行投影",
+      "description": "深度による遠近の縮小なしに平行に投影する方式。",
+      "aliases": [
+        "正投影",
+        "オルソ"
+      ]
+    },
+    "camera.frustum": {
+      "label": "視錐台",
+      "description": "カメラがクリッピングと可視判定に使う視野の体積。",
+      "aliases": [
+        "フラスタム"
+      ]
+    },
+    "camera.near_far": {
+      "label": "ニア／ファークリップ",
+      "description": "カメラの手前と奥で扱う距離の範囲。"
+    },
+    "camera.shot_size": {
+      "label": "ショットサイズ",
+      "description": "対象がフレームでどこまで見えるかによるショットの区分。"
+    },
+    "camera.wide_shot": {
+      "label": "ワイドショット",
+      "description": "対象の周囲の空間と関係を広く含む画面構成。",
+      "aliases": [
+        "ロングショット",
+        "引き"
+      ]
+    },
+    "camera.close_shot": {
+      "label": "クローズショット",
+      "description": "対象や部分を大きく見せる画面構成。",
+      "aliases": [
+        "寄り",
+        "クローズアップ"
+      ]
+    },
+    "camera.low_angle": {
+      "label": "ローアングル",
+      "description": "対象を相対的に低い視点から見る構成。",
+      "aliases": [
+        "あおり"
+      ]
+    },
+    "camera.front_view": {
+      "label": "正面図",
+      "description": "対象の正面を基準に見る検査用の視点。",
+      "aliases": [
+        "フロントビュー"
+      ]
+    },
+    "camera.side_view": {
+      "label": "側面図",
+      "description": "対象の側面を基準に見る検査用の視点。",
+      "aliases": [
+        "サイドビュー"
+      ]
+    },
+    "camera.three_quarter": {
+      "label": "4分の3ビュー",
+      "description": "正面と側面を同時に見せる斜めの視点。",
+      "aliases": [
+        "斜め45度"
+      ]
+    },
+    "value.value": {
+      "label": "明度",
+      "description": "明るさと暗さの関係を組織する美術上の軸。",
+      "aliases": [
+        "バリュー"
+      ]
+    },
+    "value.tone": {
+      "label": "トーン",
+      "description": "ここでは主に画面の明暗の構造を指す語。",
+      "aliases": [
+        "調子"
+      ]
+    },
+    "value.value_grouping": {
+      "label": "明度のグルーピング",
+      "description": "細部を大きな明るさの集団にまとめて画面を組織すること。"
+    },
+    "value.three_value": {
+      "label": "3値スタディ",
+      "description": "画面を黒・灰・白など三つの明度に単純化する練習表現。"
+    },
+    "value.grayscale": {
+      "label": "グレースケール",
+      "description": "色相の差を取り除き明暗の成分を示す表現。",
+      "aliases": [
+        "モノクロ"
+      ]
+    },
+    "value.value_contrast": {
+      "label": "明度対比",
+      "description": "対象どうしの明るさと暗さの差。"
+    },
+    "value.tone_affinity": {
+      "label": "トーンの類似",
+      "description": "対象や画面領域の明暗関係が似てまとまる状態。"
+    },
+    "value.contrast_hierarchy": {
+      "label": "コントラストの優先順位",
+      "description": "画面内の複数の対比のうちどれを優先させるかを決めた構造。"
+    },
+    "value.highlight": {
+      "label": "ハイライト",
+      "description": "光の反応やスタイル表現で作られる明るい強調の領域。"
+    },
+    "value.shadow": {
+      "label": "シャドウ",
+      "description": "光が届きにくい、または表現上暗くまとめられた領域。",
+      "aliases": [
+        "影"
+      ]
+    },
+    "lighting.lighting": {
+      "label": "ライティング",
+      "description": "光源と環境の光で形と画面の雰囲気を作る構成。",
+      "aliases": [
+        "照明"
+      ]
+    },
+    "lighting.light": {
+      "label": "ライト",
+      "description": "物体と空間の照明反応に寄与する光、またはエンジンの光源。",
+      "aliases": [
+        "光源"
+      ]
+    },
+    "lighting.light_direction": {
+      "label": "光の方向",
+      "description": "光が進む方向、または表面に向かう方向。",
+      "aliases": [
+        "ライトディレクション"
+      ]
+    },
+    "lighting.intensity": {
+      "label": "光の強度",
+      "description": "光源の出力の強さを制御する値。",
+      "aliases": [
+        "インテンシティ"
+      ]
+    },
+    "lighting.directional_light": {
+      "label": "ディレクショナルライト",
+      "description": "方向を主な属性として使うエンジンの光源タイプ。",
+      "aliases": [
+        "平行光源"
+      ]
+    },
+    "lighting.form_shadow": {
+      "label": "陰",
+      "description": "表面の向きのために直接光を受けにくい物体自身の暗い部分。",
+      "aliases": [
+        "フォームシャドウ"
+      ]
+    },
+    "lighting.cast_shadow": {
+      "label": "影",
+      "description": "他の表面に向かう光が物体に遮られてできる影。",
+      "aliases": [
+        "キャストシャドウ",
+        "落ち影"
+      ]
+    },
+    "lighting.terminator": {
+      "label": "陰影の境界",
+      "description": "形の中で直接光を受ける側と受けない側を分ける境界。",
+      "aliases": [
+        "ターミネーター"
+      ]
+    },
+    "lighting.ambient": {
+      "label": "アンビエント",
+      "description": "個別の直接光源以外の周囲からの照明寄与を指す語。",
+      "aliases": [
+        "環境光"
+      ]
+    },
+    "lighting.bounce": {
+      "label": "バウンス",
+      "description": "他の表面に反射したあと届く間接的な光の寄与。",
+      "aliases": [
+        "間接光"
+      ]
+    },
+    "lighting.backlight": {
+      "label": "バックライト",
+      "description": "カメラから見て対象の後ろから当てる照明配置。",
+      "aliases": [
+        "逆光"
+      ]
+    },
+    "lighting.lambert": {
+      "label": "ランバート",
+      "description": "表面の向きと入射方向の関係を使う単純な拡散反射モデル。"
+    },
+    "lighting.ndotl": {
+      "label": "N・L",
+      "description": "法線とライト方向ベクトルの内積で表面の向きの関係を表した値。"
+    },
+    "lighting.fake_lighting": {
+      "label": "擬似ライティング",
+      "description": "物理的整合よりも視認性と意図のために加えた照明表現。",
+      "aliases": [
+        "フェイクライティング"
+      ]
+    },
+    "lighting.secondary_lighting": {
+      "label": "セカンダリライティング",
+      "description": "ピクセル化した対象に追加のティントや照明反応を作る工程。"
+    },
+    "lighting.radiometry": {
+      "label": "放射計測",
+      "description": "光のエネルギー伝達を定量的に扱う基礎概念。",
+      "aliases": [
+        "ラジオメトリ"
+      ]
+    },
+    "lighting.light_transport": {
+      "label": "光輸送",
+      "description": "光源・表面・媒質の間で光が伝わる過程。",
+      "aliases": [
+        "ライトトランスポート"
+      ]
+    },
+    "color.color": {
+      "label": "色",
+      "description": "表面・光源・映像の色成分と知覚的な関係。",
+      "aliases": [
+        "カラー"
+      ]
+    },
+    "color.hue": {
+      "label": "色相",
+      "description": "色を赤・黄・緑などに区別する色モデル上の軸。",
+      "aliases": [
+        "ヒュー"
+      ]
+    },
+    "color.saturation": {
+      "label": "彩度",
+      "description": "選んだ色モデルや道具で色の無彩色からの度合いを調整する軸。",
+      "aliases": [
+        "サチュレーション"
+      ]
+    },
+    "color.warm_cool": {
+      "label": "暖色と寒色の関係",
+      "description": "色どうしが相対的に暖かく、または冷たく読まれる関係。"
+    },
+    "color.simultaneous_contrast": {
+      "label": "同時対比",
+      "description": "周囲の色や明るさのために同じ色の印象が変わる現象。"
+    },
+    "color.palette": {
+      "label": "パレット",
+      "description": "絵やアセット群に使う色の集合。",
+      "aliases": [
+        "配色"
+      ]
+    },
+    "color.palette_hierarchy": {
+      "label": "パレットの優先順位",
+      "description": "主調色・補助色・アクセント色など色の集合の優先順位。"
+    },
+    "color.palette_discipline": {
+      "label": "パレット運用ルール",
+      "description": "許容する色の関係と色数を一貫して保つルール。"
+    },
+    "color.local_color": {
+      "label": "固有色",
+      "description": "照明効果と区別して説明する対象そのものの色。",
+      "aliases": [
+        "ローカルカラー"
+      ]
+    },
+    "color.light_color": {
+      "label": "光源色",
+      "description": "光の色の構成。"
+    },
+    "color.surrounding_color": {
+      "label": "周囲色",
+      "description": "対象の周りに置かれ知覚に影響する色。"
+    },
+    "color.perceived_color": {
+      "label": "知覚色",
+      "description": "最終的な文脈と観察条件で人が読み取る色。"
+    },
+    "color.color_temperature": {
+      "label": "色温度",
+      "description": "光源色やホワイトバランスの性格を暖かさ・冷たさの方向で扱う語。"
+    },
+    "color.tint": {
+      "label": "ティント",
+      "description": "色を特定の方向へ傾けたり色フィルタをかけたりする操作。",
+      "aliases": [
+        "色かぶり"
+      ]
+    },
+    "color.vibrance": {
+      "label": "自然な彩度",
+      "description": "ツールごとの方式で色の強さを選択的に補正する調整。",
+      "aliases": [
+        "バイブランス"
+      ]
+    },
+    "color.gamma": {
+      "label": "ガンマカーブ",
+      "description": "値変換の非線形な曲線やツールのガンマ調整を指す語。"
+    },
+    "color.exposure": {
+      "label": "露出",
+      "description": "映像や照明信号の明るさを露出の観点で調整する値。",
+      "aliases": [
+        "露光"
+      ]
+    },
+    "color.srgb": {
+      "label": "sRGB",
+      "description": "テクスチャや表示色を扱うときに現れる RGB の色エンコード体系。",
+      "review": "confirm_loanword"
+    },
+    "color.linear": {
+      "label": "リニア色",
+      "description": "光量に比例する値で色の演算を扱う表現。",
+      "aliases": [
+        "リニアワークフロー"
+      ]
+    },
+    "color.lut": {
+      "label": "LUT",
+      "description": "入力色を出力色に変換する事前計算された対応表。",
+      "aliases": [
+        "ルックアップテーブル"
+      ],
+      "review": "confirm_loanword"
+    },
+    "color.color_grading": {
+      "label": "カラーグレーディング",
+      "description": "最終画面の色と明暗の関係を意図に合わせて変えること。"
+    },
+    "color.tone_mapping": {
+      "label": "トーンマッピング",
+      "description": "広い信号範囲を出力可能な表現に対応させる工程。"
+    },
+    "color.color_contrast": {
+      "label": "色対比",
+      "description": "二つの領域の色が異なって読まれる関係。"
+    },
+    "color.color_affinity": {
+      "label": "色の類似",
+      "description": "要素どうしの色が似てまとまって読まれる関係。"
+    },
+    "color.complementary_scheme": {
+      "label": "補色配色",
+      "description": "色相環で向かい合う関係を使った色の構成。"
+    },
+    "material.surface": {
+      "label": "サーフェス",
+      "description": "形が光とテクスチャに反応する境界、またはその表現。",
+      "aliases": [
+        "表面"
+      ]
+    },
+    "material.material": {
+      "label": "マテリアル",
+      "description": "表面の反応と関連するテクスチャ・パラメータをまとめた表現。",
+      "aliases": [
+        "材質"
+      ]
+    },
+    "material.surface_response": {
+      "label": "表面の反応",
+      "description": "光や視点の変化に対して表面が見せる反応。"
+    },
+    "material.material_cue": {
+      "label": "質感の手がかり",
+      "description": "金属やゴムなどとして読ませるハイライト・色・表面の模様などの手がかり。"
+    },
+    "material.pbr": {
+      "label": "PBR",
+      "description": "物理的な表面反応の原理を使う質感・シェーディングの手法。",
+      "aliases": [
+        "物理ベースレンダリング"
+      ],
+      "review": "confirm_loanword"
+    },
+    "material.brdf": {
+      "label": "BRDF",
+      "description": "入射方向と出射方向に応じた表面の反射を表す関数。",
+      "review": "confirm_loanword"
+    },
+    "material.bsdf": {
+      "label": "BSDF",
+      "description": "反射や透過など表面の散乱応答を表す関数の範疇。",
+      "review": "confirm_loanword"
+    },
+    "material.base_color": {
+      "label": "ベースカラー",
+      "description": "マテリアルのワークフローで照明計算の基本色入力として使う値。",
+      "aliases": [
+        "アルベド"
+      ]
+    },
+    "material.metallic": {
+      "label": "メタリック",
+      "description": "金属／非金属ワークフローでの表面の性格の入力。"
+    },
+    "material.roughness": {
+      "label": "ラフネス",
+      "description": "表面の微細構造に応じた反射分布の広がりを制御する入力。",
+      "aliases": [
+        "粗さ"
+      ]
+    },
+    "material.smoothness": {
+      "label": "スムースネス",
+      "description": "反射応答の鮮明さを調整するツールごとの入力。",
+      "aliases": [
+        "滑らかさ"
+      ]
+    },
+    "material.ao": {
+      "label": "アンビエントオクルージョン",
+      "description": "周囲の遮蔽による暗さの手がかりを表す値やマップ。",
+      "aliases": [
+        "AO"
+      ]
+    },
+    "material.emission": {
+      "label": "エミッション",
+      "description": "表面が自ら明るく見えるように加える質感の信号。",
+      "aliases": [
+        "自己発光"
+      ]
+    },
+    "material.normal_map": {
+      "label": "ノーマルマップ",
+      "description": "テクスチャで表面の向きの変化を伝える表現。",
+      "aliases": [
+        "法線マップ"
+      ]
+    },
+    "material.curvature": {
+      "label": "カーブチャ",
+      "description": "表面が曲がったり折れたりする度合い、またはその情報を保存した表現。",
+      "aliases": [
+        "曲率マップ"
+      ]
+    },
+    "material.mesh_maps": {
+      "label": "メッシュマップ",
+      "description": "メッシュからベイクして質感制作に使う補助マップの集合。"
+    },
+    "material.material_layers": {
+      "label": "マテリアルレイヤー",
+      "description": "複数の質感効果を順序とマスクで合成する層。"
+    },
+    "material.mask_generator": {
+      "label": "マスクとジェネレーター",
+      "description": "条件やマップで質感の影響範囲を生成する構成。"
+    },
+    "material.metal_rough_workflow": {
+      "label": "メタルラフネスワークフロー",
+      "description": "金属性と粗さを中心に表面の入力を構成するワークフロー。"
+    },
+    "material.spec_gloss_workflow": {
+      "label": "スペキュラグロスワークフロー",
+      "description": "反射色と光沢の入力で表面を構成するワークフロー。"
+    },
+    "material.plastic": {
+      "label": "プラスチック",
+      "description": "練習で比較対象としたプラスチックの表面の印象。"
+    },
+    "material.metal": {
+      "label": "金属",
+      "description": "練習で比較対象とした金属の表面の印象。",
+      "aliases": [
+        "メタル"
+      ]
+    },
+    "material.rubber": {
+      "label": "ゴム",
+      "description": "練習で比較対象としたゴムの表面の印象。",
+      "aliases": [
+        "ラバー"
+      ]
+    },
+    "material.glass": {
+      "label": "ガラス",
+      "description": "透明や反射などの手がかりで読まれるガラス表面の目標。"
+    },
+    "material.painted_metal": {
+      "label": "塗装金属",
+      "description": "金属の下地と塗装層の差を持つ表面の目標。"
+    },
+    "geometry.geometry": {
+      "label": "ジオメトリ",
+      "description": "空間上の点・線・面・体積で表す形。",
+      "aliases": [
+        "形状"
+      ]
+    },
+    "geometry.mesh": {
+      "label": "メッシュ",
+      "description": "頂点とその接続で表面を表す構造。"
+    },
+    "geometry.topology": {
+      "label": "トポロジー",
+      "description": "メッシュ要素の接続構造。",
+      "aliases": [
+        "位相"
+      ]
+    },
+    "geometry.edge_flow": {
+      "label": "エッジフロー",
+      "description": "エッジが形や変形の方向に沿ってつながるパターン。"
+    },
+    "geometry.pole": {
+      "label": "ポール",
+      "description": "周囲のメッシュの規則的な接続と異なるエッジ数を持つ頂点に使う語。",
+      "aliases": [
+        "極"
+      ]
+    },
+    "geometry.manifold": {
+      "label": "マニフォールド",
+      "description": "メッシュ周辺の接続が表面として一貫して構成される条件。",
+      "aliases": [
+        "多様体"
+      ]
+    },
+    "geometry.normal": {
+      "label": "法線",
+      "description": "表面の向きを表すベクトル。",
+      "aliases": [
+        "ノーマル"
+      ]
+    },
+    "geometry.tangent": {
+      "label": "タンジェント",
+      "description": "表面の向きや UV に基づくシェーディング座標系を構成する接線。",
+      "aliases": [
+        "接線"
+      ]
+    },
+    "geometry.smoothing": {
+      "label": "スムージング",
+      "description": "隣り合う面が滑らかにつながって見えるよう法線の応答を構成する作業。"
+    },
+    "geometry.normal_interpolation": {
+      "label": "法線補間",
+      "description": "表面の内部で法線情報をつないでシェーディングする過程。"
+    },
+    "geometry.hard_edge": {
+      "label": "ハードエッジ",
+      "description": "シェーディングで隣り合う面の向きの変化がはっきり読まれるよう処理した境界。"
+    },
+    "geometry.soft_edge": {
+      "label": "ソフトエッジ",
+      "description": "シェーディングが比較的滑らかにつながるよう処理したメッシュの境界。"
+    },
+    "geometry.bevel": {
+      "label": "ベベル",
+      "description": "鋭い角を小さな面や曲面で削る作業。",
+      "aliases": [
+        "面取り"
+      ]
+    },
+    "geometry.bevel_highlight": {
+      "label": "ベベルのハイライト",
+      "description": "ベベル面が光を受けて角の形を見せる明るい帯。"
+    },
+    "geometry.subd": {
+      "label": "サブディビジョンサーフェス",
+      "description": "分割によってより滑らかな表面を作るモデリングの手法。",
+      "aliases": [
+        "SubD"
+      ]
+    },
+    "geometry.deformation": {
+      "label": "変形",
+      "description": "時間・リグ・プロシージャに応じてメッシュの位置を変えること。",
+      "aliases": [
+        "デフォーメーション"
+      ]
+    },
+    "geometry.hard_surface": {
+      "label": "ハードサーフェス",
+      "description": "機械やプロップのように硬く面の切り替わりが明確な形を扱うモデリングの範疇。"
+    },
+    "geometry.modifier_stack": {
+      "label": "モディファイアスタック",
+      "description": "複数の非破壊の形状演算を順に適用する構成。"
+    },
+    "geometry.mirror": {
+      "label": "ミラー",
+      "description": "基準面に対して形状を対称に複製または連結する演算。"
+    },
+    "geometry.solidify": {
+      "label": "ソリッド化",
+      "description": "表面に厚みを与えるモデリングの演算。"
+    },
+    "geometry.high_poly": {
+      "label": "ハイポリ",
+      "description": "相対的に多くの形状の細部を持つモデルの表現。"
+    },
+    "geometry.low_poly": {
+      "label": "ローポリ",
+      "description": "実行コストやスタイルのために形状を制限したモデルの表現。"
+    },
+    "geometry.target_tris": {
+      "label": "目標三角形数",
+      "description": "対象のメッシュやアセットのレンダー用三角形数の上限。"
+    },
+    "geometry.wireframe": {
+      "label": "ワイヤーフレーム",
+      "description": "メッシュの接続を線で見せる検査用の表示。"
+    },
+    "geometry.curve": {
+      "label": "カーブ",
+      "description": "空間の連続した線の形を表す幾何要素。",
+      "aliases": [
+        "曲線"
+      ]
+    },
+    "geometry.point_cloud": {
+      "label": "点群",
+      "description": "空間上の点の集合で表したデータ。",
+      "aliases": [
+        "ポイントクラウド"
+      ]
+    },
+    "geometry.volume": {
+      "label": "ボリューム",
+      "description": "表面だけでなく空間内部の値を表すデータ。"
+    },
+    "geometry.instance": {
+      "label": "インスタンス",
+      "description": "共有する原型を複数の位置や属性で配置した表現。"
+    },
+    "geometry.geometry_nodes": {
+      "label": "ジオメトリノード",
+      "description": "ノードグラフで幾何データの生成と変形を構成するシステム。"
+    },
+    "geometry.quad": {
+      "label": "板ポリゴン",
+      "description": "練習や効果で平面要素として使う四つの頂点の形。",
+      "aliases": [
+        "クアッド",
+        "四角ポリゴン"
+      ]
+    },
+    "geometry.modeling": {
+      "label": "モデリング",
+      "description": "形状と構造を制作する作業。"
+    },
+    "geometry.sculpt": {
+      "label": "スカルプト",
+      "description": "表面を彫刻するように変形するモデリングの方式。"
+    },
+    "uv_texture.uv": {
+      "label": "UV",
+      "description": "表面と 2D テクスチャを対応させる座標。",
+      "aliases": [
+        "UV座標"
+      ],
+      "review": "confirm_loanword"
+    },
+    "uv_texture.uv_seam": {
+      "label": "UVシーム",
+      "description": "展開で表面を分ける境界。",
+      "aliases": [
+        "切れ目"
+      ]
+    },
+    "uv_texture.uv_island": {
+      "label": "UVアイランド",
+      "description": "展開した UV でつながったひとつの領域。",
+      "aliases": [
+        "アイランド"
+      ]
+    },
+    "uv_texture.texel_density": {
+      "label": "テクセル密度",
+      "description": "表面の指定した実寸の長さや面積に対応するテクスチャのサンプル密度。"
+    },
+    "uv_texture.texel": {
+      "label": "テクセル",
+      "description": "テクスチャ格子のひとつのサンプル要素。"
+    },
+    "uv_texture.texture": {
+      "label": "テクスチャ",
+      "description": "色やデータの値をサンプリングする画像・アセット。",
+      "aliases": [
+        "テクスチャマップ"
+      ]
+    },
+    "uv_texture.texture_size": {
+      "label": "テクスチャ解像度",
+      "description": "テクスチャの横と縦のサンプル数。",
+      "aliases": [
+        "テクスチャサイズ"
+      ]
+    },
+    "uv_texture.bake": {
+      "label": "ベイク",
+      "description": "形状・照明・表面の情報を別の固定表現として計算し保存すること。",
+      "aliases": [
+        "焼き込み"
+      ]
+    },
+    "uv_texture.normal_mapping": {
+      "label": "ノーマルマッピング",
+      "description": "ノーマルマップで表面の照明応答を変える方式。"
+    },
+    "uv_texture.sampling": {
+      "label": "サンプリング",
+      "description": "連続的または格子状のデータを特定の位置や時刻の値として読む過程。"
+    },
+    "uv_texture.texture_sample": {
+      "label": "テクスチャサンプル",
+      "description": "UV とフィルタ条件を使ってテクスチャの値を読む演算。"
+    },
+    "uv_texture.filtering": {
+      "label": "フィルタリング",
+      "description": "周辺のサンプル値をどう結合して出力するかを決める方式。"
+    },
+    "uv_texture.point_filter": {
+      "label": "ポイントサンプリング",
+      "description": "周辺の値を補間せず最も近いサンプルを選ぶ方式。",
+      "aliases": [
+        "ニアレスト"
+      ]
+    },
+    "uv_texture.bilinear": {
+      "label": "バイリニアフィルタ",
+      "description": "2D 格子の周辺の値を補間するテクスチャフィルタ。",
+      "aliases": [
+        "双一次補間"
+      ]
+    },
+    "uv_texture.mipmap": {
+      "label": "ミップマップ",
+      "description": "複数の縮小段階のテクスチャを用意する表現。"
+    },
+    "uv_texture.anti_aliasing": {
+      "label": "アンチエイリアシング",
+      "description": "サンプリングで生じる境界や模様の不安定さを和らげる処理。"
+    },
+    "uv_texture.texture_compression": {
+      "label": "テクスチャ圧縮",
+      "description": "テクスチャの保存・転送・GPU 使用量を減らすエンコード。"
+    },
+    "uv_texture.padding": {
+      "label": "パディング",
+      "description": "アトラスの領域の間などに確保する余裕のサンプル空間。",
+      "aliases": [
+        "余白"
+      ]
+    },
+    "uv_texture.extrusion": {
+      "label": "エッジパディング",
+      "description": "境界の色を周囲に広げてサンプルの混入を減らす処理。",
+      "aliases": [
+        "押し出し"
+      ]
+    },
+    "uv_texture.alpha": {
+      "label": "アルファ",
+      "description": "合成やマスキングに使うカバレッジまたは不透明度のチャンネル。",
+      "aliases": [
+        "アルファチャンネル"
+      ]
+    },
+    "uv_texture.alpha_edge": {
+      "label": "アルファの境界",
+      "description": "見えると見えないの間でアルファが切り替わる境界。"
+    },
+    "vector.vector_art": {
+      "label": "ベクターアート",
+      "description": "曲線と図形で原本を構成する画像の表現。"
+    },
+    "vector.bezier": {
+      "label": "ベジェ曲線",
+      "description": "制御点で曲線を定義する表現。"
+    },
+    "vector.anchor": {
+      "label": "アンカーポイント",
+      "description": "ベクターパスのセグメントの接続を決める基準点。",
+      "aliases": [
+        "アンカー"
+      ]
+    },
+    "vector.handle": {
+      "label": "ハンドル",
+      "description": "アンカー周辺の曲線の方向と形を制御する点やベクトル。",
+      "aliases": [
+        "方向線"
+      ]
+    },
+    "vector.segment": {
+      "label": "セグメント",
+      "description": "パスの隣り合う基準点の間をつなぐ部分。"
+    },
+    "vector.path": {
+      "label": "パス",
+      "description": "点とセグメントでつないだ線や輪郭。"
+    },
+    "vector.closed_shape": {
+      "label": "クローズパス",
+      "description": "端がつながって領域を定義するパスの形。",
+      "aliases": [
+        "閉じたパス"
+      ]
+    },
+    "vector.compound_shape": {
+      "label": "複合シェイプ",
+      "description": "複数のパスや部分が一緒にひとつの領域構造を作る表現。",
+      "aliases": [
+        "コンパウンドシェイプ"
+      ]
+    },
+    "vector.boolean": {
+      "label": "ブーリアン演算",
+      "description": "図形の領域関係で合成・減算・交差する演算。"
+    },
+    "vector.curve_continuity": {
+      "label": "曲線の連続性",
+      "description": "接合部で位置・方向・曲がりがつながる度合い。"
+    },
+    "vector.stroke": {
+      "label": "ストローク",
+      "description": "パスに沿って描かれる線の表現。",
+      "aliases": [
+        "線"
+      ]
+    },
+    "vector.fill": {
+      "label": "塗り",
+      "description": "閉じた領域の中に適用する色やパターン。",
+      "aliases": [
+        "フィル"
+      ]
+    },
+    "vector.mask": {
+      "label": "マスク",
+      "description": "効果が適用される領域や度合いを表す表現。"
+    },
+    "vector.gradient": {
+      "label": "グラデーション",
+      "description": "位置に応じて色や値を連続的に変える表現。"
+    },
+    "vector.viewbox": {
+      "label": "viewBox",
+      "description": "SVG 内部座標の表示範囲を指定する構造。",
+      "review": "confirm_loanword"
+    },
+    "vector.group_hierarchy": {
+      "label": "グループ階層",
+      "description": "ベクター要素をまとめ変換とスタイルを共有する階層。"
+    },
+    "vector.svg": {
+      "label": "SVG",
+      "description": "ベクター要素と属性を構造化して保存する文書の表現。",
+      "review": "confirm_loanword"
+    },
+    "vector.pen": {
+      "label": "ペンツール",
+      "description": "アンカーとハンドルを使ってパスを構成する制作ツール。"
+    },
+    "vector.shape_builder": {
+      "label": "シェイプ形成ツール",
+      "description": "重なる図形の領域を組み合わせる制作機能。",
+      "aliases": [
+        "シェイプビルダー"
+      ]
+    },
+    "vector.pathfinder": {
+      "label": "パスファインダー",
+      "description": "図形どうしの演算で複合的な形を作る機能群。"
+    },
+    "vector.resolution_independence": {
+      "label": "解像度非依存",
+      "description": "原本の図形を別の大きさで再表現できるという性質。"
+    },
+    "vector.reusable_shape": {
+      "label": "再利用シェイプ",
+      "description": "複数のアセットで共有する図形の構成要素。"
+    },
+    "pixel_sprite.sprite": {
+      "label": "スプライト",
+      "description": "2D の物体表現に使う画像領域やエンジンのアセット。"
+    },
+    "pixel_sprite.sprite_import": {
+      "label": "スプライトインポート",
+      "description": "画像をエンジンのスプライトとして解釈する取り込みの過程。"
+    },
+    "pixel_sprite.atlas": {
+      "label": "スプライトアトラス",
+      "description": "複数の画像領域をひとつのテクスチャ集合にパックした表現。"
+    },
+    "pixel_sprite.slicing": {
+      "label": "スライス",
+      "description": "ひとつの画像から複数のスプライト領域を分ける作業。",
+      "aliases": [
+        "スプライトスライス"
+      ]
+    },
+    "pixel_sprite.ppu": {
+      "label": "PPU",
+      "description": "スプライト原本のピクセルとエンジン空間の単位の比率。",
+      "aliases": [
+        "ピクセル単位数"
+      ],
+      "review": "confirm_loanword"
+    },
+    "pixel_sprite.ui_scaling": {
+      "label": "UIスケーリング",
+      "description": "表示解像度やレイアウト条件に合わせて UI の大きさを決める方式。"
+    },
+    "pixel_sprite.sorting_layer": {
+      "label": "ソーティングレイヤー",
+      "description": "2D 要素の描画順を組織するエンジンの分類。",
+      "aliases": [
+        "描画順レイヤー"
+      ]
+    },
+    "pixel_sprite.prefab_linkage": {
+      "label": "プレハブとの参照関係",
+      "description": "アセットとそれを使うエンジンのプレハブの間の参照関係。"
+    },
+    "pixel_sprite.animation_ready": {
+      "label": "アニメーション対応アセット",
+      "description": "部品・ピボット・領域・階層が動きの作業に合わせて用意されたアセット。"
+    },
+    "pixel_sprite.pixel_cluster": {
+      "label": "ピクセルの塊",
+      "description": "小さなピクセルのまとまりで形と明度を表す構成の単位。",
+      "aliases": [
+        "ピクセルクラスタ"
+      ]
+    },
+    "pixel_sprite.pixelation": {
+      "label": "ピクセル化",
+      "description": "画面や対象を限られた空間格子で表す処理。",
+      "aliases": [
+        "モザイク処理"
+      ]
+    },
+    "pixel_sprite.pixel_art": {
+      "label": "ドット絵",
+      "description": "ピクセル単位の形と色の選択を重要な表現要素とするスタイル。",
+      "aliases": [
+        "ピクセルアート"
+      ]
+    },
+    "pixel_sprite.pixel_perfect": {
+      "label": "ピクセルパーフェクト",
+      "description": "定義したピクセル格子と表示ルールの一致を目指す条件。"
+    },
+    "pixel_sprite.pixel_snapping": {
+      "label": "ピクセルスナップ",
+      "description": "位置やサンプルを定義したピクセル格子に合わせる操作。"
+    },
+    "pixel_sprite.subpixel_motion": {
+      "label": "サブピクセル移動",
+      "description": "選んだ格子の一マスより小さい投影上の移動。"
+    },
+    "pixel_sprite.internal_resolution": {
+      "label": "内部解像度",
+      "description": "最終画面の拡大前にレンダーする画像のサイズ。"
+    },
+    "pixel_sprite.rasterization": {
+      "label": "ラスタライズ",
+      "description": "図形や幾何をピクセルのサンプルに変換する過程。"
+    },
+    "pixel_sprite.dithering": {
+      "label": "ディザリング",
+      "description": "限られた明度や色の表現で空間パターンによって中間の印象を作る処理。"
+    },
+    "pixel_sprite.screen_dither": {
+      "label": "スクリーン空間ディザ",
+      "description": "画面座標を基準にディザパターンを評価する構成。"
+    },
+    "pixel_sprite.object_dither": {
+      "label": "オブジェクト空間ディザ",
+      "description": "オブジェクト座標にパターンを結びつける構成。"
+    },
+    "pixel_sprite.world_dither": {
+      "label": "ワールド空間ディザ",
+      "description": "ワールド座標にパターンを固定する構成。"
+    },
+    "pixel_sprite.selective_nonpixel": {
+      "label": "非ピクセル化のVFX・UI",
+      "description": "一部の UI や効果はピクセル化の経路の外で出力するというプロジェクトの要件。"
+    },
+    "pixel_sprite.retro_ps1": {
+      "label": "ドゥーム／PS1 系の美学",
+      "description": "低解像度と 3D を混ぜた印象のためにプロジェクトで用いた参照表現。"
+    },
+    "motion.movement": {
+      "label": "動き",
+      "description": "時間に応じて位置・向き・形などの状態が変わる表現。",
+      "aliases": [
+        "ムーブメント"
+      ]
+    },
+    "motion.timing": {
+      "label": "タイミング",
+      "description": "事象・ポーズ・動作が起こる時刻と持続時間の配置。"
+    },
+    "motion.spacing": {
+      "label": "スペーシング",
+      "description": "連続した時間サンプルの間で対象の位置やポーズが開いた度合い。",
+      "aliases": [
+        "間隔"
+      ]
+    },
+    "motion.pose": {
+      "label": "ポーズ",
+      "description": "ある時点に置かれた体や物体の構成の状態。"
+    },
+    "motion.key_pose": {
+      "label": "キーポーズ",
+      "description": "行動の意味や構造を決める主要なポーズ。"
+    },
+    "motion.keyframe": {
+      "label": "キーフレーム",
+      "description": "タイムライン上で明示的に指定した属性の値または絵。"
+    },
+    "motion.key_drawing": {
+      "label": "原画",
+      "description": "動作の重要な状態を収めた中心となる絵。",
+      "aliases": [
+        "キードローイング"
+      ]
+    },
+    "motion.breakdown": {
+      "label": "ブレイクダウン",
+      "description": "主要なポーズの間で動きの経路と遷移の性格を決める中割りのポーズ。",
+      "aliases": [
+        "中割り原画"
+      ]
+    },
+    "motion.in_between": {
+      "label": "中割り",
+      "description": "原画の間の動きをつなぐ絵。",
+      "aliases": [
+        "インビトゥイーン",
+        "動画"
+      ]
+    },
+    "motion.arc": {
+      "label": "アーク",
+      "description": "動く部分が描く曲線の軌道。",
+      "aliases": [
+        "円弧"
+      ]
+    },
+    "motion.trajectory": {
+      "label": "軌道",
+      "description": "時間に応じた位置変化の経路。",
+      "aliases": [
+        "トラジェクトリ"
+      ]
+    },
+    "motion.action_line": {
+      "label": "アクションライン",
+      "description": "ポーズの力と流れを単純な線で要約した表現。",
+      "aliases": [
+        "動勢線"
+      ]
+    },
+    "motion.gesture": {
+      "label": "ジェスチャー",
+      "description": "姿勢や行動の意図と流れを素早く捉えた表現。"
+    },
+    "motion.anticipation": {
+      "label": "予備動作",
+      "description": "主要な行動の前に方向・力・発生を予告する動き。",
+      "aliases": [
+        "アンティシペーション"
+      ]
+    },
+    "motion.contact": {
+      "label": "コンタクト",
+      "description": "行動の中で物体やキャラクターが対象に触れる時点や状態。",
+      "aliases": [
+        "接触"
+      ]
+    },
+    "motion.ease": {
+      "label": "イーズ",
+      "description": "時間に応じた変化率を調整する補間の性格。",
+      "aliases": [
+        "緩急"
+      ]
+    },
+    "motion.linear_motion": {
+      "label": "リニア補間",
+      "description": "時間に比例して属性の値を一定に変化させる補間。",
+      "aliases": [
+        "等速"
+      ]
+    },
+    "motion.ease_in": {
+      "label": "イーズイン",
+      "description": "区間の初めは変化量が小さく次第に大きくなる遷移。"
+    },
+    "motion.ease_out": {
+      "label": "イーズアウト",
+      "description": "区間の終わりに向かって変化量が減る遷移。"
+    },
+    "motion.ease_in_out": {
+      "label": "イーズインアウト",
+      "description": "区間の初めと終わりを緩やかにする遷移。"
+    },
+    "motion.overshoot": {
+      "label": "オーバーシュート",
+      "description": "目標の状態を行き過ぎてから戻る動き。"
+    },
+    "motion.follow_through": {
+      "label": "フォロースルー",
+      "description": "主要な動作が終わったあとに連結した部分が動き続ける表現。"
+    },
+    "motion.temporal_overlap": {
+      "label": "動作の重なり",
+      "description": "体や部品の各動作が同じ時点で始まり終わらずに重なる関係。",
+      "aliases": [
+        "オーバーラッピングアクション"
+      ]
+    },
+    "motion.squash_stretch": {
+      "label": "スカッシュ＆ストレッチ",
+      "description": "潰れと伸びで力・弾性・速度を表す変形。",
+      "aliases": [
+        "潰しと伸ばし"
+      ]
+    },
+    "motion.secondary_motion": {
+      "label": "セカンダリモーション",
+      "description": "主要な行動を支える付随的な動き。",
+      "aliases": [
+        "副次的な動き"
+      ]
+    },
+    "motion.drag": {
+      "label": "ドラッグ",
+      "description": "主要な動きより部分が遅れてついていく動きの表現。",
+      "aliases": [
+        "遅れ"
+      ]
+    },
+    "motion.settle": {
+      "label": "セトル",
+      "description": "残りの動きが減って最終の状態に達する区間。",
+      "aliases": [
+        "収束"
+      ]
+    },
+    "motion.weight": {
+      "label": "重さ",
+      "description": "タイミング・変形・接触・重心の変化から読まれる重量感。",
+      "aliases": [
+        "ウェイト"
+      ]
+    },
+    "motion.center_of_mass": {
+      "label": "重心",
+      "description": "動作と均衡を解釈するための質量中心、または単純化した中心。"
+    },
+    "motion.body_mechanics": {
+      "label": "ボディメカニクス",
+      "description": "支持・重心・関節の関係で体の動きを説明する観点。"
+    },
+    "motion.duration": {
+      "label": "持続時間",
+      "description": "選んだ事象や区間が続く時間。",
+      "aliases": [
+        "デュレーション"
+      ]
+    },
+    "motion.frame_rate": {
+      "label": "フレームレート",
+      "description": "時間あたりの表示または制作のサンプル数。",
+      "aliases": [
+        "コマ数"
+      ]
+    },
+    "motion.loop": {
+      "label": "ループ",
+      "description": "動作の終わりが再び始まりにつながる反復の構造。"
+    },
+    "motion.position_curve": {
+      "label": "位置カーブ",
+      "description": "時間に応じた位置の値を定義する曲線。"
+    },
+    "motion.animation_curve": {
+      "label": "AnimationCurve",
+      "description": "属性の値を時間に応じて制御するエンジンの曲線表現。",
+      "aliases": [
+        "アニメーションカーブ"
+      ],
+      "review": "confirm_loanword"
+    },
+    "motion.procedural_animation": {
+      "label": "プロシージャルアニメーション",
+      "description": "規則と関数やシミュレーションで動作を生成する方式。"
+    },
+    "motion.authored_motion": {
+      "label": "手付けモーション",
+      "description": "キーフレームや作画などで意図的に制作した動作の表現。"
+    },
+    "motion.spring": {
+      "label": "スプリング",
+      "description": "目標を追いながら弾性のある変化で動きを作るモデル。",
+      "aliases": [
+        "ばね"
+      ]
+    },
+    "motion.delayed_follower": {
+      "label": "遅延追従",
+      "description": "基準となる対象の動きを時間差をつけて追う動き。"
+    },
+    "motion.afterimage": {
+      "label": "残像",
+      "description": "以前の状態の視覚的な痕跡を残す表現。",
+      "aliases": [
+        "アフターイメージ"
+      ]
+    },
+    "motion.residual_motion": {
+      "label": "残りの動き",
+      "description": "主要な事象のあとに残って続く動き。"
+    },
+    "motion.movement_contrast": {
+      "label": "動きのコントラスト",
+      "description": "要素間の速度・方向・静止の有無の差から生じる対比。"
+    },
+    "motion.stop_motion": {
+      "label": "コマ撮りアニメーション",
+      "description": "小さな絵をフレームごとにつないで作った動きを指した表現。",
+      "aliases": [
+        "ストップモーション"
+      ]
+    },
+    "rig_animation.skeleton": {
+      "label": "スケルトン",
+      "description": "キャラクターや物体を階層的な骨組みで表す構造。",
+      "aliases": [
+        "ボーン階層"
+      ]
+    },
+    "rig_animation.rig": {
+      "label": "リグ",
+      "description": "動作を制御する骨組み・コントロール・拘束のまとまり。"
+    },
+    "rig_animation.fk": {
+      "label": "FK",
+      "description": "上位から関節の状態を決めて末端の位置を作る制御方式。",
+      "aliases": [
+        "フォワードキネマティクス"
+      ],
+      "review": "confirm_loanword"
+    },
+    "rig_animation.ik": {
+      "label": "IK",
+      "description": "末端の目標と拘束から中間の関節の構成を求める制御方式。",
+      "aliases": [
+        "インバースキネマティクス"
+      ],
+      "review": "confirm_loanword"
+    },
+    "rig_animation.retargeting": {
+      "label": "リターゲット",
+      "description": "動作を別のスケルトンや体型に合わせて移す作業。",
+      "aliases": [
+        "リターゲティング"
+      ]
+    },
+    "rig_animation.blend_tree": {
+      "label": "ブレンドツリー",
+      "description": "入力パラメータに応じて複数のアニメーションを組み合わせる構造。"
+    },
+    "rig_animation.state_machine": {
+      "label": "ステートマシン",
+      "description": "アニメーションの状態と遷移条件を構成する構造。"
+    },
+    "rig_animation.root_motion": {
+      "label": "ルートモーション",
+      "description": "クリップのルートの移動と回転を実行時の移動に使う表現。"
+    },
+    "rig_animation.constraint": {
+      "label": "コンストレイント",
+      "description": "関節・コントロール・対象の間の許容される関係を制限する条件。",
+      "aliases": [
+        "拘束"
+      ]
+    },
+    "rig_animation.animation_event": {
+      "label": "アニメーションイベント",
+      "description": "クリップの特定の時点と動作の呼び出しを結びつける標識。"
+    },
+    "rig_animation.transition_quality": {
+      "label": "遷移の品質",
+      "description": "クリップや状態の間でポーズ・速度・意図が不自然に途切れない度合い。"
+    },
+    "rig_animation.foot_sliding": {
+      "label": "足の滑り",
+      "description": "接地しているはずの足が床に対して動いて見える不具合。",
+      "aliases": [
+        "フットスライド"
+      ]
+    },
+    "rig_animation.animation_compression": {
+      "label": "アニメーション圧縮",
+      "description": "クリップのデータを減らしながら動作の誤差を管理する処理。"
+    },
+    "rig_animation.cutout": {
+      "label": "カットアウトアニメーション",
+      "description": "分離した 2D の部分をピボット・ボーン・変形で動かす方式。",
+      "aliases": [
+        "スケルタルアニメーション"
+      ]
+    },
+    "rig_animation.acting": {
+      "label": "アクティング",
+      "description": "動作と表情で思考・感情・意図を伝える表現。",
+      "aliases": [
+        "芝居"
+      ]
+    },
+    "rig_animation.intention": {
+      "label": "意図",
+      "description": "キャラクターが何をしようとしているかを動きで表す目標。"
+    },
+    "rig_animation.locomotion": {
+      "label": "ロコモーション",
+      "description": "歩き・走りなど空間を移動する動作の範疇。",
+      "aliases": [
+        "移動動作"
+      ]
+    },
+    "rig_animation.expression": {
+      "label": "表情",
+      "description": "感情や反応を表す顔や体の表現。",
+      "aliases": [
+        "エクスプレッション"
+      ]
+    },
+    "rig_animation.personality": {
+      "label": "性格づけ",
+      "description": "キャラクターの性格がポーズと動きに一貫して表れる目標。",
+      "aliases": [
+        "パーソナリティ"
+      ]
+    },
+    "rig_animation.exaggeration": {
+      "label": "誇張",
+      "description": "特定の形や動きの特性を意図的に強める操作。",
+      "aliases": [
+        "エクサジェレーション"
+      ]
+    },
+    "rig_animation.emotional_beat": {
+      "label": "感情のビート",
+      "description": "感情が変わるか強調される時間上の主要な瞬間。"
+    },
+    "vfx.vfx": {
+      "label": "VFX",
+      "description": "事象・状態・力・空間の変化を伝える視覚表現のまとまり。",
+      "aliases": [
+        "エフェクト"
+      ],
+      "review": "confirm_loanword"
+    },
+    "vfx.particle": {
+      "label": "パーティクル",
+      "description": "個別の状態を持つ多数の要素で効果を作る構成の単位。"
+    },
+    "vfx.particle_count": {
+      "label": "パーティクル数",
+      "description": "指定した時点や区間に存在または生成されるパーティクルの個数。"
+    },
+    "vfx.flipbook": {
+      "label": "フリップブック",
+      "description": "複数の画像フレームを順にサンプリングして再生する表現。",
+      "aliases": [
+        "パラパラ再生"
+      ]
+    },
+    "vfx.trail": {
+      "label": "トレイル",
+      "description": "動きが通った経路をつないで見せる効果。",
+      "aliases": [
+        "軌跡"
+      ]
+    },
+    "vfx.mesh_effect": {
+      "label": "メッシュエフェクト",
+      "description": "パーティクル画像の代わりに幾何表面を活用する効果。"
+    },
+    "vfx.procedural_noise": {
+      "label": "プロシージャルノイズ",
+      "description": "関数で生成した不規則な値を効果や表面に使う表現。"
+    },
+    "vfx.dissolve": {
+      "label": "ディゾルブ",
+      "description": "マスクやしきい値で形を部分的に消したり現したりする効果。"
+    },
+    "vfx.distortion": {
+      "label": "ディストーション",
+      "description": "座標や背景のサンプルを変形して屈折や衝撃の印象を作る効果。",
+      "aliases": [
+        "歪み"
+      ]
+    },
+    "vfx.bloom": {
+      "label": "ブルーム",
+      "description": "明るい映像領域を周囲に広げる後処理の表現。"
+    },
+    "vfx.birth": {
+      "label": "発生",
+      "description": "効果が最初に形成される段階。",
+      "aliases": [
+        "バース"
+      ]
+    },
+    "vfx.expansion": {
+      "label": "拡張",
+      "description": "効果の範囲や形が大きくなる段階。"
+    },
+    "vfx.impact": {
+      "label": "インパクト",
+      "description": "接触や爆発など事象の核心を強調する瞬間。",
+      "aliases": [
+        "打点"
+      ]
+    },
+    "vfx.primary_impact_shape": {
+      "label": "主要インパクト形状",
+      "description": "効果で事象の力と方向を最初に伝える大きな形。"
+    },
+    "vfx.breakup": {
+      "label": "ブレイクアップ",
+      "description": "大きな効果の形が小さな部分に分かれて消える変化。",
+      "aliases": [
+        "分解"
+      ]
+    },
+    "vfx.secondary_breakup": {
+      "label": "セカンダリブレイクアップ",
+      "description": "主要なインパクトのあとに副次的に散る部分。"
+    },
+    "vfx.trailing_motion": {
+      "label": "追従する動き",
+      "description": "主な動作の後ろにつながって流れる視覚的な動き。"
+    },
+    "vfx.dissipation": {
+      "label": "消散",
+      "description": "効果が弱まり散って消える段階。",
+      "aliases": [
+        "ディシペーション"
+      ]
+    },
+    "vfx.hit": {
+      "label": "ヒットエフェクト",
+      "description": "打撃や接触を伝える効果の類型。"
+    },
+    "vfx.projectile": {
+      "label": "飛び道具エフェクト",
+      "description": "移動しながら攻撃や事象を伝える視覚的な対象。",
+      "aliases": [
+        "プロジェクタイル"
+      ]
+    },
+    "vfx.explosion": {
+      "label": "爆発",
+      "description": "急激な膨張と分解でエネルギーの放出を表す効果。"
+    },
+    "vfx.simulation": {
+      "label": "シミュレーション",
+      "description": "規則に従って時間ごとの状態を計算する過程。"
+    },
+    "vfx.frame_strip": {
+      "label": "フレームストリップ",
+      "description": "効果や動作の主要な画面を時間順に並べた分析の表現。"
+    },
+    "vfx.theme": {
+      "label": "キャラクターのテーマ性",
+      "description": "効果がキャラクターの視覚的な同一性と一致する目標。"
+    },
+    "vfx.surprise_delight": {
+      "label": "驚きと快さ",
+      "description": "効果が伝えようとする感情的な反応。"
+    },
+    "shader.shader": {
+      "label": "シェーダー",
+      "description": "頂点・表面・ピクセルなどレンダー段階の値を計算するプログラムの表現。"
+    },
+    "shader.shader_graph": {
+      "label": "Shader Graph",
+      "description": "ノードでシェーダーの計算を構成する制作システム。",
+      "aliases": [
+        "シェーダーグラフ"
+      ],
+      "review": "confirm_loanword"
+    },
+    "shader.hlsl": {
+      "label": "HLSL",
+      "description": "Unity のシェーダー実装に使うプログラミング言語。",
+      "review": "confirm_loanword"
+    },
+    "shader.glsl": {
+      "label": "GLSL",
+      "description": "The Book of Shaders の文脈で言及されたシェーダー言語。",
+      "review": "confirm_loanword"
+    },
+    "shader.compute_shader": {
+      "label": "コンピュートシェーダー",
+      "description": "レンダー表面の計算以外の GPU 計算を構成するシェーダーの段階。"
+    },
+    "shader.function": {
+      "label": "関数としての座標",
+      "description": "座標を関数に変えて色と形を作る表現の観点。"
+    },
+    "shader.shaping_function": {
+      "label": "シェイピング関数",
+      "description": "入力値の分布や遷移を変えてパターンや形を作る関数。"
+    },
+    "shader.matrix": {
+      "label": "行列",
+      "description": "空間や他のベクトルの変換を表す係数の構造。",
+      "aliases": [
+        "マトリクス"
+      ]
+    },
+    "shader.pattern": {
+      "label": "パターン",
+      "description": "規則や反復で構成した空間的な模様。",
+      "aliases": [
+        "模様"
+      ]
+    },
+    "shader.noise": {
+      "label": "ノイズ",
+      "description": "規則的な模様と対比される不規則な値やパターン。"
+    },
+    "shader.image_processing": {
+      "label": "画像処理",
+      "description": "画像の値を変換・フィルタリング・合成する演算。"
+    },
+    "shader.node_graph": {
+      "label": "ノードグラフ",
+      "description": "計算や制作の段階をノードと接続で表した構造。"
+    },
+    "render.render_pass": {
+      "label": "レンダーパス",
+      "description": "フレーム生成で定められた入力と出力で行うレンダー作業の単位。"
+    },
+    "render.compositing": {
+      "label": "コンポジット",
+      "description": "複数の映像・レイヤー・効果を結合して画面を作る過程。",
+      "aliases": [
+        "合成"
+      ]
+    },
+    "render.compositing_order": {
+      "label": "合成の順序",
+      "description": "どの画像処理とレイヤーが前後して実行・結合されるかの順序。"
+    },
+    "render.post_processing": {
+      "label": "ポストプロセス",
+      "description": "シーンのレンダー結果を入力として画面の表現を変える段階。",
+      "aliases": [
+        "後処理"
+      ]
+    },
+    "render.post_process_ordering": {
+      "label": "ポストプロセスの順序",
+      "description": "ピクセル化・色補正・ブルームなど画面演算どうしの順序。"
+    },
+    "render.render_texture": {
+      "label": "RenderTexture",
+      "description": "カメラやパスの出力を保持しサンプリングするテクスチャ。",
+      "aliases": [
+        "レンダーテクスチャ"
+      ],
+      "review": "confirm_script"
+    },
+    "render.intermediate_texture": {
+      "label": "中間テクスチャ",
+      "description": "最終出力の前の段階で一時的な結果を入れる画像リソース。"
+    },
+    "render.render_queue": {
+      "label": "レンダーキュー",
+      "description": "レンダー対象の処理順を分類する値または体系。",
+      "aliases": [
+        "描画順"
+      ]
+    },
+    "render.depth_buffer": {
+      "label": "深度",
+      "description": "可視判定や効果に使う深度値の保存の表現。",
+      "aliases": [
+        "デプスバッファ"
+      ]
+    },
+    "render.stencil": {
+      "label": "ステンシル",
+      "description": "ピクセルごとの整数の標識と検査でレンダー領域を制限する表現。"
+    },
+    "render.transparency": {
+      "label": "透明",
+      "description": "背景や後ろの要素とともに表面を表す方式。",
+      "aliases": [
+        "半透明"
+      ]
+    },
+    "render.blending": {
+      "label": "ブレンディング",
+      "description": "新しい値と既存のバッファの値を指定した規則で結合する演算。",
+      "aliases": [
+        "合成モード"
+      ]
+    },
+    "render.alpha_clip": {
+      "label": "アルファクリップ",
+      "description": "アルファなどのしきい値に従ってピクセルを残すか捨てるかする処理。",
+      "aliases": [
+        "アルファテスト"
+      ]
+    },
+    "render.alpha_blend": {
+      "label": "アルファブレンド",
+      "description": "アルファを使って前後の色を合成する処理。"
+    },
+    "render.premultiplied_alpha": {
+      "label": "乗算済みアルファ",
+      "description": "色成分にアルファをあらかじめ掛けて保存・合成する慣例。",
+      "aliases": [
+        "プリマルチプライドアルファ"
+      ]
+    },
+    "render.camera_stacking": {
+      "label": "カメラスタッキング",
+      "description": "複数のカメラの出力をひとつの結果に構成するエンジンの機能。"
+    },
+    "render.renderer_feature": {
+      "label": "Renderer Feature",
+      "description": "URP のレンダラーに独自のレンダー動作を組み込む構成。",
+      "aliases": [
+        "レンダラーフィーチャー"
+      ],
+      "review": "confirm_loanword"
+    },
+    "render.fullscreen_pass": {
+      "label": "フルスクリーンパス",
+      "description": "画面全体を対象に値を処理するレンダー作業。"
+    },
+    "render.injection_point": {
+      "label": "挿入ポイント",
+      "description": "レンダーの流れの中で独自の演算が入る位置。",
+      "aliases": [
+        "インジェクションポイント"
+      ]
+    },
+    "render.render_graph": {
+      "label": "Render Graph",
+      "description": "レンダー作業と資源の依存関係をグラフで記述する構成。",
+      "aliases": [
+        "レンダーグラフ"
+      ],
+      "review": "confirm_loanword"
+    },
+    "render.render_graph_resources": {
+      "label": "レンダーグラフのリソース",
+      "description": "パスの間で受け渡されるテクスチャやバッファなど宣言された資源。"
+    },
+    "render.normal_2d_map": {
+      "label": "2Dノーマルマップ",
+      "description": "スプライトに表面の向きの手がかりを与えるマップの表現。"
+    },
+    "render.urp": {
+      "label": "URP",
+      "description": "Unity の実装基盤として使ったレンダーパイプライン。",
+      "aliases": [
+        "ユニバーサルレンダーパイプライン"
+      ],
+      "review": "confirm_loanword"
+    },
+    "render.hdrp": {
+      "label": "HDRP",
+      "description": "比較対象として挙がった Unity のレンダーパイプライン。",
+      "review": "confirm_loanword"
+    },
+    "render.custom_srp": {
+      "label": "カスタムSRP",
+      "description": "利用者が構成するスクリプタブルレンダーパイプライン。"
+    },
+    "render.blit": {
+      "label": "CommandBuffer.Blit",
+      "description": "レンダーパスの説明と対比して言及した映像のコピー・処理 API。",
+      "aliases": [
+        "Blit"
+      ],
+      "review": "confirm_loanword"
+    },
+    "qc.draw_call": {
+      "label": "ドローコール",
+      "description": "レンダー作業を描画命令として提出する単位、またはその集計指標。"
+    },
+    "qc.batching": {
+      "label": "バッチング",
+      "description": "複数の描画作業の提出や状態のコストをまとめて減らす方式。"
+    },
+    "qc.overdraw": {
+      "label": "オーバードロー",
+      "description": "同じ画面領域を何度も処理するレンダーの重なりコストの観点。"
+    },
+    "qc.shader_complexity": {
+      "label": "シェーダーの複雑さ",
+      "description": "シェーダーの計算・メモリアクセス・分岐などのコスト特性。"
+    },
+    "qc.texture_budget": {
+      "label": "テクスチャバジェット",
+      "description": "テクスチャの解像度・枚数・メモリなどに許容した範囲。"
+    },
+    "qc.texture_memory": {
+      "label": "テクスチャメモリ",
+      "description": "テクスチャが使用する保存または GPU メモリの大きさ。"
+    },
+    "qc.memory_budget": {
+      "label": "メモリバジェット",
+      "description": "アセット・クリップ・レンダー資源に許容したメモリの範囲。"
+    },
+    "qc.lod": {
+      "label": "LOD",
+      "description": "条件に応じてアセットの細部の量を変える表現の戦略。",
+      "aliases": [
+        "詳細度"
+      ],
+      "review": "confirm_loanword"
+    },
+    "qc.cpu_cost": {
+      "label": "CPUコスト",
+      "description": "レンダー・アニメーション・アセット処理などが CPU で要するコスト。"
+    },
+    "qc.gpu_cost": {
+      "label": "GPUコスト",
+      "description": "レンダー作業と計算が GPU で要するコスト。"
+    },
+    "qc.platform_budget": {
+      "label": "プラットフォームバジェット",
+      "description": "対象プラットフォームで維持する性能・メモリ・表示条件のまとまり。"
+    },
+    "qc.visual_regression": {
+      "label": "ビジュアルリグレッション",
+      "description": "変更の前後で保存すべき画面の特性が損なわれていないか検査すること。"
+    },
+    "qc.consistency": {
+      "label": "一貫性",
+      "description": "アセット・動き・表示のルールが互いに合って保たれる度合い。"
+    },
+    "qc.asset_portfolio_integrity": {
+      "label": "アセット群の整合性",
+      "description": "アセットの集合が欠落やスタイル・規格の不一致なく保たれる条件。"
+    },
+    "qc.atlas_budget": {
+      "label": "アトラスバジェット",
+      "description": "アトラスの枚数・解像度・メモリ・パッキングに許容した範囲。"
+    },
+    "qc.resolution_standard": {
+      "label": "解像度の規格",
+      "description": "アセットの種類ごとに維持する原本と実行時の解像度のルール。"
+    },
+    "qc.material_count": {
+      "label": "マテリアル数",
+      "description": "アセットやシーンが使うマテリアルの個数。"
+    },
+    "qc.material_slots": {
+      "label": "マテリアルスロット",
+      "description": "メッシュの部分にマテリアルを割り当てるスロットの構成。"
+    },
+    "qc.retarget_qa": {
+      "label": "リターゲットQA",
+      "description": "リターゲット後にポーズ・接地・比例・動作の意味が保存されるかの検査。"
+    },
+    "qc.regression_qa": {
+      "label": "リグレッションQA",
+      "description": "変更で既存のアセットの機能と表現が損なわれていないか検査すること。"
+    },
+    "qc.object_statistics": {
+      "label": "オブジェクト統計",
+      "description": "メッシュ・マテリアル・アセット構造の個数を確認する報告。"
+    },
+    "pipeline.source_runtime": {
+      "label": "原本と実行時表現の区別",
+      "description": "編集用の原本とエンジン実行用の表現が異なりうるという区別。"
+    },
+    "pipeline.scene_specification": {
+      "label": "シーン仕様",
+      "description": "対象・形・質感・カメラ・動作を構造的に記述した制作の入力。"
+    },
+    "pipeline.generation_script": {
+      "label": "生成スクリプト",
+      "description": "仕様からアセットやシーンを生成するコードの成果物。"
+    },
+    "pipeline.headless_render": {
+      "label": "ヘッドレスレンダー",
+      "description": "対話的な UI なしでレンダー結果を生成する実行の方式。"
+    },
+    "pipeline.render_validation": {
+      "label": "レンダー検証",
+      "description": "生成結果を実際の画面で確認する段階。"
+    },
+    "pipeline.vision_critique": {
+      "label": "ビジュアル講評",
+      "description": "レンダー画像を観察して視覚的な意図との差を評価する作業。"
+    },
+    "pipeline.turntable": {
+      "label": "ターンテーブル",
+      "description": "複数の方向から物体を確認する回転式の検査用映像。"
+    },
+    "pipeline.export": {
+      "label": "エクスポート",
+      "description": "編集用の原本を受け渡しや実行用の形式に変換すること。",
+      "aliases": [
+        "書き出し"
+      ]
+    },
+    "pipeline.fbx": {
+      "label": "FBX",
+      "description": "モデルやアニメーションの受け渡し形式として挙げたファイルの種類。",
+      "review": "confirm_loanword"
+    },
+    "pipeline.gltf": {
+      "label": "glTF",
+      "description": "モデルやマテリアルの受け渡し形式として挙げたファイルの種類。",
+      "review": "confirm_loanword"
+    },
+    "pipeline.blend_file": {
+      "label": ".blend",
+      "description": "編集可能な Blender のシーンとアセットの原本。",
+      "review": "confirm_loanword"
+    },
+    "pipeline.naming": {
+      "label": "命名規則",
+      "description": "アセット・ノード・部品を一貫して識別するルール。",
+      "aliases": [
+        "ネーミング"
+      ]
+    },
+    "pipeline.versioning": {
+      "label": "バージョン管理",
+      "description": "アセットと仕様の変更の状態を区別する体系。"
+    },
+    "pipeline.variant_management": {
+      "label": "バリアント管理",
+      "description": "基本アセットと色・損傷・形の変形を一貫して管理する方式。"
+    },
+    "pipeline.reuse": {
+      "label": "再利用",
+      "description": "既存のアセット・クリップ・図形・ルールを別の制作物で使う方式。"
+    },
+    "pipeline.clip_library": {
+      "label": "クリップライブラリ",
+      "description": "再利用できるアニメーションクリップの集合。"
+    },
+    "pipeline.export_automation": {
+      "label": "エクスポートの自動化",
+      "description": "規格に従って原本を繰り返し実行用アセットに変換する作業。"
+    },
+    "pipeline.damage_variant": {
+      "label": "ダメージバリアント",
+      "description": "基本アセットに損傷の状態を表した変形。"
+    },
+    "pipeline.color_variant": {
+      "label": "カラーバリアント",
+      "description": "基本の形を保ち色の構成を変えたアセット。"
+    },
+    "pipeline.silhouette_variant": {
+      "label": "シルエットバリアント",
+      "description": "基本アセットの外形を変えた変形。"
+    },
+    "pipeline.icon_variant": {
+      "label": "UIアイコン版",
+      "description": "元の物体を小さな UI 表示用に変換したアセット。"
+    },
+    "methods.feedback": {
+      "label": "フィードバック",
+      "description": "原本・手描き・エンジンの結果の差を記録し修正する作業。"
+    },
+    "methods.screenshot_audit": {
+      "label": "スクリーンショット監査",
+      "description": "完成した画面の問題を軸ごとに示す検査。"
+    },
+    "methods.markup": {
+      "label": "マークアップ",
+      "description": "問題の領域と修正の意図を原本の上に示した結果。",
+      "aliases": [
+        "赤入れ"
+      ]
+    },
+    "local_meta.operational_surface": {
+      "label": "操作可能面",
+      "description": "この対話では、視覚的な意図を実際の操作に移せる対象・属性・演算の層という作業上の意味で用いた表現。"
+    },
+    "local_meta.manipulative_vocab": {
+      "label": "操作語彙",
+      "description": "この依頼で AD/TA の意図を道具の作業に伝えるために用いる語彙の集合。"
+    },
+    "shape.shape_contrast": {
+      "label": "形のコントラスト",
+      "description": "対象どうしの輪郭や塊の特性が異なって区別される関係。"
+    },
+    "shape.edge": {
+      "label": "エッジ",
+      "description": "形の区分や表面の分節として読まれる境界。",
+      "aliases": [
+        "稜線"
+      ]
+    },
+    "shape.swept_back": {
+      "label": "後退角",
+      "description": "ドローンの例で翼が後方へ傾いて伸びる形の特性。",
+      "aliases": [
+        "スウェプトバック"
+      ]
+    }
+  },
+  "review_summary": {
+    "checked_by": "tools/review_locales.py",
+    "needs_confirmation": 26
+  }
+}

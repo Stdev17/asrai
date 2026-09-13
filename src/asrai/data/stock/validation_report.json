@@ -1,0 +1,223 @@
+{
+  "validation_date": "2026-09-13",
+  "status": "passed",
+  "json_schema": "passed_draft_2020_12",
+  "programmatic_checks_passed": 21675,
+  "entry_count": 475,
+  "category_count": 22,
+  "judgment_term_count": 70,
+  "manipulation_term_count": 155,
+  "ambiguous_token_count": 19,
+  "head_term_locales": {
+    "de": {
+      "term_count": 475,
+      "translation_basis": "editorial_translation_not_verified_against_localized_industry_corpus",
+      "needs_confirmation": 117
+    },
+    "es": {
+      "term_count": 475,
+      "translation_basis": "editorial_translation_not_verified_against_localized_industry_corpus",
+      "needs_confirmation": 75
+    },
+    "fr": {
+      "term_count": 475,
+      "translation_basis": "editorial_translation_not_verified_against_localized_industry_corpus",
+      "needs_confirmation": 105
+    },
+    "it": {
+      "term_count": 475,
+      "translation_basis": "editorial_translation_not_verified_against_localized_industry_corpus",
+      "needs_confirmation": 80
+    },
+    "ja": {
+      "term_count": 475,
+      "translation_basis": "editorial_translation_not_verified_against_localized_industry_corpus",
+      "needs_confirmation": 26
+    },
+    "ko": {
+      "term_count": 475,
+      "translation_basis": "moved_verbatim_from_base_bundle_label_ko_and_description_ko",
+      "needs_confirmation": 0
+    },
+    "ms": {
+      "term_count": 475,
+      "translation_basis": "editorial_translation_not_verified_against_localized_industry_corpus",
+      "needs_confirmation": 66
+    },
+    "pt": {
+      "term_count": 475,
+      "translation_basis": "editorial_translation_not_verified_against_localized_industry_corpus",
+      "needs_confirmation": 78
+    },
+    "th": {
+      "term_count": 475,
+      "translation_basis": "editorial_translation_not_verified_against_localized_industry_corpus",
+      "needs_confirmation": 31
+    },
+    "zh-Hans": {
+      "term_count": 475,
+      "translation_basis": "editorial_translation_not_verified_against_localized_industry_corpus",
+      "needs_confirmation": 25
+    },
+    "zh-Hant": {
+      "term_count": 475,
+      "translation_basis": "editorial_translation_not_verified_against_localized_industry_corpus",
+      "needs_confirmation": 25
+    }
+  },
+  "entry_counts_by_category": {
+    "perception": 23,
+    "composition": 26,
+    "shape": 40,
+    "space": 21,
+    "camera": 16,
+    "value": 10,
+    "lighting": 17,
+    "color": 25,
+    "material": 25,
+    "geometry": 32,
+    "uv_texture": 21,
+    "vector": 22,
+    "pixel_sprite": 23,
+    "motion": 43,
+    "rig_animation": 21,
+    "vfx": 25,
+    "shader": 12,
+    "render": 26,
+    "qc": 21,
+    "pipeline": 21,
+    "methods": 3,
+    "local_meta": 2
+  },
+  "numeric_test_count": 8,
+  "negative_lint_test_count": 9,
+  "negative_tests": [
+    {
+      "name": "percentage without baseline",
+      "rejected": true,
+      "reasons": [
+        "changes[0]: fixed baseline_ref required"
+      ]
+    },
+    {
+      "name": "px without image resolution",
+      "rejected": true,
+      "reasons": [
+        "changes[0]: named image/grid and resolution required"
+      ]
+    },
+    {
+      "name": "FOV without axis",
+      "rejected": true,
+      "reasons": [
+        "changes[0]: FOV axis required"
+      ]
+    },
+    {
+      "name": "frames without fps/clock",
+      "rejected": true,
+      "reasons": [
+        "changes[0]: positive timebase.fps and clock required"
+      ]
+    },
+    {
+      "name": "material scalar without model",
+      "rejected": true,
+      "reasons": [
+        "changes[0]: shader_model required"
+      ]
+    },
+    {
+      "name": "readability as direct numeric property",
+      "rejected": true,
+      "reasons": [
+        "changes[0]: operation 'relative_delta' not allowed by this term profile",
+        "changes[0]: fixed baseline_ref required",
+        "changes[0]: perceptual term is not a direct numeric property"
+      ]
+    },
+    {
+      "name": "ambiguous percent unit",
+      "rejected": true,
+      "reasons": [
+        "changes[0]: unknown or ambiguous unit '%'",
+        "changes[0]: relative_delta requires percent_relative"
+      ]
+    },
+    {
+      "name": "SVG coordinate without viewBox",
+      "rejected": true,
+      "reasons": [
+        "changes[0]: SVG viewBox required"
+      ]
+    },
+    {
+      "name": "authorization without adapter or binding",
+      "rejected": true,
+      "reasons": [
+        "execution: authorization requires a bound adapter and a resolved binding"
+      ]
+    }
+  ],
+  "example_results": [
+    {
+      "id": "example.body_width",
+      "lint": "passed",
+      "ready_for_execution": false
+    },
+    {
+      "id": "example.silhouette_gap",
+      "lint": "passed",
+      "ready_for_execution": false
+    },
+    {
+      "id": "example.camera_fov",
+      "lint": "passed",
+      "ready_for_execution": false
+    },
+    {
+      "id": "example.material_smoothness",
+      "lint": "passed",
+      "ready_for_execution": false
+    },
+    {
+      "id": "example.anticipation",
+      "lint": "passed",
+      "ready_for_execution": false
+    },
+    {
+      "id": "example.compositing",
+      "lint": "passed",
+      "ready_for_execution": false
+    },
+    {
+      "id": "example.readability_proxy",
+      "lint": "passed",
+      "ready_for_execution": false
+    },
+    {
+      "id": "example.vector_anchor",
+      "lint": "passed",
+      "ready_for_execution": false
+    }
+  ],
+  "derivation_stats": {
+    "source_entries": 492,
+    "dropped_learning_categories": {
+      "methods": 17
+    },
+    "dropped_entries": 17,
+    "reincluded_from_learning": [
+      "methods.feedback",
+      "methods.markup",
+      "methods.screenshot_audit"
+    ],
+    "stock_entries": 475
+  },
+  "limitations": [
+    "Scope selection is a category and surface rule plus a hand-written allowlist. It is not evidence that these 475 terms are the industry-standard set for game art direction.",
+    "Descriptions and guidance are editorial English carrying translated_by: llm. Terms marked translation_review: needed have not been confirmed by a human.",
+    "The lint guards representative errors only; it is not a complete type checker for any tool.",
+    "No number in the examples is a recommended threshold."
+  ]
+}

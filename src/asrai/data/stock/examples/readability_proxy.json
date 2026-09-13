@@ -1,0 +1,56 @@
+{
+  "$schema": "instruction.v2.schema.json",
+  "schema_version": "2.0.0",
+  "id": "example.readability_proxy",
+  "status": "proposed",
+  "axis": "direction_compliance",
+  "intent": "Separate the readability goal from the proxy metric that will be used to check it.",
+  "target": {
+    "asset_ref": "example://assets/drone-study",
+    "selector": "Drone/Body",
+    "selector_language": "illustrative_scene_path"
+  },
+  "context": {
+    "camera_ref": "example://cameras/gameplay",
+    "image_ref": "example://renders/target_size",
+    "resolution": {
+      "width": 320,
+      "height": 180
+    },
+    "background_ref": "example://scenes/dense-background",
+    "exposure_duration_seconds": 0.5
+  },
+  "changes": [
+    {
+      "term_id": "perception.readability",
+      "operation": "define_metric",
+      "metric": {
+        "id": "role_identification",
+        "definition": "A record of observers choosing a role among enemy, background, decoration and UI under fixed exposure conditions. Keep the accuracy rate and the confusion types together.",
+        "proxy_limit": "A role-discrimination metric; it does not establish overall aesthetics, affordance, or the reading of motion."
+      },
+      "property_binding": null,
+      "magnitude_basis": "none"
+    }
+  ],
+  "constraints": [
+    {
+      "id": "no_fake_improvement",
+      "description": "Do not claim a 20% readability improvement before the baseline observation and the target criterion are established."
+    }
+  ],
+  "acceptance": [
+    {
+      "status": "not_evaluated",
+      "kind": "human",
+      "description": "Record the evaluators, the comparison conditions, the error types, and the limits of the judgment."
+    }
+  ],
+  "execution": {
+    "adapter": null,
+    "binding_resolved": false,
+    "authorized": false,
+    "run_ref": null
+  },
+  "note": "The numbers and target names are a serialization example. They are not recommended thresholds, real assets, or verified results."
+}

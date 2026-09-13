@@ -1,0 +1,235 @@
+{
+  "schema_version": "measure.v1",
+  "path": "sprite_rgba.png",
+  "format": "PNG",
+  "mode": "RGBA",
+  "width": 96,
+  "height": 64,
+  "bit_depth": 8,
+  "color_type": "rgba",
+  "sha256": "29363aed3d3a225fc28f70a5751b6fe018b8aacee0a082dac8055414015096bf",
+  "bytes": 433,
+  "precision": "8bit",
+  "alpha": {
+    "coverage": 0.4188,
+    "binary": true,
+    "partial_ratio": 0.0
+  },
+  "scales": {
+    "native": {
+      "width": 96,
+      "height": 64,
+      "opaque_pixels": 2573,
+      "luminance": {
+        "p10": 0.0614,
+        "p50": 0.1689,
+        "p90": 0.1689,
+        "mean": 0.154,
+        "rms_contrast": 0.0372
+      },
+      "lightness": {
+        "p10": 0.4706,
+        "p50": 0.5098,
+        "p90": 0.5098,
+        "mean": 0.5044
+      },
+      "saturation": {
+        "p10": 0.6667,
+        "p50": 0.72,
+        "p90": 0.72,
+        "mean": 0.7126
+      },
+      "chromatic_ratio": 1.0,
+      "hue_bins_30deg": [
+        0.8613,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.1387,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "palette": [
+        {
+          "rgb": "#dc2828",
+          "share": 0.8613
+        },
+        {
+          "rgb": "#2828c8",
+          "share": 0.1387
+        }
+      ],
+      "edge_density": 0.001,
+      "silhouette": {
+        "mask_area_ratio": 0.4188,
+        "bbox": [
+          16,
+          8,
+          65,
+          53
+        ],
+        "bbox_fill_ratio": 0.7469,
+        "components": 1
+      },
+      "resample": null
+    },
+    "target": {
+      "width": 48,
+      "height": 32,
+      "opaque_pixels": 674,
+      "luminance": {
+        "p10": 0.0614,
+        "p50": 0.1689,
+        "p90": 0.1689,
+        "mean": 0.1531,
+        "rms_contrast": 0.0376
+      },
+      "lightness": {
+        "p10": 0.4706,
+        "p50": 0.5098,
+        "p90": 0.5098,
+        "mean": 0.5021
+      },
+      "saturation": {
+        "p10": 0.6667,
+        "p50": 0.72,
+        "p90": 0.72,
+        "mean": 0.7102
+      },
+      "chromatic_ratio": 1.0,
+      "hue_bins_30deg": [
+        0.8531,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.135,
+        0.0,
+        0.0119,
+        0.0
+      ],
+      "palette": [
+        {
+          "rgb": "#dc2828",
+          "share": 0.7789
+        },
+        {
+          "rgb": "#2828c8",
+          "share": 0.1187
+        },
+        {
+          "rgb": "#db2727",
+          "share": 0.0742
+        },
+        {
+          "rgb": "#2727c7",
+          "share": 0.0163
+        },
+        {
+          "rgb": "#822878",
+          "share": 0.0119
+        }
+      ],
+      "edge_density": 0.0022,
+      "silhouette": {
+        "mask_area_ratio": 0.4277,
+        "bbox": [
+          8,
+          4,
+          33,
+          27
+        ],
+        "bbox_fill_ratio": 0.7374,
+        "components": 1
+      },
+      "resample": "box",
+      "target_width": 48
+    },
+    "thumbnail": {
+      "width": 64,
+      "height": 43,
+      "opaque_pixels": 1175,
+      "luminance": {
+        "p10": 0.0614,
+        "p50": 0.1689,
+        "p90": 0.1689,
+        "mean": 0.1535,
+        "rms_contrast": 0.0373
+      },
+      "lightness": {
+        "p10": 0.4706,
+        "p50": 0.5098,
+        "p90": 0.5098,
+        "mean": 0.5028
+      },
+      "saturation": {
+        "p10": 0.6667,
+        "p50": 0.72,
+        "p90": 0.72,
+        "mean": 0.7109
+      },
+      "chromatic_ratio": 1.0,
+      "hue_bins_30deg": [
+        0.857,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.1336,
+        0.0009,
+        0.0085,
+        0.0
+      ],
+      "palette": [
+        {
+          "rgb": "#dc2828",
+          "share": 0.8145
+        },
+        {
+          "rgb": "#2828c8",
+          "share": 0.1311
+        },
+        {
+          "rgb": "#db2727",
+          "share": 0.0426
+        },
+        {
+          "rgb": "#822878",
+          "share": 0.0085
+        },
+        {
+          "rgb": "#2727c7",
+          "share": 0.0026
+        },
+        {
+          "rgb": "#632792",
+          "share": 0.0009
+        }
+      ],
+      "edge_density": 0.0017,
+      "silhouette": {
+        "mask_area_ratio": 0.4244,
+        "bbox": [
+          10,
+          5,
+          44,
+          36
+        ],
+        "bbox_fill_ratio": 0.7374,
+        "components": 1
+      },
+      "resample": "box"
+    }
+  }
+}

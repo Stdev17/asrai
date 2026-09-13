@@ -1,0 +1,109 @@
+---
+name: asrai
+description: First-pass art direction for game assets (2D raster, screenshots, SVG, 3D through rendered views). Use when reviewing generated or hand-made assets for readability, cohesion, hierarchy and colour; when a comment like "too dull" must become a measured, previewable change; or when an AD/TA judgment should be logged as a reusable precedent.
+version: 0.1.0
+---
+
+# asrai — first-pass art direction
+
+asrai records and reuses the judgments a human art director or technical artist makes. It never
+replaces them. Four steps, always in this order: **measure** (deterministic numbers), **observe**
+(qualified, number-free), **retrieve precedents**, **preview a recipe**. Direction may come from
+looking; magnitude may only come from a measurement, a precedent or a human.
+
+## Setup
+
+```bash
+uvx asrai doctor            # tool/package/corpus versions; --lock writes asrai.lock.json
+                            # over MCP the same switch is doctor(write_lock=true)
+uvx asrai mcp               # stdio MCP server (register it in your host; see README)
+```
+
+MCP tools: `vocab_search`, `vocab_get`, `measure`, `record`, `lint`, `doctor`. The CLI has the same
+verbs (`asrai vocab search|get|category|categories|langs|translations`, `asrai measure`,
+`asrai record`, `asrai lint`, `asrai doctor`). Not yet available: precedent retrieval, previews,
+apply, rasterize, render. Say so instead of improvising them.
+
+## Vocabulary
+
+Never paste the whole vocabulary into context. `vocab_search` (any language, compact rows) then
+`vocab_get` for the one or two ids you will cite. Every observation and instruction cites term ids
+from this vocabulary; the English bundle is the spec, locales only rename head terms.
+`quantification.mode` tells you whether a number is even meaningful for a term:
+`proxy_only | qualitative | relational | structural` terms never take `set` or delta operations.
+
+## Evidence layers
+
+| layer | what is looked at | may decide |
+|---|---|---|
+| L0 | source structure: SVG XML, mesh, prefab, palette entries | structural facts only (measurements) |
+| L1 | one asset as rendered: sprite as-is, SVG rasterized, mesh rendered under a fixed profile | silhouette, value, colour, edge, per-asset readability |
+| L2 | a composed frame: gameplay capture with `composed_of` | hierarchy, attention, cohesion across assets, clutter |
+
+A screenshot is L2; a lone asset is L1. `perception.visual_hierarchy`, `perception.attention` and
+`perception.style_coherence` are decided between elements of a frame: on a lone asset they are
+`unknown` by construction. Precedents never cross layers.
+
+## Judgment protocol
+
+Gate order; if an earlier gate fails, later colour judgments are withheld:
+
+1. `measure` at native, target and 64 px.
+2. Grayscale study: does the value hierarchy read without hue?
+3. Silhouette at 64 px: `shape.contour_economy`, `perception.silhouette_readability`.
+4. Hierarchy and attention (L2 only).
+5. Group cohesion: palette, value range, edge treatment against siblings.
+6. Intentional contrast: does a faction / scene / state tag explain the difference? Then it is not a violation.
+7. Density and noise: `perception.visual_clutter`, `shape.tertiary_detail`.
+8. Colour last: `color.saturation`, `color.vibrance`, `color.hue`, `color.color_temperature`.
+
+Qualified levels: `asserted` (backed by a measurement or agreed at all three scales),
+`estimated` (model observation without measurement, or two scales agree), `unknown` (scales
+disagree, no evidence region, or a pairwise verdict flipped when the order was swapped). `unknown`
+never becomes a change; it becomes a measurement request or a question to a human.
+
+Three axes, never summed: `direction_compliance`, `asset_cohesion`, `intentional_contrast`.
+Each is `pass | warn | fail | unknown`.
+
+Pairwise, not scores. Ask A vs B and B vs A; if the verdict flips, record `unknown`.
+
+Bias guards: "too red" without a hue histogram is `estimated`; "too dark/bright" without a
+luminance distribution is `estimated`; the size of a saturation or vibrance change is never yours
+to choose.
+
+## Records
+
+Everything is appended to `corpus/team/records.jsonl`; nothing is edited or deleted. Observation:
+
+```json
+{"kind": "observation", "asset_kind": "raster", "evidence_layer": "L1", "scale": "thumbnail",
+ "asset_sha256": "<sha256 of the file, from measure>",
+ "observer": {"mode": "host", "model": "<your model id>", "prompt_rev": "v1", "pinned": false},
+ "context": {"asset_group": "enemies", "scene": "forest", "state": "idle", "generator": "sdxl"},
+ "observations": [
+   {"term_id": "perception.silhouette_readability", "level": "estimated", "region": "whole_image",
+    "note": "body and weapon merge into one blob at this size"}]}
+```
+
+Notes carry no digits. `region` is `whole_image` or `[x, y, w, h]` at the observed scale. SVG and
+mesh observations must name the `render_profile_id` they were rendered with.
+
+Pairwise verdict (a human's taste choice or a model comparison):
+
+```json
+{"kind": "pairwise", "evidence_layer": "L1", "term_id": "color.saturation",
+ "a": "<sha256 or record id>", "b": "<sha256 or record id>", "verdict": "prefer_a",
+ "by": "human", "reason": "keeps the value structure"}
+```
+
+Model verdicts must set `order_checked: true`. An instruction (kind `instruction`, schema
+`instruction.v2`) is linted before it is stored: `magnitude_basis` is one of
+`none | example | precedent | measurement | human | llm`, and `llm` never reaches an applied state.
+
+## Do not
+
+- Do not generate, inpaint or repaint. Do not give absolute aesthetic scores or sum axes.
+- Do not invent magnitudes. Do not turn `unknown` into a change.
+- Do not judge a screenshot as if it were one asset, or a lone asset for hierarchy.
+- Do not modify input files; outputs are new files under `out/`.
+- Do not paste the whole vocabulary or every record into context.

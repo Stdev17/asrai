@@ -1,0 +1,192 @@
+{
+  "schema_version": "measure.v1",
+  "path": "antialiased_rgba.png",
+  "format": "PNG",
+  "mode": "RGBA",
+  "width": 80,
+  "height": 80,
+  "bit_depth": 8,
+  "color_type": "rgba",
+  "sha256": "706c6d347dd36b092ac4eadecbdd262c01dbfbdc9f879e847d6bd4d9ebbf5536",
+  "bytes": 1127,
+  "precision": "8bit",
+  "alpha": {
+    "coverage": 0.6559,
+    "binary": false,
+    "partial_ratio": 0.0316
+  },
+  "scales": {
+    "native": {
+      "width": 80,
+      "height": 80,
+      "opaque_pixels": 4198,
+      "luminance": {
+        "p10": 0.1244,
+        "p50": 0.1244,
+        "p90": 0.1244,
+        "mean": 0.1245,
+        "rms_contrast": 0.001
+      },
+      "lightness": {
+        "p10": 0.5098,
+        "p50": 0.5098,
+        "p90": 0.5098,
+        "mean": 0.5098
+      },
+      "saturation": {
+        "p10": 0.56,
+        "p50": 0.56,
+        "p90": 0.56,
+        "mean": 0.5601
+      },
+      "chromatic_ratio": 1.0,
+      "hue_bins_30deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "palette": [
+        {
+          "rgb": "#3c5ac8",
+          "share": 0.9614
+        },
+        {
+          "rgb": "#3b5bc7",
+          "share": 0.0081
+        },
+        {
+          "rgb": "#3c59c7",
+          "share": 0.0081
+        },
+        {
+          "rgb": "#3b5ac8",
+          "share": 0.0071
+        },
+        {
+          "rgb": "#3d5ac7",
+          "share": 0.005
+        },
+        {
+          "rgb": "#3f5fcd",
+          "share": 0.0048
+        },
+        {
+          "rgb": "#3a5ac9",
+          "share": 0.0033
+        },
+        {
+          "rgb": "#3c5ac7",
+          "share": 0.0021
+        }
+      ],
+      "edge_density": 0.0001,
+      "silhouette": {
+        "mask_area_ratio": 0.6405,
+        "bbox": [
+          4,
+          4,
+          72,
+          72
+        ],
+        "bbox_fill_ratio": 0.7907,
+        "components": 1
+      },
+      "resample": null
+    },
+    "thumbnail": {
+      "width": 64,
+      "height": 64,
+      "opaque_pixels": 2714,
+      "luminance": {
+        "p10": 0.1244,
+        "p50": 0.1244,
+        "p90": 0.1244,
+        "mean": 0.1246,
+        "rms_contrast": 0.0035
+      },
+      "lightness": {
+        "p10": 0.5098,
+        "p50": 0.5098,
+        "p90": 0.5098,
+        "mean": 0.51
+      },
+      "saturation": {
+        "p10": 0.56,
+        "p50": 0.56,
+        "p90": 0.56,
+        "mean": 0.5606
+      },
+      "chromatic_ratio": 1.0,
+      "hue_bins_30deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "palette": [
+        {
+          "rgb": "#3c5ac8",
+          "share": 0.941
+        },
+        {
+          "rgb": "#3c5bc8",
+          "share": 0.0147
+        },
+        {
+          "rgb": "#3c59c7",
+          "share": 0.0136
+        },
+        {
+          "rgb": "#3b59c7",
+          "share": 0.0085
+        },
+        {
+          "rgb": "#3b5ac8",
+          "share": 0.0081
+        },
+        {
+          "rgb": "#3e5ac8",
+          "share": 0.0066
+        },
+        {
+          "rgb": "#3f61d0",
+          "share": 0.0066
+        },
+        {
+          "rgb": "#3c5ac9",
+          "share": 0.0007
+        }
+      ],
+      "edge_density": 0.0003,
+      "silhouette": {
+        "mask_area_ratio": 0.6428,
+        "bbox": [
+          3,
+          3,
+          58,
+          58
+        ],
+        "bbox_fill_ratio": 0.7827,
+        "components": 1
+      },
+      "resample": "box"
+    }
+  }
+}

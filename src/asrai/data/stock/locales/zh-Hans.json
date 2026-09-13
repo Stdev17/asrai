@@ -1,0 +1,2276 @@
+{
+  "schema_version": "2.0.0",
+  "locale": "zh-Hans",
+  "language_label_en": "Chinese (Simplified)",
+  "language_label_native": "简体中文",
+  "base": "vocab.v2.json",
+  "base_entry_count": 475,
+  "spec_language": "en",
+  "translation_basis": "editorial_translation_not_verified_against_localized_industry_corpus",
+  "note_en": "Head-term labels and spoken-form descriptions only. Units, operations, quantification profiles, operational guidance and provenance stay in the English/base bundle and are never duplicated here.",
+  "covers": [
+    "zh-Hans"
+  ],
+  "term_count": 475,
+  "terms": {
+    "perception.visual_hierarchy": {
+      "label": "视觉层级",
+      "description": "让画面元素先读到还是后读到的重要度关系。"
+    },
+    "perception.readability": {
+      "label": "可读性",
+      "description": "对象或动作的含义在所需尺寸和时间内被分辨出来的程度。",
+      "aliases": [
+        "辨识度"
+      ]
+    },
+    "perception.silhouette_readability": {
+      "label": "剪影辨识度",
+      "description": "不靠内部刻画、仅凭外轮廓体块读出对象或姿态的程度。"
+    },
+    "perception.icon_readability": {
+      "label": "图标辨识度",
+      "description": "小尺寸显示时分辨符号种类与功能的程度。"
+    },
+    "perception.scale_readability": {
+      "label": "缩放辨识度",
+      "description": "放大缩小或观看距离变化后主要特征仍然保持的程度。"
+    },
+    "perception.material_readability": {
+      "label": "材质辨识度",
+      "description": "仅凭表面视觉线索分辨出材质意图的程度。"
+    },
+    "perception.affordance": {
+      "label": "可供性",
+      "description": "指游戏画面中能做什么以及这种可能性如何被传达的说法。",
+      "aliases": [
+        "行为可能性"
+      ]
+    },
+    "perception.figure_ground": {
+      "label": "图与地",
+      "description": "把哪一块读作对象、哪一块读作背景的分离关系。"
+    },
+    "perception.attention": {
+      "label": "注意",
+      "description": "观察者把处理资源放到画面某一部分上的现象。",
+      "aliases": [
+        "注意力"
+      ]
+    },
+    "perception.visual_saliency": {
+      "label": "视觉显著性",
+      "description": "因与周围有差异而使某个元素跳出来的性质。"
+    },
+    "perception.preattentive_processing": {
+      "label": "前注意加工",
+      "description": "指某些视觉特征在有意识细看之前就被分离出来的概念。"
+    },
+    "perception.gestalt": {
+      "label": "格式塔原理",
+      "description": "讨论局部如何被组织成整体或形的一组原理。"
+    },
+    "perception.perceptual_grouping": {
+      "label": "知觉编组",
+      "description": "多个元素被读成一个整体的关系。"
+    },
+    "perception.depth_perception": {
+      "label": "深度知觉",
+      "description": "从平面影像中读出前后距离与立体关系的现象。"
+    },
+    "perception.visual_cognition": {
+      "label": "视觉认知",
+      "description": "把视觉信息解释为对象、关系与含义的过程。"
+    },
+    "perception.contextual_perception": {
+      "label": "情境知觉",
+      "description": "同一对象因周围元素和情境不同而印象改变的性质。"
+    },
+    "perception.semiotics": {
+      "label": "符号学",
+      "description": "形状、颜色与标记传达特定含义的关系。"
+    },
+    "perception.style_coherence": {
+      "label": "风格一致性",
+      "description": "多个资产与特效符合共享视觉规则的程度。"
+    },
+    "perception.gameplay_clarity": {
+      "label": "玩法清晰度",
+      "description": "玩法所需的对象、事件与可行动作在视觉上被传达的程度。"
+    },
+    "perception.visual_clutter": {
+      "label": "视觉杂乱",
+      "description": "因相互竞争的视觉元素而使必要信息被淹没的状态。"
+    },
+    "perception.visual_weight": {
+      "label": "视觉重量",
+      "description": "由尺寸、位置、颜色与对比造成的相对分量感。"
+    },
+    "perception.visual_intent": {
+      "label": "视觉意图",
+      "description": "想通过操作在画面上传达的角色、情绪或信息。"
+    },
+    "perception.spectacle": {
+      "label": "视觉奇观",
+      "description": "以强烈的规模感、刺激或变化吸引目光的表现目标。"
+    },
+    "composition.composition": {
+      "label": "构图",
+      "description": "画面内元素与空白之间被组织起来的关系。"
+    },
+    "composition.balance": {
+      "label": "平衡",
+      "description": "画面视觉重量是稳定的还是有意偏移的程度。"
+    },
+    "composition.focal_point": {
+      "label": "视觉焦点",
+      "description": "画面中有意让人先读到的点或对象。"
+    },
+    "composition.staging": {
+      "label": "场面布局",
+      "description": "安排人物、道具与摄像机，使动作与关系清楚传达。",
+      "aliases": [
+        "演出布局"
+      ]
+    },
+    "composition.framing": {
+      "label": "取景",
+      "description": "决定摄像机画框里放什么、排除什么。"
+    },
+    "composition.positive_space": {
+      "label": "正空间",
+      "description": "对象形状所占据的画面区域。"
+    },
+    "composition.negative_space": {
+      "label": "负空间",
+      "description": "对象周围或之间留下的看起来空的区域。"
+    },
+    "composition.overlap": {
+      "label": "遮挡",
+      "description": "画面投影中两个对象的区域相互重叠的关系。",
+      "aliases": [
+        "重叠"
+      ]
+    },
+    "composition.foreground": {
+      "label": "前景",
+      "description": "从观察视点看读作最靠前的画面层。"
+    },
+    "composition.midground": {
+      "label": "中景",
+      "description": "在前景与背景之间连接事件或空间的层。"
+    },
+    "composition.background": {
+      "label": "背景",
+      "description": "环绕主要对象或读在其后方的画面层。"
+    },
+    "composition.line_direction": {
+      "label": "线的方向",
+      "description": "边界与排布在画面中形成的方向感。"
+    },
+    "composition.rhythm": {
+      "label": "节奏",
+      "description": "元素或事件的重复、间隔与强弱形成的模式。"
+    },
+    "composition.affinity": {
+      "label": "相似性",
+      "description": "颜色、明度、形状与运动等被组织得彼此接近的关系。",
+      "aliases": [
+        "亲和"
+      ]
+    },
+    "composition.contrast_structure": {
+      "label": "对比",
+      "description": "两个元素或集合因视觉特性不同而被区分开的关系。"
+    },
+    "composition.visual_progression": {
+      "label": "视觉递进",
+      "description": "随时间或场景推进而使视觉特性分阶段变化的结构。"
+    },
+    "composition.visual_component": {
+      "label": "视觉要素",
+      "description": "用空间、线、形、明度、色彩、运动与节奏来分析画面的视角。"
+    },
+    "composition.screen_direction": {
+      "label": "画面方向",
+      "description": "物体在画框内朝向或移动的方向。"
+    },
+    "composition.screen_occupancy": {
+      "label": "画面占比",
+      "description": "对象在画框中所占的大小。"
+    },
+    "composition.reveal": {
+      "label": "揭示",
+      "description": "按顺序把被遮挡或未知的信息显露出来的处理。"
+    },
+    "composition.continuity": {
+      "label": "视觉连续性",
+      "description": "在镜头切换或状态变化之间，空间、动作与视觉关系仍被读作连贯的程度。"
+    },
+    "composition.tension_release": {
+      "label": "张弛",
+      "description": "在时间上组织事件压迫感与释放感的处理。"
+    },
+    "composition.storytelling": {
+      "label": "视觉叙事",
+      "description": "用形状、排布与时间变化传达事件与关系的目标。"
+    },
+    "composition.storyboard": {
+      "label": "分镜",
+      "description": "把事件预先表现为关键画面的连续图。",
+      "aliases": [
+        "故事板"
+      ]
+    },
+    "composition.previs": {
+      "label": "预演",
+      "description": "用简易资产把分镜与调度先跑一遍的前期可视化。",
+      "aliases": [
+        "预可视化"
+      ]
+    },
+    "composition.localization_safe": {
+      "label": "本地化兼容构图",
+      "description": "语言与显示内容变化后仍保持功能与层级的排布。"
+    },
+    "shape.shape": {
+      "label": "形状",
+      "description": "在画面或平面上被读作区域与轮廓的形。"
+    },
+    "shape.form": {
+      "label": "形体",
+      "description": "被理解为具有体积与面朝向的物体形态。",
+      "aliases": [
+        "体块"
+      ]
+    },
+    "shape.silhouette": {
+      "label": "剪影",
+      "description": "去掉内部细节后剩下的对象投影外形与体块。"
+    },
+    "shape.contour": {
+      "label": "轮廓",
+      "description": "形的外侧边界，或表示该边界的线。"
+    },
+    "shape.outer_contour": {
+      "label": "外轮廓",
+      "description": "把物体与背景分开的外侧边界。"
+    },
+    "shape.edge_control": {
+      "label": "边缘控制",
+      "description": "调节边界读起来是锐、是柔、是连续还是消失。"
+    },
+    "shape.proportion": {
+      "label": "比例",
+      "description": "局部之间或局部与整体之间的大小关系。"
+    },
+    "shape.shape_language": {
+      "label": "形状语言",
+      "description": "用反复出现的形状特征传达角色、性格与风格的规则。"
+    },
+    "shape.mass": {
+      "label": "体量",
+      "description": "把物体大块看待时的体积感或视觉团块。"
+    },
+    "shape.primary_form": {
+      "label": "主形体",
+      "description": "主导整体辨识与剪影的大形。"
+    },
+    "shape.secondary_form": {
+      "label": "次级形体",
+      "description": "附着在主形上、让功能与分节被读出来的中等尺度形。"
+    },
+    "shape.tertiary_detail": {
+      "label": "三级细节",
+      "description": "面板线、小起伏等比大形更小的刻画层。"
+    },
+    "shape.shape_hierarchy": {
+      "label": "形状层级",
+      "description": "大、中、小形各自承担的作用与优先级。"
+    },
+    "shape.plane": {
+      "label": "面",
+      "description": "把立体简化时朝向相对一致的面区域。"
+    },
+    "shape.planar_break": {
+      "label": "转折面",
+      "description": "立体的面朝向发生改变、把形分节的位置。"
+    },
+    "shape.planar_transition": {
+      "label": "面的过渡",
+      "description": "从一个面或体块过渡到另一个面的形变化。"
+    },
+    "shape.primitive_decomposition": {
+      "label": "几何体分解",
+      "description": "把复杂对象拆成方体、圆柱、楔形等简单构成。"
+    },
+    "shape.primitive_massing": {
+      "label": "基础体块搭建",
+      "description": "不做细节、用基本立体搭出整体体积与比例的阶段。"
+    },
+    "shape.blockout": {
+      "label": "白模搭建",
+      "description": "用简单形体代替最终资产做出空间或物体的草稿。",
+      "aliases": [
+        "体块草稿"
+      ]
+    },
+    "shape.box": {
+      "label": "方体",
+      "description": "由直面构成的盒状体块。",
+      "aliases": [
+        "立方体"
+      ]
+    },
+    "shape.sphere": {
+      "label": "球体",
+      "description": "用来测试曲面形态与光照材质的球形基本体。"
+    },
+    "shape.cylinder": {
+      "label": "圆柱体",
+      "description": "圆形截面沿长度方向延伸的基本体。"
+    },
+    "shape.wedge": {
+      "label": "楔形",
+      "description": "用倾斜面制造方向感与厚度变化的体块。"
+    },
+    "shape.capsule": {
+      "label": "胶囊形",
+      "description": "无人机例子中细长、两端圆润的机身形状。"
+    },
+    "shape.trapezoid": {
+      "label": "梯形",
+      "description": "拥有长度不同的平行边的平面形。"
+    },
+    "shape.ellipse": {
+      "label": "椭圆",
+      "description": "用于圆截面投影或平面造型的椭圆。"
+    },
+    "shape.circle": {
+      "label": "圆形",
+      "description": "平面上的圆形元素。"
+    },
+    "shape.triangle": {
+      "label": "三角形",
+      "description": "以三条边被读出的平面形。"
+    },
+    "shape.rectangle": {
+      "label": "矩形",
+      "description": "用于排布与体块构成的方形。"
+    },
+    "shape.notch": {
+      "label": "负形缺口",
+      "description": "在相邻体块之间把剪影分开的凹入空间。"
+    },
+    "shape.panel_line": {
+      "label": "面板线",
+      "description": "不改变外形、只表现表面分节的内部线。",
+      "aliases": [
+        "分模线"
+      ]
+    },
+    "shape.contour_economy": {
+      "label": "轮廓精简",
+      "description": "用较少的边界变化传达必要特征的性质。"
+    },
+    "shape.modular_construction": {
+      "label": "模块化构建",
+      "description": "把可复用的部件组合起来制作资产的方式。"
+    },
+    "shape.anatomy": {
+      "label": "解剖",
+      "description": "支撑人体形态与动作的结构知识。",
+      "aliases": [
+        "人体解剖"
+      ]
+    },
+    "shape.ribcage": {
+      "label": "胸腔",
+      "description": "简化人体构成中代表躯干上部的体块。"
+    },
+    "shape.pelvis": {
+      "label": "骨盆",
+      "description": "简化人体构成中代表躯干下部的体块。"
+    },
+    "shape.mannequin": {
+      "label": "人体模型",
+      "description": "在火柴人基础上加上基本体积的姿态表现。",
+      "aliases": [
+        "木偶人"
+      ]
+    },
+    "space.position": {
+      "label": "位置",
+      "description": "对象在所选坐标系中所处的位置。"
+    },
+    "space.rotation": {
+      "label": "旋转",
+      "description": "对象或参考轴朝向的变化。"
+    },
+    "space.scale": {
+      "label": "缩放",
+      "description": "用乘法改变对象各轴向尺寸的变换。"
+    },
+    "space.transform": {
+      "label": "变换",
+      "description": "把位置、旋转、缩放等空间变换打包在一起的表示。"
+    },
+    "space.affine": {
+      "label": "仿射变换",
+      "description": "保持平行关系的线性变换与平移的组合。"
+    },
+    "space.projection": {
+      "label": "投影",
+      "description": "把三维空间位置对应到摄像机影像位置的变换。"
+    },
+    "space.object_space": {
+      "label": "物体空间",
+      "description": "用对象自身的参考轴与原点表示位置的空间。",
+      "aliases": [
+        "局部空间"
+      ]
+    },
+    "space.world_space": {
+      "label": "世界空间",
+      "description": "用场景共同参考表示位置与朝向的空间。"
+    },
+    "space.view_space": {
+      "label": "观察空间",
+      "description": "以摄像机为基准表示位置与朝向的空间。",
+      "aliases": [
+        "视图空间"
+      ]
+    },
+    "space.clip_space": {
+      "label": "裁剪空间",
+      "description": "用于投影与裁剪的齐次坐标空间。"
+    },
+    "space.screen_space": {
+      "label": "屏幕空间",
+      "description": "用输出影像上的位置表示对象的空间。"
+    },
+    "space.depth": {
+      "label": "深度",
+      "description": "前后排布，或相对摄像机的深度关系。"
+    },
+    "space.depth_cue": {
+      "label": "深度线索",
+      "description": "遮挡、透视、光照等让人读出前后与立体的视觉线索。"
+    },
+    "space.foreshortening": {
+      "label": "透视缩短",
+      "description": "因观看方向不同而使物体某部分长度投影变短的现象。"
+    },
+    "space.perspective_grid": {
+      "label": "透视网格",
+      "description": "为对齐透视关系而使用的辅助线结构。"
+    },
+    "space.axis": {
+      "label": "轴",
+      "description": "解读变换与朝向所依据的基准方向。"
+    },
+    "space.origin": {
+      "label": "原点",
+      "description": "作为物体位置与变换基准的点。"
+    },
+    "space.pivot": {
+      "label": "轴心点",
+      "description": "旋转、缩放与摆放的基准点。",
+      "aliases": [
+        "枢轴"
+      ]
+    },
+    "space.parent_child_transform": {
+      "label": "父子变换",
+      "description": "子对象变换从属于父对象变换的关系。"
+    },
+    "space.size": {
+      "label": "尺寸",
+      "description": "概括对象长宽高或画面大小的说法。"
+    },
+    "space.direction": {
+      "label": "方向",
+      "description": "对象朝向、延伸或移动的方向。"
+    },
+    "camera.camera": {
+      "label": "摄像机",
+      "description": "决定用什么视点与投影来观察场景的构成要素。"
+    },
+    "camera.camera_position": {
+      "label": "摄像机位置",
+      "description": "摄像机在场景中所处的位置。"
+    },
+    "camera.camera_angle": {
+      "label": "摄像机角度",
+      "description": "摄像机看向对象的朝向与视点。"
+    },
+    "camera.camera_distance": {
+      "label": "摄像机距离",
+      "description": "摄像机与指定对象或基准点之间的距离。"
+    },
+    "camera.fov": {
+      "label": "视场角",
+      "description": "摄像机所覆盖的角度范围。",
+      "aliases": [
+        "FOV",
+        "视野角"
+      ]
+    },
+    "camera.perspective": {
+      "label": "透视投影",
+      "description": "投影尺寸随距离改变的摄像机方式。"
+    },
+    "camera.orthographic": {
+      "label": "正交投影",
+      "description": "不随深度产生近大远小的平行投影方式。"
+    },
+    "camera.frustum": {
+      "label": "视锥体",
+      "description": "摄像机用于裁剪与可见性判定的视野体积。"
+    },
+    "camera.near_far": {
+      "label": "近远裁剪面",
+      "description": "摄像机前后所处理的距离范围。"
+    },
+    "camera.shot_size": {
+      "label": "景别",
+      "description": "按对象在画框中显示到什么范围来划分的镜头类别。"
+    },
+    "camera.wide_shot": {
+      "label": "远景",
+      "description": "较宽地包含对象周围空间与关系的画面构成。",
+      "aliases": [
+        "全景"
+      ]
+    },
+    "camera.close_shot": {
+      "label": "近景",
+      "description": "把对象或局部放大呈现的画面构成。",
+      "aliases": [
+        "特写"
+      ]
+    },
+    "camera.low_angle": {
+      "label": "仰角",
+      "description": "从相对较低视点看向对象的构成。",
+      "aliases": [
+        "低角度"
+      ]
+    },
+    "camera.front_view": {
+      "label": "正视图",
+      "description": "以对象正面为基准的检查用视点。"
+    },
+    "camera.side_view": {
+      "label": "侧视图",
+      "description": "以对象侧面为基准的检查用视点。"
+    },
+    "camera.three_quarter": {
+      "label": "四分之三视角",
+      "description": "同时显露正面与侧面的斜向视点。"
+    },
+    "value.value": {
+      "label": "明度",
+      "description": "组织明暗关系的美术维度。",
+      "aliases": [
+        "素描关系"
+      ]
+    },
+    "value.tone": {
+      "label": "影调",
+      "description": "在讨论中主要指画面的明暗结构。"
+    },
+    "value.value_grouping": {
+      "label": "明度归组",
+      "description": "把细节归入大的明暗集团来组织画面。"
+    },
+    "value.three_value": {
+      "label": "三调子练习",
+      "description": "把画面简化成黑、灰、白等三个明度的练习表现。"
+    },
+    "value.grayscale": {
+      "label": "灰度",
+      "description": "去掉色相差异、只显示明暗成分的表现。",
+      "aliases": [
+        "黑白"
+      ]
+    },
+    "value.value_contrast": {
+      "label": "明度对比",
+      "description": "对象之间的明暗差异。"
+    },
+    "value.tone_affinity": {
+      "label": "影调相似",
+      "description": "对象或画面区域的明暗关系接近而归成一组的状态。"
+    },
+    "value.contrast_hierarchy": {
+      "label": "对比层级",
+      "description": "画面内多处对比中安排谁优先的结构。"
+    },
+    "value.highlight": {
+      "label": "高光",
+      "description": "由光照反应或风格化表现造成的明亮强调区域。"
+    },
+    "value.shadow": {
+      "label": "阴影",
+      "description": "受光较少或在表现上被归暗的区域。"
+    },
+    "lighting.lighting": {
+      "label": "灯光",
+      "description": "用光源与环境光营造形体与画面氛围的构成。",
+      "aliases": [
+        "照明"
+      ]
+    },
+    "lighting.light": {
+      "label": "光源",
+      "description": "参与物体与空间光照反应的光，或引擎中的光源。",
+      "aliases": [
+        "灯光对象"
+      ]
+    },
+    "lighting.light_direction": {
+      "label": "光照方向",
+      "description": "光行进的方向，或射向表面的方向。"
+    },
+    "lighting.intensity": {
+      "label": "光强",
+      "description": "控制光源输出强度的数值。",
+      "aliases": [
+        "强度"
+      ]
+    },
+    "lighting.directional_light": {
+      "label": "平行光",
+      "description": "以方向为主要属性的引擎光源类型。",
+      "aliases": [
+        "方向光"
+      ]
+    },
+    "lighting.form_shadow": {
+      "label": "暗面",
+      "description": "因表面朝向而较少受到直射光的物体自身暗部。",
+      "aliases": [
+        "自身阴影"
+      ]
+    },
+    "lighting.cast_shadow": {
+      "label": "投射阴影",
+      "description": "射向其他表面的光被物体遮挡而产生的影子。",
+      "aliases": [
+        "投射阴影"
+      ]
+    },
+    "lighting.terminator": {
+      "label": "明暗交界线",
+      "description": "在形体上分开受直射光一侧与不受光一侧的边界。"
+    },
+    "lighting.ambient": {
+      "label": "环境光",
+      "description": "指单个直射光源之外来自周围的照明贡献的说法。"
+    },
+    "lighting.bounce": {
+      "label": "反弹光",
+      "description": "经其他表面反射后到达的间接光贡献。",
+      "aliases": [
+        "间接光"
+      ]
+    },
+    "lighting.backlight": {
+      "label": "逆光",
+      "description": "从摄像机视角看位于对象后方的布光。",
+      "aliases": [
+        "背光"
+      ]
+    },
+    "lighting.lambert": {
+      "label": "兰伯特",
+      "description": "利用表面朝向与入射方向关系的简单漫反射模型。"
+    },
+    "lighting.ndotl": {
+      "label": "N·L",
+      "description": "用法线与光方向向量点积表示表面朝向关系的数值。",
+      "review": "confirm_loanword"
+    },
+    "lighting.fake_lighting": {
+      "label": "假光照",
+      "description": "为了辨识度与意图而非物理一致性额外加入的光照表现。"
+    },
+    "lighting.secondary_lighting": {
+      "label": "二次光照",
+      "description": "在像素化对象上追加染色或光照反应的工序。"
+    },
+    "lighting.radiometry": {
+      "label": "辐射度量学",
+      "description": "定量处理光能传递的基础概念。"
+    },
+    "lighting.light_transport": {
+      "label": "光线传输",
+      "description": "光在光源、表面与介质之间传递的过程。"
+    },
+    "color.color": {
+      "label": "颜色",
+      "description": "表面、光源与影像的色彩成分及其知觉关系。",
+      "aliases": [
+        "色彩"
+      ]
+    },
+    "color.hue": {
+      "label": "色相",
+      "description": "把颜色区分为红、黄、绿等的色彩模型维度。"
+    },
+    "color.saturation": {
+      "label": "饱和度",
+      "description": "在所选色彩模型或工具中调节颜色偏离无彩色程度的维度。"
+    },
+    "color.warm_cool": {
+      "label": "冷暖关系",
+      "description": "颜色之间被读作相对偏暖或偏冷的关系。"
+    },
+    "color.simultaneous_contrast": {
+      "label": "同时对比",
+      "description": "因周围颜色或明度不同而使同一颜色印象改变的现象。"
+    },
+    "color.palette": {
+      "label": "配色",
+      "description": "一幅画或一组资产所使用的颜色集合。",
+      "aliases": [
+        "色板"
+      ]
+    },
+    "color.palette_hierarchy": {
+      "label": "配色层级",
+      "description": "主色、辅助色、点缀色等颜色集合的优先级。"
+    },
+    "color.palette_discipline": {
+      "label": "配色纪律",
+      "description": "一致地维持允许的颜色关系与颜色数量的规则。"
+    },
+    "color.local_color": {
+      "label": "固有色",
+      "description": "与光照效果区分开说明的对象本身的颜色。"
+    },
+    "color.light_color": {
+      "label": "光源色",
+      "description": "光的颜色构成。"
+    },
+    "color.surrounding_color": {
+      "label": "环境色",
+      "description": "放在对象周围、影响其知觉的颜色。"
+    },
+    "color.perceived_color": {
+      "label": "感知色",
+      "description": "在最终语境与观看条件下人读到的颜色。"
+    },
+    "color.color_temperature": {
+      "label": "色温",
+      "description": "从冷暖方向处理光源色或白平衡性质的说法。"
+    },
+    "color.tint": {
+      "label": "色调偏移",
+      "description": "把颜色往特定方向偏，或施加色彩滤镜的操作。",
+      "aliases": [
+        "着色"
+      ]
+    },
+    "color.vibrance": {
+      "label": "自然饱和度",
+      "description": "按工具各自的方式选择性修正色彩强度的调节。"
+    },
+    "color.gamma": {
+      "label": "伽马曲线",
+      "description": "指数值变换的非线性曲线或工具的伽马调节。"
+    },
+    "color.exposure": {
+      "label": "曝光",
+      "description": "从曝光角度调整影像或光照信号亮度的数值。"
+    },
+    "color.srgb": {
+      "label": "sRGB",
+      "description": "处理贴图与显示色时出现的 RGB 色彩编码体系。",
+      "review": "confirm_loanword"
+    },
+    "color.linear": {
+      "label": "线性颜色",
+      "description": "以与光量成正比的数值进行色彩运算的表示。",
+      "aliases": [
+        "线性工作流"
+      ]
+    },
+    "color.lut": {
+      "label": "LUT",
+      "description": "把输入颜色转换成输出颜色的预计算对照表。",
+      "aliases": [
+        "查找表"
+      ],
+      "review": "confirm_loanword"
+    },
+    "color.color_grading": {
+      "label": "调色",
+      "description": "按意图改变最终画面色彩与明暗关系的工作。"
+    },
+    "color.tone_mapping": {
+      "label": "色调映射",
+      "description": "把较宽的信号范围对应到可输出表现的工序。"
+    },
+    "color.color_contrast": {
+      "label": "色彩对比",
+      "description": "两个区域颜色被读作不同的关系。"
+    },
+    "color.color_affinity": {
+      "label": "色彩相似",
+      "description": "各元素颜色接近而被归成一组读出的关系。"
+    },
+    "color.complementary_scheme": {
+      "label": "互补色配色",
+      "description": "使用色环上相对关系的配色构成。"
+    },
+    "material.surface": {
+      "label": "表面",
+      "description": "形体对光与贴图产生反应的边界，或其表现。"
+    },
+    "material.material": {
+      "label": "材质",
+      "description": "把表面反应与相关贴图、参数打包在一起的表现。"
+    },
+    "material.surface_response": {
+      "label": "表面响应",
+      "description": "表面对光照与视角变化所呈现的反应。"
+    },
+    "material.material_cue": {
+      "label": "材质线索",
+      "description": "让人读成金属、橡胶等的高光、颜色与表面纹样等线索。"
+    },
+    "material.pbr": {
+      "label": "PBR",
+      "description": "采用物理表面反应原理的材质与着色方法。",
+      "aliases": [
+        "基于物理的渲染"
+      ],
+      "review": "confirm_loanword"
+    },
+    "material.brdf": {
+      "label": "BRDF",
+      "description": "表示表面反射随入射与出射方向变化的函数。",
+      "review": "confirm_loanword"
+    },
+    "material.bsdf": {
+      "label": "BSDF",
+      "description": "表示反射与透射等表面散射响应的函数范畴。",
+      "review": "confirm_loanword"
+    },
+    "material.base_color": {
+      "label": "基础色",
+      "description": "材质工作流中作为光照计算基本色输入的数值。",
+      "aliases": [
+        "反照率",
+        "Albedo"
+      ]
+    },
+    "material.metallic": {
+      "label": "金属度",
+      "description": "金属／非金属工作流中的表面性质输入。"
+    },
+    "material.roughness": {
+      "label": "粗糙度",
+      "description": "控制反射分布因表面微观结构而扩散程度的输入。"
+    },
+    "material.smoothness": {
+      "label": "光滑度",
+      "description": "调节反射响应清晰程度的工具专有输入。"
+    },
+    "material.ao": {
+      "label": "环境光遮蔽",
+      "description": "表示因周围遮挡而变暗的线索的数值或贴图。",
+      "aliases": [
+        "AO"
+      ]
+    },
+    "material.emission": {
+      "label": "自发光",
+      "description": "让表面看起来自身发亮而加入的材质信号。"
+    },
+    "material.normal_map": {
+      "label": "法线贴图",
+      "description": "用贴图传达表面朝向变化的表现。"
+    },
+    "material.curvature": {
+      "label": "曲率",
+      "description": "表面弯曲或转折的程度，或存储该信息的表现。",
+      "aliases": [
+        "曲率贴图"
+      ]
+    },
+    "material.mesh_maps": {
+      "label": "模型辅助贴图",
+      "description": "从网格烘焙出来、用于材质制作的辅助贴图集合。",
+      "aliases": [
+        "mesh maps"
+      ]
+    },
+    "material.material_layers": {
+      "label": "材质层",
+      "description": "用顺序与遮罩合成多种材质效果的层。"
+    },
+    "material.mask_generator": {
+      "label": "遮罩与生成器",
+      "description": "用条件或贴图生成材质影响区域的构成。"
+    },
+    "material.metal_rough_workflow": {
+      "label": "金属粗糙度工作流",
+      "description": "以金属度与粗糙度为核心构成表面输入的工作流。"
+    },
+    "material.spec_gloss_workflow": {
+      "label": "高光光泽度工作流",
+      "description": "用反射色与光泽度输入构成表面的工作流。"
+    },
+    "material.plastic": {
+      "label": "塑料",
+      "description": "练习中作为比较对象的塑料表面印象。"
+    },
+    "material.metal": {
+      "label": "金属",
+      "description": "练习中作为比较对象的金属表面印象。"
+    },
+    "material.rubber": {
+      "label": "橡胶",
+      "description": "练习中作为比较对象的橡胶表面印象。"
+    },
+    "material.glass": {
+      "label": "玻璃",
+      "description": "靠透明与反射等线索被读出的玻璃表面目标。"
+    },
+    "material.painted_metal": {
+      "label": "喷漆金属",
+      "description": "具有金属底材与涂装层差异的表面目标。"
+    },
+    "geometry.geometry": {
+      "label": "几何体",
+      "description": "用空间中的点、线、面与体积表示的形。",
+      "aliases": [
+        "几何"
+      ]
+    },
+    "geometry.mesh": {
+      "label": "网格",
+      "description": "用顶点及其连接表示表面的结构。",
+      "aliases": [
+        "模型网格"
+      ]
+    },
+    "geometry.topology": {
+      "label": "拓扑",
+      "description": "网格元素的连接结构。",
+      "aliases": [
+        "布线"
+      ]
+    },
+    "geometry.edge_flow": {
+      "label": "边流",
+      "description": "边沿着形体与形变方向连接起来的走向。",
+      "aliases": [
+        "走线"
+      ]
+    },
+    "geometry.pole": {
+      "label": "极点",
+      "description": "指连接边数与周围规则布线不同的顶点的用语。"
+    },
+    "geometry.manifold": {
+      "label": "流形",
+      "description": "网格周边连接构成一致表面的条件。"
+    },
+    "geometry.normal": {
+      "label": "法线",
+      "description": "表示表面朝向的向量。"
+    },
+    "geometry.tangent": {
+      "label": "切线",
+      "description": "构成表面朝向或基于 UV 的着色坐标系的切向量。"
+    },
+    "geometry.smoothing": {
+      "label": "平滑处理",
+      "description": "配置法线响应，使相邻面看起来平滑连接的工作。",
+      "aliases": [
+        "平滑组"
+      ]
+    },
+    "geometry.normal_interpolation": {
+      "label": "法线插值",
+      "description": "在表面内部把法线信息连起来进行着色的过程。"
+    },
+    "geometry.hard_edge": {
+      "label": "硬边",
+      "description": "处理成在着色中能清楚读出相邻面朝向变化的边界。"
+    },
+    "geometry.soft_edge": {
+      "label": "软边",
+      "description": "处理成着色相对平滑连接的网格边界。"
+    },
+    "geometry.bevel": {
+      "label": "倒角",
+      "description": "把锐利的棱削成小面或曲面的操作。"
+    },
+    "geometry.bevel_highlight": {
+      "label": "倒角高光",
+      "description": "倒角面受光而显出棱边形状的明亮条带。"
+    },
+    "geometry.subd": {
+      "label": "细分曲面",
+      "description": "通过细分得到更平滑表面的建模方法。",
+      "aliases": [
+        "SubD"
+      ]
+    },
+    "geometry.deformation": {
+      "label": "形变",
+      "description": "随时间、绑定或程序改变网格位置的操作。"
+    },
+    "geometry.hard_surface": {
+      "label": "硬表面",
+      "description": "处理机械、道具等坚硬且面转折明确形体的建模范畴。"
+    },
+    "geometry.modifier_stack": {
+      "label": "修改器堆栈",
+      "description": "按顺序应用多个非破坏性形体运算的构成。"
+    },
+    "geometry.mirror": {
+      "label": "镜像",
+      "description": "相对基准面把形体对称复制或连接的运算。"
+    },
+    "geometry.solidify": {
+      "label": "实体化",
+      "description": "给表面赋予厚度的建模运算。"
+    },
+    "geometry.high_poly": {
+      "label": "高模",
+      "description": "拥有相对较多形体细节的模型表现。"
+    },
+    "geometry.low_poly": {
+      "label": "低模",
+      "description": "为运行开销或风格而限制形体的模型表现。"
+    },
+    "geometry.target_tris": {
+      "label": "目标三角面数",
+      "description": "对目标网格或资产设定的渲染三角面数上限。"
+    },
+    "geometry.wireframe": {
+      "label": "线框",
+      "description": "用线显示网格连接的检查用显示。"
+    },
+    "geometry.curve": {
+      "label": "曲线",
+      "description": "表示空间中连续线形的几何元素。"
+    },
+    "geometry.point_cloud": {
+      "label": "点云",
+      "description": "用空间中点集合表示的数据。"
+    },
+    "geometry.volume": {
+      "label": "体积",
+      "description": "不只表面、还表示空间内部数值的数据。",
+      "aliases": [
+        "体数据"
+      ]
+    },
+    "geometry.instance": {
+      "label": "实例",
+      "description": "把共享原型以多个位置与属性摆放出来的表示。"
+    },
+    "geometry.geometry_nodes": {
+      "label": "几何节点",
+      "description": "用节点图构成几何数据生成与变形的系统。"
+    },
+    "geometry.quad": {
+      "label": "面片",
+      "description": "练习与特效中作为平面元素使用的四顶点形。",
+      "aliases": [
+        "四边形"
+      ]
+    },
+    "geometry.modeling": {
+      "label": "建模",
+      "description": "制作形体与结构的工作。"
+    },
+    "geometry.sculpt": {
+      "label": "雕刻",
+      "description": "像雕塑一样变形表面的建模方式。"
+    },
+    "uv_texture.uv": {
+      "label": "UV",
+      "description": "把表面与二维贴图对应起来的坐标。",
+      "aliases": [
+        "UV坐标"
+      ],
+      "review": "confirm_loanword"
+    },
+    "uv_texture.uv_seam": {
+      "label": "UV接缝",
+      "description": "展开时把表面分开的边界。"
+    },
+    "uv_texture.uv_island": {
+      "label": "UV壳",
+      "description": "展开后的 UV 中相互连接的一块区域。",
+      "aliases": [
+        "UV岛"
+      ]
+    },
+    "uv_texture.texel_density": {
+      "label": "纹素密度",
+      "description": "表面指定实际长度或面积上对应的贴图采样密度。"
+    },
+    "uv_texture.texel": {
+      "label": "纹素",
+      "description": "贴图栅格中的一个采样元素。"
+    },
+    "uv_texture.texture": {
+      "label": "贴图",
+      "description": "被采样以取得颜色或数据值的图像与资产。",
+      "aliases": [
+        "纹理"
+      ]
+    },
+    "uv_texture.texture_size": {
+      "label": "贴图尺寸",
+      "description": "贴图在宽与高方向的采样数。",
+      "aliases": [
+        "贴图分辨率"
+      ]
+    },
+    "uv_texture.bake": {
+      "label": "烘焙",
+      "description": "把形体、光照与表面信息计算成另一种固定表现并保存。"
+    },
+    "uv_texture.normal_mapping": {
+      "label": "法线贴图映射",
+      "description": "用法线贴图改变表面光照响应的方式。"
+    },
+    "uv_texture.sampling": {
+      "label": "采样",
+      "description": "把连续或栅格数据读成特定位置与时刻数值的过程。"
+    },
+    "uv_texture.texture_sample": {
+      "label": "贴图采样",
+      "description": "使用 UV 与过滤条件读取贴图数值的运算。"
+    },
+    "uv_texture.filtering": {
+      "label": "过滤",
+      "description": "决定如何把邻近采样值结合成输出的方式。",
+      "aliases": [
+        "滤波"
+      ]
+    },
+    "uv_texture.point_filter": {
+      "label": "点采样",
+      "description": "不对邻近值插值、直接取最近采样的方式。",
+      "aliases": [
+        "邻近采样"
+      ]
+    },
+    "uv_texture.bilinear": {
+      "label": "双线性过滤",
+      "description": "对二维栅格邻近值进行插值的贴图过滤。"
+    },
+    "uv_texture.mipmap": {
+      "label": "Mipmap",
+      "description": "准备多个缩小级别贴图的表现。",
+      "aliases": [
+        "多级渐远纹理"
+      ],
+      "review": "confirm_loanword"
+    },
+    "uv_texture.anti_aliasing": {
+      "label": "抗锯齿",
+      "description": "缓解采样造成的边界与纹样不稳定的处理。"
+    },
+    "uv_texture.texture_compression": {
+      "label": "贴图压缩",
+      "description": "减少贴图存储、传输与显存占用的编码。"
+    },
+    "uv_texture.padding": {
+      "label": "留白间距",
+      "description": "在图集区域之间等处预留的富余采样空间。",
+      "aliases": [
+        "Padding"
+      ]
+    },
+    "uv_texture.extrusion": {
+      "label": "边缘扩边",
+      "description": "把边界颜色向周围扩展以减少采样串色的处理。",
+      "aliases": [
+        "扩边"
+      ]
+    },
+    "uv_texture.alpha": {
+      "label": "透明通道",
+      "description": "用于合成与遮罩的覆盖率或不透明度通道。",
+      "aliases": [
+        "Alpha"
+      ]
+    },
+    "uv_texture.alpha_edge": {
+      "label": "透明边界",
+      "description": "在可见与不可见之间透明度发生转变的边界。"
+    },
+    "vector.vector_art": {
+      "label": "矢量图",
+      "description": "用曲线与图形构成源文件的图像表现。",
+      "aliases": [
+        "矢量美术"
+      ]
+    },
+    "vector.bezier": {
+      "label": "贝塞尔曲线",
+      "description": "用控制点定义曲线的表示。"
+    },
+    "vector.anchor": {
+      "label": "锚点",
+      "description": "决定矢量路径段如何连接的基准点。"
+    },
+    "vector.handle": {
+      "label": "控制柄",
+      "description": "控制锚点周围曲线方向与形状的点或向量。",
+      "aliases": [
+        "手柄"
+      ]
+    },
+    "vector.segment": {
+      "label": "线段",
+      "description": "连接路径相邻基准点之间的部分。"
+    },
+    "vector.path": {
+      "label": "路径",
+      "description": "由点与线段连接成的线或轮廓。"
+    },
+    "vector.closed_shape": {
+      "label": "闭合路径",
+      "description": "首尾相连以定义区域的路径形态。"
+    },
+    "vector.compound_shape": {
+      "label": "复合形状",
+      "description": "多条路径或部分共同构成一个区域结构的表示。"
+    },
+    "vector.boolean": {
+      "label": "布尔运算",
+      "description": "按图形区域关系进行合并、相减或相交的运算。"
+    },
+    "vector.curve_continuity": {
+      "label": "曲线连续性",
+      "description": "接合处位置、方向与弯曲程度延续的程度。"
+    },
+    "vector.stroke": {
+      "label": "描边",
+      "description": "沿路径绘制的线的表现。"
+    },
+    "vector.fill": {
+      "label": "填充",
+      "description": "在闭合区域内应用的颜色或图案。"
+    },
+    "vector.mask": {
+      "label": "遮罩",
+      "description": "表示效果应用区域或应用程度的表示。"
+    },
+    "vector.gradient": {
+      "label": "渐变",
+      "description": "随位置连续改变颜色或数值的表现。"
+    },
+    "vector.viewbox": {
+      "label": "viewBox",
+      "description": "指定 SVG 内部坐标观察范围的结构。",
+      "review": "confirm_loanword"
+    },
+    "vector.group_hierarchy": {
+      "label": "组层级",
+      "description": "把矢量元素编组并共享变换与样式的层级。"
+    },
+    "vector.svg": {
+      "label": "SVG",
+      "description": "把矢量元素与属性结构化保存的文档表现。",
+      "review": "confirm_loanword"
+    },
+    "vector.pen": {
+      "label": "钢笔工具",
+      "description": "使用锚点与控制柄构建路径的创作工具。"
+    },
+    "vector.shape_builder": {
+      "label": "形状生成器",
+      "description": "组合重叠图形区域的创作功能。"
+    },
+    "vector.pathfinder": {
+      "label": "路径查找器",
+      "description": "通过图形之间运算生成复合形状的功能集合。"
+    },
+    "vector.resolution_independence": {
+      "label": "分辨率无关",
+      "description": "源图形可以按另一尺寸重新表现的性质。"
+    },
+    "vector.reusable_shape": {
+      "label": "可复用图形",
+      "description": "在多个资产中共享的图形构件。"
+    },
+    "pixel_sprite.sprite": {
+      "label": "精灵图",
+      "description": "用于二维物体表现的图像区域或引擎资产。",
+      "aliases": [
+        "Sprite"
+      ]
+    },
+    "pixel_sprite.sprite_import": {
+      "label": "精灵导入",
+      "description": "把图像解释为引擎精灵的导入过程。"
+    },
+    "pixel_sprite.atlas": {
+      "label": "精灵图集",
+      "description": "把多个图像区域打包进一套贴图的表现。",
+      "aliases": [
+        "图集"
+      ]
+    },
+    "pixel_sprite.slicing": {
+      "label": "精灵切分",
+      "description": "从一张图像中划分出多个精灵区域的工作。",
+      "aliases": [
+        "切图"
+      ]
+    },
+    "pixel_sprite.ppu": {
+      "label": "PPU",
+      "description": "精灵源像素与引擎空间单位之间的比例。",
+      "aliases": [
+        "每单位像素数"
+      ],
+      "review": "confirm_loanword"
+    },
+    "pixel_sprite.ui_scaling": {
+      "label": "UI 缩放",
+      "description": "按显示分辨率或布局条件决定 UI 大小的方式。"
+    },
+    "pixel_sprite.sorting_layer": {
+      "label": "排序层",
+      "description": "组织二维元素绘制顺序的引擎分类。"
+    },
+    "pixel_sprite.prefab_linkage": {
+      "label": "预制体引用关系",
+      "description": "资产与使用它的引擎预制体之间的引用关系。"
+    },
+    "pixel_sprite.animation_ready": {
+      "label": "可动画资产",
+      "description": "部件、轴心、区域与层级已按动画工作准备好的资产。"
+    },
+    "pixel_sprite.pixel_cluster": {
+      "label": "像素块",
+      "description": "把小片像素归成一组来表现形与明度的构成单位。"
+    },
+    "pixel_sprite.pixelation": {
+      "label": "像素化",
+      "description": "把画面或对象表现在有限空间栅格上的处理。"
+    },
+    "pixel_sprite.pixel_art": {
+      "label": "像素画",
+      "description": "把逐像素的形与配色选择当作重要表现要素的风格。",
+      "aliases": [
+        "像素美术"
+      ]
+    },
+    "pixel_sprite.pixel_perfect": {
+      "label": "像素完美",
+      "description": "追求与既定像素栅格及显示规则一致的条件。",
+      "aliases": [
+        "Pixel Perfect"
+      ]
+    },
+    "pixel_sprite.pixel_snapping": {
+      "label": "像素吸附",
+      "description": "把位置或采样对齐到既定像素栅格的操作。"
+    },
+    "pixel_sprite.subpixel_motion": {
+      "label": "亚像素位移",
+      "description": "小于所选栅格一格的投影位移。"
+    },
+    "pixel_sprite.internal_resolution": {
+      "label": "内部分辨率",
+      "description": "最终画面放大之前渲染的图像尺寸。"
+    },
+    "pixel_sprite.rasterization": {
+      "label": "光栅化",
+      "description": "把图形或几何转换成像素采样的过程。"
+    },
+    "pixel_sprite.dithering": {
+      "label": "抖动",
+      "description": "在有限明度或颜色下用空间图案造出中间印象的处理。",
+      "aliases": [
+        "网点抖动"
+      ]
+    },
+    "pixel_sprite.screen_dither": {
+      "label": "屏幕空间抖动",
+      "description": "以屏幕坐标评估抖动图案的构成。"
+    },
+    "pixel_sprite.object_dither": {
+      "label": "物体空间抖动",
+      "description": "把图案绑定到物体坐标的构成。"
+    },
+    "pixel_sprite.world_dither": {
+      "label": "世界空间抖动",
+      "description": "把图案固定在世界坐标的构成。"
+    },
+    "pixel_sprite.selective_nonpixel": {
+      "label": "非像素化特效与 UI",
+      "description": "部分 UI 与特效在像素化管线之外输出的项目要求。"
+    },
+    "pixel_sprite.retro_ps1": {
+      "label": "Doom／PS1 风格",
+      "description": "项目中用于低分辨率与三维混合印象的参照表现。"
+    },
+    "motion.movement": {
+      "label": "运动",
+      "description": "位置、朝向与形态等状态随时间改变的表现。"
+    },
+    "motion.timing": {
+      "label": "时间节奏",
+      "description": "事件、姿势与动作发生的时刻与持续时长的安排。",
+      "aliases": [
+        "Timing"
+      ]
+    },
+    "motion.spacing": {
+      "label": "间距",
+      "description": "连续时间采样之间对象位置或姿势拉开的程度。"
+    },
+    "motion.pose": {
+      "label": "姿势",
+      "description": "身体或物体在某一时刻所处的构成状态。"
+    },
+    "motion.key_pose": {
+      "label": "关键姿势",
+      "description": "决定动作含义或结构的主要姿势。"
+    },
+    "motion.keyframe": {
+      "label": "关键帧",
+      "description": "在时间轴上明确指定的属性值或画面。"
+    },
+    "motion.key_drawing": {
+      "label": "原画",
+      "description": "承载动作重要状态的核心画。"
+    },
+    "motion.breakdown": {
+      "label": "中间关键画",
+      "description": "在关键姿势之间决定运动路径与过渡性质的中间姿势。",
+      "aliases": [
+        "Breakdown"
+      ]
+    },
+    "motion.in_between": {
+      "label": "中间画",
+      "description": "衔接关键画之间动作的画。",
+      "aliases": [
+        "补间画"
+      ]
+    },
+    "motion.arc": {
+      "label": "运动弧线",
+      "description": "运动部件所划出的曲线路径。",
+      "aliases": [
+        "弧线"
+      ]
+    },
+    "motion.trajectory": {
+      "label": "轨迹",
+      "description": "位置随时间变化的路径。"
+    },
+    "motion.action_line": {
+      "label": "动势线",
+      "description": "用简单的线概括姿势力量与流向的表现。"
+    },
+    "motion.gesture": {
+      "label": "速写动态",
+      "description": "快速捕捉姿态与动作意图和流向的表现。",
+      "aliases": [
+        "Gesture"
+      ]
+    },
+    "motion.anticipation": {
+      "label": "预备动作",
+      "description": "在主要动作之前预告方向、力量与发生的动作。"
+    },
+    "motion.contact": {
+      "label": "接触",
+      "description": "动作中物体或角色碰到目标的时刻或状态。"
+    },
+    "motion.ease": {
+      "label": "缓动",
+      "description": "调节变化率随时间分布的插值性质。"
+    },
+    "motion.linear_motion": {
+      "label": "线性运动",
+      "description": "按时间成比例均匀改变属性值的插值。",
+      "aliases": [
+        "匀速"
+      ]
+    },
+    "motion.ease_in": {
+      "label": "缓入",
+      "description": "区间开头变化量小、随后逐渐增大的过渡。"
+    },
+    "motion.ease_out": {
+      "label": "缓出",
+      "description": "区间后段变化量逐渐减小的过渡。"
+    },
+    "motion.ease_in_out": {
+      "label": "缓入缓出",
+      "description": "让区间开头与结尾都变平缓的过渡。"
+    },
+    "motion.overshoot": {
+      "label": "过冲",
+      "description": "越过目标状态之后再回来的运动。"
+    },
+    "motion.follow_through": {
+      "label": "跟随动作",
+      "description": "主要动作结束后连带部位继续运动的表现。"
+    },
+    "motion.temporal_overlap": {
+      "label": "动作重叠",
+      "description": "身体或部件各自动作不在同一时刻开始与结束而相互重叠的关系。",
+      "aliases": [
+        "重叠动作"
+      ]
+    },
+    "motion.squash_stretch": {
+      "label": "挤压与拉伸",
+      "description": "用压扁与拉长表现力量、弹性与速度的形变。"
+    },
+    "motion.secondary_motion": {
+      "label": "次级动作",
+      "description": "支撑主要动作的附加运动。"
+    },
+    "motion.drag": {
+      "label": "拖拽跟随",
+      "description": "部位比主要运动滞后跟上的动作表现。"
+    },
+    "motion.settle": {
+      "label": "收势",
+      "description": "残余运动减弱并到达最终状态的区间。"
+    },
+    "motion.weight": {
+      "label": "重量感",
+      "description": "从时间节奏、形变、接触与重心变化读出的沉重程度。"
+    },
+    "motion.center_of_mass": {
+      "label": "重心",
+      "description": "用来解读动作与平衡的质量中心或简化中心。"
+    },
+    "motion.body_mechanics": {
+      "label": "身体力学",
+      "description": "用支撑、重心与关节关系解释身体运动的视角。"
+    },
+    "motion.duration": {
+      "label": "时长",
+      "description": "所选事件或区间持续的时间。"
+    },
+    "motion.frame_rate": {
+      "label": "帧率",
+      "description": "单位时间内显示或制作的采样数。"
+    },
+    "motion.loop": {
+      "label": "循环",
+      "description": "动作结尾再次接回开头的重复结构。"
+    },
+    "motion.position_curve": {
+      "label": "位置曲线",
+      "description": "定义位置值随时间变化的曲线。"
+    },
+    "motion.animation_curve": {
+      "label": "AnimationCurve",
+      "description": "按时间控制属性值的引擎曲线表现。",
+      "aliases": [
+        "动画曲线"
+      ],
+      "review": "confirm_loanword"
+    },
+    "motion.procedural_animation": {
+      "label": "程序化动画",
+      "description": "用规则、函数或模拟生成动作的方式。"
+    },
+    "motion.authored_motion": {
+      "label": "手工制作动作",
+      "description": "用关键帧或绘制刻意制作出来的动作表现。",
+      "aliases": [
+        "K帧动画"
+      ]
+    },
+    "motion.spring": {
+      "label": "弹簧",
+      "description": "一边追随目标一边以弹性变化制造运动的模型。"
+    },
+    "motion.delayed_follower": {
+      "label": "延迟跟随",
+      "description": "以时间差跟随基准对象运动的动作。"
+    },
+    "motion.afterimage": {
+      "label": "残影",
+      "description": "留下先前状态视觉痕迹的表现。"
+    },
+    "motion.residual_motion": {
+      "label": "余动",
+      "description": "主要事件之后残留并继续的运动。"
+    },
+    "motion.movement_contrast": {
+      "label": "运动对比",
+      "description": "元素之间速度、方向与静止与否差异造成的对比。"
+    },
+    "motion.stop_motion": {
+      "label": "定格动画",
+      "description": "指用小图逐帧连接做出动作的表现。"
+    },
+    "rig_animation.skeleton": {
+      "label": "骨架",
+      "description": "把角色或物体表示为层级骨骼的结构。",
+      "aliases": [
+        "骨骼"
+      ]
+    },
+    "rig_animation.rig": {
+      "label": "绑定",
+      "description": "驱动动作的骨骼、控制器与约束的集合。",
+      "aliases": [
+        "Rig"
+      ]
+    },
+    "rig_animation.fk": {
+      "label": "正向动力学",
+      "description": "自上而下决定关节状态来定出末端位置的控制方式。",
+      "aliases": [
+        "FK"
+      ]
+    },
+    "rig_animation.ik": {
+      "label": "反向动力学",
+      "description": "由末端目标与约束求解中间关节构成的控制方式。",
+      "aliases": [
+        "IK"
+      ]
+    },
+    "rig_animation.retargeting": {
+      "label": "动作重定向",
+      "description": "把动作迁移到另一套骨架或体型上的工作。",
+      "aliases": [
+        "重定向"
+      ]
+    },
+    "rig_animation.blend_tree": {
+      "label": "混合树",
+      "description": "按输入参数组合多段动画的结构。"
+    },
+    "rig_animation.state_machine": {
+      "label": "状态机",
+      "description": "构成动画状态与转换条件的结构。"
+    },
+    "rig_animation.root_motion": {
+      "label": "根运动",
+      "description": "把片段根节点的位移与旋转用作运行时移动的表现。"
+    },
+    "rig_animation.constraint": {
+      "label": "约束",
+      "description": "限制关节、控制器与目标之间允许关系的条件。"
+    },
+    "rig_animation.animation_event": {
+      "label": "动画事件",
+      "description": "把片段中某个时刻与动作调用关联起来的标记。"
+    },
+    "rig_animation.transition_quality": {
+      "label": "过渡质量",
+      "description": "片段或状态之间姿势、速度与意图不生硬断裂的程度。"
+    },
+    "rig_animation.foot_sliding": {
+      "label": "脚底打滑",
+      "description": "本应踩实的脚相对地面移动的缺陷。",
+      "aliases": [
+        "滑步"
+      ]
+    },
+    "rig_animation.animation_compression": {
+      "label": "动画压缩",
+      "description": "在控制动作误差的前提下减少片段数据的处理。"
+    },
+    "rig_animation.cutout": {
+      "label": "骨骼切片动画",
+      "description": "用轴心、骨骼与形变驱动分离二维部件的方式。",
+      "aliases": [
+        "剪纸动画"
+      ]
+    },
+    "rig_animation.acting": {
+      "label": "表演",
+      "description": "用动作与表情传达思考、情绪与意图的表现。"
+    },
+    "rig_animation.intention": {
+      "label": "意图",
+      "description": "用运动显露角色想做什么的目标。"
+    },
+    "rig_animation.locomotion": {
+      "label": "位移动作",
+      "description": "行走、奔跑等在空间中移动的动作范畴。",
+      "aliases": [
+        "Locomotion"
+      ]
+    },
+    "rig_animation.expression": {
+      "label": "表情",
+      "description": "显露情绪或反应的面部与身体表现。"
+    },
+    "rig_animation.personality": {
+      "label": "性格塑造",
+      "description": "让角色性格在姿势与运动中一致显现的目标。"
+    },
+    "rig_animation.exaggeration": {
+      "label": "夸张",
+      "description": "有意强化特定形态或运动特征的操作。"
+    },
+    "rig_animation.emotional_beat": {
+      "label": "情绪节拍",
+      "description": "情绪发生变化或被强调的时间上的关键瞬间。"
+    },
+    "vfx.vfx": {
+      "label": "视觉特效",
+      "description": "传达事件、状态、力量与空间变化的视觉表现集合。",
+      "aliases": [
+        "VFX",
+        "特效"
+      ]
+    },
+    "vfx.particle": {
+      "label": "粒子",
+      "description": "用多个各自带状态的元素构成效果的单位。"
+    },
+    "vfx.particle_count": {
+      "label": "粒子数量",
+      "description": "在指定时刻或区间存在或生成的粒子个数。"
+    },
+    "vfx.flipbook": {
+      "label": "序列帧",
+      "description": "按顺序采样多张图像帧进行播放的表现。",
+      "aliases": [
+        "Flipbook"
+      ]
+    },
+    "vfx.trail": {
+      "label": "拖尾",
+      "description": "把运动经过的路径连起来呈现的效果。"
+    },
+    "vfx.mesh_effect": {
+      "label": "模型特效",
+      "description": "用几何表面而非粒子图片制作的效果。"
+    },
+    "vfx.procedural_noise": {
+      "label": "程序化噪声",
+      "description": "把函数生成的不规则数值用于效果与表面的表现。"
+    },
+    "vfx.dissolve": {
+      "label": "溶解",
+      "description": "用遮罩或阈值让形体局部消失或出现的效果。"
+    },
+    "vfx.distortion": {
+      "label": "扭曲",
+      "description": "变形坐标或背景采样以造出折射与冲击印象的效果。"
+    },
+    "vfx.bloom": {
+      "label": "泛光",
+      "description": "把明亮影像区域向周围扩散的后处理表现。",
+      "aliases": [
+        "Bloom"
+      ]
+    },
+    "vfx.birth": {
+      "label": "起始",
+      "description": "效果最初形成的阶段。"
+    },
+    "vfx.expansion": {
+      "label": "扩张",
+      "description": "效果范围或形态变大的阶段。"
+    },
+    "vfx.impact": {
+      "label": "冲击点",
+      "description": "接触、爆炸等事件被重点强调的瞬间。"
+    },
+    "vfx.primary_impact_shape": {
+      "label": "主冲击形状",
+      "description": "在效果中最先传达事件力量与方向的大形。"
+    },
+    "vfx.breakup": {
+      "label": "破碎",
+      "description": "大的效果形态分裂成小块并消失的变化。"
+    },
+    "vfx.secondary_breakup": {
+      "label": "次级破碎",
+      "description": "主冲击之后次要飞散的部分。"
+    },
+    "vfx.trailing_motion": {
+      "label": "拖曳运动",
+      "description": "接在主要动作后面流动的视觉运动。"
+    },
+    "vfx.dissipation": {
+      "label": "消散",
+      "description": "效果减弱、散开并消失的阶段。"
+    },
+    "vfx.hit": {
+      "label": "受击特效",
+      "description": "传达打击或接触的效果类型。"
+    },
+    "vfx.projectile": {
+      "label": "飞行物特效",
+      "description": "一边移动一边传达攻击或事件的视觉对象。"
+    },
+    "vfx.explosion": {
+      "label": "爆炸",
+      "description": "用急剧膨胀与分解表现能量释放的效果。"
+    },
+    "vfx.simulation": {
+      "label": "模拟",
+      "description": "按规则逐时间步计算状态的过程。",
+      "aliases": [
+        "解算"
+      ]
+    },
+    "vfx.frame_strip": {
+      "label": "帧条",
+      "description": "把效果或动作的关键画面按时间顺序排开的分析表现。"
+    },
+    "vfx.theme": {
+      "label": "角色主题一致性",
+      "description": "让效果与角色视觉身份一致的目标。"
+    },
+    "vfx.surprise_delight": {
+      "label": "惊喜感",
+      "description": "效果想要传达的情绪反应。"
+    },
+    "shader.shader": {
+      "label": "着色器",
+      "description": "计算顶点、表面与像素等渲染阶段数值的程序表现。",
+      "aliases": [
+        "Shader"
+      ]
+    },
+    "shader.shader_graph": {
+      "label": "Shader Graph",
+      "description": "用节点构成着色器计算的创作系统。",
+      "aliases": [
+        "着色器图"
+      ],
+      "review": "confirm_loanword"
+    },
+    "shader.hlsl": {
+      "label": "HLSL",
+      "description": "对话中 Unity 着色器实现所用的编程语言。",
+      "review": "confirm_loanword"
+    },
+    "shader.glsl": {
+      "label": "GLSL",
+      "description": "在 The Book of Shaders 语境中提到的着色器语言。",
+      "review": "confirm_loanword"
+    },
+    "shader.compute_shader": {
+      "label": "计算着色器",
+      "description": "构成渲染表面计算之外 GPU 计算的着色器阶段。"
+    },
+    "shader.function": {
+      "label": "坐标即函数",
+      "description": "把坐标变成函数来造出颜色与形的表现视角。"
+    },
+    "shader.shaping_function": {
+      "label": "塑形函数",
+      "description": "通过改变输入值分布或过渡来造出图案与形的函数。"
+    },
+    "shader.matrix": {
+      "label": "矩阵",
+      "description": "表示空间或其他向量变换的系数结构。"
+    },
+    "shader.pattern": {
+      "label": "图案",
+      "description": "用规则或重复构成的空间纹样。"
+    },
+    "shader.noise": {
+      "label": "噪声",
+      "description": "与规则纹样相对的不规则数值或图案。"
+    },
+    "shader.image_processing": {
+      "label": "图像处理",
+      "description": "对图像数值进行变换、滤波与合成的运算。"
+    },
+    "shader.node_graph": {
+      "label": "节点图",
+      "description": "用节点与连线表示计算或制作阶段的结构。"
+    },
+    "render.render_pass": {
+      "label": "渲染通道",
+      "description": "在生成一帧时以既定输入输出执行的渲染工作单位。",
+      "aliases": [
+        "Pass"
+      ]
+    },
+    "render.compositing": {
+      "label": "合成",
+      "description": "把多个影像、图层与效果结合成画面的过程。"
+    },
+    "render.compositing_order": {
+      "label": "合成顺序",
+      "description": "哪些图像处理与图层先后执行并结合的顺序。"
+    },
+    "render.post_processing": {
+      "label": "后处理",
+      "description": "以场景渲染结果为输入改变画面表现的阶段。"
+    },
+    "render.post_process_ordering": {
+      "label": "后处理顺序",
+      "description": "像素化、调色、泛光等屏幕运算之间的先后顺序。"
+    },
+    "render.render_texture": {
+      "label": "RenderTexture",
+      "description": "保存并采样摄像机或通道输出的贴图。",
+      "aliases": [
+        "渲染贴图"
+      ],
+      "review": "confirm_script"
+    },
+    "render.intermediate_texture": {
+      "label": "中间贴图",
+      "description": "在最终输出之前存放临时结果的图像资源。"
+    },
+    "render.render_queue": {
+      "label": "渲染队列",
+      "description": "划分渲染对象处理顺序的数值或体系。"
+    },
+    "render.depth_buffer": {
+      "label": "深度缓冲",
+      "description": "用于可见性与效果的深度值存储表现。",
+      "aliases": [
+        "深度缓冲"
+      ]
+    },
+    "render.stencil": {
+      "label": "模板",
+      "description": "用逐像素整数标记与测试限制渲染区域的表现。",
+      "aliases": [
+        "Stencil"
+      ]
+    },
+    "render.transparency": {
+      "label": "透明",
+      "description": "把表面与背景或后方元素一起表现的方式。",
+      "aliases": [
+        "半透明"
+      ]
+    },
+    "render.blending": {
+      "label": "混合",
+      "description": "按既定规则把新值与缓冲区已有值结合的运算。"
+    },
+    "render.alpha_clip": {
+      "label": "透明裁剪",
+      "description": "按透明度等阈值决定保留或丢弃像素的处理。",
+      "aliases": [
+        "Alpha Test"
+      ]
+    },
+    "render.alpha_blend": {
+      "label": "透明混合",
+      "description": "用透明度合成前后颜色的处理。"
+    },
+    "render.premultiplied_alpha": {
+      "label": "预乘透明度",
+      "description": "颜色分量已预先乘上透明度的存储与合成惯例。"
+    },
+    "render.camera_stacking": {
+      "label": "摄像机堆叠",
+      "description": "把多个摄像机输出构成一个结果的引擎功能。"
+    },
+    "render.renderer_feature": {
+      "label": "Renderer Feature",
+      "description": "把自定义渲染行为接入 URP 渲染器的构成。",
+      "aliases": [
+        "渲染器功能"
+      ],
+      "review": "confirm_loanword"
+    },
+    "render.fullscreen_pass": {
+      "label": "全屏通道",
+      "description": "以整个屏幕为对象处理数值的渲染工作。"
+    },
+    "render.injection_point": {
+      "label": "注入点",
+      "description": "渲染流程中插入自定义运算的位置。"
+    },
+    "render.render_graph": {
+      "label": "Render Graph",
+      "description": "用图描述渲染工作与资源依赖关系的构成。",
+      "aliases": [
+        "渲染图"
+      ],
+      "review": "confirm_loanword"
+    },
+    "render.render_graph_resources": {
+      "label": "Render Graph 资源",
+      "description": "在通道之间传递的贴图与缓冲等声明资源。"
+    },
+    "render.normal_2d_map": {
+      "label": "2D 法线贴图",
+      "description": "给精灵提供表面朝向线索的贴图表现。"
+    },
+    "render.urp": {
+      "label": "URP",
+      "description": "对话中作为 Unity 实现基础使用的渲染管线。",
+      "aliases": [
+        "通用渲染管线"
+      ],
+      "review": "confirm_loanword"
+    },
+    "render.hdrp": {
+      "label": "HDRP",
+      "description": "作为比较对象出现的 Unity 渲染管线。",
+      "review": "confirm_loanword"
+    },
+    "render.custom_srp": {
+      "label": "自定义 SRP",
+      "description": "由使用者自行构成的可编程渲染管线。"
+    },
+    "render.blit": {
+      "label": "CommandBuffer.Blit",
+      "description": "与渲染通道说明对照时提到的影像复制与处理 API。",
+      "aliases": [
+        "Blit"
+      ],
+      "review": "confirm_loanword"
+    },
+    "qc.draw_call": {
+      "label": "绘制调用",
+      "description": "把渲染工作提交为绘制命令的单位，或其统计指标。",
+      "aliases": [
+        "Draw Call"
+      ]
+    },
+    "qc.batching": {
+      "label": "合批",
+      "description": "把多次绘制的提交或状态开销合并以降低成本的方式。",
+      "aliases": [
+        "批处理"
+      ]
+    },
+    "qc.overdraw": {
+      "label": "过度绘制",
+      "description": "同一屏幕区域被反复处理的渲染重叠开销视角。",
+      "aliases": [
+        "Overdraw"
+      ]
+    },
+    "qc.shader_complexity": {
+      "label": "着色器复杂度",
+      "description": "着色器在计算、内存访问与分支等方面的开销特性。"
+    },
+    "qc.texture_budget": {
+      "label": "贴图预算",
+      "description": "对贴图分辨率、数量与内存等允许的范围。"
+    },
+    "qc.texture_memory": {
+      "label": "贴图内存",
+      "description": "贴图占用的存储或显存大小。"
+    },
+    "qc.memory_budget": {
+      "label": "内存预算",
+      "description": "对资产、动画片段与渲染资源允许的内存范围。"
+    },
+    "qc.lod": {
+      "label": "LOD",
+      "description": "按条件改变资产细节量的表现策略。",
+      "aliases": [
+        "细节层次"
+      ],
+      "review": "confirm_loanword"
+    },
+    "qc.cpu_cost": {
+      "label": "CPU 开销",
+      "description": "渲染、动画与资产处理等在 CPU 上消耗的成本。"
+    },
+    "qc.gpu_cost": {
+      "label": "GPU 开销",
+      "description": "渲染工作与计算在 GPU 上消耗的成本。"
+    },
+    "qc.platform_budget": {
+      "label": "平台预算",
+      "description": "在目标平台上要维持的性能、内存与显示条件的集合。"
+    },
+    "qc.visual_regression": {
+      "label": "视觉回归",
+      "description": "检查改动前后应当保留的画面特性是否被破坏。"
+    },
+    "qc.consistency": {
+      "label": "一致性",
+      "description": "资产、运动与显示规则彼此相符并得到维持的程度。"
+    },
+    "qc.asset_portfolio_integrity": {
+      "label": "资产集合完整性",
+      "description": "资产集合没有缺漏、风格与规格不一致的条件。"
+    },
+    "qc.atlas_budget": {
+      "label": "图集预算",
+      "description": "对图集数量、分辨率、内存与打包允许的范围。"
+    },
+    "qc.resolution_standard": {
+      "label": "分辨率规范",
+      "description": "按资产类型要维持的源文件与运行时分辨率规则。"
+    },
+    "qc.material_count": {
+      "label": "材质数量",
+      "description": "资产或场景所使用的材质个数。"
+    },
+    "qc.material_slots": {
+      "label": "材质槽",
+      "description": "把材质分配给网格各部分的槽位构成。"
+    },
+    "qc.retarget_qa": {
+      "label": "重定向检查",
+      "description": "重定向后姿势、接触、比例与动作含义是否保留的检查。"
+    },
+    "qc.regression_qa": {
+      "label": "回归检查",
+      "description": "检查改动是否破坏了既有资产的功能与表现。"
+    },
+    "qc.object_statistics": {
+      "label": "对象统计",
+      "description": "确认网格、材质与资产结构数量的报告。"
+    },
+    "pipeline.source_runtime": {
+      "label": "源文件与运行时表现之别",
+      "description": "编辑源文件与引擎运行表现可以不同的区分。"
+    },
+    "pipeline.scene_specification": {
+      "label": "场景规格说明",
+      "description": "结构化描述对象、形体、材质、摄像机与动作的制作输入。"
+    },
+    "pipeline.generation_script": {
+      "label": "生成脚本",
+      "description": "从规格说明生成资产或场景的代码产物。"
+    },
+    "pipeline.headless_render": {
+      "label": "无界面渲染",
+      "description": "不经交互界面生成渲染结果的运行方式。",
+      "aliases": [
+        "Headless 渲染"
+      ]
+    },
+    "pipeline.render_validation": {
+      "label": "渲染验证",
+      "description": "在实际画面上确认生成结果的阶段。"
+    },
+    "pipeline.vision_critique": {
+      "label": "视觉评审",
+      "description": "观察渲染图并评估其与视觉意图差距的工作。"
+    },
+    "pipeline.turntable": {
+      "label": "转盘展示",
+      "description": "从多个方向确认物体的旋转式检查影片。",
+      "aliases": [
+        "Turntable"
+      ]
+    },
+    "pipeline.export": {
+      "label": "导出",
+      "description": "把编辑源文件转换为交付或运行格式。"
+    },
+    "pipeline.fbx": {
+      "label": "FBX",
+      "description": "作为模型与动画交付格式提到的文件类型。",
+      "review": "confirm_loanword"
+    },
+    "pipeline.gltf": {
+      "label": "glTF",
+      "description": "作为模型与材质交付格式提到的文件类型。",
+      "review": "confirm_loanword"
+    },
+    "pipeline.blend_file": {
+      "label": ".blend",
+      "description": "可编辑的 Blender 场景与资产源文件。",
+      "review": "confirm_loanword"
+    },
+    "pipeline.naming": {
+      "label": "命名规范",
+      "description": "一致地标识资产、节点与部件的规则。"
+    },
+    "pipeline.versioning": {
+      "label": "版本管理",
+      "description": "区分资产与规格说明变更状态的体系。"
+    },
+    "pipeline.variant_management": {
+      "label": "变体管理",
+      "description": "一致管理基础资产与颜色、损坏、形态变体的方式。"
+    },
+    "pipeline.reuse": {
+      "label": "复用",
+      "description": "把既有资产、片段、图形与规则用到其他产出上的方式。"
+    },
+    "pipeline.clip_library": {
+      "label": "动画片段库",
+      "description": "可复用动画片段的集合。"
+    },
+    "pipeline.export_automation": {
+      "label": "导出自动化",
+      "description": "按规格把源文件反复转换为运行时资产的工作。"
+    },
+    "pipeline.damage_variant": {
+      "label": "损坏变体",
+      "description": "在基础资产上表现损坏状态的变体。"
+    },
+    "pipeline.color_variant": {
+      "label": "配色变体",
+      "description": "保持基础形体、改变配色构成的资产。"
+    },
+    "pipeline.silhouette_variant": {
+      "label": "剪影变体",
+      "description": "改变基础资产外轮廓的变体。"
+    },
+    "pipeline.icon_variant": {
+      "label": "UI 图标版本",
+      "description": "把原物体转换为小尺寸 UI 显示用的资产。"
+    },
+    "methods.feedback": {
+      "label": "反馈",
+      "description": "记录并修正原作、手绘与引擎结果之间差距的工作。"
+    },
+    "methods.screenshot_audit": {
+      "label": "截图审查",
+      "description": "按各个维度标出成品画面问题的检查。"
+    },
+    "methods.markup": {
+      "label": "批注标记",
+      "description": "在原图上标出问题区域与修改意图的成果。",
+      "aliases": [
+        "标注"
+      ]
+    },
+    "local_meta.operational_surface": {
+      "label": "可操作面",
+      "description": "在本次对话中，指能把视觉意图落到实际操作上的对象、属性与运算层的工作性说法。"
+    },
+    "local_meta.manipulative_vocab": {
+      "label": "操作词汇",
+      "description": "本次请求中用来把 AD/TA 意图传达到工具操作的词汇集合。"
+    },
+    "shape.shape_contrast": {
+      "label": "形状对比",
+      "description": "对象之间因轮廓与体块特性不同而被区分的关系。"
+    },
+    "shape.edge": {
+      "label": "边",
+      "description": "被读作形体划分或表面分节的边界。",
+      "aliases": [
+        "边缘"
+      ]
+    },
+    "shape.swept_back": {
+      "label": "后掠",
+      "description": "无人机例子中机翼向后倾斜延展的形态特征。"
+    }
+  },
+  "review_summary": {
+    "checked_by": "tools/review_locales.py",
+    "needs_confirmation": 25
+  }
+}

@@ -1,0 +1,207 @@
+{
+  "schema_version": "measure.v1",
+  "path": "indexed_alpha.png",
+  "format": "PNG",
+  "mode": "P",
+  "width": 64,
+  "height": 64,
+  "bit_depth": 8,
+  "color_type": "indexed",
+  "sha256": "35dbcda8d3e4f1cfc5b2453b60ae75c941175854effe538bacd44bc4cad826d4",
+  "bytes": 914,
+  "precision": "8bit",
+  "alpha": {
+    "coverage": 0.5625,
+    "binary": true,
+    "partial_ratio": 0.0
+  },
+  "scales": {
+    "native": {
+      "width": 64,
+      "height": 64,
+      "opaque_pixels": 2304,
+      "luminance": {
+        "p10": 0.2616,
+        "p50": 0.2616,
+        "p90": 0.6494,
+        "mean": 0.3585,
+        "rms_contrast": 0.168
+      },
+      "lightness": {
+        "p10": 0.3725,
+        "p50": 0.3725,
+        "p90": 0.5882,
+        "mean": 0.4265
+      },
+      "saturation": {
+        "p10": 0.6842,
+        "p50": 0.6842,
+        "p90": 0.8571,
+        "mean": 0.7274
+      },
+      "chromatic_ratio": 1.0,
+      "hue_bins_30deg": [
+        0.0,
+        0.25,
+        0.0,
+        0.0,
+        0.75,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "palette": [
+        {
+          "rgb": "#1ea05a",
+          "share": 0.75
+        },
+        {
+          "rgb": "#f0d23c",
+          "share": 0.25
+        }
+      ],
+      "edge_density": 0.0083,
+      "silhouette": {
+        "mask_area_ratio": 0.5625,
+        "bbox": [
+          8,
+          8,
+          48,
+          48
+        ],
+        "bbox_fill_ratio": 1.0,
+        "components": 1
+      },
+      "resample": null
+    },
+    "target": {
+      "width": 32,
+      "height": 32,
+      "opaque_pixels": 576,
+      "luminance": {
+        "p10": 0.2616,
+        "p50": 0.2616,
+        "p90": 0.6494,
+        "mean": 0.3585,
+        "rms_contrast": 0.168
+      },
+      "lightness": {
+        "p10": 0.3725,
+        "p50": 0.3725,
+        "p90": 0.5882,
+        "mean": 0.4265
+      },
+      "saturation": {
+        "p10": 0.6842,
+        "p50": 0.6842,
+        "p90": 0.8571,
+        "mean": 0.7274
+      },
+      "chromatic_ratio": 1.0,
+      "hue_bins_30deg": [
+        0.0,
+        0.25,
+        0.0,
+        0.0,
+        0.75,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "palette": [
+        {
+          "rgb": "#1ea05a",
+          "share": 0.75
+        },
+        {
+          "rgb": "#f0d23c",
+          "share": 0.25
+        }
+      ],
+      "edge_density": 0.0169,
+      "silhouette": {
+        "mask_area_ratio": 0.5625,
+        "bbox": [
+          4,
+          4,
+          24,
+          24
+        ],
+        "bbox_fill_ratio": 1.0,
+        "components": 1
+      },
+      "resample": "box",
+      "target_width": 32
+    },
+    "thumbnail": {
+      "width": 64,
+      "height": 64,
+      "opaque_pixels": 2304,
+      "luminance": {
+        "p10": 0.2616,
+        "p50": 0.2616,
+        "p90": 0.6494,
+        "mean": 0.3585,
+        "rms_contrast": 0.168
+      },
+      "lightness": {
+        "p10": 0.3725,
+        "p50": 0.3725,
+        "p90": 0.5882,
+        "mean": 0.4265
+      },
+      "saturation": {
+        "p10": 0.6842,
+        "p50": 0.6842,
+        "p90": 0.8571,
+        "mean": 0.7274
+      },
+      "chromatic_ratio": 1.0,
+      "hue_bins_30deg": [
+        0.0,
+        0.25,
+        0.0,
+        0.0,
+        0.75,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "palette": [
+        {
+          "rgb": "#1ea05a",
+          "share": 0.75
+        },
+        {
+          "rgb": "#f0d23c",
+          "share": 0.25
+        }
+      ],
+      "edge_density": 0.0083,
+      "silhouette": {
+        "mask_area_ratio": 0.5625,
+        "bbox": [
+          8,
+          8,
+          48,
+          48
+        ],
+        "bbox_fill_ratio": 1.0,
+        "components": 1
+      },
+      "resample": null
+    }
+  }
+}

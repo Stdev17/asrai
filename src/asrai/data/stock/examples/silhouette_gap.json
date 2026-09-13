@@ -1,0 +1,80 @@
+{
+  "$schema": "instruction.v2.schema.json",
+  "schema_version": "2.0.0",
+  "id": "example.silhouette_gap",
+  "status": "proposed",
+  "axis": "direction_compliance",
+  "intent": "Check the specified gap between body and wing at a low display resolution.",
+  "target": {
+    "asset_ref": "example://assets/drone-study",
+    "selector": "Drone/BodyWingGap",
+    "selector_language": "illustrative_scene_path"
+  },
+  "context": {
+    "camera_ref": "example://cameras/gameplay",
+    "image_ref": "example://renders/silhouette_pre_fx",
+    "resolution": {
+      "width": 320,
+      "height": 180
+    },
+    "space": "screen_internal",
+    "origin": "top_left",
+    "axes": "x_right_y_down",
+    "time": {
+      "value": 0.8,
+      "unit": "s"
+    },
+    "mask_definition": "binary object-ID silhouette; no bloom or AA",
+    "measurement_scanline_y": 96,
+    "roi": {
+      "x": 138,
+      "y": 96,
+      "width": 44,
+      "height": 1
+    }
+  },
+  "changes": [
+    {
+      "term_id": "shape.notch",
+      "operation": "define_metric",
+      "quantity": {
+        "value": 2,
+        "unit": "px"
+      },
+      "metric": {
+        "id": "gap_px",
+        "definition": "The number of empty pixel columns between the right edge of Body and the left edge of Wing on the y=96 scanline of the ROI. Both edges must be present."
+      },
+      "property_binding": null,
+      "magnitude_basis": "example"
+    }
+  ],
+  "constraints": [
+    {
+      "id": "frame_fixed",
+      "description": "The camera, internal resolution and pose are held; no claim is made to have measured every gap outside the defined ROI."
+    }
+  ],
+  "acceptance": [
+    {
+      "status": "not_evaluated",
+      "kind": "numeric",
+      "metric_id": "gap_px",
+      "operator": "gte",
+      "value": 2,
+      "unit": "px"
+    },
+    {
+      "status": "not_evaluated",
+      "kind": "human",
+      "description": "Check whether that gap actually helps separate the targets. 2px is not a universal readability criterion for every screen."
+    }
+  ],
+  "execution": {
+    "adapter": null,
+    "binding_resolved": false,
+    "authorized": false,
+    "run_ref": null
+  },
+  "note": "The numbers and target names are a serialization example. They are not recommended thresholds, real assets, or verified results."
+}

@@ -1,0 +1,2367 @@
+{
+  "schema_version": "2.0.0",
+  "locale": "ms",
+  "language_label_en": "Malay / Indonesian",
+  "language_label_native": "Bahasa Melayu / Bahasa Indonesia",
+  "base": "vocab.v2.json",
+  "base_entry_count": 475,
+  "spec_language": "en",
+  "translation_basis": "editorial_translation_not_verified_against_localized_industry_corpus",
+  "note_en": "Head-term labels and spoken-form descriptions only. Units, operations, quantification profiles, operational guidance and provenance stay in the English/base bundle and are never duplicated here.",
+  "covers": [
+    "ms",
+    "id"
+  ],
+  "term_count": 475,
+  "terms": {
+    "perception.visual_hierarchy": {
+      "label": "hierarki visual",
+      "description": "Hubungan tingkat kepentingan yang membuat sebahagian elemen layar dibaca lebih dahulu.",
+      "aliases": [
+        "hirarki visual"
+      ]
+    },
+    "perception.readability": {
+      "label": "keterbacaan",
+      "description": "Tahap makna objek atau tindakan dapat dibezakan dalam saiz dan masa yang diperlukan.",
+      "aliases": [
+        "legibilitas"
+      ]
+    },
+    "perception.silhouette_readability": {
+      "label": "keterbacaan siluet",
+      "description": "Tahap objek atau pose terbaca hanya daripada massa luar, tanpa perincian dalaman."
+    },
+    "perception.icon_readability": {
+      "label": "keterbacaan ikon",
+      "description": "Tahap jenis dan fungsi simbol kekal dapat dibezakan pada saiz paparan kecil."
+    },
+    "perception.scale_readability": {
+      "label": "keterbacaan terhadap skala",
+      "description": "Tahap ciri utama bertahan ketika dibesarkan, dikecilkan atau jarak tontonan berubah."
+    },
+    "perception.material_readability": {
+      "label": "keterbacaan material",
+      "description": "Tahap niat material dapat dibezakan hanya daripada petunjuk permukaan."
+    },
+    "perception.affordance": {
+      "label": "affordance",
+      "description": "Istilah tentang apa yang boleh dilakukan pada layar permainan dan cara kemungkinan itu disampaikan.",
+      "review": "confirm_loanword"
+    },
+    "perception.figure_ground": {
+      "label": "figur dan latar",
+      "description": "Hubungan memisahkan kawasan mana yang objek dan mana yang latar."
+    },
+    "perception.attention": {
+      "label": "perhatian",
+      "description": "Fenomena penonton menumpukan sumber pemprosesan pada sebahagian layar."
+    },
+    "perception.visual_saliency": {
+      "label": "kemenonjolan visual",
+      "description": "Sifat menonjol kerana berbeza daripada persekitaran.",
+      "aliases": [
+        "saliensi visual"
+      ]
+    },
+    "perception.preattentive_processing": {
+      "label": "pemprosesan pra-perhatian",
+      "description": "Konsep tentang ciri visual yang terpisah sebelum pencarian sedar terhadap perincian."
+    },
+    "perception.gestalt": {
+      "label": "prinsip Gestalt",
+      "description": "Kumpulan prinsip tentang kecenderungan bahagian tersusun menjadi satu kumpulan atau bentuk."
+    },
+    "perception.perceptual_grouping": {
+      "label": "pengelompokan persepsi",
+      "description": "Hubungan beberapa elemen dibaca sebagai satu kesatuan."
+    },
+    "perception.depth_perception": {
+      "label": "persepsi kedalaman",
+      "description": "Membaca jarak depan-belakang dan hubungan ruang daripada imej rata."
+    },
+    "perception.visual_cognition": {
+      "label": "kognisi visual",
+      "description": "Proses mentafsir maklumat visual sebagai objek, hubungan dan makna."
+    },
+    "perception.contextual_perception": {
+      "label": "persepsi kontekstual",
+      "description": "Sifat objek yang sama terbaca berbeza mengikut persekitaran dan keadaan."
+    },
+    "perception.semiotics": {
+      "label": "semiotik",
+      "description": "Hubungan bentuk, warna dan tanda membawa makna tertentu."
+    },
+    "perception.style_coherence": {
+      "label": "kepaduan gaya",
+      "description": "Tahap aset dan kesan kelihatan selaras dengan peraturan visual yang dikongsi."
+    },
+    "perception.gameplay_clarity": {
+      "label": "kejelasan gameplay",
+      "description": "Tahap objek, peristiwa dan tindakan yang diperlukan untuk bermain disampaikan secara visual."
+    },
+    "perception.visual_clutter": {
+      "label": "kesesakan visual",
+      "description": "Keadaan elemen yang bersaing menenggelamkan maklumat yang diperlukan."
+    },
+    "perception.visual_weight": {
+      "label": "berat visual",
+      "description": "Rasa berat relatif yang terhasil daripada saiz, kedudukan, warna dan kontras."
+    },
+    "perception.visual_intent": {
+      "label": "niat visual",
+      "description": "Peranan, emosi atau maklumat yang ingin disampaikan pada layar melalui manipulasi."
+    },
+    "perception.spectacle": {
+      "label": "tontonan besar",
+      "description": "Matlamat ekspresif menarik pandangan dengan skala, rangsangan atau perubahan kuat."
+    },
+    "composition.composition": {
+      "label": "komposisi",
+      "description": "Hubungan tersusun antara elemen dan ruang kosong dalam bingkai."
+    },
+    "composition.balance": {
+      "label": "keseimbangan",
+      "description": "Tahap berat visual bingkai kekal stabil atau condong secara sengaja."
+    },
+    "composition.focal_point": {
+      "label": "titik fokus",
+      "description": "Titik atau objek yang dirancang dibaca pertama dalam bingkai."
+    },
+    "composition.staging": {
+      "label": "penataan adegan",
+      "description": "Menyusun watak, prop dan kamera supaya tindakan dan hubungan terbaca jelas."
+    },
+    "composition.framing": {
+      "label": "pembingkaian",
+      "description": "Menentukan apa yang masuk dan apa yang ditinggalkan oleh bingkai kamera."
+    },
+    "composition.positive_space": {
+      "label": "ruang positif",
+      "description": "Kawasan layar yang diisi oleh bentuk objek."
+    },
+    "composition.negative_space": {
+      "label": "ruang negatif",
+      "description": "Kawasan yang terbaca kosong di sekeliling atau antara objek."
+    },
+    "composition.overlap": {
+      "label": "pertindihan",
+      "description": "Hubungan kawasan dua objek bertindih dalam unjuran layar."
+    },
+    "composition.foreground": {
+      "label": "latar depan",
+      "description": "Lapisan layar yang terbaca paling dekat dengan sudut pandang."
+    },
+    "composition.midground": {
+      "label": "latar tengah",
+      "description": "Lapisan antara latar depan dan latar belakang yang menghubungkan tindakan atau ruang."
+    },
+    "composition.background": {
+      "label": "latar belakang",
+      "description": "Lapisan layar yang mengelilingi objek utama atau terbaca di belakangnya."
+    },
+    "composition.line_direction": {
+      "label": "arah garis",
+      "description": "Kesan arah yang dibentuk oleh tepi dan susunan dalam bingkai."
+    },
+    "composition.rhythm": {
+      "label": "irama",
+      "description": "Corak yang terbentuk daripada pengulangan, jarak dan tekanan elemen atau peristiwa."
+    },
+    "composition.affinity": {
+      "label": "keserupaan",
+      "description": "Hubungan warna, nilai, bentuk atau gerak disusun saling menyerupai.",
+      "aliases": [
+        "afinitas"
+      ]
+    },
+    "composition.contrast_structure": {
+      "label": "kontras",
+      "description": "Hubungan dua elemen atau kumpulan terbeza kerana ciri visualnya berlainan."
+    },
+    "composition.visual_progression": {
+      "label": "progresi visual",
+      "description": "Struktur ciri visual berubah berperingkat mengikut masa atau urutan adegan."
+    },
+    "composition.visual_component": {
+      "label": "komponen visual",
+      "description": "Sudut pandang yang menganalisis bingkai sebagai ruang, garis, bentuk, nilai, warna, gerak dan irama."
+    },
+    "composition.screen_direction": {
+      "label": "arah dalam layar",
+      "description": "Arah objek menghadap atau bergerak di dalam bingkai."
+    },
+    "composition.screen_occupancy": {
+      "label": "penguasaan layar",
+      "description": "Seberapa besar bahagian bingkai yang diisi objek."
+    },
+    "composition.reveal": {
+      "label": "pendedahan",
+      "description": "Penataan yang menunjukkan maklumat tersembunyi atau belum diketahui mengikut urutan yang dirancang."
+    },
+    "composition.continuity": {
+      "label": "kesinambungan visual",
+      "description": "Tahap ruang, tindakan dan hubungan visual masih terbaca bersambung antara potongan atau perubahan keadaan."
+    },
+    "composition.tension_release": {
+      "label": "ketegangan dan pelepasan",
+      "description": "Penataan yang menyusun tekanan dan kelegaan peristiwa dari segi masa."
+    },
+    "composition.storytelling": {
+      "label": "penceritaan visual",
+      "description": "Matlamat menyampaikan peristiwa dan hubungan melalui bentuk, susunan dan perubahan masa."
+    },
+    "composition.storyboard": {
+      "label": "papan cerita",
+      "description": "Rangkaian lukisan yang menyatakan peristiwa terlebih dahulu sebagai imej utama.",
+      "aliases": [
+        "storyboard"
+      ]
+    },
+    "composition.previs": {
+      "label": "previs",
+      "description": "Pravisualisasi yang menjalankan papan cerita dan penataan dengan aset ringkas.",
+      "aliases": [
+        "pravisualisasi"
+      ],
+      "review": "confirm_loanword"
+    },
+    "composition.localization_safe": {
+      "label": "komposisi tahan penyetempatan",
+      "description": "Susunan yang mengekalkan fungsi dan hierarki apabila bahasa dan kandungan paparan berubah."
+    },
+    "shape.shape": {
+      "label": "bentuk",
+      "description": "Rupa yang terbaca sebagai kawasan dan garis luar pada layar atau satah."
+    },
+    "shape.form": {
+      "label": "bentuk berisi",
+      "description": "Bentuk objek yang difahami mempunyai isi padu dan satah berarah.",
+      "aliases": [
+        "volume"
+      ]
+    },
+    "shape.silhouette": {
+      "label": "siluet",
+      "description": "Garis luar unjuran dan massa yang tinggal apabila perincian dalaman dibuang."
+    },
+    "shape.contour": {
+      "label": "kontur",
+      "description": "Sempadan luar sesuatu bentuk, atau garis yang menyatakannya."
+    },
+    "shape.outer_contour": {
+      "label": "kontur luar",
+      "description": "Sempadan luar yang memisahkan objek daripada latar."
+    },
+    "shape.edge_control": {
+      "label": "kawalan tepi",
+      "description": "Mengawal sama ada sempadan terbaca tajam, lembut, bersambung atau hilang."
+    },
+    "shape.proportion": {
+      "label": "perkadaran",
+      "description": "Hubungan saiz antara bahagian, atau antara bahagian dan keseluruhan.",
+      "aliases": [
+        "proporsi"
+      ]
+    },
+    "shape.shape_language": {
+      "label": "bahasa bentuk",
+      "description": "Peraturan yang menyampaikan peranan, watak atau gaya melalui ciri bentuk berulang."
+    },
+    "shape.mass": {
+      "label": "massa",
+      "description": "Rasa isi padu atau gumpalan visual apabila objek dibaca sebagai satu kumpulan besar."
+    },
+    "shape.primary_form": {
+      "label": "bentuk utama",
+      "description": "Bentuk besar yang menguasai identiti keseluruhan dan siluet."
+    },
+    "shape.secondary_form": {
+      "label": "bentuk sekunder",
+      "description": "Bentuk berskala sederhana pada bentuk utama yang menjadikan fungsi dan sendi terbaca."
+    },
+    "shape.tertiary_detail": {
+      "label": "perincian tertier",
+      "description": "Lapisan perincian lebih kecil daripada bentuk besar, seperti garis panel dan tonjolan halus."
+    },
+    "shape.shape_hierarchy": {
+      "label": "hierarki bentuk",
+      "description": "Peranan dan keutamaan yang dipegang oleh bentuk besar, sederhana dan kecil."
+    },
+    "shape.plane": {
+      "label": "satah",
+      "description": "Kawasan permukaan yang arahnya agak tetap ketika isi padu dipermudah."
+    },
+    "shape.planar_break": {
+      "label": "patahan satah",
+      "description": "Tempat arah satah berubah dan menyendikan bentuk."
+    },
+    "shape.planar_transition": {
+      "label": "peralihan satah",
+      "description": "Perubahan bentuk yang membawa dari satu satah atau massa ke yang lain."
+    },
+    "shape.primitive_decomposition": {
+      "label": "penguraian kepada primitif",
+      "description": "Memecah objek rumit menjadi kotak, silinder dan baji ringkas."
+    },
+    "shape.primitive_massing": {
+      "label": "pembentukan massa primitif",
+      "description": "Peringkat membina isi padu dan perkadaran keseluruhan daripada primitif, tanpa perincian."
+    },
+    "shape.blockout": {
+      "label": "blockout",
+      "description": "Draf yang membina ruang atau objek dengan bentuk ringkas, bukan aset akhir.",
+      "review": "confirm_loanword"
+    },
+    "shape.box": {
+      "label": "kotak",
+      "description": "Massa berbentuk kotak yang dibina daripada satah lurus."
+    },
+    "shape.sphere": {
+      "label": "sfera",
+      "description": "Primitif berbentuk bola untuk menguji bentuk melengkung, pencahayaan dan material.",
+      "aliases": [
+        "bola"
+      ]
+    },
+    "shape.cylinder": {
+      "label": "silinder",
+      "description": "Primitif yang keratan bulatnya memanjang sepanjang badan."
+    },
+    "shape.wedge": {
+      "label": "baji",
+      "description": "Massa yang mencipta arah dan perubahan ketebalan melalui satah condong."
+    },
+    "shape.capsule": {
+      "label": "bentuk kapsul",
+      "description": "Badan memanjang berhujung bulat, seperti dalam contoh dron."
+    },
+    "shape.trapezoid": {
+      "label": "trapezium",
+      "description": "Bentuk rata dengan sisi selari yang panjangnya berbeza."
+    },
+    "shape.ellipse": {
+      "label": "elips",
+      "description": "Elips untuk keratan bulat yang diunjur atau untuk reka bentuk rata."
+    },
+    "shape.circle": {
+      "label": "bulatan",
+      "description": "Elemen bulat pada satah.",
+      "aliases": [
+        "lingkaran"
+      ]
+    },
+    "shape.triangle": {
+      "label": "segi tiga",
+      "description": "Bentuk rata yang terbaca melalui tiga sisinya."
+    },
+    "shape.rectangle": {
+      "label": "segi empat tepat",
+      "description": "Bentuk segi empat untuk susunan dan pembinaan massa.",
+      "aliases": [
+        "persegi panjang"
+      ]
+    },
+    "shape.notch": {
+      "label": "takik ruang negatif",
+      "description": "Celah masuk yang memisahkan siluet antara massa bersebelahan."
+    },
+    "shape.panel_line": {
+      "label": "garis panel",
+      "description": "Garis dalaman yang menyendikan permukaan tanpa mengubah garis luar."
+    },
+    "shape.contour_economy": {
+      "label": "jimat kontur",
+      "description": "Sifat menyampaikan ciri yang perlu dengan sedikit perubahan sempadan."
+    },
+    "shape.modular_construction": {
+      "label": "binaan modular",
+      "description": "Membina aset dengan menggabungkan bahagian yang boleh diguna semula."
+    },
+    "shape.anatomy": {
+      "label": "anatomi",
+      "description": "Pengetahuan struktur tubuh manusia dan apa yang menyokong geraknya."
+    },
+    "shape.ribcage": {
+      "label": "sangkar rusuk",
+      "description": "Massa yang mewakili badan atas dalam binaan figur yang dipermudah."
+    },
+    "shape.pelvis": {
+      "label": "pelvis",
+      "description": "Massa yang mewakili badan bawah dalam binaan figur yang dipermudah.",
+      "aliases": [
+        "panggul"
+      ],
+      "review": "confirm_loanword"
+    },
+    "shape.mannequin": {
+      "label": "manekin",
+      "description": "Penyataan pose yang menambah isi padu asas pada figur lidi."
+    },
+    "space.position": {
+      "label": "kedudukan",
+      "description": "Tempat objek berada dalam sistem koordinat yang dipilih.",
+      "aliases": [
+        "posisi"
+      ]
+    },
+    "space.rotation": {
+      "label": "putaran",
+      "description": "Perubahan arah hadap objek atau paksi rujukan.",
+      "aliases": [
+        "rotasi"
+      ]
+    },
+    "space.scale": {
+      "label": "skala",
+      "description": "Transformasi yang mengubah saiz objek pada setiap paksi secara pendaraban."
+    },
+    "space.transform": {
+      "label": "transformasi",
+      "description": "Penyataan yang menghimpun kedudukan, putaran, skala dan transformasi ruang lain."
+    },
+    "space.affine": {
+      "label": "transformasi afin",
+      "description": "Transformasi linear digabung translasi yang mengekalkan hubungan selari."
+    },
+    "space.projection": {
+      "label": "unjuran",
+      "description": "Transformasi yang memetakan kedudukan 3D kepada kedudukan pada imej kamera.",
+      "aliases": [
+        "proyeksi"
+      ]
+    },
+    "space.object_space": {
+      "label": "ruang objek",
+      "description": "Ruang yang menyatakan kedudukan melalui paksi dan asalan objek itu sendiri.",
+      "aliases": [
+        "ruang lokal"
+      ]
+    },
+    "space.world_space": {
+      "label": "ruang dunia",
+      "description": "Ruang yang menyatakan kedudukan dan arah melalui rujukan sepunya adegan."
+    },
+    "space.view_space": {
+      "label": "ruang pandangan",
+      "description": "Ruang yang menyatakan kedudukan dan arah berbanding kamera."
+    },
+    "space.clip_space": {
+      "label": "ruang keratan",
+      "description": "Ruang koordinat homogen untuk unjuran dan pengeratan."
+    },
+    "space.screen_space": {
+      "label": "ruang layar",
+      "description": "Ruang yang menyatakan objek melalui kedudukan pada imej keluaran."
+    },
+    "space.depth": {
+      "label": "kedalaman",
+      "description": "Susunan depan-belakang, atau kedalaman berbanding kamera."
+    },
+    "space.depth_cue": {
+      "label": "petunjuk kedalaman",
+      "description": "Petunjuk visual seperti pertindihan, perspektif atau cahaya yang menjadikan kedalaman terbaca."
+    },
+    "space.foreshortening": {
+      "label": "pemendekan perspektif",
+      "description": "Kesan sebahagian objek terunjur lebih pendek mengikut arah pandangan."
+    },
+    "space.perspective_grid": {
+      "label": "grid perspektif",
+      "description": "Struktur garis panduan untuk menjaga hubungan perspektif kekal selaras."
+    },
+    "space.axis": {
+      "label": "paksi",
+      "description": "Arah rujukan yang digunakan untuk membaca transformasi dan arah hadap.",
+      "aliases": [
+        "sumbu"
+      ]
+    },
+    "space.origin": {
+      "label": "asalan",
+      "description": "Titik yang menambat kedudukan dan transformasi objek.",
+      "aliases": [
+        "titik asal"
+      ]
+    },
+    "space.pivot": {
+      "label": "pangsi",
+      "description": "Titik rujukan untuk putaran, skala dan peletakan.",
+      "aliases": [
+        "pivot"
+      ]
+    },
+    "space.parent_child_transform": {
+      "label": "transformasi induk-anak",
+      "description": "Hubungan transformasi objek anak mengikut transformasi induknya."
+    },
+    "space.size": {
+      "label": "saiz",
+      "description": "Penyataan umum panjang, lebar dan tinggi objek atau saiznya pada layar.",
+      "aliases": [
+        "ukuran"
+      ]
+    },
+    "space.direction": {
+      "label": "arah",
+      "description": "Arah objek menghadap, memanjang atau bergerak."
+    },
+    "camera.camera": {
+      "label": "kamera",
+      "description": "Komponen yang menentukan dari sudut pandang dan unjuran apa adegan diperhatikan."
+    },
+    "camera.camera_position": {
+      "label": "kedudukan kamera",
+      "description": "Tempat kamera berada dalam adegan."
+    },
+    "camera.camera_angle": {
+      "label": "sudut kamera",
+      "description": "Arah hadap dan sudut pandang kamera terhadap objek."
+    },
+    "camera.camera_distance": {
+      "label": "jarak kamera",
+      "description": "Jarak antara kamera dan objek atau titik rujukan yang dinamakan."
+    },
+    "camera.fov": {
+      "label": "medan pandangan",
+      "description": "Julat sudut yang dirangkum kamera.",
+      "aliases": [
+        "FOV",
+        "sudut pandang"
+      ]
+    },
+    "camera.perspective": {
+      "label": "perspektif",
+      "description": "Mod kamera yang saiz unjurannya berubah mengikut jarak."
+    },
+    "camera.orthographic": {
+      "label": "ortografik",
+      "description": "Unjuran selari tanpa pengecilan saiz akibat kedalaman."
+    },
+    "camera.frustum": {
+      "label": "frustum",
+      "description": "Isi padu pandangan yang digunakan kamera untuk pengeratan dan penentuan kelihatan.",
+      "review": "confirm_loanword"
+    },
+    "camera.near_far": {
+      "label": "satah dekat dan jauh",
+      "description": "Julat jarak yang dikendalikan kamera di hadapan dan di belakang."
+    },
+    "camera.shot_size": {
+      "label": "saiz syot",
+      "description": "Pembahagian syot mengikut sejauh mana objek kelihatan dalam bingkai."
+    },
+    "camera.wide_shot": {
+      "label": "syot lebar",
+      "description": "Susunan layar yang merangkum ruang dan hubungan di sekeliling objek.",
+      "aliases": [
+        "syot jauh"
+      ]
+    },
+    "camera.close_shot": {
+      "label": "syot dekat",
+      "description": "Susunan layar yang menunjukkan objek atau bahagiannya secara besar.",
+      "aliases": [
+        "close-up"
+      ]
+    },
+    "camera.low_angle": {
+      "label": "sudut rendah",
+      "description": "Susunan yang memandang objek dari sudut pandang yang agak rendah."
+    },
+    "camera.front_view": {
+      "label": "pandangan depan",
+      "description": "Sudut pandang pemeriksaan dari hadapan objek."
+    },
+    "camera.side_view": {
+      "label": "pandangan sisi",
+      "description": "Sudut pandang pemeriksaan dari sisi objek."
+    },
+    "camera.three_quarter": {
+      "label": "pandangan tiga suku",
+      "description": "Sudut pandang serong yang menunjukkan depan dan sisi sekali gus."
+    },
+    "value.value": {
+      "label": "nilai terang gelap",
+      "description": "Paksi seni yang menyusun hubungan terang dan gelap.",
+      "aliases": [
+        "value"
+      ]
+    },
+    "value.tone": {
+      "label": "tona",
+      "description": "Dalam perbualan ini terutamanya struktur terang gelap pada bingkai."
+    },
+    "value.value_grouping": {
+      "label": "pengelompokan nilai",
+      "description": "Menyusun bingkai dengan mengikat perincian ke dalam kumpulan terang gelap yang besar."
+    },
+    "value.three_value": {
+      "label": "kajian tiga nilai",
+      "description": "Latihan yang memudahkan bingkai kepada tiga nilai seperti hitam, kelabu dan putih."
+    },
+    "value.grayscale": {
+      "label": "skala kelabu",
+      "description": "Penyataan yang membuang perbezaan rona dan menunjukkan komponen terang gelap."
+    },
+    "value.value_contrast": {
+      "label": "kontras nilai",
+      "description": "Perbezaan terang dan gelap antara objek."
+    },
+    "value.tone_affinity": {
+      "label": "keserupaan tona",
+      "description": "Keadaan hubungan terang gelap objek atau kawasan berkumpul kerana serupa."
+    },
+    "value.contrast_hierarchy": {
+      "label": "hierarki kontras",
+      "description": "Struktur yang menentukan kontras mana dalam bingkai didahulukan."
+    },
+    "value.highlight": {
+      "label": "sorotan cahaya",
+      "description": "Kawasan terang yang terhasil daripada tindak balas cahaya atau pilihan gaya.",
+      "aliases": [
+        "highlight"
+      ]
+    },
+    "value.shadow": {
+      "label": "bayang",
+      "description": "Kawasan yang menerima kurang cahaya atau diikat gelap secara ekspresif."
+    },
+    "lighting.lighting": {
+      "label": "pencahayaan",
+      "description": "Susunan yang membina bentuk dan suasana layar daripada sumber cahaya dan persekitaran."
+    },
+    "lighting.light": {
+      "label": "cahaya",
+      "description": "Cahaya, atau sumber cahaya enjin, yang menyumbang kepada pencahayaan objek dan ruang."
+    },
+    "lighting.light_direction": {
+      "label": "arah cahaya",
+      "description": "Arah cahaya bergerak atau arah cahaya mengenai permukaan."
+    },
+    "lighting.intensity": {
+      "label": "keamatan",
+      "description": "Nilai yang mengawal kekuatan keluaran sumber cahaya.",
+      "aliases": [
+        "intensitas"
+      ]
+    },
+    "lighting.directional_light": {
+      "label": "cahaya berarah",
+      "description": "Jenis sumber cahaya enjin yang sifat utamanya ialah arah."
+    },
+    "lighting.form_shadow": {
+      "label": "bayang bentuk",
+      "description": "Bahagian gelap pada objek sendiri kerana arah permukaan menerima kurang cahaya terus."
+    },
+    "lighting.cast_shadow": {
+      "label": "bayang lakuran",
+      "description": "Bayang pada permukaan lain kerana objek menghalang cahaya.",
+      "aliases": [
+        "bayangan jatuh"
+      ]
+    },
+    "lighting.terminator": {
+      "label": "sempadan terang gelap",
+      "description": "Sempadan pada bentuk antara sisi yang menerima cahaya terus dan yang tidak.",
+      "aliases": [
+        "terminator"
+      ]
+    },
+    "lighting.ambient": {
+      "label": "cahaya ambien",
+      "description": "Istilah bagi sumbangan cahaya persekitaran di luar sumber terus individu.",
+      "aliases": [
+        "cahaya sekitar"
+      ]
+    },
+    "lighting.bounce": {
+      "label": "cahaya pantulan",
+      "description": "Sumbangan cahaya tidak langsung yang tiba selepas memantul pada permukaan lain."
+    },
+    "lighting.backlight": {
+      "label": "cahaya belakang",
+      "description": "Susunan pencahayaan yang datang dari belakang objek berbanding kamera.",
+      "aliases": [
+        "lawan cahaya"
+      ]
+    },
+    "lighting.lambert": {
+      "label": "Lambert",
+      "description": "Model resap ringkas yang menggunakan hubungan arah permukaan dan arah tuju cahaya.",
+      "review": "confirm_loanword"
+    },
+    "lighting.ndotl": {
+      "label": "N·L",
+      "description": "Nilai yang menyatakan arah permukaan sebagai hasil darab titik normal dan arah cahaya.",
+      "review": "confirm_loanword"
+    },
+    "lighting.fake_lighting": {
+      "label": "pencahayaan palsu",
+      "description": "Pencahayaan yang ditambah demi keterbacaan dan niat, bukan demi ketekalan fizikal."
+    },
+    "lighting.secondary_lighting": {
+      "label": "pencahayaan sekunder",
+      "description": "Peringkat projek yang menambah tona atau tindak balas cahaya tambahan pada objek berpiksel."
+    },
+    "lighting.radiometry": {
+      "label": "radiometri",
+      "description": "Konsep asas yang mengendalikan pemindahan tenaga cahaya secara berangka."
+    },
+    "lighting.light_transport": {
+      "label": "pengangkutan cahaya",
+      "description": "Proses cahaya dipindahkan antara sumber, permukaan dan medium."
+    },
+    "color.color": {
+      "label": "warna",
+      "description": "Komponen warna dan hubungan persepsi permukaan, cahaya dan imej."
+    },
+    "color.hue": {
+      "label": "rona",
+      "description": "Paksi model warna yang memisahkan warna kepada merah, kuning, hijau dan seterusnya."
+    },
+    "color.saturation": {
+      "label": "ketepuan",
+      "description": "Paksi yang mengawal jarak warna daripada neutral dalam model atau alat yang dipilih.",
+      "aliases": [
+        "saturasi"
+      ]
+    },
+    "color.warm_cool": {
+      "label": "hubungan panas sejuk",
+      "description": "Hubungan warna terbaca relatif panas atau sejuk."
+    },
+    "color.simultaneous_contrast": {
+      "label": "kontras serentak",
+      "description": "Kesan warna yang sama terbaca berbeza kerana warna atau nilai di sekelilingnya."
+    },
+    "color.palette": {
+      "label": "palet",
+      "description": "Himpunan warna yang digunakan pada sesuatu imej atau kumpulan aset."
+    },
+    "color.palette_hierarchy": {
+      "label": "hierarki palet",
+      "description": "Keutamaan dalam himpunan warna antara warna utama, sokongan dan penegas."
+    },
+    "color.palette_discipline": {
+      "label": "disiplin palet",
+      "description": "Peraturan yang mengekalkan hubungan warna yang dibenarkan dan bilangan warna secara konsisten."
+    },
+    "color.local_color": {
+      "label": "warna asal",
+      "description": "Warna objek itu sendiri, dinyatakan berasingan daripada kesan pencahayaan.",
+      "aliases": [
+        "warna lokal"
+      ]
+    },
+    "color.light_color": {
+      "label": "warna cahaya",
+      "description": "Susunan warna pada cahaya."
+    },
+    "color.surrounding_color": {
+      "label": "warna sekeliling",
+      "description": "Warna yang diletak di sekitar objek dan mempengaruhi persepsinya."
+    },
+    "color.perceived_color": {
+      "label": "warna terpersepsi",
+      "description": "Warna yang dibaca seseorang dalam konteks akhir dan keadaan tontonan."
+    },
+    "color.color_temperature": {
+      "label": "suhu warna",
+      "description": "Istilah yang mengendalikan warna cahaya atau imbangan putih ke arah panas sejuk."
+    },
+    "color.tint": {
+      "label": "condongan warna",
+      "description": "Manipulasi yang mencondongkan warna ke satu arah atau mengenakan penapis warna.",
+      "aliases": [
+        "tint"
+      ]
+    },
+    "color.vibrance": {
+      "label": "ketajaman warna terpilih",
+      "description": "Kawalan khusus alat yang membetulkan kekuatan warna secara terpilih.",
+      "aliases": [
+        "vibrance"
+      ]
+    },
+    "color.gamma": {
+      "label": "lengkung gama",
+      "description": "Istilah bagi lengkung pindahan nilai tak linear atau kawalan gama sesuatu alat."
+    },
+    "color.exposure": {
+      "label": "dedahan",
+      "description": "Nilai yang melaraskan kecerahan imej atau isyarat cahaya dari sudut dedahan.",
+      "aliases": [
+        "eksposur"
+      ]
+    },
+    "color.srgb": {
+      "label": "sRGB",
+      "description": "Sistem pengekodan warna RGB yang muncul ketika mengendalikan warna tekstur dan paparan.",
+      "review": "confirm_loanword"
+    },
+    "color.linear": {
+      "label": "warna linear",
+      "description": "Penyataan yang melakukan pengiraan warna dalam nilai berkadar dengan kuantiti cahaya."
+    },
+    "color.lut": {
+      "label": "LUT",
+      "description": "Jadual prakiraan yang memetakan warna masukan kepada warna keluaran.",
+      "aliases": [
+        "jadual rujukan"
+      ],
+      "review": "confirm_loanword"
+    },
+    "color.color_grading": {
+      "label": "penggredan warna",
+      "description": "Mengubah hubungan warna dan terang gelap layar akhir mengikut niat.",
+      "aliases": [
+        "color grading"
+      ]
+    },
+    "color.tone_mapping": {
+      "label": "pemetaan tona",
+      "description": "Peringkat yang memetakan julat isyarat luas kepada penyataan yang boleh dikeluarkan."
+    },
+    "color.color_contrast": {
+      "label": "kontras warna",
+      "description": "Hubungan dua kawasan terbaca berbeza dari segi warna."
+    },
+    "color.color_affinity": {
+      "label": "keserupaan warna",
+      "description": "Hubungan warna beberapa elemen berkumpul dan terbaca serupa."
+    },
+    "color.complementary_scheme": {
+      "label": "skema warna pelengkap",
+      "description": "Susunan warna yang menggunakan hubungan bertentangan pada roda warna."
+    },
+    "material.surface": {
+      "label": "permukaan",
+      "description": "Sempadan tempat bentuk bertindak balas terhadap cahaya dan tekstur, atau penyataannya."
+    },
+    "material.material": {
+      "label": "material",
+      "description": "Himpunan tindak balas permukaan bersama tekstur dan parameter berkaitan.",
+      "aliases": [
+        "bahan"
+      ],
+      "review": "confirm_loanword"
+    },
+    "material.surface_response": {
+      "label": "tindak balas permukaan",
+      "description": "Cara permukaan bertindak balas terhadap perubahan cahaya dan sudut pandang."
+    },
+    "material.material_cue": {
+      "label": "petunjuk material",
+      "description": "Petunjuk sorotan, warna atau corak permukaan yang menjadikan sesuatu terbaca sebagai logam, getah dan sebagainya."
+    },
+    "material.pbr": {
+      "label": "PBR",
+      "description": "Pendekatan material dan pelorekan yang menggunakan prinsip tindak balas permukaan fizikal.",
+      "review": "confirm_loanword"
+    },
+    "material.brdf": {
+      "label": "BRDF",
+      "description": "Fungsi yang menyatakan pantulan permukaan mengikut arah masuk dan keluar.",
+      "review": "confirm_loanword"
+    },
+    "material.bsdf": {
+      "label": "BSDF",
+      "description": "Kategori fungsi yang menyatakan tindak balas serakan permukaan, termasuk pantulan dan penghantaran.",
+      "review": "confirm_loanword"
+    },
+    "material.base_color": {
+      "label": "warna asas",
+      "description": "Nilai yang digunakan sebagai masukan warna asas bagi pencahayaan dalam aliran kerja material.",
+      "aliases": [
+        "albedo"
+      ]
+    },
+    "material.metallic": {
+      "label": "kelogaman",
+      "description": "Masukan sifat permukaan bagi aliran kerja logam / bukan logam.",
+      "aliases": [
+        "metallic"
+      ]
+    },
+    "material.roughness": {
+      "label": "kekasaran",
+      "description": "Masukan yang mengawal penyebaran taburan pantulan akibat struktur mikro permukaan."
+    },
+    "material.smoothness": {
+      "label": "kelicinan",
+      "description": "Masukan khusus alat yang melaraskan ketajaman tindak balas pantulan.",
+      "aliases": [
+        "smoothness"
+      ]
+    },
+    "material.ao": {
+      "label": "oklusi ambien",
+      "description": "Nilai atau peta yang menyatakan petunjuk kegelapan akibat lindungan setempat.",
+      "aliases": [
+        "AO"
+      ]
+    },
+    "material.emission": {
+      "label": "pancaran",
+      "description": "Isyarat material yang ditambah supaya permukaan terbaca terang dengan sendirinya.",
+      "aliases": [
+        "emisi"
+      ]
+    },
+    "material.normal_map": {
+      "label": "peta normal",
+      "description": "Penyataan yang menyampaikan perubahan arah permukaan melalui tekstur."
+    },
+    "material.curvature": {
+      "label": "kelengkungan",
+      "description": "Sejauh mana permukaan melengkung atau mematah, atau penyataan yang menyimpan maklumat itu."
+    },
+    "material.mesh_maps": {
+      "label": "peta daripada mesh",
+      "description": "Himpunan peta bantuan yang dibakar daripada mesh untuk membuat material."
+    },
+    "material.material_layers": {
+      "label": "lapisan material",
+      "description": "Lapisan yang menggabungkan beberapa kesan material melalui urutan dan topeng."
+    },
+    "material.mask_generator": {
+      "label": "topeng dan penjana",
+      "description": "Susunan yang menjana kawasan kesan material daripada syarat atau peta."
+    },
+    "material.metal_rough_workflow": {
+      "label": "aliran kerja logam-kekasaran",
+      "description": "Aliran kerja yang menyusun masukan permukaan berpaksikan kelogaman dan kekasaran."
+    },
+    "material.spec_gloss_workflow": {
+      "label": "aliran kerja spekular-kilat",
+      "description": "Aliran kerja yang menyusun permukaan daripada masukan warna spekular dan kilat."
+    },
+    "material.plastic": {
+      "label": "plastik",
+      "description": "Kesan permukaan plastik yang dijadikan perbandingan dalam latihan."
+    },
+    "material.metal": {
+      "label": "logam",
+      "description": "Kesan permukaan logam yang dijadikan perbandingan dalam latihan."
+    },
+    "material.rubber": {
+      "label": "getah",
+      "description": "Kesan permukaan getah yang dijadikan perbandingan dalam latihan.",
+      "aliases": [
+        "karet"
+      ]
+    },
+    "material.glass": {
+      "label": "kaca",
+      "description": "Matlamat permukaan kaca yang terbaca melalui petunjuk lut sinar dan pantulan."
+    },
+    "material.painted_metal": {
+      "label": "logam bercat",
+      "description": "Matlamat permukaan yang mempunyai perbezaan antara asas logam dan lapisan cat."
+    },
+    "geometry.geometry": {
+      "label": "geometri",
+      "description": "Bentuk yang dinyatakan sebagai titik, garis, permukaan dan isi padu dalam ruang."
+    },
+    "geometry.mesh": {
+      "label": "mesh",
+      "description": "Struktur yang menyatakan permukaan melalui bucu dan sambungannya.",
+      "aliases": [
+        "jejaring"
+      ],
+      "review": "confirm_loanword"
+    },
+    "geometry.topology": {
+      "label": "topologi",
+      "description": "Struktur sambungan elemen mesh."
+    },
+    "geometry.edge_flow": {
+      "label": "aliran tepi",
+      "description": "Corak tepi bersambung mengikut bentuk dan arah ubah bentuk.",
+      "aliases": [
+        "edge flow"
+      ]
+    },
+    "geometry.pole": {
+      "label": "kutub",
+      "description": "Istilah bagi bucu yang bilangan tepinya berbeza daripada sambungan sekitarnya yang sekata."
+    },
+    "geometry.manifold": {
+      "label": "manifold",
+      "description": "Syarat sambungan di sekeliling mesh membentuk permukaan yang konsisten.",
+      "review": "confirm_loanword"
+    },
+    "geometry.normal": {
+      "label": "normal",
+      "description": "Vektor yang menyatakan arah permukaan.",
+      "review": "confirm_loanword"
+    },
+    "geometry.tangent": {
+      "label": "tangen",
+      "description": "Tangen yang membina rangka pelorekan mengikut arah permukaan atau UV."
+    },
+    "geometry.smoothing": {
+      "label": "pelicinan",
+      "description": "Menetapkan tindak balas normal supaya muka bersebelahan terbaca bersambung.",
+      "aliases": [
+        "smoothing"
+      ]
+    },
+    "geometry.normal_interpolation": {
+      "label": "interpolasi normal",
+      "description": "Proses membawa maklumat normal merentasi permukaan untuk pelorekan."
+    },
+    "geometry.hard_edge": {
+      "label": "tepi tajam",
+      "description": "Sempadan yang diproses supaya perubahan arah muka bersebelahan terbaca jelas dalam pelorekan."
+    },
+    "geometry.soft_edge": {
+      "label": "tepi lembut",
+      "description": "Sempadan mesh yang diproses supaya pelorekan bersambung agak lembut."
+    },
+    "geometry.bevel": {
+      "label": "serong tepi",
+      "description": "Operasi yang memotong bucu tajam menjadi muka kecil atau permukaan melengkung.",
+      "aliases": [
+        "bevel"
+      ]
+    },
+    "geometry.bevel_highlight": {
+      "label": "sorotan pada serong tepi",
+      "description": "Jalur terang tempat muka serong menangkap cahaya dan mendedahkan bentuk bucu."
+    },
+    "geometry.subd": {
+      "label": "permukaan subbahagian",
+      "description": "Pendekatan pemodelan yang menghasilkan permukaan lebih licin melalui subbahagian.",
+      "aliases": [
+        "SubD"
+      ]
+    },
+    "geometry.deformation": {
+      "label": "ubah bentuk",
+      "description": "Mengubah kedudukan mesh mengikut masa, rig atau prosedur.",
+      "aliases": [
+        "deformasi"
+      ]
+    },
+    "geometry.hard_surface": {
+      "label": "hard-surface",
+      "description": "Kategori pemodelan bentuk tegar dengan peralihan satah yang jelas, seperti mesin dan prop.",
+      "review": "confirm_loanword"
+    },
+    "geometry.modifier_stack": {
+      "label": "tindanan pengubah suai",
+      "description": "Susunan yang mengenakan beberapa operasi bentuk tak memusnah mengikut urutan."
+    },
+    "geometry.mirror": {
+      "label": "cermin",
+      "description": "Operasi yang menyalin atau menyambung geometri secara simetri terhadap satah rujukan.",
+      "aliases": [
+        "Mirror"
+      ]
+    },
+    "geometry.solidify": {
+      "label": "pemejalan",
+      "description": "Operasi pemodelan yang memberi ketebalan kepada permukaan."
+    },
+    "geometry.high_poly": {
+      "label": "high-poly",
+      "description": "Penyataan model dengan perincian bentuk yang agak banyak.",
+      "review": "confirm_loanword"
+    },
+    "geometry.low_poly": {
+      "label": "low-poly",
+      "description": "Penyataan model yang mengehadkan bentuk demi kos masa jalan atau demi gaya.",
+      "review": "confirm_loanword"
+    },
+    "geometry.target_tris": {
+      "label": "had segi tiga sasaran",
+      "description": "Had bilangan segi tiga render yang ditetapkan untuk mesh atau aset."
+    },
+    "geometry.wireframe": {
+      "label": "rangka dawai",
+      "description": "Paparan pemeriksaan yang menunjukkan sambungan mesh sebagai garis.",
+      "aliases": [
+        "wireframe"
+      ]
+    },
+    "geometry.curve": {
+      "label": "lengkung",
+      "description": "Elemen geometri yang menyatakan bentuk garis selanjar dalam ruang.",
+      "aliases": [
+        "kurva"
+      ]
+    },
+    "geometry.point_cloud": {
+      "label": "awan titik",
+      "description": "Data yang dinyatakan sebagai himpunan titik dalam ruang."
+    },
+    "geometry.volume": {
+      "label": "isi padu",
+      "description": "Data yang menyatakan nilai di dalam ruang, bukan hanya pada permukaannya.",
+      "aliases": [
+        "volume"
+      ]
+    },
+    "geometry.instance": {
+      "label": "tika",
+      "description": "Penyataan yang meletakkan prototaip kongsi pada beberapa kedudukan dan sifat.",
+      "aliases": [
+        "instance"
+      ]
+    },
+    "geometry.geometry_nodes": {
+      "label": "Geometry Nodes",
+      "description": "Sistem yang menyusun penjanaan dan perubahan data geometri sebagai graf nod.",
+      "review": "confirm_loanword"
+    },
+    "geometry.quad": {
+      "label": "quad",
+      "description": "Bentuk empat bucu yang digunakan sebagai elemen rata dalam latihan dan kesan.",
+      "aliases": [
+        "satah empat bucu"
+      ],
+      "review": "confirm_loanword"
+    },
+    "geometry.modeling": {
+      "label": "pemodelan",
+      "description": "Kerja membina bentuk dan struktur."
+    },
+    "geometry.sculpt": {
+      "label": "pahatan digital",
+      "description": "Cara pemodelan yang mengubah bentuk permukaan seperti memahat.",
+      "aliases": [
+        "sculpt"
+      ]
+    },
+    "uv_texture.uv": {
+      "label": "UV",
+      "description": "Koordinat yang memetakan permukaan kepada tekstur 2D.",
+      "review": "confirm_loanword"
+    },
+    "uv_texture.uv_seam": {
+      "label": "jahitan UV",
+      "description": "Sempadan yang membelah permukaan untuk proses buka lipatan."
+    },
+    "uv_texture.uv_island": {
+      "label": "pulau UV",
+      "description": "Satu kawasan bersambung dalam UV yang telah dibuka."
+    },
+    "uv_texture.texel_density": {
+      "label": "kepadatan teksel",
+      "description": "Kepadatan sampel tekstur bagi panjang atau luas sebenar permukaan yang dinamakan."
+    },
+    "uv_texture.texel": {
+      "label": "teksel",
+      "description": "Satu elemen sampel pada grid tekstur."
+    },
+    "uv_texture.texture": {
+      "label": "tekstur",
+      "description": "Imej atau aset yang disampel untuk nilai warna atau data.",
+      "aliases": [
+        "peta tekstur"
+      ]
+    },
+    "uv_texture.texture_size": {
+      "label": "saiz tekstur",
+      "description": "Bilangan sampel tekstur pada lebar dan tinggi.",
+      "aliases": [
+        "resolusi tekstur"
+      ]
+    },
+    "uv_texture.bake": {
+      "label": "bakar",
+      "description": "Mengira maklumat bentuk, cahaya atau permukaan menjadi penyataan tetap lain dan menyimpannya.",
+      "aliases": [
+        "bake"
+      ]
+    },
+    "uv_texture.normal_mapping": {
+      "label": "pemetaan normal",
+      "description": "Kaedah mengubah tindak balas cahaya permukaan dengan peta normal."
+    },
+    "uv_texture.sampling": {
+      "label": "pensampelan",
+      "description": "Proses membaca data selanjar atau bergrid sebagai nilai pada kedudukan atau masa tertentu."
+    },
+    "uv_texture.texture_sample": {
+      "label": "sampel tekstur",
+      "description": "Operasi yang membaca nilai tekstur menggunakan UV dan syarat penapis."
+    },
+    "uv_texture.filtering": {
+      "label": "penapisan",
+      "description": "Kaedah yang menentukan cara nilai sampel jiran digabung menjadi keluaran."
+    },
+    "uv_texture.point_filter": {
+      "label": "pensampelan titik",
+      "description": "Kaedah yang mengambil sampel terdekat tanpa menginterpolasi jiran.",
+      "aliases": [
+        "nearest"
+      ]
+    },
+    "uv_texture.bilinear": {
+      "label": "penapisan dwilinear",
+      "description": "Penapis tekstur yang menginterpolasi nilai jiran pada grid 2D."
+    },
+    "uv_texture.mipmap": {
+      "label": "mipmap",
+      "description": "Penyataan yang menyediakan tekstur dalam beberapa peringkat pengecilan.",
+      "review": "confirm_loanword"
+    },
+    "uv_texture.anti_aliasing": {
+      "label": "antialias",
+      "description": "Pemprosesan yang meredakan ketidakstabilan tepi dan corak akibat pensampelan.",
+      "aliases": [
+        "antialiasing"
+      ]
+    },
+    "uv_texture.texture_compression": {
+      "label": "mampatan tekstur",
+      "description": "Pengekodan yang mengurangkan storan, penghantaran dan penggunaan GPU oleh tekstur."
+    },
+    "uv_texture.padding": {
+      "label": "jarak lapik",
+      "description": "Ruang sampel lebihan yang disimpan antara kawasan, contohnya di dalam atlas.",
+      "aliases": [
+        "padding"
+      ]
+    },
+    "uv_texture.extrusion": {
+      "label": "pelebaran tepi",
+      "description": "Pemprosesan yang meluaskan warna sempadan ke luar bagi mengurangkan pencemaran sampel.",
+      "aliases": [
+        "edge padding"
+      ]
+    },
+    "uv_texture.alpha": {
+      "label": "alfa",
+      "description": "Saluran liputan atau kelegapan untuk penggabungan dan penopengan."
+    },
+    "uv_texture.alpha_edge": {
+      "label": "sempadan alfa",
+      "description": "Sempadan tempat alfa beralih antara kelihatan dan tidak kelihatan."
+    },
+    "vector.vector_art": {
+      "label": "seni vektor",
+      "description": "Penyataan imej yang dibina daripada lengkung dan bentuk sebagai sumber asal."
+    },
+    "vector.bezier": {
+      "label": "lengkung Bézier",
+      "description": "Penyataan yang mentakrif lengkung melalui titik kawalan."
+    },
+    "vector.anchor": {
+      "label": "titik sauh",
+      "description": "Titik rujukan yang menentukan cara segmen laluan bersambung.",
+      "aliases": [
+        "anchor"
+      ]
+    },
+    "vector.handle": {
+      "label": "pemegang lengkung",
+      "description": "Titik atau vektor yang mengawal arah dan bentuk lengkung di sekitar titik sauh.",
+      "aliases": [
+        "handle"
+      ]
+    },
+    "vector.segment": {
+      "label": "segmen",
+      "description": "Bahagian yang menyambung titik rujukan bersebelahan pada laluan."
+    },
+    "vector.path": {
+      "label": "laluan",
+      "description": "Garis atau kontur yang disambung daripada titik dan segmen.",
+      "aliases": [
+        "path"
+      ]
+    },
+    "vector.closed_shape": {
+      "label": "bentuk tertutup",
+      "description": "Bentuk laluan yang hujungnya bercantum untuk mentakrif kawasan."
+    },
+    "vector.compound_shape": {
+      "label": "bentuk majmuk",
+      "description": "Penyataan beberapa laluan atau bahagian bersama membentuk satu struktur kawasan."
+    },
+    "vector.boolean": {
+      "label": "operasi boolean",
+      "description": "Operasi yang menyatu, menolak atau menyilang bentuk melalui hubungan kawasan."
+    },
+    "vector.curve_continuity": {
+      "label": "kesinambungan lengkung",
+      "description": "Tahap kedudukan, arah dan kelengkungan berterusan merentasi sambungan."
+    },
+    "vector.stroke": {
+      "label": "garis lorekan",
+      "description": "Penyataan garis yang dilukis sepanjang laluan.",
+      "aliases": [
+        "stroke"
+      ]
+    },
+    "vector.fill": {
+      "label": "isian",
+      "description": "Warna atau corak yang dikenakan di dalam kawasan tertutup."
+    },
+    "vector.mask": {
+      "label": "topeng",
+      "description": "Penyataan tempat, atau tahap, sesuatu kesan dikenakan."
+    },
+    "vector.gradient": {
+      "label": "kecerunan warna",
+      "description": "Penyataan yang mengubah warna atau nilai secara selanjar mengikut kedudukan.",
+      "aliases": [
+        "gradien"
+      ]
+    },
+    "vector.viewbox": {
+      "label": "viewBox",
+      "description": "Struktur yang menetapkan julat pandangan koordinat dalaman SVG.",
+      "review": "confirm_loanword"
+    },
+    "vector.group_hierarchy": {
+      "label": "hierarki kumpulan",
+      "description": "Hierarki yang mengumpulkan elemen vektor untuk berkongsi transformasi dan gaya."
+    },
+    "vector.svg": {
+      "label": "SVG",
+      "description": "Penyataan dokumen yang menyimpan elemen dan atribut vektor secara berstruktur.",
+      "review": "confirm_loanword"
+    },
+    "vector.pen": {
+      "label": "alat Pen",
+      "description": "Alat penciptaan yang membina laluan daripada titik sauh dan pemegang."
+    },
+    "vector.shape_builder": {
+      "label": "Shape Builder",
+      "description": "Fungsi penciptaan yang menggabungkan kawasan bentuk bertindih.",
+      "review": "confirm_loanword"
+    },
+    "vector.pathfinder": {
+      "label": "Pathfinder",
+      "description": "Himpunan fungsi yang menghasilkan bentuk majmuk melalui operasi antara bentuk.",
+      "review": "confirm_loanword"
+    },
+    "vector.resolution_independence": {
+      "label": "kebebasan resolusi",
+      "description": "Sifat bentuk asal boleh dinyatakan semula pada saiz lain."
+    },
+    "vector.reusable_shape": {
+      "label": "bentuk boleh guna semula",
+      "description": "Komponen bentuk yang dikongsi oleh beberapa aset."
+    },
+    "pixel_sprite.sprite": {
+      "label": "sprite",
+      "description": "Kawasan imej atau aset enjin untuk menyatakan objek 2D.",
+      "review": "confirm_loanword"
+    },
+    "pixel_sprite.sprite_import": {
+      "label": "import sprite",
+      "description": "Proses import yang menjadikan imej dibaca sebagai sprite enjin."
+    },
+    "pixel_sprite.atlas": {
+      "label": "atlas sprite",
+      "description": "Penyataan yang membungkus beberapa kawasan imej ke dalam satu set tekstur."
+    },
+    "pixel_sprite.slicing": {
+      "label": "pembahagian sprite",
+      "description": "Kerja membahagi satu imej kepada beberapa kawasan sprite.",
+      "aliases": [
+        "slicing"
+      ]
+    },
+    "pixel_sprite.ppu": {
+      "label": "PPU",
+      "description": "Nisbah antara piksel sumber sprite dan unit ruang enjin.",
+      "aliases": [
+        "piksel per unit"
+      ],
+      "review": "confirm_loanword"
+    },
+    "pixel_sprite.ui_scaling": {
+      "label": "penskalaan UI",
+      "description": "Kaedah menentukan saiz UI mengikut resolusi paparan atau keadaan susun atur."
+    },
+    "pixel_sprite.sorting_layer": {
+      "label": "lapisan susunan lukis",
+      "description": "Pengelasan enjin yang menyusun urutan lukisan elemen 2D.",
+      "aliases": [
+        "sorting layer"
+      ]
+    },
+    "pixel_sprite.prefab_linkage": {
+      "label": "pautan prefab",
+      "description": "Hubungan rujukan antara aset dan prefab enjin yang menggunakannya."
+    },
+    "pixel_sprite.animation_ready": {
+      "label": "aset sedia animasi",
+      "description": "Aset yang bahagian, pangsi, kawasan dan hierarkinya disiapkan untuk kerja gerakan."
+    },
+    "pixel_sprite.pixel_cluster": {
+      "label": "gugusan piksel",
+      "description": "Unit yang mengumpulkan sekumpulan kecil piksel untuk menyatakan bentuk dan nilai."
+    },
+    "pixel_sprite.pixelation": {
+      "label": "pikselan",
+      "description": "Pemprosesan yang menyatakan layar atau objek pada grid ruang yang terhad."
+    },
+    "pixel_sprite.pixel_art": {
+      "label": "pixel art",
+      "description": "Gaya yang menjadikan pilihan bentuk dan warna setiap piksel sebagai unsur ekspresif utama.",
+      "aliases": [
+        "seni piksel"
+      ],
+      "review": "confirm_loanword"
+    },
+    "pixel_sprite.pixel_perfect": {
+      "label": "Pixel Perfect",
+      "description": "Syarat yang mengejar kesepadanan dengan grid piksel dan peraturan paparan yang ditakrif.",
+      "review": "confirm_loanword"
+    },
+    "pixel_sprite.pixel_snapping": {
+      "label": "penjajaran piksel",
+      "description": "Manipulasi yang menjajarkan kedudukan atau sampel pada grid piksel yang ditakrif.",
+      "aliases": [
+        "pixel snapping"
+      ]
+    },
+    "pixel_sprite.subpixel_motion": {
+      "label": "gerakan subpiksel",
+      "description": "Pergerakan terunjur yang lebih kecil daripada satu sel grid yang dipilih."
+    },
+    "pixel_sprite.internal_resolution": {
+      "label": "resolusi dalaman",
+      "description": "Saiz imej yang dirender sebelum dibesarkan ke layar akhir."
+    },
+    "pixel_sprite.rasterization": {
+      "label": "pemetaan raster",
+      "description": "Proses menukar bentuk atau geometri kepada sampel piksel.",
+      "aliases": [
+        "rasterisasi"
+      ]
+    },
+    "pixel_sprite.dithering": {
+      "label": "dither",
+      "description": "Pemprosesan yang mencipta kesan pertengahan melalui corak ruang pada nilai atau warna terhad.",
+      "aliases": [
+        "dithering"
+      ]
+    },
+    "pixel_sprite.screen_dither": {
+      "label": "dither ruang layar",
+      "description": "Susunan yang menilai corak dither berdasarkan koordinat layar."
+    },
+    "pixel_sprite.object_dither": {
+      "label": "dither ruang objek",
+      "description": "Susunan yang mengikat corak pada koordinat objek."
+    },
+    "pixel_sprite.world_dither": {
+      "label": "dither ruang dunia",
+      "description": "Susunan yang menetapkan corak pada koordinat dunia."
+    },
+    "pixel_sprite.selective_nonpixel": {
+      "label": "VFX dan UI tanpa pikselan",
+      "description": "Keperluan projek supaya sebahagian UI dan kesan dikeluarkan di luar laluan pikselan."
+    },
+    "pixel_sprite.retro_ps1": {
+      "label": "estetika Doom/PS1",
+      "description": "Penyataan rujukan yang digunakan projek bagi kesan resolusi rendah bercampur 3D."
+    },
+    "motion.movement": {
+      "label": "gerakan",
+      "description": "Penyataan keadaan seperti kedudukan, arah atau bentuk yang berubah mengikut masa."
+    },
+    "motion.timing": {
+      "label": "pemasaan",
+      "description": "Penetapan bila peristiwa, pose dan tindakan berlaku dan berapa lama ia bertahan.",
+      "aliases": [
+        "timing"
+      ]
+    },
+    "motion.spacing": {
+      "label": "jarak antara",
+      "description": "Sejauh mana kedudukan atau pose objek merenggang antara sampel masa berturutan.",
+      "aliases": [
+        "spacing"
+      ]
+    },
+    "motion.pose": {
+      "label": "pose",
+      "description": "Susunan keadaan badan atau objek pada sesuatu saat.",
+      "review": "confirm_loanword"
+    },
+    "motion.key_pose": {
+      "label": "pose kunci",
+      "description": "Pose utama yang menentukan makna atau struktur sesuatu tindakan."
+    },
+    "motion.keyframe": {
+      "label": "bingkai kunci",
+      "description": "Nilai sifat atau lukisan yang ditetapkan secara jelas pada garis masa.",
+      "aliases": [
+        "keyframe"
+      ]
+    },
+    "motion.key_drawing": {
+      "label": "lukisan kunci",
+      "description": "Lukisan teras yang membawa keadaan penting sesuatu tindakan."
+    },
+    "motion.breakdown": {
+      "label": "breakdown",
+      "description": "Pose perantara yang menentukan laluan dan sifat peralihan antara pose kunci.",
+      "review": "confirm_loanword"
+    },
+    "motion.in_between": {
+      "label": "lukisan antara",
+      "description": "Lukisan yang menyambung gerakan antara lukisan kunci.",
+      "aliases": [
+        "in-between"
+      ]
+    },
+    "motion.arc": {
+      "label": "lengkok gerak",
+      "description": "Laluan melengkung yang dilalui bahagian yang bergerak.",
+      "aliases": [
+        "arc"
+      ]
+    },
+    "motion.trajectory": {
+      "label": "trajektori",
+      "description": "Laluan perubahan kedudukan mengikut masa."
+    },
+    "motion.action_line": {
+      "label": "garis tindakan",
+      "description": "Penyataan yang meringkaskan daya dan aliran sesuatu pose dengan satu garis ringkas."
+    },
+    "motion.gesture": {
+      "label": "gestur",
+      "description": "Penyataan yang menangkap dengan pantas niat dan aliran sesuatu postur atau tindakan."
+    },
+    "motion.anticipation": {
+      "label": "gerakan persediaan",
+      "description": "Gerakan sebelum tindakan utama yang memberi isyarat arah, daya dan permulaannya.",
+      "aliases": [
+        "antisipasi"
+      ]
+    },
+    "motion.contact": {
+      "label": "sentuhan",
+      "description": "Saat atau keadaan objek atau watak menyentuh sasaran semasa tindakan.",
+      "aliases": [
+        "kontak"
+      ]
+    },
+    "motion.ease": {
+      "label": "pelembutan gerak",
+      "description": "Sifat interpolasi yang mengawal kadar perubahan mengikut masa.",
+      "aliases": [
+        "ease"
+      ]
+    },
+    "motion.linear_motion": {
+      "label": "gerakan linear",
+      "description": "Interpolasi yang mengubah nilai sifat secara sekata berkadar dengan masa."
+    },
+    "motion.ease_in": {
+      "label": "ease-in",
+      "description": "Peralihan yang perubahannya kecil pada awal julat lalu membesar.",
+      "review": "confirm_loanword"
+    },
+    "motion.ease_out": {
+      "label": "ease-out",
+      "description": "Peralihan yang perubahannya mengecil menjelang hujung julat.",
+      "review": "confirm_loanword"
+    },
+    "motion.ease_in_out": {
+      "label": "ease-in-out",
+      "description": "Peralihan yang melembutkan permulaan dan penghujung julat sekali gus.",
+      "review": "confirm_loanword"
+    },
+    "motion.overshoot": {
+      "label": "lajakan",
+      "description": "Gerakan yang melepasi keadaan sasaran lalu kembali.",
+      "aliases": [
+        "overshoot"
+      ]
+    },
+    "motion.follow_through": {
+      "label": "gerakan susulan",
+      "description": "Penyataan bahagian yang bersambung terus bergerak selepas tindakan utama tamat.",
+      "aliases": [
+        "follow-through"
+      ]
+    },
+    "motion.temporal_overlap": {
+      "label": "pertindihan gerakan",
+      "description": "Hubungan gerakan anggota atau bahagian yang tidak bermula dan berakhir serentak, tetapi bertindih."
+    },
+    "motion.squash_stretch": {
+      "label": "memampat dan meregang",
+      "description": "Ubah bentuk yang menyatakan daya, keanjalan dan laju melalui pemampatan dan peregangan.",
+      "aliases": [
+        "squash and stretch"
+      ]
+    },
+    "motion.secondary_motion": {
+      "label": "gerakan sekunder",
+      "description": "Gerakan tambahan yang menyokong tindakan utama."
+    },
+    "motion.drag": {
+      "label": "seretan",
+      "description": "Penyataan gerakan yang sebahagiannya tertinggal di belakang gerakan utama.",
+      "aliases": [
+        "drag"
+      ]
+    },
+    "motion.settle": {
+      "label": "pengendapan gerak",
+      "description": "Julat ketika gerakan baki mengecil dan mencapai keadaan akhir.",
+      "aliases": [
+        "settle"
+      ]
+    },
+    "motion.weight": {
+      "label": "rasa berat",
+      "description": "Rasa berat yang terbaca daripada pemasaan, ubah bentuk, sentuhan dan peralihan pusat."
+    },
+    "motion.center_of_mass": {
+      "label": "pusat jisim",
+      "description": "Pusat jisim, atau pusat ringkas, untuk membaca gerakan dan keseimbangan."
+    },
+    "motion.body_mechanics": {
+      "label": "mekanik tubuh",
+      "description": "Sudut pandang yang menerangkan gerak tubuh melalui sokongan, pusat dan hubungan sendi."
+    },
+    "motion.duration": {
+      "label": "tempoh",
+      "description": "Berapa lama peristiwa atau julat yang dipilih bertahan.",
+      "aliases": [
+        "durasi"
+      ]
+    },
+    "motion.frame_rate": {
+      "label": "kadar bingkai",
+      "description": "Bilangan sampel paparan atau penghasilan bagi setiap unit masa.",
+      "aliases": [
+        "frame rate"
+      ]
+    },
+    "motion.loop": {
+      "label": "gelung",
+      "description": "Struktur berulang yang hujung gerakannya menyambung semula ke permulaan.",
+      "aliases": [
+        "loop"
+      ]
+    },
+    "motion.position_curve": {
+      "label": "lengkung kedudukan",
+      "description": "Lengkung yang mentakrif nilai kedudukan mengikut masa."
+    },
+    "motion.animation_curve": {
+      "label": "AnimationCurve",
+      "description": "Penyataan lengkung enjin yang mengawal nilai sifat mengikut masa.",
+      "aliases": [
+        "lengkung animasi"
+      ],
+      "review": "confirm_loanword"
+    },
+    "motion.procedural_animation": {
+      "label": "animasi prosedural",
+      "description": "Kaedah yang menjana gerakan daripada peraturan, fungsi atau simulasi."
+    },
+    "motion.authored_motion": {
+      "label": "gerakan tangan",
+      "description": "Penyataan gerakan yang sengaja dihasilkan melalui bingkai kunci atau lukisan."
+    },
+    "motion.spring": {
+      "label": "spring",
+      "description": "Model yang menghasilkan gerakan sebagai perubahan anjal yang mengejar sasaran.",
+      "aliases": [
+        "pegas"
+      ],
+      "review": "confirm_loanword"
+    },
+    "motion.delayed_follower": {
+      "label": "pengikut lengah",
+      "description": "Gerakan yang mengikut objek rujukan dengan beza masa."
+    },
+    "motion.afterimage": {
+      "label": "kesan baki imej",
+      "description": "Penyataan yang meninggalkan jejak visual keadaan sebelumnya."
+    },
+    "motion.residual_motion": {
+      "label": "gerakan baki",
+      "description": "Gerakan yang tinggal dan berterusan selepas peristiwa utama."
+    },
+    "motion.movement_contrast": {
+      "label": "kontras gerakan",
+      "description": "Kontras yang terhasil daripada beza laju, arah atau keadaan diam antara elemen."
+    },
+    "motion.stop_motion": {
+      "label": "animasi stop-motion",
+      "description": "Penyataan gerakan yang dibina bingkai demi bingkai daripada lukisan kecil dalam latihan."
+    },
+    "rig_animation.skeleton": {
+      "label": "rangka",
+      "description": "Struktur yang menyatakan watak atau objek sebagai hierarki tulang.",
+      "aliases": [
+        "skeleton"
+      ]
+    },
+    "rig_animation.rig": {
+      "label": "rig",
+      "description": "Himpunan tulang, kawalan dan kekangan yang menggerakkan animasi.",
+      "review": "confirm_loanword"
+    },
+    "rig_animation.fk": {
+      "label": "FK",
+      "description": "Kaedah kawalan yang menetapkan keadaan sendi dari induk untuk meletakkan hujung.",
+      "aliases": [
+        "kinematik hadapan"
+      ],
+      "review": "confirm_loanword"
+    },
+    "rig_animation.ik": {
+      "label": "IK",
+      "description": "Kaedah kawalan yang menyelesaikan sendi pertengahan daripada sasaran hujung dan kekangan.",
+      "aliases": [
+        "kinematik songsang"
+      ],
+      "review": "confirm_loanword"
+    },
+    "rig_animation.retargeting": {
+      "label": "retargeting",
+      "description": "Kerja memindahkan gerakan ke rangka atau bentuk tubuh yang lain.",
+      "review": "confirm_loanword"
+    },
+    "rig_animation.blend_tree": {
+      "label": "blend tree",
+      "description": "Struktur yang menggabungkan beberapa animasi mengikut parameter masukan.",
+      "aliases": [
+        "pokok adunan"
+      ],
+      "review": "confirm_loanword"
+    },
+    "rig_animation.state_machine": {
+      "label": "mesin keadaan",
+      "description": "Struktur yang menyusun keadaan animasi dan syarat peralihannya.",
+      "aliases": [
+        "state machine"
+      ]
+    },
+    "rig_animation.root_motion": {
+      "label": "root motion",
+      "description": "Penyataan yang menggunakan translasi dan putaran akar klip sebagai gerakan masa jalan.",
+      "review": "confirm_loanword"
+    },
+    "rig_animation.constraint": {
+      "label": "kekangan",
+      "description": "Syarat yang mengehadkan hubungan yang dibenarkan antara sendi, kawalan dan sasaran.",
+      "aliases": [
+        "constraint"
+      ]
+    },
+    "rig_animation.animation_event": {
+      "label": "peristiwa animasi",
+      "description": "Penanda yang menghubungkan satu titik dalam klip dengan panggilan tindakan."
+    },
+    "rig_animation.transition_quality": {
+      "label": "kualiti peralihan",
+      "description": "Tahap pose, laju dan niat tidak terputus secara janggal antara klip atau keadaan."
+    },
+    "rig_animation.foot_sliding": {
+      "label": "kaki tergelincir",
+      "description": "Kecacatan apabila kaki yang sepatutnya berpijak kelihatan bergerak terhadap lantai."
+    },
+    "rig_animation.animation_compression": {
+      "label": "mampatan animasi",
+      "description": "Pemprosesan yang mengurangkan data klip sambil mengawal ralat gerakan."
+    },
+    "rig_animation.cutout": {
+      "label": "animasi potongan",
+      "description": "Kaedah menggerakkan bahagian 2D berasingan melalui pangsi, tulang dan ubah bentuk.",
+      "aliases": [
+        "cutout"
+      ]
+    },
+    "rig_animation.acting": {
+      "label": "lakonan",
+      "description": "Penyataan yang menyampaikan fikiran, emosi dan niat melalui gerakan dan riak."
+    },
+    "rig_animation.intention": {
+      "label": "niat watak",
+      "description": "Matlamat menunjukkan melalui gerakan apa yang hendak dilakukan watak."
+    },
+    "rig_animation.locomotion": {
+      "label": "gerak berpindah",
+      "description": "Kategori gerakan berpindah dalam ruang, seperti berjalan dan berlari.",
+      "aliases": [
+        "locomotion"
+      ]
+    },
+    "rig_animation.expression": {
+      "label": "riak",
+      "description": "Penyataan wajah atau tubuh yang menunjukkan emosi atau reaksi.",
+      "aliases": [
+        "ekspresi"
+      ]
+    },
+    "rig_animation.personality": {
+      "label": "keperibadian",
+      "description": "Matlamat sifat watak terpancar secara konsisten dalam pose dan gerakan."
+    },
+    "rig_animation.exaggeration": {
+      "label": "pelebihan",
+      "description": "Manipulasi yang sengaja menguatkan sesuatu ciri bentuk atau gerakan.",
+      "aliases": [
+        "eksagerasi"
+      ]
+    },
+    "rig_animation.emotional_beat": {
+      "label": "detik emosi",
+      "description": "Saat penting dalam masa ketika emosi berubah atau ditekankan."
+    },
+    "vfx.vfx": {
+      "label": "VFX",
+      "description": "Himpunan penyataan visual yang menyampaikan peristiwa, keadaan, daya dan perubahan ruang.",
+      "aliases": [
+        "kesan visual"
+      ],
+      "review": "confirm_loanword"
+    },
+    "vfx.particle": {
+      "label": "zarah",
+      "description": "Unit yang membina kesan daripada banyak elemen yang masing-masing berkeadaan sendiri.",
+      "aliases": [
+        "partikel"
+      ]
+    },
+    "vfx.particle_count": {
+      "label": "bilangan zarah",
+      "description": "Jumlah zarah yang wujud atau dijana pada saat atau julat yang dinamakan."
+    },
+    "vfx.flipbook": {
+      "label": "flipbook",
+      "description": "Penyataan yang memainkan beberapa bingkai imej yang disampel mengikut urutan.",
+      "review": "confirm_loanword"
+    },
+    "vfx.trail": {
+      "label": "jejak",
+      "description": "Kesan yang menunjukkan laluan yang telah dilalui sesuatu gerakan.",
+      "aliases": [
+        "trail"
+      ]
+    },
+    "vfx.mesh_effect": {
+      "label": "kesan mesh",
+      "description": "Kesan yang menggunakan permukaan geometri dan bukan imej zarah."
+    },
+    "vfx.procedural_noise": {
+      "label": "hingar prosedural",
+      "description": "Penyataan yang menggunakan nilai tak sekata terjana fungsi pada kesan dan permukaan."
+    },
+    "vfx.dissolve": {
+      "label": "pelarutan",
+      "description": "Kesan yang melenyapkan atau memunculkan sebahagian bentuk melalui topeng atau ambang.",
+      "aliases": [
+        "dissolve"
+      ]
+    },
+    "vfx.distortion": {
+      "label": "herotan",
+      "description": "Kesan yang mengubah koordinat atau sampel latar untuk kesan biasan atau hentaman.",
+      "aliases": [
+        "distorsi"
+      ]
+    },
+    "vfx.bloom": {
+      "label": "bloom",
+      "description": "Penyataan pascaproses yang menyebarkan kawasan terang imej ke sekelilingnya.",
+      "review": "confirm_loanword"
+    },
+    "vfx.birth": {
+      "label": "kelahiran kesan",
+      "description": "Peringkat kesan mula terbentuk."
+    },
+    "vfx.expansion": {
+      "label": "pengembangan",
+      "description": "Peringkat jangkauan atau bentuk kesan membesar."
+    },
+    "vfx.impact": {
+      "label": "hentaman",
+      "description": "Saat penegasan teras sesuatu peristiwa seperti sentuhan atau letupan.",
+      "aliases": [
+        "impak"
+      ]
+    },
+    "vfx.primary_impact_shape": {
+      "label": "bentuk hentaman utama",
+      "description": "Bentuk besar yang paling dahulu menyampaikan daya dan arah peristiwa dalam kesan."
+    },
+    "vfx.breakup": {
+      "label": "pemecahan",
+      "description": "Perubahan apabila bentuk kesan yang besar terbelah menjadi bahagian kecil lalu hilang."
+    },
+    "vfx.secondary_breakup": {
+      "label": "pemecahan sekunder",
+      "description": "Bahagian yang berselerak secara sampingan selepas hentaman utama."
+    },
+    "vfx.trailing_motion": {
+      "label": "gerakan mengekor",
+      "description": "Gerakan visual yang mengalir di belakang tindakan utama."
+    },
+    "vfx.dissipation": {
+      "label": "pelesapan",
+      "description": "Peringkat kesan melemah, berselerak dan hilang."
+    },
+    "vfx.hit": {
+      "label": "kesan pukulan",
+      "description": "Jenis kesan yang menyampaikan pukulan atau sentuhan."
+    },
+    "vfx.projectile": {
+      "label": "kesan projektil",
+      "description": "Objek visual yang menyampaikan serangan atau peristiwa sambil bergerak."
+    },
+    "vfx.explosion": {
+      "label": "letupan",
+      "description": "Kesan yang menyatakan pelepasan tenaga melalui pengembangan dan pemecahan mendadak."
+    },
+    "vfx.simulation": {
+      "label": "simulasi",
+      "description": "Proses mengira keadaan setiap langkah masa mengikut peraturan."
+    },
+    "vfx.frame_strip": {
+      "label": "jalur bingkai",
+      "description": "Penyataan analisis yang menyusun bingkai utama kesan atau gerakan mengikut urutan masa."
+    },
+    "vfx.theme": {
+      "label": "tema watak",
+      "description": "Matlamat kesan sepadan dengan identiti visual watak."
+    },
+    "vfx.surprise_delight": {
+      "label": "rasa terkejut dan seronok",
+      "description": "Reaksi emosi yang hendak disampaikan oleh kesan."
+    },
+    "shader.shader": {
+      "label": "shader",
+      "description": "Penyataan program yang mengira nilai pada peringkat render seperti bucu, permukaan dan piksel.",
+      "aliases": [
+        "pelorek"
+      ],
+      "review": "confirm_loanword"
+    },
+    "shader.shader_graph": {
+      "label": "Shader Graph",
+      "description": "Sistem penciptaan yang menyusun pengiraan shader daripada nod.",
+      "review": "confirm_loanword"
+    },
+    "shader.hlsl": {
+      "label": "HLSL",
+      "description": "Bahasa pengaturcaraan untuk pelaksanaan shader Unity dalam perbualan ini.",
+      "review": "confirm_loanword"
+    },
+    "shader.glsl": {
+      "label": "GLSL",
+      "description": "Bahasa shader yang disebut dalam konteks The Book of Shaders.",
+      "review": "confirm_loanword"
+    },
+    "shader.compute_shader": {
+      "label": "compute shader",
+      "description": "Peringkat shader yang menyusun pengiraan GPU di luar pengiraan permukaan render.",
+      "review": "confirm_loanword"
+    },
+    "shader.function": {
+      "label": "fungsi koordinat",
+      "description": "Sudut pandang yang mencipta warna dan bentuk dengan menukar koordinat menjadi fungsi."
+    },
+    "shader.shaping_function": {
+      "label": "fungsi pembentuk",
+      "description": "Fungsi yang mencipta corak dan bentuk dengan mengubah taburan atau peralihan nilai masukan."
+    },
+    "shader.matrix": {
+      "label": "matriks",
+      "description": "Struktur pekali yang menyatakan transformasi ruang atau vektor lain."
+    },
+    "shader.pattern": {
+      "label": "corak",
+      "description": "Corak ruang yang disusun melalui peraturan atau pengulangan."
+    },
+    "shader.noise": {
+      "label": "hingar",
+      "description": "Nilai atau corak tak sekata, berlawanan dengan corak sekata.",
+      "aliases": [
+        "noise"
+      ]
+    },
+    "shader.image_processing": {
+      "label": "pemprosesan imej",
+      "description": "Operasi yang menukar, menapis dan menggabung nilai imej."
+    },
+    "shader.node_graph": {
+      "label": "graf nod",
+      "description": "Struktur yang menyatakan pengiraan atau peringkat penghasilan sebagai nod dan sambungan."
+    },
+    "render.render_pass": {
+      "label": "laluan render",
+      "description": "Unit kerja render yang dijalankan dengan masukan dan keluaran yang ditetapkan semasa membina bingkai.",
+      "aliases": [
+        "render pass"
+      ]
+    },
+    "render.compositing": {
+      "label": "penggabungan imej",
+      "description": "Proses menggabungkan beberapa imej, lapisan dan kesan menjadi satu layar.",
+      "aliases": [
+        "compositing"
+      ]
+    },
+    "render.compositing_order": {
+      "label": "urutan penggabungan",
+      "description": "Urutan pemprosesan imej dan lapisan dijalankan serta digabungkan."
+    },
+    "render.post_processing": {
+      "label": "pascaproses",
+      "description": "Peringkat yang mengambil hasil render adegan sebagai masukan dan mengubah penyataan layar.",
+      "aliases": [
+        "post-processing"
+      ]
+    },
+    "render.post_process_ordering": {
+      "label": "urutan pascaproses",
+      "description": "Urutan antara operasi layar seperti pikselan, pembetulan warna dan bloom."
+    },
+    "render.render_texture": {
+      "label": "Render Texture",
+      "description": "Tekstur yang menyimpan dan menyampel keluaran kamera atau laluan render.",
+      "review": "confirm_loanword"
+    },
+    "render.intermediate_texture": {
+      "label": "tekstur perantara",
+      "description": "Sumber imej yang menyimpan hasil sementara sebelum keluaran akhir."
+    },
+    "render.render_queue": {
+      "label": "baris gilir render",
+      "description": "Nilai atau sistem yang mengelaskan urutan pemprosesan objek render."
+    },
+    "render.depth_buffer": {
+      "label": "penimbal kedalaman",
+      "description": "Penyataan nilai kedalaman tersimpan untuk penentuan kelihatan dan kesan.",
+      "aliases": [
+        "penimbal kedalaman"
+      ]
+    },
+    "render.stencil": {
+      "label": "stensil",
+      "description": "Penyataan yang mengehadkan kawasan render melalui tanda integer setiap piksel dan ujiannya."
+    },
+    "render.transparency": {
+      "label": "kelutsinaran",
+      "description": "Cara menyatakan permukaan bersama latar atau elemen di belakangnya.",
+      "aliases": [
+        "transparansi"
+      ]
+    },
+    "render.blending": {
+      "label": "adunan",
+      "description": "Operasi yang menggabungkan nilai baharu dengan nilai sedia ada dalam penimbal mengikut peraturan.",
+      "aliases": [
+        "blending"
+      ]
+    },
+    "render.alpha_clip": {
+      "label": "alpha clip",
+      "description": "Pemprosesan yang mengekal atau membuang piksel mengikut ambang seperti alfa.",
+      "aliases": [
+        "alpha test"
+      ],
+      "review": "confirm_loanword"
+    },
+    "render.alpha_blend": {
+      "label": "alpha blend",
+      "description": "Pemprosesan yang menggabungkan warna depan dan belakang menggunakan alfa.",
+      "review": "confirm_loanword"
+    },
+    "render.premultiplied_alpha": {
+      "label": "alfa pradarab",
+      "description": "Kelaziman penyimpanan dan penggabungan yang alfanya sudah didarab ke dalam komponen warna."
+    },
+    "render.camera_stacking": {
+      "label": "penindanan kamera",
+      "description": "Fungsi enjin yang menggabungkan keluaran beberapa kamera menjadi satu hasil."
+    },
+    "render.renderer_feature": {
+      "label": "Renderer Feature",
+      "description": "Susunan yang menyepadukan kelakuan render tersuai ke dalam renderer URP.",
+      "review": "confirm_loanword"
+    },
+    "render.fullscreen_pass": {
+      "label": "laluan skrin penuh",
+      "description": "Kerja render yang memproses nilai pada keseluruhan layar."
+    },
+    "render.injection_point": {
+      "label": "titik suntikan",
+      "description": "Tempat dalam aliran render di mana operasi tersuai dimasukkan."
+    },
+    "render.render_graph": {
+      "label": "Render Graph",
+      "description": "Susunan yang menerangkan kerja render dan kebergantungan sumber sebagai graf.",
+      "review": "confirm_loanword"
+    },
+    "render.render_graph_resources": {
+      "label": "sumber Render Graph",
+      "description": "Tekstur dan penimbal terisytihar yang dihantar antara laluan render."
+    },
+    "render.normal_2d_map": {
+      "label": "peta normal 2D",
+      "description": "Penyataan peta yang memberi sprite petunjuk arah permukaan."
+    },
+    "render.urp": {
+      "label": "URP",
+      "description": "Saluran render yang dijadikan asas pelaksanaan Unity dalam perbualan ini.",
+      "review": "confirm_loanword"
+    },
+    "render.hdrp": {
+      "label": "HDRP",
+      "description": "Saluran render Unity yang muncul sebagai bahan perbandingan.",
+      "review": "confirm_loanword"
+    },
+    "render.custom_srp": {
+      "label": "SRP tersuai",
+      "description": "Scriptable Render Pipeline yang disusun sendiri oleh pengguna."
+    },
+    "render.blit": {
+      "label": "CommandBuffer.Blit",
+      "description": "API salin dan proses imej yang disebut sebagai lawan kepada penerangan laluan render.",
+      "aliases": [
+        "Blit"
+      ],
+      "review": "confirm_loanword"
+    },
+    "qc.draw_call": {
+      "label": "draw call",
+      "description": "Unit yang menghantar kerja render sebagai arahan lukis, atau metrik agregatnya.",
+      "aliases": [
+        "panggilan lukis"
+      ],
+      "review": "confirm_loanword"
+    },
+    "qc.batching": {
+      "label": "pengumpulan lukisan",
+      "description": "Kaedah mengurangkan kos penghantaran atau keadaan dengan mengumpulkan beberapa operasi lukis.",
+      "aliases": [
+        "batching"
+      ]
+    },
+    "qc.overdraw": {
+      "label": "lukisan berlebihan",
+      "description": "Sudut pandang kos pertindihan render akibat memproses kawasan layar yang sama berulang kali.",
+      "aliases": [
+        "overdraw"
+      ]
+    },
+    "qc.shader_complexity": {
+      "label": "kerumitan shader",
+      "description": "Ciri kos sesuatu shader dari segi pengiraan, capaian memori dan pencabangan."
+    },
+    "qc.texture_budget": {
+      "label": "bajet tekstur",
+      "description": "Julat yang dibenarkan bagi resolusi, bilangan dan memori tekstur."
+    },
+    "qc.texture_memory": {
+      "label": "memori tekstur",
+      "description": "Saiz storan atau memori GPU yang digunakan sesuatu tekstur."
+    },
+    "qc.memory_budget": {
+      "label": "bajet memori",
+      "description": "Julat memori yang dibenarkan bagi aset, klip dan sumber render."
+    },
+    "qc.lod": {
+      "label": "LOD",
+      "description": "Strategi penyataan yang mengubah jumlah perincian aset mengikut syarat.",
+      "aliases": [
+        "tahap perincian"
+      ],
+      "review": "confirm_loanword"
+    },
+    "qc.cpu_cost": {
+      "label": "kos CPU",
+      "description": "Kos yang digunakan render, animasi dan pemprosesan aset pada CPU."
+    },
+    "qc.gpu_cost": {
+      "label": "kos GPU",
+      "description": "Kos yang digunakan kerja render dan pengiraan pada GPU."
+    },
+    "qc.platform_budget": {
+      "label": "bajet platform",
+      "description": "Himpunan syarat prestasi, memori dan paparan yang perlu dikekalkan pada platform sasaran."
+    },
+    "qc.visual_regression": {
+      "label": "regresi visual",
+      "description": "Memeriksa sama ada perubahan merosakkan ciri layar yang sepatutnya dikekalkan."
+    },
+    "qc.consistency": {
+      "label": "ketekalan",
+      "description": "Tahap aset, gerakan dan peraturan paparan kekal serasi antara satu sama lain.",
+      "aliases": [
+        "konsistensi"
+      ]
+    },
+    "qc.asset_portfolio_integrity": {
+      "label": "keutuhan himpunan aset",
+      "description": "Syarat himpunan aset kekal tanpa kekurangan atau ketidakpadanan gaya dan spesifikasi."
+    },
+    "qc.atlas_budget": {
+      "label": "bajet atlas",
+      "description": "Julat yang dibenarkan bagi bilangan, resolusi, memori dan pembungkusan atlas."
+    },
+    "qc.resolution_standard": {
+      "label": "piawai resolusi",
+      "description": "Peraturan resolusi sumber dan masa jalan yang perlu dikekalkan mengikut jenis aset."
+    },
+    "qc.material_count": {
+      "label": "bilangan material",
+      "description": "Jumlah material yang digunakan sesuatu aset atau adegan."
+    },
+    "qc.material_slots": {
+      "label": "slot material",
+      "description": "Susunan slot yang mengumpukkan material kepada bahagian mesh."
+    },
+    "qc.retarget_qa": {
+      "label": "QA retargeting",
+      "description": "Pemeriksaan sama ada pose, sentuhan, perkadaran dan makna gerakan kekal selepas retargeting."
+    },
+    "qc.regression_qa": {
+      "label": "QA regresi",
+      "description": "Memeriksa sama ada perubahan merosakkan fungsi dan penyataan aset sedia ada."
+    },
+    "qc.object_statistics": {
+      "label": "statistik objek",
+      "description": "Laporan yang mengesahkan kiraan mesh, material dan struktur aset."
+    },
+    "pipeline.source_runtime": {
+      "label": "aset sumber ≠ perwakilan masa jalan",
+      "description": "Pembezaan bahawa sumber suntingan dan penyataan masa jalan enjin boleh berbeza."
+    },
+    "pipeline.scene_specification": {
+      "label": "spesifikasi adegan",
+      "description": "Masukan penghasilan yang menerangkan objek, bentuk, material, kamera dan gerakan secara berstruktur."
+    },
+    "pipeline.generation_script": {
+      "label": "skrip penjanaan",
+      "description": "Hasil kod yang menjana aset atau adegan daripada spesifikasi."
+    },
+    "pipeline.headless_render": {
+      "label": "render tanpa antara muka",
+      "description": "Cara jalan yang menghasilkan keluaran render tanpa antara muka interaktif.",
+      "aliases": [
+        "headless render"
+      ]
+    },
+    "pipeline.render_validation": {
+      "label": "pengesahan melalui render",
+      "description": "Peringkat yang mengesahkan hasil yang dijana pada layar sebenar."
+    },
+    "pipeline.vision_critique": {
+      "label": "kritikan visual",
+      "description": "Kerja memerhati imej render dan menilai jaraknya daripada niat visual."
+    },
+    "pipeline.turntable": {
+      "label": "turntable",
+      "description": "Video pemeriksaan berputar untuk menyemak objek dari beberapa arah.",
+      "review": "confirm_loanword"
+    },
+    "pipeline.export": {
+      "label": "eksport",
+      "description": "Menukar sumber suntingan kepada format penghantaran atau masa jalan."
+    },
+    "pipeline.fbx": {
+      "label": "FBX",
+      "description": "Jenis fail yang disebut sebagai format penghantaran model dan animasi.",
+      "review": "confirm_loanword"
+    },
+    "pipeline.gltf": {
+      "label": "glTF",
+      "description": "Jenis fail yang disebut sebagai format penghantaran model dan material.",
+      "review": "confirm_loanword"
+    },
+    "pipeline.blend_file": {
+      "label": ".blend",
+      "description": "Sumber adegan dan aset Blender yang boleh disunting.",
+      "review": "confirm_loanword"
+    },
+    "pipeline.naming": {
+      "label": "penamaan",
+      "description": "Peraturan yang mengenal pasti aset, nod dan bahagian secara konsisten."
+    },
+    "pipeline.versioning": {
+      "label": "pengurusan versi",
+      "description": "Sistem yang membezakan keadaan perubahan aset dan spesifikasi."
+    },
+    "pipeline.variant_management": {
+      "label": "pengurusan varian",
+      "description": "Kaedah menguruskan aset asas serta varian warna, kerosakan dan bentuk secara konsisten."
+    },
+    "pipeline.reuse": {
+      "label": "guna semula",
+      "description": "Kaedah menggunakan aset, klip, bentuk dan peraturan sedia ada pada hasil lain."
+    },
+    "pipeline.clip_library": {
+      "label": "pustaka klip",
+      "description": "Himpunan klip animasi yang boleh diguna semula."
+    },
+    "pipeline.export_automation": {
+      "label": "automasi eksport",
+      "description": "Kerja menukar sumber kepada aset masa jalan secara berulang mengikut spesifikasi."
+    },
+    "pipeline.damage_variant": {
+      "label": "varian kerosakan",
+      "description": "Varian yang menyatakan keadaan rosak pada aset asas."
+    },
+    "pipeline.color_variant": {
+      "label": "varian warna",
+      "description": "Aset yang mengekalkan bentuk asas dan menukar susunan warna."
+    },
+    "pipeline.silhouette_variant": {
+      "label": "varian siluet",
+      "description": "Varian yang berbeza pada bentuk luar aset asas."
+    },
+    "pipeline.icon_variant": {
+      "label": "varian ikon UI",
+      "description": "Aset yang menukar objek asal untuk paparan kecil pada UI."
+    },
+    "methods.feedback": {
+      "label": "maklum balas",
+      "description": "Kerja merekod dan membetulkan jurang antara bahan asal, lukisan dan hasil enjin."
+    },
+    "methods.screenshot_audit": {
+      "label": "audit tangkapan layar",
+      "description": "Pemeriksaan yang menandakan masalah imej siap mengikut setiap paksi."
+    },
+    "methods.markup": {
+      "label": "tanda semakan",
+      "description": "Hasil yang menandakan kawasan bermasalah dan niat pembetulan di atas bahan asal."
+    },
+    "local_meta.operational_surface": {
+      "label": "permukaan boleh operasi",
+      "description": "Dalam perbualan ini, makna kerja bagi lapisan objek, sifat dan operasi yang mampu membawa niat visual kepada manipulasi sebenar."
+    },
+    "local_meta.manipulative_vocab": {
+      "label": "kosa kata manipulasi",
+      "description": "Himpunan kosa kata yang digunakan dalam permintaan ini untuk membawa niat AD/TA kepada kerja alat."
+    },
+    "shape.shape_contrast": {
+      "label": "kontras bentuk",
+      "description": "Hubungan objek terbeza kerana ciri kontur dan massanya berlainan."
+    },
+    "shape.edge": {
+      "label": "tepi",
+      "description": "Sempadan yang terbaca sebagai pembahagi bentuk atau sendi permukaan."
+    },
+    "shape.swept_back": {
+      "label": "sayap condong ke belakang",
+      "description": "Ciri bentuk dalam contoh dron apabila sayap condong dan memanjang ke belakang."
+    }
+  },
+  "review_summary": {
+    "checked_by": "tools/review_locales.py",
+    "needs_confirmation": 66
+  }
+}

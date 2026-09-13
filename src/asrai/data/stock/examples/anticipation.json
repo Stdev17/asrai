@@ -1,0 +1,68 @@
+{
+  "$schema": "instruction.v2.schema.json",
+  "schema_version": "2.0.0",
+  "id": "example.anticipation",
+  "status": "proposed",
+  "axis": "direction_compliance",
+  "intent": "Define the anticipation as 8 frames long on the 12fps authoring time base.",
+  "target": {
+    "asset_ref": "example://assets/drone-study",
+    "selector": "Drone/Attack/Anticipation",
+    "selector_language": "illustrative_scene_path"
+  },
+  "context": {
+    "timebase": {
+      "clock": "authored_pose",
+      "fps": 12,
+      "origin_seconds": 0
+    },
+    "display_fps": 60,
+    "time_origin": "attack_start",
+    "preserved_impact_time_seconds": 2.0
+  },
+  "changes": [
+    {
+      "term_id": "motion.anticipation",
+      "operation": "set",
+      "quantity": {
+        "value": 8,
+        "unit": "frame"
+      },
+      "property_binding": null,
+      "metric": {
+        "id": "anticipation_duration",
+        "definition": "Length of the anticipation span. Read as 8 exposure intervals of authored_pose at 12fps."
+      },
+      "magnitude_basis": "example"
+    }
+  ],
+  "constraints": [
+    {
+      "id": "impact_fixed",
+      "description": "The hit decision stays at 2.0 seconds. How the other spans are redistributed requires further design."
+    }
+  ],
+  "acceptance": [
+    {
+      "status": "not_evaluated",
+      "kind": "numeric",
+      "metric_id": "anticipation_duration_seconds",
+      "operator": "approx",
+      "value": 0.6666666666666666,
+      "unit": "s",
+      "tolerance": 1e-06
+    },
+    {
+      "status": "not_evaluated",
+      "kind": "human",
+      "description": "Check that the direction of the main action is signaled and that the moment of impact is not blurred."
+    }
+  ],
+  "execution": {
+    "adapter": null,
+    "binding_resolved": false,
+    "authorized": false,
+    "run_ref": null
+  },
+  "note": "The numbers and target names are a serialization example. They are not recommended thresholds, real assets, or verified results."
+}

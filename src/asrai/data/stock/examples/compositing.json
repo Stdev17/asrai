@@ -1,0 +1,80 @@
+{
+  "$schema": "instruction.v2.schema.json",
+  "schema_version": "2.0.0",
+  "id": "example.compositing",
+  "status": "proposed",
+  "axis": "direction_compliance",
+  "intent": "Record the ordering between pixelation, the added tint, dithering, and the clean UI.",
+  "target": {
+    "asset_ref": "example://assets/drone-study",
+    "selector": "RenderPipeline",
+    "selector_language": "illustrative_scene_path"
+  },
+  "context": {
+    "pipeline": "Unity URP; concrete renderer unresolved",
+    "working_image_ref": "example://targets/lowres_world",
+    "resolution": {
+      "width": 320,
+      "height": 180
+    },
+    "output_resolution": {
+      "width": 1920,
+      "height": 1080
+    },
+    "color_encoding": "must_be_resolved_at_each_stage",
+    "secondary_lighting_inputs": "unresolved: require surface information source"
+  },
+  "changes": [
+    {
+      "term_id": "render.compositing_order",
+      "operation": "set_sequence",
+      "sequence": [
+        "world_raster",
+        "pixelated_world",
+        "secondary_tint",
+        "dithering",
+        "nearest_upscale",
+        "clean_ui_composite"
+      ],
+      "property_binding": null,
+      "magnitude_basis": "none"
+    },
+    {
+      "term_id": "pixel_sprite.selective_nonpixel",
+      "operation": "set_relation",
+      "relation": {
+        "excluded_from_pixelation": [
+          "clean_ui"
+        ],
+        "bloom_routing": "requires_separate_decision"
+      },
+      "property_binding": null,
+      "magnitude_basis": "none"
+    }
+  ],
+  "constraints": [
+    {
+      "id": "design_not_architecture",
+      "description": "The stage names express intent. The concrete pass count, the position of bloom, and recovery of lighting information are not settled."
+    }
+  ],
+  "acceptance": [
+    {
+      "status": "not_evaluated",
+      "kind": "graph",
+      "description": "Check that the stated precedence relations and the UI exclusion scope are met in the implementation graph."
+    },
+    {
+      "status": "not_evaluated",
+      "kind": "human",
+      "description": "Check that the pixel grid, the dithering and the clean UI appear on the layers required."
+    }
+  ],
+  "execution": {
+    "adapter": null,
+    "binding_resolved": false,
+    "authorized": false,
+    "run_ref": null
+  },
+  "note": "The numbers and target names are a serialization example. They are not recommended thresholds, real assets, or verified results."
+}

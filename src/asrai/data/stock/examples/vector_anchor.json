@@ -1,0 +1,75 @@
+{
+  "$schema": "instruction.v2.schema.json",
+  "schema_version": "2.0.0",
+  "id": "example.vector_anchor",
+  "status": "proposed",
+  "axis": "direction_compliance",
+  "intent": "Move the specified anchor of a vector contour in SVG user coordinates.",
+  "target": {
+    "asset_ref": "example://assets/drone-study",
+    "selector": "Icon/BodyPath/Anchor3",
+    "selector_language": "illustrative_scene_path"
+  },
+  "context": {
+    "space": "svg_user",
+    "viewBox": [
+      0,
+      0,
+      200,
+      200
+    ],
+    "origin": "viewBox_origin",
+    "axes": "x_right_y_down",
+    "baseline_ref": "example://svg/icon-r0",
+    "output_resolution": {
+      "width": 64,
+      "height": 64
+    }
+  },
+  "changes": [
+    {
+      "term_id": "vector.anchor",
+      "operation": "set",
+      "quantity": {
+        "value": [
+          120,
+          70
+        ],
+        "unit": "svg_user_unit"
+      },
+      "property_binding": null,
+      "magnitude_basis": "example"
+    }
+  ],
+  "constraints": [
+    {
+      "id": "preserve_path",
+      "description": "The remaining anchors, colors, path closure and group transform are preserved. Whether the handles move with it is decided separately."
+    }
+  ],
+  "acceptance": [
+    {
+      "status": "not_evaluated",
+      "kind": "numeric",
+      "metric_id": "anchor_xy",
+      "operator": "equals",
+      "value": [
+        120,
+        70
+      ],
+      "unit": "svg_user_unit"
+    },
+    {
+      "status": "not_evaluated",
+      "kind": "human",
+      "description": "Check that the contour reads at the final 64x64 display size."
+    }
+  ],
+  "execution": {
+    "adapter": null,
+    "binding_resolved": false,
+    "authorized": false,
+    "run_ref": null
+  },
+  "note": "The numbers and target names are a serialization example. They are not recommended thresholds, real assets, or verified results."
+}

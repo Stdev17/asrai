@@ -1,0 +1,344 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:art-direction:stock-vocab:schema:2.0.0",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "language",
+    "metadata",
+    "categories",
+    "entries",
+    "unit_registry",
+    "operation_registry",
+    "quantification_profiles",
+    "numeric_rules",
+    "ambiguous_tokens",
+    "known_limits"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "2.0.0"
+    },
+    "language": {
+      "const": "en"
+    },
+    "title": {
+      "type": "string"
+    },
+    "metadata": {
+      "type": "object"
+    },
+    "derivation_stats": {
+      "type": "object"
+    },
+    "known_limits": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "unit_registry": {
+      "type": "object",
+      "minProperties": 1
+    },
+    "operation_registry": {
+      "type": "object",
+      "minProperties": 1
+    },
+    "quantification_profiles": {
+      "type": "object",
+      "minProperties": 1
+    },
+    "numeric_rules": {
+      "type": "array",
+      "minItems": 1
+    },
+    "categories": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "label",
+          "entry_count"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1
+          },
+          "entry_count": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      }
+    },
+    "ambiguous_tokens": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "token",
+          "candidate_ids",
+          "resolution_note"
+        ],
+        "properties": {
+          "token": {
+            "type": "string"
+          },
+          "candidate_ids": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "type": "string"
+            }
+          },
+          "resolution_note": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/entry"
+      }
+    }
+  },
+  "$defs": {
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "category",
+        "label",
+        "aliases",
+        "kind",
+        "description",
+        "translated_by",
+        "provenance",
+        "operationalization",
+        "quantification",
+        "confusable_with",
+        "origin"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_]*$"
+        },
+        "category": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "aliases": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "text",
+              "lang"
+            ],
+            "properties": {
+              "text": {
+                "type": "string",
+                "minLength": 1
+              },
+              "lang": {
+                "type": "string",
+                "minLength": 2
+              }
+            }
+          }
+        },
+        "kind": {
+          "$comment": "The closed kind vocabulary inherited from ad_ta_vocab v1. Fixed, not derived from whichever entries the current scope keeps.",
+          "enum": [
+            "constraint",
+            "diagnostic",
+            "local_term",
+            "method",
+            "operation",
+            "parameter",
+            "perceptual_goal",
+            "pipeline",
+            "principle",
+            "representation",
+            "visual_structure"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "translated_by": {
+          "enum": [
+            "llm",
+            "human"
+          ]
+        },
+        "translation_review": {
+          "const": "needed"
+        },
+        "scope": {
+          "const": "uncertain"
+        },
+        "scope_note": {
+          "type": "string",
+          "minLength": 1
+        },
+        "provenance": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "term_basis",
+            "description_basis",
+            "operationalization_basis"
+          ],
+          "properties": {
+            "term_basis": {
+              "type": "string"
+            },
+            "description_basis": {
+              "type": "string"
+            },
+            "operationalization_basis": {
+              "type": "string"
+            }
+          }
+        },
+        "operationalization": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "candidate_surfaces",
+            "guidance",
+            "perceptual_review_required"
+          ],
+          "properties": {
+            "candidate_surfaces": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "guidance": {
+              "type": "string",
+              "minLength": 1
+            },
+            "perceptual_review_required": {
+              "type": "boolean"
+            }
+          }
+        },
+        "quantification": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "profile_id",
+            "mode",
+            "value_type",
+            "allowed_units",
+            "required_context",
+            "allowed_operations"
+          ],
+          "properties": {
+            "profile_id": {
+              "type": "string"
+            },
+            "mode": {
+              "enum": [
+                "categorical",
+                "direct_with_context",
+                "measurable_with_context",
+                "proxy_only",
+                "qualitative",
+                "relational",
+                "structural",
+                "undefined"
+              ]
+            },
+            "value_type": {
+              "type": "string"
+            },
+            "allowed_units": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "required_context": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "allowed_operations": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "confusable_with": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "term_id",
+              "note"
+            ],
+            "properties": {
+              "term_id": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "origin": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "corpus",
+            "entry_sha256"
+          ],
+          "properties": {
+            "corpus": {
+              "const": "ad_ta_vocab.v1"
+            },
+            "entry_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        }
+      }
+    }
+  }
+}

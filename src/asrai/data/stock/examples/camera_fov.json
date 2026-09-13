@@ -1,0 +1,66 @@
+{
+  "$schema": "instruction.v2.schema.json",
+  "schema_version": "2.0.0",
+  "id": "example.camera_fov",
+  "status": "proposed",
+  "axis": "direction_compliance",
+  "intent": "Describe a request to set the vertical FOV of a perspective camera to 55 degrees.",
+  "target": {
+    "asset_ref": "example://assets/drone-study",
+    "selector": "Cameras/Gameplay",
+    "selector_language": "illustrative_scene_path"
+  },
+  "context": {
+    "projection": "perspective",
+    "fov_axis": "vertical",
+    "aspect_ratio": "16:9",
+    "space": "camera",
+    "camera_position": "preserved",
+    "custom_projection_matrix": false,
+    "runtime_version": "resolve_before_execution"
+  },
+  "changes": [
+    {
+      "term_id": "camera.fov",
+      "operation": "set",
+      "quantity": {
+        "value": 55,
+        "unit": "deg"
+      },
+      "property_binding": {
+        "candidate": "UnityEngine.Camera.fieldOfView",
+        "resolved": false
+      },
+      "magnitude_basis": "example"
+    }
+  ],
+  "constraints": [
+    {
+      "id": "camera_fixed",
+      "description": "The camera position, orientation and subject position are not changed."
+    }
+  ],
+  "acceptance": [
+    {
+      "status": "not_evaluated",
+      "kind": "numeric",
+      "metric_id": "vertical_fov",
+      "operator": "approx",
+      "value": 55,
+      "unit": "deg",
+      "tolerance": 1e-06
+    },
+    {
+      "status": "not_evaluated",
+      "kind": "human",
+      "description": "Check that the required targets are included in the frame from the same viewpoint."
+    }
+  ],
+  "execution": {
+    "adapter": null,
+    "binding_resolved": false,
+    "authorized": false,
+    "run_ref": null
+  },
+  "note": "The numbers and target names are a serialization example. They are not recommended thresholds, real assets, or verified results."
+}

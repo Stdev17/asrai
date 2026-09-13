@@ -1,0 +1,2227 @@
+{
+  "schema_version": "2.0.0",
+  "locale": "pt",
+  "language_label_en": "Portuguese",
+  "language_label_native": "Português",
+  "base": "vocab.v2.json",
+  "base_entry_count": 475,
+  "spec_language": "en",
+  "translation_basis": "editorial_translation_not_verified_against_localized_industry_corpus",
+  "note_en": "Head-term labels and spoken-form descriptions only. Units, operations, quantification profiles, operational guidance and provenance stay in the English/base bundle and are never duplicated here.",
+  "covers": [
+    "pt"
+  ],
+  "term_count": 475,
+  "terms": {
+    "perception.visual_hierarchy": {
+      "label": "hierarquia visual",
+      "description": "Relação de importância que faz uns elementos da tela serem lidos antes de outros."
+    },
+    "perception.readability": {
+      "label": "legibilidade",
+      "description": "Grau em que o sentido de um objeto ou ação se distingue no tamanho e no tempo exigidos."
+    },
+    "perception.silhouette_readability": {
+      "label": "legibilidade da silhueta",
+      "description": "Grau em que um objeto ou pose se leem só pela massa externa, sem detalhe interno."
+    },
+    "perception.icon_readability": {
+      "label": "legibilidade do ícone",
+      "description": "Grau em que tipo e função de um símbolo continuam distinguíveis em tamanho pequeno."
+    },
+    "perception.scale_readability": {
+      "label": "legibilidade sob escala",
+      "description": "Grau em que as características principais se mantêm ao ampliar, reduzir ou mudar a distância de visão."
+    },
+    "perception.material_readability": {
+      "label": "legibilidade do material",
+      "description": "Grau em que a intenção de material se distingue só pelas pistas de superfície."
+    },
+    "perception.affordance": {
+      "label": "affordance",
+      "description": "Termo sobre o que a tela de jogo permite fazer e como essa possibilidade é comunicada.",
+      "review": "confirm_loanword"
+    },
+    "perception.figure_ground": {
+      "label": "figura-fundo",
+      "description": "Relação pela qual se separa qual área é objeto e qual é fundo."
+    },
+    "perception.attention": {
+      "label": "atenção",
+      "description": "Fenômeno em que quem observa dedica recursos de processamento a uma parte da tela."
+    },
+    "perception.visual_saliency": {
+      "label": "saliência visual",
+      "description": "Propriedade de destacar-se por diferença em relação ao entorno."
+    },
+    "perception.preattentive_processing": {
+      "label": "processamento pré-atencional",
+      "description": "Conceito sobre traços visuais que se separam antes da busca consciente por detalhe."
+    },
+    "perception.gestalt": {
+      "label": "princípios da Gestalt",
+      "description": "Conjunto de princípios sobre a tendência das partes a se organizarem em grupo ou figura."
+    },
+    "perception.perceptual_grouping": {
+      "label": "agrupamento perceptual",
+      "description": "Relação pela qual vários elementos são lidos como um só conjunto."
+    },
+    "perception.depth_perception": {
+      "label": "percepção de profundidade",
+      "description": "Ler distância entre frente e fundo e relação volumétrica a partir de uma imagem plana."
+    },
+    "perception.visual_cognition": {
+      "label": "cognição visual",
+      "description": "Processo de interpretar a informação visual como objetos, relações e sentido."
+    },
+    "perception.contextual_perception": {
+      "label": "percepção contextual",
+      "description": "Propriedade pela qual o mesmo objeto é lido de outro modo conforme entorno e situação."
+    },
+    "perception.semiotics": {
+      "label": "semiótica",
+      "description": "Relação pela qual forma, cor e marca carregam um sentido específico."
+    },
+    "perception.style_coherence": {
+      "label": "coerência de estilo",
+      "description": "Grau em que assets e efeitos parecem de acordo com as regras visuais compartilhadas."
+    },
+    "perception.gameplay_clarity": {
+      "label": "clareza de gameplay",
+      "description": "Grau em que os objetos, eventos e ações necessários ao jogo são comunicados visualmente."
+    },
+    "perception.visual_clutter": {
+      "label": "poluição visual",
+      "description": "Estado em que elementos concorrentes soterram a informação necessária."
+    },
+    "perception.visual_weight": {
+      "label": "peso visual",
+      "description": "Peso relativo produzido por tamanho, posição, cor e contraste."
+    },
+    "perception.visual_intent": {
+      "label": "intenção visual",
+      "description": "Papel, emoção ou informação que se quer comunicar na tela por meio da manipulação."
+    },
+    "perception.spectacle": {
+      "label": "espetáculo visual",
+      "description": "Objetivo expressivo de prender o olhar por escala, estímulo ou mudança forte."
+    },
+    "composition.composition": {
+      "label": "composição",
+      "description": "Relação organizada entre os elementos e o espaço vazio do quadro."
+    },
+    "composition.balance": {
+      "label": "equilíbrio",
+      "description": "Grau em que o peso visual do quadro fica estável ou pende de propósito."
+    },
+    "composition.focal_point": {
+      "label": "ponto focal",
+      "description": "Ponto ou objeto pensado para ser lido primeiro no quadro."
+    },
+    "composition.staging": {
+      "label": "encenação",
+      "description": "Dispor figuras, props e câmera para que ação e relações se leiam com clareza."
+    },
+    "composition.framing": {
+      "label": "enquadramento",
+      "description": "Decidir o que entra e o que fica de fora do quadro de câmera."
+    },
+    "composition.positive_space": {
+      "label": "espaço positivo",
+      "description": "Área da tela que a forma do objeto ocupa."
+    },
+    "composition.negative_space": {
+      "label": "espaço negativo",
+      "description": "Área que se lê como vazia em torno dos objetos ou entre eles."
+    },
+    "composition.overlap": {
+      "label": "sobreposição",
+      "description": "Relação em que as áreas de dois objetos se cobrem na projeção da tela."
+    },
+    "composition.foreground": {
+      "label": "primeiro plano",
+      "description": "Camada da tela que se lê como a mais próxima do ponto de vista."
+    },
+    "composition.midground": {
+      "label": "plano médio",
+      "description": "Camada entre primeiro plano e fundo que liga a ação ou o espaço."
+    },
+    "composition.background": {
+      "label": "plano de fundo",
+      "description": "Camada da tela que envolve o objeto principal ou se lê atrás dele.",
+      "aliases": [
+        "fundo"
+      ]
+    },
+    "composition.line_direction": {
+      "label": "direção de linha",
+      "description": "Direcionalidade que bordas e disposição criam no quadro."
+    },
+    "composition.rhythm": {
+      "label": "ritmo",
+      "description": "Padrão formado por repetição, espaçamento e acento de elementos ou eventos."
+    },
+    "composition.affinity": {
+      "label": "afinidade",
+      "description": "Relação em que cor, valor, forma ou movimento se organizam parecidos entre si."
+    },
+    "composition.contrast_structure": {
+      "label": "contraste",
+      "description": "Relação em que dois elementos ou conjuntos se distinguem porque seus traços visuais diferem."
+    },
+    "composition.visual_progression": {
+      "label": "progressão visual",
+      "description": "Estrutura em que os traços visuais mudam por etapas com o tempo ou com as cenas."
+    },
+    "composition.visual_component": {
+      "label": "componente visual",
+      "description": "Enfoque que analisa o quadro como espaço, linha, forma, valor, cor, movimento e ritmo."
+    },
+    "composition.screen_direction": {
+      "label": "direção na tela",
+      "description": "Direção para onde um objeto olha ou se move dentro do quadro."
+    },
+    "composition.screen_occupancy": {
+      "label": "ocupação da tela",
+      "description": "Quanto do quadro um objeto ocupa."
+    },
+    "composition.reveal": {
+      "label": "revelação",
+      "description": "Encenação que mostra na ordem prevista uma informação oculta ou desconhecida."
+    },
+    "composition.continuity": {
+      "label": "continuidade visual",
+      "description": "Grau em que espaço, ação e relações visuais seguem sendo lidos ligados entre cortes ou mudanças de estado."
+    },
+    "composition.tension_release": {
+      "label": "tensão e alívio",
+      "description": "Encenação que organiza no tempo a pressão e o alívio dos eventos."
+    },
+    "composition.storytelling": {
+      "label": "narrativa visual",
+      "description": "Objetivo de comunicar eventos e relações por forma, disposição e mudança no tempo."
+    },
+    "composition.storyboard": {
+      "label": "storyboard",
+      "description": "Sequência de desenhos que enuncia de antemão os eventos como imagens-chave.",
+      "review": "confirm_loanword"
+    },
+    "composition.previs": {
+      "label": "previs",
+      "description": "Pré-visualização que executa storyboard e encenação com assets simples.",
+      "aliases": [
+        "pré-visualização"
+      ],
+      "review": "confirm_loanword"
+    },
+    "composition.localization_safe": {
+      "label": "composição tolerante a localização",
+      "description": "Disposição que mantém função e hierarquia quando idioma e conteúdo exibido mudam."
+    },
+    "shape.shape": {
+      "label": "forma",
+      "description": "Figura que se lê como área e contorno numa tela ou num plano."
+    },
+    "shape.form": {
+      "label": "volume",
+      "description": "Forma de objeto entendida como tendo volume e planos orientados."
+    },
+    "shape.silhouette": {
+      "label": "silhueta",
+      "description": "Contorno projetado e massa que restam quando se retira o detalhe interno."
+    },
+    "shape.contour": {
+      "label": "contorno",
+      "description": "Limite externo de uma forma, ou a linha que o enuncia."
+    },
+    "shape.outer_contour": {
+      "label": "contorno externo",
+      "description": "Limite externo que separa objeto e fundo."
+    },
+    "shape.edge_control": {
+      "label": "controle de bordas",
+      "description": "Controlar se os limites se leem duros, suaves, contínuos ou perdidos."
+    },
+    "shape.proportion": {
+      "label": "proporção",
+      "description": "Relação de tamanho entre partes, ou entre uma parte e o todo."
+    },
+    "shape.shape_language": {
+      "label": "linguagem de formas",
+      "description": "Regras que comunicam papel, caráter ou estilo por traços de forma recorrentes."
+    },
+    "shape.mass": {
+      "label": "massa",
+      "description": "Sensação de volume ou bloco visual quando o objeto é lido como um único grupo grande."
+    },
+    "shape.primary_form": {
+      "label": "forma primária",
+      "description": "Forma grande que governa a identidade geral e a silhueta."
+    },
+    "shape.secondary_form": {
+      "label": "forma secundária",
+      "description": "Forma de escala média presa à primária que torna legíveis função e articulação."
+    },
+    "shape.tertiary_detail": {
+      "label": "detalhe terciário",
+      "description": "Camada de detalhe menor que as formas grandes, como linhas de painel e pequenos relevos."
+    },
+    "shape.shape_hierarchy": {
+      "label": "hierarquia de formas",
+      "description": "Papéis e prioridade que assumem as formas grandes, médias e pequenas."
+    },
+    "shape.plane": {
+      "label": "plano",
+      "description": "Região de superfície cuja orientação se mantém relativamente constante ao simplificar o volume."
+    },
+    "shape.planar_break": {
+      "label": "quebra de plano",
+      "description": "Ponto onde a orientação do plano muda e articula a forma."
+    },
+    "shape.planar_transition": {
+      "label": "transição de planos",
+      "description": "Mudança de forma que leva de um plano ou massa a outro."
+    },
+    "shape.primitive_decomposition": {
+      "label": "decomposição em primitivas",
+      "description": "Dividir um objeto complexo em caixas, cilindros e cunhas simples."
+    },
+    "shape.primitive_massing": {
+      "label": "massa com primitivas",
+      "description": "Etapa que constrói volume e proporção gerais com primitivas, sem detalhe."
+    },
+    "shape.blockout": {
+      "label": "blockout",
+      "description": "Rascunho que constrói espaço ou objetos com formas simples em vez de assets finais.",
+      "review": "confirm_loanword"
+    },
+    "shape.box": {
+      "label": "caixa",
+      "description": "Massa em forma de caixa construída com planos retos."
+    },
+    "shape.sphere": {
+      "label": "esfera",
+      "description": "Primitiva esférica usada para testar forma curva, iluminação e material."
+    },
+    "shape.cylinder": {
+      "label": "cilindro",
+      "description": "Primitiva cuja seção circular corre ao longo do comprimento."
+    },
+    "shape.wedge": {
+      "label": "cunha",
+      "description": "Massa que cria direcionalidade e mudança de espessura por planos inclinados."
+    },
+    "shape.capsule": {
+      "label": "cápsula",
+      "description": "Corpo alongado de pontas arredondadas, como no exemplo do drone."
+    },
+    "shape.trapezoid": {
+      "label": "trapézio",
+      "description": "Forma plana com lados paralelos de comprimentos diferentes."
+    },
+    "shape.ellipse": {
+      "label": "elipse",
+      "description": "Elipse usada para uma seção circular projetada ou para desenho plano."
+    },
+    "shape.circle": {
+      "label": "círculo",
+      "description": "Elemento circular no plano."
+    },
+    "shape.triangle": {
+      "label": "triângulo",
+      "description": "Forma plana que se lê pelos três lados."
+    },
+    "shape.rectangle": {
+      "label": "retângulo",
+      "description": "Forma retangular usada para disposição e construção de massas."
+    },
+    "shape.notch": {
+      "label": "entalhe de espaço negativo",
+      "description": "Vão recuado que separa a silhueta entre massas vizinhas."
+    },
+    "shape.panel_line": {
+      "label": "linha de painel",
+      "description": "Linha interna que articula a superfície sem mudar o contorno."
+    },
+    "shape.contour_economy": {
+      "label": "economia de contorno",
+      "description": "Propriedade de comunicar os traços necessários com poucas variações de limite."
+    },
+    "shape.modular_construction": {
+      "label": "construção modular",
+      "description": "Construir assets combinando peças reaproveitáveis."
+    },
+    "shape.anatomy": {
+      "label": "anatomia",
+      "description": "Conhecimento da estrutura do corpo humano e do que sustenta seu movimento."
+    },
+    "shape.ribcage": {
+      "label": "caixa torácica",
+      "description": "Massa que representa o tronco superior na construção simplificada da figura."
+    },
+    "shape.pelvis": {
+      "label": "pelve",
+      "description": "Massa que representa o tronco inferior na construção simplificada da figura.",
+      "aliases": [
+        "quadril"
+      ]
+    },
+    "shape.mannequin": {
+      "label": "manequim",
+      "description": "Enunciado de pose que acrescenta volume básico a um boneco de palito."
+    },
+    "space.position": {
+      "label": "posição",
+      "description": "Lugar onde um objeto se situa no sistema de coordenadas escolhido."
+    },
+    "space.rotation": {
+      "label": "rotação",
+      "description": "Mudança de orientação de um objeto ou de um eixo de referência."
+    },
+    "space.scale": {
+      "label": "escala",
+      "description": "Transformação que muda por multiplicação o tamanho de um objeto em cada eixo."
+    },
+    "space.transform": {
+      "label": "transformação",
+      "description": "Enunciado que reúne posição, rotação, escala e outras transformações espaciais."
+    },
+    "space.affine": {
+      "label": "transformação afim",
+      "description": "Transformação linear combinada com translação que preserva as relações de paralelismo."
+    },
+    "space.projection": {
+      "label": "projeção",
+      "description": "Transformação que leva posições 3D a posições da imagem de câmera."
+    },
+    "space.object_space": {
+      "label": "espaço do objeto",
+      "description": "Espaço que enuncia a posição pelos eixos e pela origem do próprio objeto.",
+      "aliases": [
+        "espaço local"
+      ]
+    },
+    "space.world_space": {
+      "label": "espaço do mundo",
+      "description": "Espaço que enuncia posição e orientação pela referência comum da cena."
+    },
+    "space.view_space": {
+      "label": "espaço de visão",
+      "description": "Espaço que enuncia posição e orientação em relação à câmera."
+    },
+    "space.clip_space": {
+      "label": "espaço de recorte",
+      "description": "Espaço de coordenadas homogêneas usado para projeção e recorte."
+    },
+    "space.screen_space": {
+      "label": "espaço de tela",
+      "description": "Espaço que enuncia um objeto pela posição na imagem de saída."
+    },
+    "space.depth": {
+      "label": "profundidade",
+      "description": "Colocação entre frente e fundo, ou profundidade em relação à câmera."
+    },
+    "space.depth_cue": {
+      "label": "pista de profundidade",
+      "description": "Pista visual como sobreposição, perspectiva ou iluminação que faz ler a profundidade."
+    },
+    "space.foreshortening": {
+      "label": "escorço",
+      "description": "Efeito em que parte de um objeto se projeta mais curta conforme a direção de visão."
+    },
+    "space.perspective_grid": {
+      "label": "grade de perspectiva",
+      "description": "Estrutura de linhas-guia para manter coerentes as relações de perspectiva."
+    },
+    "space.axis": {
+      "label": "eixo",
+      "description": "Direção de referência pela qual se leem transformações e orientação."
+    },
+    "space.origin": {
+      "label": "origem",
+      "description": "Ponto que ancora a posição e as transformações de um objeto."
+    },
+    "space.pivot": {
+      "label": "pivô",
+      "description": "Ponto de referência para rotação, escala e posicionamento."
+    },
+    "space.parent_child_transform": {
+      "label": "transformação pai-filho",
+      "description": "Relação em que a transformação do filho segue a do pai."
+    },
+    "space.size": {
+      "label": "tamanho",
+      "description": "Enunciado geral do comprimento, largura e altura de um objeto ou do seu tamanho na tela."
+    },
+    "space.direction": {
+      "label": "direção",
+      "description": "Direção para onde um objeto olha, se estende ou se desloca."
+    },
+    "camera.camera": {
+      "label": "câmera",
+      "description": "Componente que decide de que ponto de vista e com que projeção a cena é observada."
+    },
+    "camera.camera_position": {
+      "label": "posição de câmera",
+      "description": "Lugar onde a câmera se situa na cena."
+    },
+    "camera.camera_angle": {
+      "label": "ângulo de câmera",
+      "description": "Orientação e ponto de vista da câmera sobre o objeto."
+    },
+    "camera.camera_distance": {
+      "label": "distância de câmera",
+      "description": "Distância entre a câmera e um objeto ou ponto de referência nomeado."
+    },
+    "camera.fov": {
+      "label": "campo de visão",
+      "description": "Faixa angular que a câmera abrange.",
+      "aliases": [
+        "FOV"
+      ]
+    },
+    "camera.perspective": {
+      "label": "perspectiva",
+      "description": "Modo de câmera em que o tamanho projetado muda com a distância."
+    },
+    "camera.orthographic": {
+      "label": "ortográfica",
+      "description": "Projeção paralela sem redução de tamanho pela profundidade.",
+      "aliases": [
+        "projeção ortogonal"
+      ]
+    },
+    "camera.frustum": {
+      "label": "frustum",
+      "description": "Volume de visão que a câmera usa para recorte e visibilidade.",
+      "aliases": [
+        "tronco de visão"
+      ],
+      "review": "confirm_loanword"
+    },
+    "camera.near_far": {
+      "label": "planos próximo e distante",
+      "description": "Faixa de distâncias que a câmera trata à frente e atrás."
+    },
+    "camera.shot_size": {
+      "label": "escala de plano",
+      "description": "Classificação do plano conforme quanto do objeto o quadro mostra."
+    },
+    "camera.wide_shot": {
+      "label": "plano geral",
+      "description": "Enquadramento que abrange o espaço e as relações ao redor do objeto.",
+      "aliases": [
+        "plano aberto"
+      ]
+    },
+    "camera.close_shot": {
+      "label": "plano fechado",
+      "description": "Enquadramento que mostra grande o objeto ou parte dele.",
+      "aliases": [
+        "close"
+      ]
+    },
+    "camera.low_angle": {
+      "label": "ângulo baixo",
+      "description": "Enquadramento que olha o objeto de um ponto de vista relativamente baixo.",
+      "aliases": [
+        "contra-plongée"
+      ]
+    },
+    "camera.front_view": {
+      "label": "vista frontal",
+      "description": "Ponto de vista de inspeção tomado pela frente do objeto."
+    },
+    "camera.side_view": {
+      "label": "vista lateral",
+      "description": "Ponto de vista de inspeção tomado pelo lado do objeto."
+    },
+    "camera.three_quarter": {
+      "label": "vista de três quartos",
+      "description": "Ponto de vista oblíquo que mostra frente e lateral ao mesmo tempo."
+    },
+    "value.value": {
+      "label": "valor",
+      "description": "Eixo artístico que organiza as relações de claro e escuro."
+    },
+    "value.tone": {
+      "label": "tom",
+      "description": "Nesta conversa, sobretudo a estrutura de claros e escuros do quadro."
+    },
+    "value.value_grouping": {
+      "label": "agrupamento de valores",
+      "description": "Organizar o quadro ligando o detalhe em grandes grupos de valor."
+    },
+    "value.three_value": {
+      "label": "estudo de três valores",
+      "description": "Estudo que simplifica o quadro em três valores como preto, cinza e branco."
+    },
+    "value.grayscale": {
+      "label": "escala de cinza",
+      "description": "Enunciado que retira a diferença de matiz e mostra o componente de claro-escuro."
+    },
+    "value.value_contrast": {
+      "label": "contraste de valor",
+      "description": "Diferença de claro e escuro entre objetos."
+    },
+    "value.tone_affinity": {
+      "label": "afinidade tonal",
+      "description": "Estado em que as relações de valor de objetos ou áreas se agrupam por semelhança."
+    },
+    "value.contrast_hierarchy": {
+      "label": "hierarquia de contraste",
+      "description": "Estrutura que decide qual dos vários contrastes do quadro tem prioridade."
+    },
+    "value.highlight": {
+      "label": "luz alta",
+      "description": "Área de acento clara produzida pela resposta à luz ou por escolha de estilo.",
+      "aliases": [
+        "brilho"
+      ]
+    },
+    "value.shadow": {
+      "label": "sombra",
+      "description": "Área que recebe menos luz ou que é agrupada escura por escolha expressiva."
+    },
+    "lighting.lighting": {
+      "label": "iluminação",
+      "description": "Montagem que constrói forma e clima de tela com fontes de luz e ambiente."
+    },
+    "lighting.light": {
+      "label": "luz",
+      "description": "Luz, ou fonte de luz do motor, que contribui para a iluminação de objetos e espaço."
+    },
+    "lighting.light_direction": {
+      "label": "direção da luz",
+      "description": "Direção em que a luz viaja ou de onde incide na superfície."
+    },
+    "lighting.intensity": {
+      "label": "intensidade",
+      "description": "Valor que controla a potência de saída de uma fonte de luz."
+    },
+    "lighting.directional_light": {
+      "label": "luz direcional",
+      "description": "Tipo de luz do motor cuja propriedade principal é a direção."
+    },
+    "lighting.form_shadow": {
+      "label": "sombra própria",
+      "description": "Parte escura do próprio objeto onde a orientação da superfície recebe menos luz direta."
+    },
+    "lighting.cast_shadow": {
+      "label": "sombra projetada",
+      "description": "Sombra formada em outra superfície onde o objeto bloqueia a luz."
+    },
+    "lighting.terminator": {
+      "label": "terminador",
+      "description": "Limite de uma forma entre o lado iluminado e o não iluminado."
+    },
+    "lighting.ambient": {
+      "label": "luz ambiente",
+      "description": "Termo para a contribuição luminosa do entorno além das fontes diretas individuais."
+    },
+    "lighting.bounce": {
+      "label": "luz rebatida",
+      "description": "Contribuição de luz indireta que chega após refletir em outra superfície."
+    },
+    "lighting.backlight": {
+      "label": "contraluz",
+      "description": "Disposição de luz vinda de trás do objeto em relação à câmera."
+    },
+    "lighting.lambert": {
+      "label": "Lambert",
+      "description": "Modelo difuso simples que usa a relação entre orientação da superfície e direção de incidência.",
+      "review": "confirm_loanword"
+    },
+    "lighting.ndotl": {
+      "label": "N·L",
+      "description": "Valor que enuncia a orientação da superfície como produto escalar de normal e direção da luz.",
+      "review": "confirm_loanword"
+    },
+    "lighting.fake_lighting": {
+      "label": "iluminação falsa",
+      "description": "Iluminação acrescentada pela legibilidade e pela intenção, não pela coerência física."
+    },
+    "lighting.secondary_lighting": {
+      "label": "iluminação secundária",
+      "description": "Etapa do projeto que acrescenta tonalização ou resposta de luz extra sobre objetos pixelizados."
+    },
+    "lighting.radiometry": {
+      "label": "radiometria",
+      "description": "Conceito base que trata quantitativamente a transferência de energia luminosa."
+    },
+    "lighting.light_transport": {
+      "label": "transporte de luz",
+      "description": "Processo pelo qual a luz é transmitida entre fontes, superfícies e meios."
+    },
+    "color.color": {
+      "label": "cor",
+      "description": "Componente cromático e relações perceptivas de superfícies, luzes e imagens."
+    },
+    "color.hue": {
+      "label": "matiz",
+      "description": "Eixo de um modelo de cor que separa a cor em vermelho, amarelo, verde e assim por diante."
+    },
+    "color.saturation": {
+      "label": "saturação",
+      "description": "Eixo que controla a distância da cor em relação ao neutro no modelo ou ferramenta escolhidos."
+    },
+    "color.warm_cool": {
+      "label": "relação quente-fria",
+      "description": "Relação pela qual as cores são lidas como relativamente quentes ou frias."
+    },
+    "color.simultaneous_contrast": {
+      "label": "contraste simultâneo",
+      "description": "Efeito pelo qual a mesma cor é lida de outro modo conforme a cor ou o valor ao redor."
+    },
+    "color.palette": {
+      "label": "paleta",
+      "description": "Conjunto de cores usado numa imagem ou num grupo de assets."
+    },
+    "color.palette_hierarchy": {
+      "label": "hierarquia de paleta",
+      "description": "Prioridade dentro de um conjunto de cores entre dominante, secundária e de destaque."
+    },
+    "color.palette_discipline": {
+      "label": "disciplina de paleta",
+      "description": "Regra que mantém coerentes as relações de cor permitidas e a quantidade de cores."
+    },
+    "color.local_color": {
+      "label": "cor local",
+      "description": "Cor própria do objeto, enunciada à parte dos efeitos de iluminação."
+    },
+    "color.light_color": {
+      "label": "cor da luz",
+      "description": "Composição cromática da luz."
+    },
+    "color.surrounding_color": {
+      "label": "cor do entorno",
+      "description": "Cor colocada em volta de um objeto que influencia como ele é percebido."
+    },
+    "color.perceived_color": {
+      "label": "cor percebida",
+      "description": "Cor que uma pessoa lê no contexto final e nas condições de observação."
+    },
+    "color.color_temperature": {
+      "label": "temperatura de cor",
+      "description": "Termo que trata a cor da luz ou o balanço de branco na direção quente-fria."
+    },
+    "color.tint": {
+      "label": "tonalização",
+      "description": "Manipulação que inclina uma cor numa direção ou aplica um filtro de cor."
+    },
+    "color.vibrance": {
+      "label": "vibração",
+      "description": "Controle próprio de cada ferramenta que corrige seletivamente a intensidade da cor.",
+      "aliases": [
+        "vibrance"
+      ]
+    },
+    "color.gamma": {
+      "label": "curva gama",
+      "description": "Termo para uma curva não linear de transferência de valores ou o controle de gama de uma ferramenta."
+    },
+    "color.exposure": {
+      "label": "exposição",
+      "description": "Valor que ajusta o brilho da imagem ou do sinal de luz em termos de exposição."
+    },
+    "color.srgb": {
+      "label": "sRGB",
+      "description": "Sistema de codificação de cor RGB que aparece ao tratar cor de textura e de exibição.",
+      "review": "confirm_loanword"
+    },
+    "color.linear": {
+      "label": "cor linear",
+      "description": "Enunciado que faz as operações de cor em valores proporcionais à quantidade de luz."
+    },
+    "color.lut": {
+      "label": "LUT",
+      "description": "Tabela pré-calculada que mapeia cores de entrada para cores de saída.",
+      "aliases": [
+        "tabela de consulta"
+      ],
+      "review": "confirm_loanword"
+    },
+    "color.color_grading": {
+      "label": "correção de cor",
+      "description": "Mudar conforme a intenção as relações de cor e valor da tela final.",
+      "aliases": [
+        "color grading"
+      ]
+    },
+    "color.tone_mapping": {
+      "label": "mapeamento tonal",
+      "description": "Etapa que leva uma faixa ampla de sinal a um enunciado exibível."
+    },
+    "color.color_contrast": {
+      "label": "contraste de cor",
+      "description": "Relação em que duas áreas são lidas como diferentes em cor."
+    },
+    "color.color_affinity": {
+      "label": "afinidade de cor",
+      "description": "Relação em que as cores dos elementos se agrupam e são lidas como parecidas."
+    },
+    "color.complementary_scheme": {
+      "label": "esquema complementar",
+      "description": "Arranjo de cor que usa relações opostas no círculo cromático."
+    },
+    "material.surface": {
+      "label": "superfície",
+      "description": "Limite em que a forma responde à luz e à textura, ou seu enunciado."
+    },
+    "material.material": {
+      "label": "material",
+      "description": "Conjunto da resposta de superfície com suas texturas e parâmetros associados.",
+      "review": "confirm_loanword"
+    },
+    "material.surface_response": {
+      "label": "resposta de superfície",
+      "description": "Como uma superfície responde às mudanças de luz e de ponto de vista."
+    },
+    "material.material_cue": {
+      "label": "pista de material",
+      "description": "Pista de brilho, cor ou padrão de superfície que faz algo ser lido como metal, borracha e afins."
+    },
+    "material.pbr": {
+      "label": "PBR",
+      "description": "Abordagem de material e sombreamento que usa princípios de resposta física de superfície.",
+      "review": "confirm_loanword"
+    },
+    "material.brdf": {
+      "label": "BRDF",
+      "description": "Função que enuncia a reflexão de superfície conforme direção de entrada e de saída.",
+      "review": "confirm_loanword"
+    },
+    "material.bsdf": {
+      "label": "BSDF",
+      "description": "Categoria de função que enuncia a resposta de espalhamento da superfície, reflexão e transmissão inclusas.",
+      "review": "confirm_loanword"
+    },
+    "material.base_color": {
+      "label": "cor base",
+      "description": "Valor usado como entrada de cor base para a iluminação num fluxo de material.",
+      "aliases": [
+        "albedo"
+      ]
+    },
+    "material.metallic": {
+      "label": "metalicidade",
+      "description": "Entrada de caráter de superfície de um fluxo metal / não metal.",
+      "aliases": [
+        "metallic"
+      ]
+    },
+    "material.roughness": {
+      "label": "rugosidade",
+      "description": "Entrada que controla o espalhamento da distribuição de reflexão conforme a microestrutura da superfície."
+    },
+    "material.smoothness": {
+      "label": "suavidade",
+      "description": "Entrada própria de cada ferramenta que ajusta quão nítida é a resposta de reflexão.",
+      "aliases": [
+        "smoothness"
+      ]
+    },
+    "material.ao": {
+      "label": "oclusão de ambiente",
+      "description": "Valor ou mapa que enuncia a pista de escurecimento por oclusão local.",
+      "aliases": [
+        "AO"
+      ]
+    },
+    "material.emission": {
+      "label": "emissão",
+      "description": "Sinal de material acrescentado para que uma superfície se leia brilhante por si mesma."
+    },
+    "material.normal_map": {
+      "label": "mapa de normais",
+      "description": "Enunciado que transmite por textura as mudanças de orientação da superfície."
+    },
+    "material.curvature": {
+      "label": "curvatura",
+      "description": "Quanto uma superfície se curva ou quebra, ou o enunciado que guarda essa informação."
+    },
+    "material.mesh_maps": {
+      "label": "mapas de malha",
+      "description": "Conjunto de mapas auxiliares assados a partir da malha para criar materiais."
+    },
+    "material.material_layers": {
+      "label": "camadas de material",
+      "description": "Camadas que compõem vários efeitos de material por ordem e máscara."
+    },
+    "material.mask_generator": {
+      "label": "máscaras e geradores",
+      "description": "Montagem que gera onde um efeito de material se aplica, a partir de condições ou mapas."
+    },
+    "material.metal_rough_workflow": {
+      "label": "fluxo metal-rugosidade",
+      "description": "Fluxo que compõe as entradas de superfície em torno de metalicidade e rugosidade."
+    },
+    "material.spec_gloss_workflow": {
+      "label": "fluxo especular-brilho",
+      "description": "Fluxo que compõe a superfície a partir de entradas de cor especular e brilho."
+    },
+    "material.plastic": {
+      "label": "plástico",
+      "description": "Impressão de superfície plástica tomada como comparação no exercício."
+    },
+    "material.metal": {
+      "label": "metal",
+      "description": "Impressão de superfície metálica tomada como comparação no exercício.",
+      "review": "confirm_loanword"
+    },
+    "material.rubber": {
+      "label": "borracha",
+      "description": "Impressão de superfície de borracha tomada como comparação no exercício."
+    },
+    "material.glass": {
+      "label": "vidro",
+      "description": "Objetivo de superfície de vidro que se lê por pistas de transparência e reflexão."
+    },
+    "material.painted_metal": {
+      "label": "metal pintado",
+      "description": "Objetivo de superfície com diferença entre base metálica e camada de pintura."
+    },
+    "geometry.geometry": {
+      "label": "geometria",
+      "description": "Forma enunciada como pontos, linhas, superfícies e volumes no espaço."
+    },
+    "geometry.mesh": {
+      "label": "malha",
+      "description": "Estrutura que enuncia uma superfície por vértices e suas conexões."
+    },
+    "geometry.topology": {
+      "label": "topologia",
+      "description": "Estrutura de conexão dos elementos da malha."
+    },
+    "geometry.edge_flow": {
+      "label": "fluxo de arestas",
+      "description": "Padrão pelo qual as arestas se conectam seguindo a forma e a direção de deformação."
+    },
+    "geometry.pole": {
+      "label": "polo",
+      "description": "Termo para um vértice cujo número de arestas difere da conexão regular ao redor."
+    },
+    "geometry.manifold": {
+      "label": "manifold",
+      "description": "Condição em que a conexão ao redor da malha é consistentemente de superfície.",
+      "aliases": [
+        "variedade"
+      ],
+      "review": "confirm_loanword"
+    },
+    "geometry.normal": {
+      "label": "normal",
+      "description": "Vetor que enuncia a orientação da superfície.",
+      "review": "confirm_loanword"
+    },
+    "geometry.tangent": {
+      "label": "tangente",
+      "description": "Tangente que constrói o referencial de sombreamento por orientação de superfície ou por UV."
+    },
+    "geometry.smoothing": {
+      "label": "suavização",
+      "description": "Configurar a resposta de normais para que faces vizinhas se leiam contínuas."
+    },
+    "geometry.normal_interpolation": {
+      "label": "interpolação de normais",
+      "description": "Processo de levar a informação de normal pela superfície para sombrear."
+    },
+    "geometry.hard_edge": {
+      "label": "aresta dura",
+      "description": "Limite tratado para que a mudança de orientação entre faces vizinhas se leia clara no sombreamento."
+    },
+    "geometry.soft_edge": {
+      "label": "aresta suave",
+      "description": "Limite de malha tratado para que o sombreamento se conecte de forma relativamente contínua."
+    },
+    "geometry.bevel": {
+      "label": "chanfro",
+      "description": "Operação que corta um canto afiado numa face pequena ou superfície curva.",
+      "aliases": [
+        "bevel"
+      ]
+    },
+    "geometry.bevel_highlight": {
+      "label": "brilho do chanfro",
+      "description": "Faixa clara onde a face do chanfro pega luz e revela a forma do canto."
+    },
+    "geometry.subd": {
+      "label": "superfícies de subdivisão",
+      "description": "Abordagem de modelagem que produz superfície mais suave por subdivisão.",
+      "aliases": [
+        "SubD"
+      ]
+    },
+    "geometry.deformation": {
+      "label": "deformação",
+      "description": "Mudar as posições da malha com o tempo, por rig ou por procedimento."
+    },
+    "geometry.hard_surface": {
+      "label": "hard-surface",
+      "description": "Categoria de modelagem de formas rígidas com transições de plano claras, como máquinas e props.",
+      "review": "confirm_loanword"
+    },
+    "geometry.modifier_stack": {
+      "label": "pilha de modificadores",
+      "description": "Montagem que aplica em ordem várias operações de forma não destrutivas."
+    },
+    "geometry.mirror": {
+      "label": "espelhar",
+      "description": "Operação que copia ou une geometria de forma simétrica em relação a um plano de referência.",
+      "aliases": [
+        "Mirror"
+      ]
+    },
+    "geometry.solidify": {
+      "label": "solidificar",
+      "description": "Operação de modelagem que dá espessura a uma superfície."
+    },
+    "geometry.high_poly": {
+      "label": "high-poly",
+      "description": "Enunciado de modelo com relativamente muito detalhe de forma.",
+      "aliases": [
+        "alta contagem de polígonos"
+      ],
+      "review": "confirm_loanword"
+    },
+    "geometry.low_poly": {
+      "label": "low-poly",
+      "description": "Enunciado de modelo que limita a forma por custo de execução ou por estilo.",
+      "review": "confirm_loanword"
+    },
+    "geometry.target_tris": {
+      "label": "triângulos-alvo",
+      "description": "Limite de triângulos de render fixado para uma malha ou asset."
+    },
+    "geometry.wireframe": {
+      "label": "wireframe",
+      "description": "Visão de inspeção que mostra a conexão da malha como linhas.",
+      "aliases": [
+        "malha de arame"
+      ],
+      "review": "confirm_loanword"
+    },
+    "geometry.curve": {
+      "label": "curva",
+      "description": "Elemento geométrico que enuncia uma forma de linha contínua no espaço."
+    },
+    "geometry.point_cloud": {
+      "label": "nuvem de pontos",
+      "description": "Dados enunciados como um conjunto de pontos no espaço."
+    },
+    "geometry.volume": {
+      "label": "volume de dados",
+      "description": "Dados que enunciam valores dentro de um espaço, não só na sua superfície."
+    },
+    "geometry.instance": {
+      "label": "instância",
+      "description": "Enunciado que coloca um protótipo compartilhado em várias posições e propriedades."
+    },
+    "geometry.geometry_nodes": {
+      "label": "Geometry Nodes",
+      "description": "Sistema que compõe criação e mudança de dados geométricos como grafo de nós.",
+      "aliases": [
+        "nós de geometria"
+      ],
+      "review": "confirm_loanword"
+    },
+    "geometry.quad": {
+      "label": "quad",
+      "description": "Forma de quatro vértices usada como elemento plano em exercícios e efeitos.",
+      "aliases": [
+        "plano de quatro vértices"
+      ],
+      "review": "confirm_loanword"
+    },
+    "geometry.modeling": {
+      "label": "modelagem",
+      "description": "Trabalho de construir forma e estrutura."
+    },
+    "geometry.sculpt": {
+      "label": "escultura digital",
+      "description": "Modo de modelagem que deforma uma superfície como se esculpisse.",
+      "aliases": [
+        "Sculpt"
+      ]
+    },
+    "uv_texture.uv": {
+      "label": "UV",
+      "description": "Coordenadas que mapeiam uma superfície para uma textura 2D.",
+      "review": "confirm_loanword"
+    },
+    "uv_texture.uv_seam": {
+      "label": "costura UV",
+      "description": "Limite que divide a superfície para o desdobramento."
+    },
+    "uv_texture.uv_island": {
+      "label": "ilha UV",
+      "description": "Uma região conectada dentro do UV desdobrado."
+    },
+    "uv_texture.texel_density": {
+      "label": "densidade de texels",
+      "description": "Densidade de amostras de textura por comprimento ou área real nomeada da superfície."
+    },
+    "uv_texture.texel": {
+      "label": "texel",
+      "description": "Um elemento de amostra da grade de textura.",
+      "review": "confirm_loanword"
+    },
+    "uv_texture.texture": {
+      "label": "textura",
+      "description": "Imagem ou asset do qual se amostram valores de cor ou de dados.",
+      "aliases": [
+        "mapa de textura"
+      ]
+    },
+    "uv_texture.texture_size": {
+      "label": "tamanho de textura",
+      "description": "Número de amostras de uma textura em largura e altura."
+    },
+    "uv_texture.bake": {
+      "label": "bake",
+      "description": "Calcular informação de forma, luz ou superfície em outro enunciado fixo e guardá-la.",
+      "aliases": [
+        "baking"
+      ],
+      "review": "confirm_loanword"
+    },
+    "uv_texture.normal_mapping": {
+      "label": "normal mapping",
+      "description": "Método que muda a resposta à luz de uma superfície com um mapa de normais.",
+      "aliases": [
+        "mapeamento de normais"
+      ],
+      "review": "confirm_loanword"
+    },
+    "uv_texture.sampling": {
+      "label": "amostragem",
+      "description": "Processo de ler dados contínuos ou em grade como valor numa posição ou num instante."
+    },
+    "uv_texture.texture_sample": {
+      "label": "amostra de textura",
+      "description": "Operação que lê um valor de textura usando UV e condições de filtro."
+    },
+    "uv_texture.filtering": {
+      "label": "filtragem",
+      "description": "Método que decide como os valores de amostras vizinhas se combinam na saída."
+    },
+    "uv_texture.point_filter": {
+      "label": "amostragem por ponto",
+      "description": "Método que toma a amostra mais próxima sem interpolar as vizinhas.",
+      "aliases": [
+        "vizinho mais próximo"
+      ]
+    },
+    "uv_texture.bilinear": {
+      "label": "filtragem bilinear",
+      "description": "Filtro de textura que interpola os valores vizinhos numa grade 2D."
+    },
+    "uv_texture.mipmap": {
+      "label": "mipmap",
+      "description": "Enunciado que prepara uma textura em vários níveis de redução.",
+      "review": "confirm_loanword"
+    },
+    "uv_texture.anti_aliasing": {
+      "label": "antialiasing",
+      "description": "Tratamento que atenua a instabilidade de bordas e padrões causada pela amostragem.",
+      "aliases": [
+        "suavização de serrilhado"
+      ]
+    },
+    "uv_texture.texture_compression": {
+      "label": "compressão de textura",
+      "description": "Codificação que reduz armazenamento, transferência e uso de GPU das texturas."
+    },
+    "uv_texture.padding": {
+      "label": "padding",
+      "description": "Espaço de amostras de folga deixado entre regiões, por exemplo dentro de um atlas.",
+      "aliases": [
+        "margem"
+      ],
+      "review": "confirm_loanword"
+    },
+    "uv_texture.extrusion": {
+      "label": "extrusão de bordas",
+      "description": "Tratamento que estende a cor da borda para fora a fim de reduzir contaminação de amostra.",
+      "aliases": [
+        "edge padding"
+      ]
+    },
+    "uv_texture.alpha": {
+      "label": "alfa",
+      "description": "Canal de cobertura ou opacidade usado para composição e mascaramento."
+    },
+    "uv_texture.alpha_edge": {
+      "label": "borda de alfa",
+      "description": "Limite onde o alfa transita entre visível e não visível."
+    },
+    "vector.vector_art": {
+      "label": "arte vetorial",
+      "description": "Enunciado de imagem construído com curvas e formas como original."
+    },
+    "vector.bezier": {
+      "label": "curva de Bézier",
+      "description": "Enunciado que define uma curva por pontos de controle."
+    },
+    "vector.anchor": {
+      "label": "âncora",
+      "description": "Ponto de referência que decide como os segmentos de um traçado se conectam.",
+      "aliases": [
+        "ponto de ancoragem"
+      ]
+    },
+    "vector.handle": {
+      "label": "alça",
+      "description": "Ponto ou vetor que controla a direção e a forma da curva em torno de uma âncora."
+    },
+    "vector.segment": {
+      "label": "segmento",
+      "description": "Parte que une pontos de referência vizinhos de um traçado."
+    },
+    "vector.path": {
+      "label": "traçado",
+      "description": "Linha ou contorno conectado a partir de pontos e segmentos.",
+      "aliases": [
+        "caminho"
+      ]
+    },
+    "vector.closed_shape": {
+      "label": "forma fechada",
+      "description": "Forma de traçado cujas extremidades se unem para definir uma área."
+    },
+    "vector.compound_shape": {
+      "label": "forma composta",
+      "description": "Enunciado em que vários traçados ou partes formam juntos uma estrutura de área."
+    },
+    "vector.boolean": {
+      "label": "construção booleana",
+      "description": "Operação que une, subtrai ou intersecta formas por relação de área."
+    },
+    "vector.curve_continuity": {
+      "label": "continuidade de curva",
+      "description": "Grau em que posição, direção e curvatura seguem através de uma junção."
+    },
+    "vector.stroke": {
+      "label": "traço",
+      "description": "Enunciado de linha desenhado ao longo de um traçado.",
+      "aliases": [
+        "contorno"
+      ]
+    },
+    "vector.fill": {
+      "label": "preenchimento",
+      "description": "Cor ou padrão aplicado dentro de uma área fechada."
+    },
+    "vector.mask": {
+      "label": "máscara",
+      "description": "Enunciado de onde, ou com que intensidade, um efeito se aplica."
+    },
+    "vector.gradient": {
+      "label": "degradê",
+      "description": "Enunciado que muda cor ou valor de forma contínua com a posição.",
+      "aliases": [
+        "gradiente"
+      ]
+    },
+    "vector.viewbox": {
+      "label": "viewBox",
+      "description": "Estrutura que fixa a faixa visível das coordenadas internas do SVG.",
+      "review": "confirm_loanword"
+    },
+    "vector.group_hierarchy": {
+      "label": "hierarquia de grupos",
+      "description": "Hierarquia que agrupa elementos vetoriais para compartilhar transformação e estilo."
+    },
+    "vector.svg": {
+      "label": "SVG",
+      "description": "Enunciado de documento que guarda elementos e atributos vetoriais de forma estruturada.",
+      "review": "confirm_loanword"
+    },
+    "vector.pen": {
+      "label": "ferramenta Caneta",
+      "description": "Ferramenta de autoria que constrói traçados com âncoras e alças."
+    },
+    "vector.shape_builder": {
+      "label": "Criador de Formas",
+      "description": "Função de autoria que combina áreas de formas sobrepostas.",
+      "aliases": [
+        "Shape Builder"
+      ]
+    },
+    "vector.pathfinder": {
+      "label": "Pathfinder",
+      "description": "Conjunto de funções que cria formas compostas por operações entre formas.",
+      "aliases": [
+        "Localizador de traçados"
+      ],
+      "review": "confirm_loanword"
+    },
+    "vector.resolution_independence": {
+      "label": "independência de resolução",
+      "description": "Propriedade de poder reenunciar as formas originais em outro tamanho."
+    },
+    "vector.reusable_shape": {
+      "label": "forma reaproveitável",
+      "description": "Componente de forma compartilhado entre vários assets."
+    },
+    "pixel_sprite.sprite": {
+      "label": "sprite",
+      "description": "Região de imagem ou asset do motor usado para enunciar um objeto 2D.",
+      "review": "confirm_loanword"
+    },
+    "pixel_sprite.sprite_import": {
+      "label": "importação de sprite",
+      "description": "Processo de importação pelo qual uma imagem é lida como sprite do motor."
+    },
+    "pixel_sprite.atlas": {
+      "label": "atlas de sprites",
+      "description": "Enunciado que empacota várias regiões de imagem num mesmo conjunto de textura."
+    },
+    "pixel_sprite.slicing": {
+      "label": "fatiamento de sprites",
+      "description": "Trabalho de dividir uma imagem em várias regiões de sprite.",
+      "aliases": [
+        "slicing"
+      ]
+    },
+    "pixel_sprite.ppu": {
+      "label": "PPU",
+      "description": "Razão entre os pixels de origem do sprite e as unidades de espaço do motor.",
+      "aliases": [
+        "pixels por unidade"
+      ],
+      "review": "confirm_loanword"
+    },
+    "pixel_sprite.ui_scaling": {
+      "label": "escalonamento de UI",
+      "description": "Método que decide o tamanho da UI conforme resolução de exibição ou condição de layout."
+    },
+    "pixel_sprite.sorting_layer": {
+      "label": "camada de ordenação",
+      "description": "Classificação do motor que organiza a ordem de desenho de elementos 2D.",
+      "aliases": [
+        "sorting layer"
+      ]
+    },
+    "pixel_sprite.prefab_linkage": {
+      "label": "vínculo com o prefab",
+      "description": "Relação de referência entre um asset e o prefab do motor que o usa."
+    },
+    "pixel_sprite.animation_ready": {
+      "label": "asset pronto para animação",
+      "description": "Asset cujas peças, pivôs, regiões e hierarquia estão preparados para o trabalho de movimento."
+    },
+    "pixel_sprite.pixel_cluster": {
+      "label": "aglomerado de pixels",
+      "description": "Unidade que agrupa uma pequena massa de pixels para enunciar forma e valor."
+    },
+    "pixel_sprite.pixelation": {
+      "label": "pixelização",
+      "description": "Tratamento que enuncia a tela ou o objeto numa grade espacial limitada."
+    },
+    "pixel_sprite.pixel_art": {
+      "label": "pixel art",
+      "description": "Estilo que trata a forma e a escolha de cor pixel a pixel como elemento expressivo central.",
+      "review": "confirm_loanword"
+    },
+    "pixel_sprite.pixel_perfect": {
+      "label": "Pixel Perfect",
+      "description": "Condição que busca o acordo com uma grade de pixels e uma regra de exibição definidas.",
+      "review": "confirm_loanword"
+    },
+    "pixel_sprite.pixel_snapping": {
+      "label": "encaixe em pixel",
+      "description": "Manipulação que alinha posições ou amostras a uma grade de pixels definida.",
+      "aliases": [
+        "pixel snapping"
+      ]
+    },
+    "pixel_sprite.subpixel_motion": {
+      "label": "movimento subpixel",
+      "description": "Deslocamento projetado menor que uma célula da grade escolhida."
+    },
+    "pixel_sprite.internal_resolution": {
+      "label": "resolução interna",
+      "description": "Tamanho de imagem renderizado antes da ampliação para a tela final."
+    },
+    "pixel_sprite.rasterization": {
+      "label": "rasterização",
+      "description": "Processo que converte formas ou geometria em amostras de pixel."
+    },
+    "pixel_sprite.dithering": {
+      "label": "pontilhado",
+      "description": "Tratamento que cria uma impressão intermediária por padrão espacial sob valor ou cor limitados.",
+      "aliases": [
+        "dithering"
+      ]
+    },
+    "pixel_sprite.screen_dither": {
+      "label": "dithering em espaço de tela",
+      "description": "Montagem que avalia o padrão de dithering contra coordenadas de tela."
+    },
+    "pixel_sprite.object_dither": {
+      "label": "dithering em espaço de objeto",
+      "description": "Montagem que prende o padrão às coordenadas do objeto."
+    },
+    "pixel_sprite.world_dither": {
+      "label": "dithering em espaço de mundo",
+      "description": "Montagem que fixa o padrão às coordenadas de mundo."
+    },
+    "pixel_sprite.selective_nonpixel": {
+      "label": "VFX e UI sem pixelização",
+      "description": "Requisito do projeto de que parte da UI e dos efeitos saia fora do caminho de pixelização."
+    },
+    "pixel_sprite.retro_ps1": {
+      "label": "estética Doom/PS1",
+      "description": "Enunciado de referência usado no projeto para uma impressão de baixa resolução com 3D misturado."
+    },
+    "motion.movement": {
+      "label": "movimento",
+      "description": "Enunciado de um estado como posição, orientação ou forma que muda com o tempo."
+    },
+    "motion.timing": {
+      "label": "timing",
+      "description": "Colocação de quando ocorrem eventos, poses e ações e de quanto duram.",
+      "review": "confirm_loanword"
+    },
+    "motion.spacing": {
+      "label": "espaçamento",
+      "description": "Quanto a posição ou a pose do objeto se afastam entre amostras temporais consecutivas."
+    },
+    "motion.pose": {
+      "label": "pose",
+      "description": "Configuração de um corpo ou objeto num dado instante.",
+      "review": "confirm_loanword"
+    },
+    "motion.key_pose": {
+      "label": "pose-chave",
+      "description": "Pose principal que decide o sentido ou a estrutura de uma ação."
+    },
+    "motion.keyframe": {
+      "label": "quadro-chave",
+      "description": "Valor de propriedade ou desenho enunciado explicitamente na linha do tempo.",
+      "aliases": [
+        "keyframe"
+      ]
+    },
+    "motion.key_drawing": {
+      "label": "desenho-chave",
+      "description": "Desenho central que carrega um estado importante da ação."
+    },
+    "motion.breakdown": {
+      "label": "breakdown",
+      "description": "Pose intermediária que decide trajetória e caráter de transição entre poses-chave.",
+      "review": "confirm_loanword"
+    },
+    "motion.in_between": {
+      "label": "intervalação",
+      "description": "Desenho que leva a ação entre desenhos-chave.",
+      "aliases": [
+        "in-between"
+      ]
+    },
+    "motion.arc": {
+      "label": "arco",
+      "description": "Trajetória curva que uma parte em movimento descreve."
+    },
+    "motion.trajectory": {
+      "label": "trajetória",
+      "description": "Percurso da mudança de posição no tempo."
+    },
+    "motion.action_line": {
+      "label": "linha de ação",
+      "description": "Enunciado que resume a força e o fluxo de uma pose numa linha simples."
+    },
+    "motion.gesture": {
+      "label": "gesto",
+      "description": "Enunciado que capta rapidamente a intenção e o fluxo de uma postura ou ação."
+    },
+    "motion.anticipation": {
+      "label": "antecipação",
+      "description": "Movimento anterior à ação principal que anuncia sua direção, força e início."
+    },
+    "motion.contact": {
+      "label": "contato",
+      "description": "Instante ou estado em que um objeto ou personagem toca seu alvo durante a ação."
+    },
+    "motion.ease": {
+      "label": "ease",
+      "description": "Caráter de interpolação que controla a taxa de mudança no tempo.",
+      "aliases": [
+        "suavização"
+      ],
+      "review": "confirm_loanword"
+    },
+    "motion.linear_motion": {
+      "label": "movimento linear",
+      "description": "Interpolação que muda o valor de uma propriedade de forma uniforme com o tempo."
+    },
+    "motion.ease_in": {
+      "label": "ease-in",
+      "description": "Transição cuja mudança é pequena no começo do trecho e vai crescendo.",
+      "review": "confirm_loanword"
+    },
+    "motion.ease_out": {
+      "label": "ease-out",
+      "description": "Transição cuja mudança diminui rumo ao fim do trecho.",
+      "review": "confirm_loanword"
+    },
+    "motion.ease_in_out": {
+      "label": "ease-in-out",
+      "description": "Transição que suaviza ao mesmo tempo o começo e o fim do trecho.",
+      "review": "confirm_loanword"
+    },
+    "motion.overshoot": {
+      "label": "overshoot",
+      "description": "Movimento que passa do estado alvo e volta.",
+      "aliases": [
+        "ultrapassagem"
+      ],
+      "review": "confirm_loanword"
+    },
+    "motion.follow_through": {
+      "label": "follow-through",
+      "description": "Enunciado em que as partes ligadas seguem se movendo depois que a ação principal acaba.",
+      "aliases": [
+        "continuidade do movimento"
+      ],
+      "review": "confirm_loanword"
+    },
+    "motion.temporal_overlap": {
+      "label": "sobreposição de ações",
+      "description": "Relação em que os movimentos do corpo ou das peças não começam nem terminam juntos, mas se sobrepõem."
+    },
+    "motion.squash_stretch": {
+      "label": "esmagar e esticar",
+      "description": "Deformação que enuncia força, elasticidade e velocidade por compressão e extensão.",
+      "aliases": [
+        "squash & stretch"
+      ]
+    },
+    "motion.secondary_motion": {
+      "label": "movimento secundário",
+      "description": "Movimento adicional que apoia a ação principal."
+    },
+    "motion.drag": {
+      "label": "arrasto",
+      "description": "Enunciado de movimento em que uma parte acompanha atrasada o movimento principal.",
+      "aliases": [
+        "drag"
+      ]
+    },
+    "motion.settle": {
+      "label": "acomodação",
+      "description": "Trecho em que o movimento residual diminui e chega ao estado final."
+    },
+    "motion.weight": {
+      "label": "peso",
+      "description": "Sensação de peso lida a partir de timing, deformação, contato e mudança de centro."
+    },
+    "motion.center_of_mass": {
+      "label": "centro de massa",
+      "description": "Centro de massa, ou centro simplificado, usado para ler movimento e equilíbrio."
+    },
+    "motion.body_mechanics": {
+      "label": "mecânica corporal",
+      "description": "Enfoque que explica o movimento do corpo por apoio, centro e relações articulares."
+    },
+    "motion.duration": {
+      "label": "duração",
+      "description": "Quanto tempo dura um evento ou trecho escolhido."
+    },
+    "motion.frame_rate": {
+      "label": "taxa de quadros",
+      "description": "Número de amostras de exibição ou de produção por unidade de tempo.",
+      "aliases": [
+        "frame rate"
+      ]
+    },
+    "motion.loop": {
+      "label": "loop",
+      "description": "Estrutura repetitiva em que o fim do movimento volta a ligar no começo.",
+      "aliases": [
+        "ciclo"
+      ],
+      "review": "confirm_loanword"
+    },
+    "motion.position_curve": {
+      "label": "curva de posição",
+      "description": "Curva que define os valores de posição ao longo do tempo."
+    },
+    "motion.animation_curve": {
+      "label": "AnimationCurve",
+      "description": "Enunciado de curva do motor que controla o valor de uma propriedade no tempo.",
+      "aliases": [
+        "curva de animação"
+      ],
+      "review": "confirm_loanword"
+    },
+    "motion.procedural_animation": {
+      "label": "animação procedural",
+      "description": "Método que gera movimento a partir de regras, funções ou simulação."
+    },
+    "motion.authored_motion": {
+      "label": "animação autoral",
+      "description": "Enunciado de movimento produzido de propósito por quadros-chave ou desenhos."
+    },
+    "motion.spring": {
+      "label": "mola",
+      "description": "Modelo que produz movimento como mudança elástica perseguindo um alvo.",
+      "aliases": [
+        "spring"
+      ]
+    },
+    "motion.delayed_follower": {
+      "label": "seguidor atrasado",
+      "description": "Movimento que segue um objeto de referência com defasagem de tempo."
+    },
+    "motion.afterimage": {
+      "label": "rastro residual",
+      "description": "Enunciado que deixa um vestígio visual de um estado anterior."
+    },
+    "motion.residual_motion": {
+      "label": "movimento residual",
+      "description": "Movimento que resta e continua depois do evento principal."
+    },
+    "motion.movement_contrast": {
+      "label": "contraste de movimento",
+      "description": "Contraste criado por diferenças de velocidade, direção ou imobilidade entre elementos."
+    },
+    "motion.stop_motion": {
+      "label": "stop-motion",
+      "description": "Enunciado do movimento construído quadro a quadro com desenhos pequenos no exercício."
+    },
+    "rig_animation.skeleton": {
+      "label": "esqueleto",
+      "description": "Estrutura que enuncia um personagem ou objeto como hierarquia de ossos."
+    },
+    "rig_animation.rig": {
+      "label": "rig",
+      "description": "Conjunto de ossos, controles e restrições que impulsiona o movimento.",
+      "review": "confirm_loanword"
+    },
+    "rig_animation.fk": {
+      "label": "FK",
+      "description": "Método de controle que fixa os estados articulares desde o pai para colocar a extremidade.",
+      "aliases": [
+        "cinemática direta"
+      ],
+      "review": "confirm_loanword"
+    },
+    "rig_animation.ik": {
+      "label": "IK",
+      "description": "Método de controle que resolve as articulações intermediárias a partir de um alvo final e restrições.",
+      "aliases": [
+        "cinemática inversa"
+      ],
+      "review": "confirm_loanword"
+    },
+    "rig_animation.retargeting": {
+      "label": "retargeting",
+      "description": "Trabalho de levar um movimento a outro esqueleto ou proporção corporal.",
+      "review": "confirm_loanword"
+    },
+    "rig_animation.blend_tree": {
+      "label": "blend tree",
+      "description": "Estrutura que combina várias animações conforme parâmetros de entrada.",
+      "aliases": [
+        "árvore de mistura"
+      ],
+      "review": "confirm_loanword"
+    },
+    "rig_animation.state_machine": {
+      "label": "máquina de estados",
+      "description": "Estrutura que compõe estados de animação e suas condições de transição."
+    },
+    "rig_animation.root_motion": {
+      "label": "root motion",
+      "description": "Enunciado que usa a translação e a rotação da raiz do clipe como movimento em execução.",
+      "review": "confirm_loanword"
+    },
+    "rig_animation.constraint": {
+      "label": "restrição",
+      "description": "Condição que limita a relação permitida entre articulações, controles e alvos.",
+      "aliases": [
+        "constraint"
+      ]
+    },
+    "rig_animation.animation_event": {
+      "label": "evento de animação",
+      "description": "Marcador que liga um ponto do clipe a uma chamada de ação."
+    },
+    "rig_animation.transition_quality": {
+      "label": "qualidade de transição",
+      "description": "Grau em que pose, velocidade e intenção não se quebram de modo brusco entre clipes ou estados."
+    },
+    "rig_animation.foot_sliding": {
+      "label": "deslizamento de pés",
+      "description": "Defeito em que um pé que deveria estar apoiado parece se mover sobre o chão."
+    },
+    "rig_animation.animation_compression": {
+      "label": "compressão de animação",
+      "description": "Tratamento que reduz os dados do clipe gerenciando o erro de movimento."
+    },
+    "rig_animation.cutout": {
+      "label": "animação de recorte",
+      "description": "Método que move peças 2D separadas por pivôs, ossos e deformação.",
+      "aliases": [
+        "cutout"
+      ]
+    },
+    "rig_animation.acting": {
+      "label": "atuação",
+      "description": "Enunciado que comunica pensamento, emoção e intenção por movimento e expressão."
+    },
+    "rig_animation.intention": {
+      "label": "intenção",
+      "description": "Objetivo de mostrar pelo movimento o que um personagem pretende fazer."
+    },
+    "rig_animation.locomotion": {
+      "label": "locomoção",
+      "description": "Categoria de movimento de deslocar-se pelo espaço, como andar e correr."
+    },
+    "rig_animation.expression": {
+      "label": "expressão",
+      "description": "Enunciado facial ou corporal que mostra emoção ou reação."
+    },
+    "rig_animation.personality": {
+      "label": "personalidade",
+      "description": "Objetivo de que o caráter do personagem apareça de forma coerente em pose e movimento."
+    },
+    "rig_animation.exaggeration": {
+      "label": "exagero",
+      "description": "Manipulação que reforça de propósito um traço específico de forma ou movimento."
+    },
+    "rig_animation.emotional_beat": {
+      "label": "beat emocional",
+      "description": "Momento-chave no tempo em que a emoção muda ou é enfatizada."
+    },
+    "vfx.vfx": {
+      "label": "VFX",
+      "description": "Conjunto de enunciados visuais que comunicam eventos, estados, forças e mudanças de espaço.",
+      "aliases": [
+        "efeitos visuais"
+      ],
+      "review": "confirm_loanword"
+    },
+    "vfx.particle": {
+      "label": "partícula",
+      "description": "Unidade que constrói um efeito a partir de muitos elementos com estado próprio."
+    },
+    "vfx.particle_count": {
+      "label": "contagem de partículas",
+      "description": "Quantidade de partículas presentes ou geradas num instante ou trecho nomeado."
+    },
+    "vfx.flipbook": {
+      "label": "flipbook",
+      "description": "Enunciado que reproduz vários quadros de imagem amostrados em ordem.",
+      "aliases": [
+        "folha de quadros"
+      ],
+      "review": "confirm_loanword"
+    },
+    "vfx.trail": {
+      "label": "rastro",
+      "description": "Efeito que mostra o percurso por onde um movimento passou.",
+      "aliases": [
+        "trail"
+      ]
+    },
+    "vfx.mesh_effect": {
+      "label": "efeito com malha",
+      "description": "Efeito que usa superfícies geométricas em vez de imagens de partícula."
+    },
+    "vfx.procedural_noise": {
+      "label": "ruído procedural",
+      "description": "Enunciado que usa valores irregulares gerados por função em efeitos e superfícies."
+    },
+    "vfx.dissolve": {
+      "label": "dissolução",
+      "description": "Efeito que faz uma forma sumir ou aparecer em parte por máscara ou limiar.",
+      "aliases": [
+        "dissolve"
+      ]
+    },
+    "vfx.distortion": {
+      "label": "distorção",
+      "description": "Efeito que deforma coordenadas ou amostras de fundo para impressões de refração ou impacto."
+    },
+    "vfx.bloom": {
+      "label": "bloom",
+      "description": "Enunciado de pós-processamento que espalha as áreas claras da imagem para o entorno.",
+      "review": "confirm_loanword"
+    },
+    "vfx.birth": {
+      "label": "nascimento",
+      "description": "Etapa em que o efeito se forma pela primeira vez."
+    },
+    "vfx.expansion": {
+      "label": "expansão",
+      "description": "Etapa em que a extensão ou a forma do efeito cresce."
+    },
+    "vfx.impact": {
+      "label": "impacto",
+      "description": "Momento de ênfase central de um evento como um contato ou uma explosão."
+    },
+    "vfx.primary_impact_shape": {
+      "label": "forma principal de impacto",
+      "description": "Forma grande que comunica primeiro a força e a direção do evento num efeito."
+    },
+    "vfx.breakup": {
+      "label": "fragmentação",
+      "description": "Mudança em que uma forma grande de efeito se divide em partes menores e desaparece."
+    },
+    "vfx.secondary_breakup": {
+      "label": "fragmentação secundária",
+      "description": "Partes que se espalham de modo secundário depois do impacto principal."
+    },
+    "vfx.trailing_motion": {
+      "label": "movimento de arrasto",
+      "description": "Movimento visual que flui atrás da ação principal."
+    },
+    "vfx.dissipation": {
+      "label": "dissipação",
+      "description": "Etapa em que o efeito enfraquece, se espalha e desaparece."
+    },
+    "vfx.hit": {
+      "label": "efeito de acerto",
+      "description": "Tipo de efeito que comunica um golpe ou contato."
+    },
+    "vfx.projectile": {
+      "label": "projétil",
+      "description": "Objeto visual que comunica um ataque ou evento enquanto se desloca."
+    },
+    "vfx.explosion": {
+      "label": "explosão",
+      "description": "Efeito que enuncia liberação de energia por expansão e fragmentação rápidas."
+    },
+    "vfx.simulation": {
+      "label": "simulação",
+      "description": "Processo que calcula o estado passo a passo no tempo conforme regras."
+    },
+    "vfx.frame_strip": {
+      "label": "tira de quadros",
+      "description": "Enunciado de análise que dispõe em ordem temporal os quadros-chave de um efeito ou movimento."
+    },
+    "vfx.theme": {
+      "label": "tema do personagem",
+      "description": "Objetivo de o efeito combinar com a identidade visual do personagem."
+    },
+    "vfx.surprise_delight": {
+      "label": "surpresa e encantamento",
+      "description": "Reação emocional que o efeito pretende comunicar."
+    },
+    "shader.shader": {
+      "label": "shader",
+      "description": "Enunciado de programa que calcula valores em etapas de render como vértice, superfície e pixel.",
+      "aliases": [
+        "sombreador"
+      ],
+      "review": "confirm_loanword"
+    },
+    "shader.shader_graph": {
+      "label": "Shader Graph",
+      "description": "Sistema de autoria que compõe o cálculo do shader com nós.",
+      "review": "confirm_loanword"
+    },
+    "shader.hlsl": {
+      "label": "HLSL",
+      "description": "Linguagem de programação usada para a implementação de shaders da Unity na conversa.",
+      "review": "confirm_loanword"
+    },
+    "shader.glsl": {
+      "label": "GLSL",
+      "description": "Linguagem de shaders mencionada no contexto de The Book of Shaders.",
+      "review": "confirm_loanword"
+    },
+    "shader.compute_shader": {
+      "label": "compute shader",
+      "description": "Etapa de shader que compõe cálculo na GPU fora do cálculo de superfície de render.",
+      "review": "confirm_loanword"
+    },
+    "shader.function": {
+      "label": "função",
+      "description": "Enfoque que cria cor e forma convertendo coordenadas em funções."
+    },
+    "shader.shaping_function": {
+      "label": "função de modelagem",
+      "description": "Função que cria padrões e formas mudando a distribuição ou a transição do valor de entrada."
+    },
+    "shader.matrix": {
+      "label": "matriz",
+      "description": "Estrutura de coeficientes que enuncia uma transformação do espaço ou de outros vetores."
+    },
+    "shader.pattern": {
+      "label": "padrão",
+      "description": "Figura espacial composta por regra ou repetição."
+    },
+    "shader.noise": {
+      "label": "ruído",
+      "description": "Valores ou padrões irregulares, por oposição às figuras regulares."
+    },
+    "shader.image_processing": {
+      "label": "processamento de imagem",
+      "description": "Operações que transformam, filtram e compõem valores de imagem."
+    },
+    "shader.node_graph": {
+      "label": "grafo de nós",
+      "description": "Estrutura que enuncia o cálculo ou as etapas de produção como nós e conexões."
+    },
+    "render.render_pass": {
+      "label": "passe de render",
+      "description": "Unidade de trabalho de render executada com entradas e saídas definidas ao montar um quadro."
+    },
+    "render.compositing": {
+      "label": "compositing",
+      "description": "Processo que combina várias imagens, camadas e efeitos para formar a tela.",
+      "aliases": [
+        "compositing"
+      ],
+      "review": "confirm_loanword"
+    },
+    "render.compositing_order": {
+      "label": "ordem de compositing",
+      "description": "Ordem em que as operações de imagem e as camadas são executadas e combinadas."
+    },
+    "render.post_processing": {
+      "label": "pós-processamento",
+      "description": "Etapa que toma o render de cena como entrada e muda o enunciado de tela."
+    },
+    "render.post_process_ordering": {
+      "label": "ordem dos pós-processos",
+      "description": "Ordem entre operações de tela como pixelização, correção de cor e bloom."
+    },
+    "render.render_texture": {
+      "label": "Render Texture",
+      "description": "Textura que guarda e amostra a saída de uma câmera ou de um passe.",
+      "aliases": [
+        "textura de render"
+      ],
+      "review": "confirm_loanword"
+    },
+    "render.intermediate_texture": {
+      "label": "textura intermediária",
+      "description": "Recurso de imagem que guarda resultados temporários antes da saída final."
+    },
+    "render.render_queue": {
+      "label": "fila de render",
+      "description": "Valor ou sistema que classifica a ordem de processamento dos objetos de render."
+    },
+    "render.depth_buffer": {
+      "label": "buffer de profundidade",
+      "description": "Enunciado de valor de profundidade armazenado usado para visibilidade e efeitos.",
+      "aliases": [
+        "buffer de profundidade"
+      ]
+    },
+    "render.stencil": {
+      "label": "stencil",
+      "description": "Enunciado que limita a área de render por marcas inteiras por pixel e seus testes.",
+      "review": "confirm_loanword"
+    },
+    "render.transparency": {
+      "label": "transparência",
+      "description": "Modo de enunciar uma superfície junto com o fundo ou os elementos atrás dela."
+    },
+    "render.blending": {
+      "label": "mesclagem",
+      "description": "Operação que combina um valor novo com o valor existente do buffer conforme regra enunciada.",
+      "aliases": [
+        "blending"
+      ]
+    },
+    "render.alpha_clip": {
+      "label": "alpha clip",
+      "description": "Tratamento que mantém ou descarta pixels conforme um limiar como o alfa.",
+      "aliases": [
+        "alpha test"
+      ],
+      "review": "confirm_loanword"
+    },
+    "render.alpha_blend": {
+      "label": "alpha blend",
+      "description": "Tratamento que compõe cores da frente e de trás usando o alfa.",
+      "review": "confirm_loanword"
+    },
+    "render.premultiplied_alpha": {
+      "label": "alfa pré-multiplicado",
+      "description": "Convenção de armazenamento e composição em que o alfa já está multiplicado nos componentes de cor."
+    },
+    "render.camera_stacking": {
+      "label": "empilhamento de câmeras",
+      "description": "Função do motor que compõe num só resultado a saída de várias câmeras."
+    },
+    "render.renderer_feature": {
+      "label": "Renderer Feature",
+      "description": "Montagem que integra comportamento de render próprio ao renderer da URP.",
+      "review": "confirm_loanword"
+    },
+    "render.fullscreen_pass": {
+      "label": "passe de tela cheia",
+      "description": "Trabalho de render que processa valores sobre a tela inteira."
+    },
+    "render.injection_point": {
+      "label": "ponto de injeção",
+      "description": "Lugar do fluxo de render onde operações próprias são inseridas."
+    },
+    "render.render_graph": {
+      "label": "Render Graph",
+      "description": "Montagem que descreve trabalho de render e dependências de recursos como um grafo.",
+      "review": "confirm_loanword"
+    },
+    "render.render_graph_resources": {
+      "label": "recursos do Render Graph",
+      "description": "Texturas e buffers declarados que passam entre os passes."
+    },
+    "render.normal_2d_map": {
+      "label": "mapa de normais 2D",
+      "description": "Enunciado de mapa que dá aos sprites uma pista de orientação de superfície."
+    },
+    "render.urp": {
+      "label": "URP",
+      "description": "Pipeline de render usado como base da implementação em Unity na conversa.",
+      "review": "confirm_loanword"
+    },
+    "render.hdrp": {
+      "label": "HDRP",
+      "description": "Pipeline de render da Unity que apareceu como comparação.",
+      "review": "confirm_loanword"
+    },
+    "render.custom_srp": {
+      "label": "SRP própria",
+      "description": "Scriptable Render Pipeline montada pelo usuário."
+    },
+    "render.blit": {
+      "label": "CommandBuffer.Blit",
+      "description": "API de cópia e processamento de imagem mencionada em contraste com a explicação dos passes de render.",
+      "aliases": [
+        "Blit"
+      ],
+      "review": "confirm_loanword"
+    },
+    "qc.draw_call": {
+      "label": "draw call",
+      "description": "Unidade que envia trabalho de render como comando de desenho, ou sua métrica agregada.",
+      "aliases": [
+        "chamada de desenho"
+      ],
+      "review": "confirm_loanword"
+    },
+    "qc.batching": {
+      "label": "batching",
+      "description": "Método que reduz o custo de envio ou de estado agrupando várias operações de desenho.",
+      "review": "confirm_loanword"
+    },
+    "qc.overdraw": {
+      "label": "overdraw",
+      "description": "Enfoque sobre o custo de sobreposição de render ao processar várias vezes a mesma área de tela.",
+      "review": "confirm_loanword"
+    },
+    "qc.shader_complexity": {
+      "label": "complexidade de shader",
+      "description": "Características de custo de um shader em cálculo, acesso à memória e ramificação."
+    },
+    "qc.texture_budget": {
+      "label": "orçamento de texturas",
+      "description": "Faixa permitida de resolução, quantidade e memória de texturas."
+    },
+    "qc.texture_memory": {
+      "label": "memória de texturas",
+      "description": "Tamanho de armazenamento ou de memória de GPU que uma textura usa."
+    },
+    "qc.memory_budget": {
+      "label": "orçamento de memória",
+      "description": "Faixa de memória permitida para assets, clipes e recursos de render."
+    },
+    "qc.lod": {
+      "label": "LOD",
+      "description": "Estratégia de enunciado que muda a quantidade de detalhe de um asset conforme condições.",
+      "aliases": [
+        "nível de detalhe"
+      ],
+      "review": "confirm_loanword"
+    },
+    "qc.cpu_cost": {
+      "label": "custo de CPU",
+      "description": "Custo que render, animação e processamento de assets consomem na CPU."
+    },
+    "qc.gpu_cost": {
+      "label": "custo de GPU",
+      "description": "Custo que o trabalho de render e o cálculo consomem na GPU."
+    },
+    "qc.platform_budget": {
+      "label": "orçamento de plataforma",
+      "description": "Conjunto de condições de desempenho, memória e exibição a manter na plataforma alvo."
+    },
+    "qc.visual_regression": {
+      "label": "regressão visual",
+      "description": "Verificar se uma mudança danificou características de tela que deviam ser preservadas."
+    },
+    "qc.consistency": {
+      "label": "consistência",
+      "description": "Grau em que assets, movimento e regras de exibição se mantêm coerentes entre si."
+    },
+    "qc.asset_portfolio_integrity": {
+      "label": "integridade do conjunto de assets",
+      "description": "Condição de um conjunto de assets se manter sem faltas nem desencontros de estilo ou especificação."
+    },
+    "qc.atlas_budget": {
+      "label": "orçamento de atlas",
+      "description": "Faixa permitida de quantidade, resolução, memória e empacotamento de atlas."
+    },
+    "qc.resolution_standard": {
+      "label": "padrão de resolução",
+      "description": "Regra de resolução de origem e de execução a manter por tipo de asset."
+    },
+    "qc.material_count": {
+      "label": "contagem de materiais",
+      "description": "Quantidade de materiais que um asset ou uma cena usa."
+    },
+    "qc.material_slots": {
+      "label": "slots de material",
+      "description": "Montagem de slots que atribui materiais a partes da malha."
+    },
+    "qc.retarget_qa": {
+      "label": "QA de retargeting",
+      "description": "Verificação de se pose, contato, proporção e sentido do movimento sobrevivem ao retargeting."
+    },
+    "qc.regression_qa": {
+      "label": "QA de regressão",
+      "description": "Verificar se uma mudança danificou a função e o enunciado de assets existentes."
+    },
+    "qc.object_statistics": {
+      "label": "estatísticas de objeto",
+      "description": "Relatório que confirma as contagens de malha, material e estrutura de asset."
+    },
+    "pipeline.source_runtime": {
+      "label": "asset de origem ≠ representação em execução",
+      "description": "Distinção de que o original de edição e o enunciado de execução do motor podem diferir."
+    },
+    "pipeline.scene_specification": {
+      "label": "especificação de cena",
+      "description": "Entrada de produção que descreve de forma estruturada objetos, forma, material, câmera e movimento."
+    },
+    "pipeline.generation_script": {
+      "label": "script de geração",
+      "description": "Artefato de código que produz um asset ou uma cena a partir de uma especificação."
+    },
+    "pipeline.headless_render": {
+      "label": "render headless",
+      "description": "Modo de execução que produz o render sem interface interativa."
+    },
+    "pipeline.render_validation": {
+      "label": "validação por render",
+      "description": "Etapa que confirma o resultado gerado numa tela real."
+    },
+    "pipeline.vision_critique": {
+      "label": "crítica visual",
+      "description": "Trabalho de observar uma imagem renderizada e julgar sua distância em relação à intenção visual."
+    },
+    "pipeline.turntable": {
+      "label": "turntable",
+      "description": "Vídeo de inspeção giratório para conferir um objeto por várias direções.",
+      "review": "confirm_loanword"
+    },
+    "pipeline.export": {
+      "label": "exportação",
+      "description": "Converter um original de edição para um formato de entrega ou de execução."
+    },
+    "pipeline.fbx": {
+      "label": "FBX",
+      "description": "Tipo de arquivo mencionado como formato de entrega de modelos e animação.",
+      "review": "confirm_loanword"
+    },
+    "pipeline.gltf": {
+      "label": "glTF",
+      "description": "Tipo de arquivo mencionado como formato de entrega de modelos e materiais.",
+      "review": "confirm_loanword"
+    },
+    "pipeline.blend_file": {
+      "label": ".blend",
+      "description": "Original editável de cena e assets do Blender.",
+      "review": "confirm_loanword"
+    },
+    "pipeline.naming": {
+      "label": "nomenclatura",
+      "description": "Regra que identifica assets, nós e peças de forma coerente."
+    },
+    "pipeline.versioning": {
+      "label": "versionamento",
+      "description": "Sistema que distingue os estados de mudança de assets e especificações."
+    },
+    "pipeline.variant_management": {
+      "label": "gestão de variantes",
+      "description": "Método que gere de forma coerente um asset base e suas variantes de cor, dano e forma."
+    },
+    "pipeline.reuse": {
+      "label": "reaproveitamento",
+      "description": "Método de usar assets, clipes, formas e regras existentes em outra produção."
+    },
+    "pipeline.clip_library": {
+      "label": "biblioteca de clipes",
+      "description": "Conjunto de clipes de animação reaproveitáveis."
+    },
+    "pipeline.export_automation": {
+      "label": "automação de exportação",
+      "description": "Trabalho de converter originais em assets de execução de modo repetido e conforme especificação."
+    },
+    "pipeline.damage_variant": {
+      "label": "variante de dano",
+      "description": "Variante que enuncia um estado danificado sobre um asset base."
+    },
+    "pipeline.color_variant": {
+      "label": "variante de cor",
+      "description": "Asset que mantém a forma base e muda a composição cromática."
+    },
+    "pipeline.silhouette_variant": {
+      "label": "variante de silhueta",
+      "description": "Variante que difere na forma externa de um asset base."
+    },
+    "pipeline.icon_variant": {
+      "label": "variante de ícone de UI",
+      "description": "Asset que converte um objeto original para exibição pequena na UI."
+    },
+    "methods.feedback": {
+      "label": "retorno",
+      "description": "Trabalho de registrar e corrigir as distâncias entre original, desenho e resultado do motor.",
+      "aliases": [
+        "feedback"
+      ]
+    },
+    "methods.screenshot_audit": {
+      "label": "auditoria de captura",
+      "description": "Inspeção que marca eixo a eixo os problemas de uma imagem acabada."
+    },
+    "methods.markup": {
+      "label": "anotação",
+      "description": "Resultado que marca sobre o original as áreas com problema e a intenção de correção."
+    },
+    "local_meta.operational_surface": {
+      "label": "superfície operacional",
+      "description": "Nesta conversa, sentido de trabalho referente à camada de objetos, propriedades e operações capaz de levar a intenção visual à manipulação real."
+    },
+    "local_meta.manipulative_vocab": {
+      "label": "vocabulário de manipulação",
+      "description": "Conjunto de vocabulário usado neste pedido para levar a intenção de AD/TA ao trabalho com ferramentas."
+    },
+    "shape.shape_contrast": {
+      "label": "contraste de forma",
+      "description": "Relação em que objetos se distinguem porque seus traços de contorno e massa diferem."
+    },
+    "shape.edge": {
+      "label": "aresta",
+      "description": "Limite que se lê como divisão de forma ou articulação de superfície.",
+      "aliases": [
+        "borda"
+      ]
+    },
+    "shape.swept_back": {
+      "label": "enflechado",
+      "description": "Traço de forma do exemplo do drone em que as asas se inclinam e se estendem para trás."
+    }
+  },
+  "review_summary": {
+    "checked_by": "tools/review_locales.py",
+    "needs_confirmation": 78
+  }
+}

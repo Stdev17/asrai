@@ -1,0 +1,1984 @@
+{
+  "schema_version": "2.0.0",
+  "locale": "ko",
+  "language_label_en": "Korean",
+  "language_label_native": "한국어",
+  "base": "vocab.v2.json",
+  "base_entry_count": 475,
+  "spec_language": "en",
+  "translation_basis": "moved_verbatim_from_base_bundle_label_ko_and_description_ko",
+  "note_en": "Moved verbatim from the base bundle fields label_ko and description_ko, which the base no longer carries; this file is now their sole home. Not a separate translation pass.",
+  "covers": [
+    "ko"
+  ],
+  "term_count": 475,
+  "terms": {
+    "perception.visual_hierarchy": {
+      "label": "시각적 위계",
+      "description": "화면 요소를 먼저·나중에 읽게 만드는 중요도 관계."
+    },
+    "perception.readability": {
+      "label": "가독성·판독성",
+      "description": "대상이나 행동의 의미가 필요한 크기와 시간 안에 구분되는 정도."
+    },
+    "perception.silhouette_readability": {
+      "label": "실루엣 판독성",
+      "description": "내부 묘사 없이 외곽 덩어리만으로 대상이나 자세를 읽는 정도."
+    },
+    "perception.icon_readability": {
+      "label": "아이콘 판독성",
+      "description": "작게 표시되는 기호의 종류와 기능을 구별하는 정도."
+    },
+    "perception.scale_readability": {
+      "label": "크기 변화에 대한 판독성",
+      "description": "확대·축소 또는 관찰 거리 변화에도 주요 특징이 유지되는 정도."
+    },
+    "perception.material_readability": {
+      "label": "재질 판독성",
+      "description": "표면의 시각 단서만으로 재질 의도를 구분하는 정도."
+    },
+    "perception.affordance": {
+      "label": "행동 가능성·행동 유도",
+      "description": "게임 화면에서 무엇을 할 수 있는지와 그 가능성이 전달되는 방식을 다루는 말."
+    },
+    "perception.figure_ground": {
+      "label": "도형–배경 분리",
+      "description": "어떤 영역이 대상이고 어떤 영역이 배경인지 분리해서 지각하는 관계."
+    },
+    "perception.attention": {
+      "label": "주의",
+      "description": "관찰자가 화면 일부에 처리 자원을 두는 현상."
+    },
+    "perception.visual_saliency": {
+      "label": "시각적 현저성",
+      "description": "주변과의 차이 때문에 어떤 요소가 눈에 띄는 성질."
+    },
+    "perception.preattentive_processing": {
+      "label": "전주의적 처리",
+      "description": "의식적인 세부 탐색에 앞서 일부 시각 특징이 구분되는 현상을 다루는 개념."
+    },
+    "perception.gestalt": {
+      "label": "게슈탈트 원리",
+      "description": "부분들이 하나의 집합·형태로 조직되어 보이는 경향을 다루는 원리 묶음."
+    },
+    "perception.perceptual_grouping": {
+      "label": "지각적 군집화",
+      "description": "여러 요소가 하나의 묶음으로 읽히는 관계."
+    },
+    "perception.depth_perception": {
+      "label": "깊이 지각",
+      "description": "평면 영상에서 앞뒤 거리와 입체 관계를 읽는 현상."
+    },
+    "perception.visual_cognition": {
+      "label": "시각 인지",
+      "description": "시각 정보를 대상·관계·의미로 해석하는 과정."
+    },
+    "perception.contextual_perception": {
+      "label": "맥락적 지각",
+      "description": "주변 요소와 상황에 따라 같은 대상의 인상이 달라지는 성질."
+    },
+    "perception.semiotics": {
+      "label": "기호와 의미",
+      "description": "형태·색·표식이 특정 의미를 전달하는 관계."
+    },
+    "perception.style_coherence": {
+      "label": "스타일 정합성",
+      "description": "여러 자산과 효과가 공유하는 시각 규칙에 맞게 보이는 정도."
+    },
+    "perception.gameplay_clarity": {
+      "label": "게임플레이 명료성",
+      "description": "플레이에 필요한 대상·사건·행동 가능성이 시각적으로 전달되는 정도."
+    },
+    "perception.visual_clutter": {
+      "label": "시각적 혼잡",
+      "description": "경쟁하는 시각 요소 때문에 필요한 정보가 묻히는 상태."
+    },
+    "perception.visual_weight": {
+      "label": "시각적 무게",
+      "description": "크기·위치·색·대비 등이 만드는 상대적인 무게감."
+    },
+    "perception.visual_intent": {
+      "label": "시각적 의도",
+      "description": "조작을 통해 화면에서 전달하려는 역할·감정·정보."
+    },
+    "perception.spectacle": {
+      "label": "시각적 장관·화려함",
+      "description": "강한 규모감·자극·변화로 눈길을 끄는 표현 목표."
+    },
+    "composition.composition": {
+      "label": "구도",
+      "description": "화면 안의 요소와 빈 공간을 조직한 관계."
+    },
+    "composition.balance": {
+      "label": "시각적 균형",
+      "description": "화면의 시각적 무게가 안정되거나 의도적으로 치우친 정도."
+    },
+    "composition.focal_point": {
+      "label": "초점 대상·주목점",
+      "description": "화면에서 우선 읽히도록 의도한 지점이나 대상."
+    },
+    "composition.staging": {
+      "label": "스테이징·행동 배치",
+      "description": "행동과 관계가 명확히 전달되도록 인물·소품·카메라를 배치하는 일."
+    },
+    "composition.framing": {
+      "label": "프레이밍",
+      "description": "카메라 프레임에 무엇을 넣고 제외할지 정하는 일."
+    },
+    "composition.positive_space": {
+      "label": "양의 공간",
+      "description": "대상 형태가 차지하는 화면 영역."
+    },
+    "composition.negative_space": {
+      "label": "음의 공간·여백",
+      "description": "대상 주변이나 사이에 남는 비어 보이는 영역."
+    },
+    "composition.overlap": {
+      "label": "형태의 겹침",
+      "description": "화면 투영에서 두 대상의 영역이 중첩되는 관계."
+    },
+    "composition.foreground": {
+      "label": "전경",
+      "description": "관찰 시점에서 앞쪽에 읽히는 화면 층."
+    },
+    "composition.midground": {
+      "label": "중경",
+      "description": "전경과 배경 사이에서 사건이나 공간을 연결하는 층."
+    },
+    "composition.background": {
+      "label": "배경",
+      "description": "주요 대상을 둘러싸거나 뒤에 읽히는 화면 층."
+    },
+    "composition.line_direction": {
+      "label": "시각적 선·방향선",
+      "description": "경계와 배치가 만드는 화면의 방향성."
+    },
+    "composition.rhythm": {
+      "label": "시각·시간 리듬",
+      "description": "요소나 사건의 반복·간격·강약이 만드는 패턴."
+    },
+    "composition.affinity": {
+      "label": "시각 요소의 유사성",
+      "description": "색·값·형태·움직임 등이 서로 비슷하게 조직되는 관계."
+    },
+    "composition.contrast_structure": {
+      "label": "대비 구조",
+      "description": "두 요소 또는 집합의 시각 특성이 달라 구별되는 관계."
+    },
+    "composition.visual_progression": {
+      "label": "시각적 진행",
+      "description": "시간이나 장면 진행에 따라 시각 특성이 단계적으로 달라지는 구조."
+    },
+    "composition.visual_component": {
+      "label": "시각 구성 요소",
+      "description": "화면을 공간·선·형태·값·색·움직임·리듬 등으로 분석하는 관점."
+    },
+    "composition.screen_direction": {
+      "label": "화면상 진행 방향",
+      "description": "물체가 프레임 안에서 향하거나 움직이는 방향."
+    },
+    "composition.screen_occupancy": {
+      "label": "화면 점유율",
+      "description": "대상이 프레임에서 차지하는 크기."
+    },
+    "composition.reveal": {
+      "label": "정보 드러내기",
+      "description": "가려져 있거나 알려지지 않은 정보를 순서에 맞게 보이게 하는 연출."
+    },
+    "composition.continuity": {
+      "label": "시각적 연속성",
+      "description": "컷이나 상태 변화 사이에서 공간·행동·시각 관계가 이어져 읽히는 정도."
+    },
+    "composition.tension_release": {
+      "label": "긴장과 이완",
+      "description": "사건의 압박감과 해소감을 시간적으로 조직하는 연출."
+    },
+    "composition.storytelling": {
+      "label": "시각적 이야기 전달",
+      "description": "형태·배치·시간 변화로 사건과 관계를 전달하는 목표."
+    },
+    "composition.storyboard": {
+      "label": "콘티·스토리보드",
+      "description": "사건을 핵심 화면들로 미리 표현한 연속 그림."
+    },
+    "composition.previs": {
+      "label": "프리비즈",
+      "description": "콘티와 연출을 단순 자산으로 실행해 보는 사전 시각화."
+    },
+    "composition.localization_safe": {
+      "label": "현지화 대응 구도",
+      "description": "언어와 표시 내용이 달라져도 기능과 위계가 유지되는 배치."
+    },
+    "shape.shape": {
+      "label": "평면 형태",
+      "description": "화면이나 평면에서 영역과 윤곽으로 읽히는 형태."
+    },
+    "shape.form": {
+      "label": "입체 형태",
+      "description": "부피와 면의 방향을 가진 것으로 이해되는 물체 형태."
+    },
+    "shape.silhouette": {
+      "label": "실루엣",
+      "description": "내부 세부를 제거했을 때 남는 대상의 투영 외곽과 덩어리.",
+      "aliases": [
+        "윤곽 덩어리"
+      ]
+    },
+    "shape.contour": {
+      "label": "윤곽",
+      "description": "형태의 바깥 경계 또는 경계선."
+    },
+    "shape.outer_contour": {
+      "label": "외곽 윤곽",
+      "description": "물체와 배경을 나누는 외곽 경계."
+    },
+    "shape.edge_control": {
+      "label": "경계 제어",
+      "description": "회화·화면에서 경계가 날카롭거나 부드럽고 이어지거나 사라지는 양상을 조절하는 일."
+    },
+    "shape.proportion": {
+      "label": "비례",
+      "description": "부분끼리 또는 부분과 전체 사이의 크기 관계."
+    },
+    "shape.shape_language": {
+      "label": "형태 언어",
+      "description": "반복되는 형태 특성으로 역할·성격·스타일을 전달하는 규칙."
+    },
+    "shape.mass": {
+      "label": "조형 덩어리",
+      "description": "물체를 크게 묶어 보는 부피감 또는 시각적 덩어리."
+    },
+    "shape.primary_form": {
+      "label": "주요 형태",
+      "description": "전체 정체성과 실루엣을 지배하는 큰 형태."
+    },
+    "shape.secondary_form": {
+      "label": "보조 형태",
+      "description": "주요 형태에 부착되어 기능과 분절을 읽히게 하는 중간 규모 형태."
+    },
+    "shape.tertiary_detail": {
+      "label": "미세 세부",
+      "description": "패널선·작은 요철 등 큰 형태보다 작은 묘사층."
+    },
+    "shape.shape_hierarchy": {
+      "label": "형태 위계",
+      "description": "큰·중간·작은 형태가 차지하는 역할과 우선순위."
+    },
+    "shape.plane": {
+      "label": "형태를 이루는 면",
+      "description": "입체를 단순화할 때 방향이 비교적 일정한 면 영역."
+    },
+    "shape.planar_break": {
+      "label": "면 방향의 꺾임",
+      "description": "입체의 면 방향이 바뀌어 형태를 분절하는 부분."
+    },
+    "shape.planar_transition": {
+      "label": "면 전환",
+      "description": "한 면 또는 덩어리에서 다른 면으로 이어지는 형태 변화."
+    },
+    "shape.primitive_decomposition": {
+      "label": "기본 도형 분해",
+      "description": "복잡한 대상을 상자·원통·쐐기 등 간단한 구성으로 나누는 일."
+    },
+    "shape.primitive_massing": {
+      "label": "기본 도형 덩어리 잡기",
+      "description": "세부 없이 기본 입체로 전체 부피와 비례를 만드는 단계."
+    },
+    "shape.blockout": {
+      "label": "블록아웃",
+      "description": "최종 자산 대신 단순 도형으로 공간·물체를 만든 초안."
+    },
+    "shape.box": {
+      "label": "상자형 기본 입체",
+      "description": "직선적 면으로 구성하는 상자형 덩어리."
+    },
+    "shape.sphere": {
+      "label": "구",
+      "description": "곡면 형태와 조명·재질을 시험하는 구형 기본 입체."
+    },
+    "shape.cylinder": {
+      "label": "원통",
+      "description": "원형 단면이 길이 방향으로 이어지는 기본 입체."
+    },
+    "shape.wedge": {
+      "label": "쐐기",
+      "description": "기울어진 면으로 방향성과 두께 변화를 만드는 덩어리."
+    },
+    "shape.capsule": {
+      "label": "둥근 캡슐형",
+      "description": "대화의 드론 예시에서 길쭉하고 끝이 둥근 몸체 형태."
+    },
+    "shape.trapezoid": {
+      "label": "사다리꼴",
+      "description": "길이가 다른 평행 변을 가진 평면 형태."
+    },
+    "shape.ellipse": {
+      "label": "타원",
+      "description": "원형 단면의 투영이나 평면 조형에 쓰는 타원."
+    },
+    "shape.circle": {
+      "label": "원",
+      "description": "평면의 원형 요소."
+    },
+    "shape.triangle": {
+      "label": "삼각형 도형",
+      "description": "세 변으로 읽히는 평면 형태.",
+      "aliases": [
+        "삼각형"
+      ]
+    },
+    "shape.rectangle": {
+      "label": "사각형 도형",
+      "description": "대화에서 배치와 덩어리 구성에 쓰는 사각 형태.",
+      "aliases": [
+        "사각형"
+      ]
+    },
+    "shape.notch": {
+      "label": "음의 공간 홈",
+      "description": "인접 덩어리 사이에서 실루엣을 분리하는 파인 공간."
+    },
+    "shape.panel_line": {
+      "label": "내부 패널선",
+      "description": "외곽을 바꾸지 않고 표면 분절을 표현하는 내부 선."
+    },
+    "shape.contour_economy": {
+      "label": "윤곽의 경제성",
+      "description": "적은 경계 변화로 필요한 특징을 전달하는 성질."
+    },
+    "shape.modular_construction": {
+      "label": "모듈식 구성",
+      "description": "재사용 가능한 부분을 조합하여 자산을 만드는 방식."
+    },
+    "shape.anatomy": {
+      "label": "해부학적 구조",
+      "description": "인체의 형태와 동작을 지지하는 구조 지식.",
+      "aliases": [
+        "해부학"
+      ]
+    },
+    "shape.ribcage": {
+      "label": "흉곽 덩어리",
+      "description": "단순 인물 구성에서 몸통 상부를 나타내는 덩어리."
+    },
+    "shape.pelvis": {
+      "label": "골반 덩어리",
+      "description": "단순 인물 구성에서 몸통 하부를 나타내는 덩어리."
+    },
+    "shape.mannequin": {
+      "label": "단순 인체 마네킹",
+      "description": "스틱맨에 기본 부피를 더한 자세 표현."
+    },
+    "space.position": {
+      "label": "위치",
+      "description": "선택한 좌표계에서 대상이 놓이는 위치."
+    },
+    "space.rotation": {
+      "label": "회전",
+      "description": "대상이나 기준축의 방향 변화."
+    },
+    "space.scale": {
+      "label": "스케일",
+      "description": "대상의 축별 크기를 곱셈으로 바꾸는 변환."
+    },
+    "space.transform": {
+      "label": "변환",
+      "description": "위치·회전·스케일 등의 공간 변환을 묶은 표현."
+    },
+    "space.affine": {
+      "label": "아핀 변환",
+      "description": "평행 관계를 보존하는 선형 변환과 평행이동의 조합."
+    },
+    "space.projection": {
+      "label": "투영",
+      "description": "3D 공간의 위치를 카메라 영상의 위치로 대응시키는 변환."
+    },
+    "space.object_space": {
+      "label": "오브젝트 공간",
+      "description": "대상 자체의 기준축과 원점으로 위치를 표현하는 공간."
+    },
+    "space.world_space": {
+      "label": "월드 공간",
+      "description": "장면의 공통 기준으로 위치와 방향을 표현하는 공간."
+    },
+    "space.view_space": {
+      "label": "뷰 공간",
+      "description": "카메라를 기준으로 위치와 방향을 표현하는 공간."
+    },
+    "space.clip_space": {
+      "label": "클립 공간",
+      "description": "투영과 클리핑에 사용하는 동차좌표 공간."
+    },
+    "space.screen_space": {
+      "label": "화면 공간",
+      "description": "출력 영상의 위치로 대상을 표현하는 공간."
+    },
+    "space.depth": {
+      "label": "깊이",
+      "description": "앞뒤 배치 또는 카메라로부터의 깊이 관계."
+    },
+    "space.depth_cue": {
+      "label": "깊이 단서",
+      "description": "겹침·원근·조명 등 앞뒤와 입체를 읽게 하는 시각 단서."
+    },
+    "space.foreshortening": {
+      "label": "단축법·투영 단축",
+      "description": "보는 방향에 따라 물체의 일부 길이가 짧게 투영되는 현상."
+    },
+    "space.perspective_grid": {
+      "label": "원근 격자",
+      "description": "원근 관계를 맞추기 위한 보조 선 구조."
+    },
+    "space.axis": {
+      "label": "축",
+      "description": "변환과 방향을 해석하는 기준 방향."
+    },
+    "space.origin": {
+      "label": "오브젝트 원점",
+      "description": "오브젝트 위치와 변환을 기준짓는 원점."
+    },
+    "space.pivot": {
+      "label": "피벗",
+      "description": "회전·스케일·배치의 기준점."
+    },
+    "space.parent_child_transform": {
+      "label": "부모–자식 변환",
+      "description": "상위 대상의 변환에 종속되는 하위 대상의 변환 관계."
+    },
+    "space.size": {
+      "label": "크기",
+      "description": "대상의 길이·폭·높이 또는 화면 크기를 포괄하는 표현."
+    },
+    "space.direction": {
+      "label": "방향",
+      "description": "대상이 향하거나 뻗거나 이동하는 방향."
+    },
+    "camera.camera": {
+      "label": "카메라",
+      "description": "장면을 어떤 시점과 투영으로 관찰할지 정하는 구성 요소."
+    },
+    "camera.camera_position": {
+      "label": "카메라 위치",
+      "description": "카메라가 장면에서 놓인 위치."
+    },
+    "camera.camera_angle": {
+      "label": "카메라 각도",
+      "description": "대상을 바라보는 카메라의 방향·시점."
+    },
+    "camera.camera_distance": {
+      "label": "카메라 거리",
+      "description": "카메라와 지정 대상 또는 기준점 사이 거리."
+    },
+    "camera.fov": {
+      "label": "시야각",
+      "description": "카메라가 포함하는 각도 범위."
+    },
+    "camera.perspective": {
+      "label": "원근 투영",
+      "description": "거리에 따라 투영 크기가 달라지는 카메라 방식."
+    },
+    "camera.orthographic": {
+      "label": "직교 투영",
+      "description": "깊이에 따른 원근 크기 축소 없이 평행 투영하는 방식."
+    },
+    "camera.frustum": {
+      "label": "시추체·뷰 절두체",
+      "description": "카메라가 클리핑과 가시성 판정에 사용하는 시야 부피."
+    },
+    "camera.near_far": {
+      "label": "근·원거리 범위",
+      "description": "카메라 앞뒤에서 다루는 거리 범위."
+    },
+    "camera.shot_size": {
+      "label": "숏 크기",
+      "description": "대상이 프레임에서 어느 범위까지 보이는지에 따른 샷 구분."
+    },
+    "camera.wide_shot": {
+      "label": "와이드 숏",
+      "description": "대상 주변 공간과 관계를 넓게 포함하는 화면 구성."
+    },
+    "camera.close_shot": {
+      "label": "클로즈 숏",
+      "description": "대상 또는 부분을 크게 보여주는 화면 구성."
+    },
+    "camera.low_angle": {
+      "label": "로 앵글",
+      "description": "대상을 상대적으로 낮은 시점에서 바라보는 구성."
+    },
+    "camera.front_view": {
+      "label": "정면 뷰",
+      "description": "대상의 정면을 기준으로 보는 검사용 시점.",
+      "aliases": [
+        "front/side/3⁄4 renders"
+      ]
+    },
+    "camera.side_view": {
+      "label": "측면 뷰",
+      "description": "대상의 측면을 기준으로 보는 검사용 시점.",
+      "aliases": [
+        "front/side/3⁄4 renders",
+        "2일차 side"
+      ]
+    },
+    "camera.three_quarter": {
+      "label": "사선 3/4 뷰",
+      "description": "정면과 측면을 함께 드러내는 사선 시점.",
+      "aliases": [
+        "front/side/3⁄4 renders",
+        "3일차 3/4"
+      ]
+    },
+    "value.value": {
+      "label": "미술적 명도·값",
+      "description": "밝고 어두운 관계를 조직하는 미술적 축.",
+      "aliases": [
+        "명도"
+      ]
+    },
+    "value.tone": {
+      "label": "톤·명암 성격",
+      "description": "대화에서는 주로 화면의 밝고 어두운 구조를 가리키는 말."
+    },
+    "value.value_grouping": {
+      "label": "명암 덩어리 묶기",
+      "description": "세부를 큰 밝기 집단으로 묶어 화면을 조직하는 일."
+    },
+    "value.three_value": {
+      "label": "3단계 명암 표현",
+      "description": "화면을 흑·회·백 등 세 값으로 단순화하는 연습 표현."
+    },
+    "value.grayscale": {
+      "label": "회색조",
+      "description": "색상 차이를 제거하고 밝고 어두운 성분을 표시하는 표현."
+    },
+    "value.value_contrast": {
+      "label": "명암 대비",
+      "description": "대상 사이의 밝고 어두운 차이."
+    },
+    "value.tone_affinity": {
+      "label": "톤 유사성",
+      "description": "대상 또는 화면 영역의 명암 관계가 비슷하게 묶이는 상태."
+    },
+    "value.contrast_hierarchy": {
+      "label": "대비 위계",
+      "description": "화면 내 여러 대비 중 어떤 것이 우선하도록 배치한 구조."
+    },
+    "value.highlight": {
+      "label": "하이라이트",
+      "description": "빛 반응이나 스타일 표현으로 만들어지는 밝은 강조 영역."
+    },
+    "value.shadow": {
+      "label": "그림자·어두운 영역",
+      "description": "빛이 덜 도달하거나 표현상 어둡게 묶인 영역."
+    },
+    "lighting.lighting": {
+      "label": "조명 구성",
+      "description": "광원과 환경의 빛으로 형태와 화면 분위기를 만드는 구성."
+    },
+    "lighting.light": {
+      "label": "빛·광원",
+      "description": "물체와 공간의 조명 반응에 기여하는 빛 또는 엔진 광원."
+    },
+    "lighting.light_direction": {
+      "label": "광원 방향",
+      "description": "빛이 진행하거나 표면을 향하는 방향."
+    },
+    "lighting.intensity": {
+      "label": "광원 세기",
+      "description": "광원 출력의 강도를 제어하는 값."
+    },
+    "lighting.directional_light": {
+      "label": "방향광",
+      "description": "방향을 주된 속성으로 사용하는 엔진 광원 유형."
+    },
+    "lighting.form_shadow": {
+      "label": "형태 그림자",
+      "description": "표면 방향 때문에 직접광을 덜 받는 물체 자체의 어두운 부분."
+    },
+    "lighting.cast_shadow": {
+      "label": "투영 그림자",
+      "description": "다른 표면으로 향하는 빛이 물체에 가려져 생긴 그림자."
+    },
+    "lighting.terminator": {
+      "label": "명암 경계",
+      "description": "형태에서 직접광을 받는 쪽과 받지 않는 쪽을 나누는 경계."
+    },
+    "lighting.ambient": {
+      "label": "환경광 기여",
+      "description": "직접적인 개별 광원 외의 주변 조명 기여를 가리키는 말."
+    },
+    "lighting.bounce": {
+      "label": "반사광·바운스 라이트",
+      "description": "다른 표면에 반사된 뒤 도달하는 간접적인 빛의 기여."
+    },
+    "lighting.backlight": {
+      "label": "역광",
+      "description": "카메라 기준 대상 뒤쪽에서 오는 조명 배치."
+    },
+    "lighting.lambert": {
+      "label": "램버트 확산 모델",
+      "description": "표면 방향과 입사 방향 관계를 이용하는 단순 확산 반응 모델."
+    },
+    "lighting.ndotl": {
+      "label": "법선–광원 내적",
+      "description": "법선과 빛 방향 벡터의 내적으로 표면 방향 관계를 나타낸 값."
+    },
+    "lighting.fake_lighting": {
+      "label": "연출용 가짜 조명",
+      "description": "물리적 일관성보다 가독성과 의도를 위해 추가한 조명 표현."
+    },
+    "lighting.secondary_lighting": {
+      "label": "2차 조명·추가 조명 단계",
+      "description": "프로젝트에서 픽셀화된 대상에 추가 틴트나 조명 반응을 만드는 단계.",
+      "aliases": [
+        "2차로 광원 셰이더"
+      ]
+    },
+    "lighting.radiometry": {
+      "label": "복사측정량",
+      "description": "빛의 에너지 전달을 정량적으로 다루는 기반 개념."
+    },
+    "lighting.light_transport": {
+      "label": "빛 전달",
+      "description": "광원·표면·매질 사이에서 빛이 전달되는 과정."
+    },
+    "color.color": {
+      "label": "색",
+      "description": "표면·광원·영상의 색 성분과 지각적 관계."
+    },
+    "color.hue": {
+      "label": "색상",
+      "description": "색을 빨강·노랑·초록 등으로 구분하는 색 모델상의 축."
+    },
+    "color.saturation": {
+      "label": "채도",
+      "description": "선택한 색 모델이나 도구에서 색의 무채색으로부터의 정도를 조절하는 축."
+    },
+    "color.warm_cool": {
+      "label": "난색–한색 관계",
+      "description": "색들이 상대적으로 따뜻하거나 차갑게 읽히는 관계."
+    },
+    "color.simultaneous_contrast": {
+      "label": "동시 대비",
+      "description": "주변 색이나 밝기 때문에 같은 색의 인상이 달라지는 현상."
+    },
+    "color.palette": {
+      "label": "팔레트",
+      "description": "그림이나 자산 집합에 사용하는 색의 집합."
+    },
+    "color.palette_hierarchy": {
+      "label": "팔레트 위계",
+      "description": "주조색·보조색·강조색 등 색 집합의 우선순위."
+    },
+    "color.palette_discipline": {
+      "label": "팔레트 규율",
+      "description": "허용된 색 관계와 색 수를 일관되게 유지하는 규칙."
+    },
+    "color.local_color": {
+      "label": "고유색",
+      "description": "조명 효과와 구분해 설명하는 대상 본래의 색."
+    },
+    "color.light_color": {
+      "label": "광원색",
+      "description": "빛의 색 구성."
+    },
+    "color.surrounding_color": {
+      "label": "주변색",
+      "description": "대상 주변에 놓여 지각에 영향을 주는 색."
+    },
+    "color.perceived_color": {
+      "label": "지각된 색",
+      "description": "최종 맥락과 관찰 조건에서 사람이 읽는 색."
+    },
+    "color.color_temperature": {
+      "label": "색온도",
+      "description": "광원색 또는 화이트밸런스 성격을 따뜻함·차가움 방향으로 다루는 말."
+    },
+    "color.tint": {
+      "label": "틴트·색 기울이기",
+      "description": "색을 특정 방향으로 기울이거나 색 필터를 적용하는 조작."
+    },
+    "color.vibrance": {
+      "label": "바이브런스",
+      "description": "도구별 방식으로 색 강도를 선택적으로 보정하는 조절."
+    },
+    "color.gamma": {
+      "label": "감마 곡선",
+      "description": "값 변환의 비선형 곡선이나 도구의 감마 조절을 가리키는 말."
+    },
+    "color.exposure": {
+      "label": "노출 보정",
+      "description": "영상이나 조명 신호의 밝기를 노출 관점에서 조정하는 값."
+    },
+    "color.srgb": {
+      "label": "sRGB 인코딩·색 공간",
+      "description": "텍스처·디스플레이 색을 다룰 때 등장한 RGB 색 인코딩 체계."
+    },
+    "color.linear": {
+      "label": "선형광 색 값",
+      "description": "광량에 비례하는 값으로 색 연산을 다루는 표현."
+    },
+    "color.lut": {
+      "label": "색 변환 룩업 테이블",
+      "description": "입력 색을 출력 색으로 변환하는 사전 계산된 대응표."
+    },
+    "color.color_grading": {
+      "label": "색보정",
+      "description": "최종 화면의 색과 명암 관계를 의도에 맞춰 바꾸는 일."
+    },
+    "color.tone_mapping": {
+      "label": "톤 매핑",
+      "description": "넓은 신호 범위를 출력 가능한 표현으로 대응시키는 단계."
+    },
+    "color.color_contrast": {
+      "label": "색 대비",
+      "description": "두 영역의 색이 다르게 읽히는 관계."
+    },
+    "color.color_affinity": {
+      "label": "색 유사성",
+      "description": "요소들의 색이 비슷하게 묶여 읽히는 관계."
+    },
+    "color.complementary_scheme": {
+      "label": "보색 구성",
+      "description": "색상환에서 마주 보는 관계를 사용한 색 구성."
+    },
+    "material.surface": {
+      "label": "표면",
+      "description": "형태가 빛과 텍스처에 반응하는 경계 또는 그 표현."
+    },
+    "material.material": {
+      "label": "재질",
+      "description": "표면 반응과 관련 텍스처·파라미터를 묶은 표현."
+    },
+    "material.surface_response": {
+      "label": "표면 반응",
+      "description": "빛·시점 변화에 대해 표면이 보이는 반응."
+    },
+    "material.material_cue": {
+      "label": "재질 단서",
+      "description": "금속·고무 등으로 읽히게 하는 하이라이트·색·표면 무늬 등의 단서."
+    },
+    "material.pbr": {
+      "label": "물리 기반 재질·렌더링",
+      "description": "물리적 표면 반응의 원리를 사용하는 재질·셰이딩 접근."
+    },
+    "material.brdf": {
+      "label": "양방향 반사 분포 함수",
+      "description": "입사·출사 방향에 따른 표면 반사를 표현하는 함수."
+    },
+    "material.bsdf": {
+      "label": "양방향 산란 분포 함수",
+      "description": "반사와 투과 등 표면의 산란 응답을 표현하는 함수 범주."
+    },
+    "material.base_color": {
+      "label": "베이스 컬러·알베도",
+      "description": "재질 워크플로에서 조명 계산의 기본 색 입력으로 쓰는 값."
+    },
+    "material.metallic": {
+      "label": "금속성 파라미터",
+      "description": "금속/비금속 워크플로의 표면 성격 입력."
+    },
+    "material.roughness": {
+      "label": "거칠기 파라미터",
+      "description": "표면 미세구조에 따른 반사 분포의 퍼짐을 제어하는 입력."
+    },
+    "material.smoothness": {
+      "label": "매끄러움 파라미터",
+      "description": "반사 응답의 선명함을 조절하는 도구별 입력."
+    },
+    "material.ao": {
+      "label": "앰비언트 오클루전",
+      "description": "주변 차폐에 따른 어두움 단서를 표현하는 값 또는 맵."
+    },
+    "material.emission": {
+      "label": "발광 입력",
+      "description": "표면이 스스로 밝게 보이도록 더하는 재질 신호."
+    },
+    "material.normal_map": {
+      "label": "노멀 맵",
+      "description": "텍스처로 표면 방향 변화를 전달하는 표현."
+    },
+    "material.curvature": {
+      "label": "곡률·곡률 맵",
+      "description": "표면이 휘거나 꺾이는 정도 또는 그 정보를 저장한 표현."
+    },
+    "material.mesh_maps": {
+      "label": "메시 유래 맵",
+      "description": "메시에서 베이크해 재질 제작에 쓰는 보조 맵 집합."
+    },
+    "material.material_layers": {
+      "label": "재질 레이어",
+      "description": "여러 재질 효과를 순서와 마스크로 합성하는 층."
+    },
+    "material.mask_generator": {
+      "label": "마스크·생성기",
+      "description": "조건이나 맵으로 재질 영향 영역을 생성하는 구성."
+    },
+    "material.metal_rough_workflow": {
+      "label": "메탈–러프니스 워크플로",
+      "description": "금속성과 거칠기를 중심으로 표면 입력을 구성하는 워크플로."
+    },
+    "material.spec_gloss_workflow": {
+      "label": "스펙–글로스 워크플로",
+      "description": "반사색과 광택 관련 입력으로 표면을 구성하는 워크플로."
+    },
+    "material.plastic": {
+      "label": "플라스틱 재질 목표",
+      "description": "연습에서 비교 대상으로 삼은 플라스틱 표면 인상."
+    },
+    "material.metal": {
+      "label": "금속 재질 목표",
+      "description": "연습에서 비교 대상으로 삼은 금속 표면 인상."
+    },
+    "material.rubber": {
+      "label": "고무 재질 목표",
+      "description": "연습에서 비교 대상으로 삼은 고무 표면 인상."
+    },
+    "material.glass": {
+      "label": "유리 재질 목표",
+      "description": "투명·반사 등의 단서로 읽히는 유리 표면 목표."
+    },
+    "material.painted_metal": {
+      "label": "도장 금속 재질 목표",
+      "description": "금속 바탕과 도장층의 차이를 가진 표면 목표."
+    },
+    "geometry.geometry": {
+      "label": "기하 형상",
+      "description": "공간상의 점·선·면·부피로 표현하는 형태."
+    },
+    "geometry.mesh": {
+      "label": "메시",
+      "description": "정점과 그 연결로 표면을 표현하는 구조."
+    },
+    "geometry.topology": {
+      "label": "메시 토폴로지",
+      "description": "메시 요소의 연결 구조."
+    },
+    "geometry.edge_flow": {
+      "label": "에지 흐름",
+      "description": "에지들이 형태·변형 방향을 따라 연결되는 패턴."
+    },
+    "geometry.pole": {
+      "label": "폴·특이 연결 정점",
+      "description": "주변 메시의 규칙적인 연결과 다른 에지 수를 가진 정점에 쓰는 용어."
+    },
+    "geometry.manifold": {
+      "label": "매니폴드 조건",
+      "description": "메시 주변의 연결이 표면으로 일관되게 구성되는 조건."
+    },
+    "geometry.normal": {
+      "label": "법선",
+      "description": "표면 방향을 나타내는 벡터."
+    },
+    "geometry.tangent": {
+      "label": "표면 접선",
+      "description": "표면 방향이나 UV 기반 셰이딩 좌표계를 구성하는 접선."
+    },
+    "geometry.smoothing": {
+      "label": "노멀 스무딩",
+      "description": "인접 면이 부드럽게 이어져 보이도록 노멀 응답을 구성하는 작업."
+    },
+    "geometry.normal_interpolation": {
+      "label": "법선 보간",
+      "description": "표면 내부에서 법선 정보를 이어 셰이딩하는 과정."
+    },
+    "geometry.hard_edge": {
+      "label": "하드 에지",
+      "description": "셰이딩에서 인접 면의 방향 변화가 분명히 읽히도록 처리한 경계."
+    },
+    "geometry.soft_edge": {
+      "label": "소프트 에지",
+      "description": "셰이딩이 비교적 부드럽게 연결되도록 처리한 메시 경계."
+    },
+    "geometry.bevel": {
+      "label": "베벨",
+      "description": "날카로운 모서리를 작은 면 또는 곡면으로 잘라내는 작업."
+    },
+    "geometry.bevel_highlight": {
+      "label": "베벨 하이라이트",
+      "description": "베벨 면이 빛을 받아 모서리 형태를 드러내는 밝은 띠."
+    },
+    "geometry.subd": {
+      "label": "서브디비전 표현",
+      "description": "분할을 통해 더 부드러운 표면을 만드는 모델링 접근."
+    },
+    "geometry.deformation": {
+      "label": "변형",
+      "description": "시간·리그·절차에 따라 메시 위치를 바꾸는 일."
+    },
+    "geometry.hard_surface": {
+      "label": "하드서피스",
+      "description": "기계·프랍처럼 단단하고 면 전환이 분명한 형태를 다루는 모델링 범주."
+    },
+    "geometry.modifier_stack": {
+      "label": "모디파이어 스택",
+      "description": "여러 비파괴 형상 연산을 순서대로 적용하는 구성."
+    },
+    "geometry.mirror": {
+      "label": "미러 연산",
+      "description": "기준면에 대해 형상을 대칭 복제하거나 연결하는 연산."
+    },
+    "geometry.solidify": {
+      "label": "두께 생성",
+      "description": "표면에 두께를 부여하는 모델링 연산."
+    },
+    "geometry.high_poly": {
+      "label": "하이폴리",
+      "description": "상대적으로 많은 형상 세부를 가진 모델 표현."
+    },
+    "geometry.low_poly": {
+      "label": "로우폴리",
+      "description": "실행 비용이나 스타일을 위해 형상을 제한한 모델 표현."
+    },
+    "geometry.target_tris": {
+      "label": "삼각형 수 목표",
+      "description": "대상 메시 또는 자산의 렌더용 삼각형 수 제한."
+    },
+    "geometry.wireframe": {
+      "label": "와이어프레임",
+      "description": "메시 연결을 선으로 보여주는 검사용 표현."
+    },
+    "geometry.curve": {
+      "label": "기하 곡선",
+      "description": "공간의 연속적인 선 형태를 표현하는 기하 요소."
+    },
+    "geometry.point_cloud": {
+      "label": "포인트 클라우드",
+      "description": "공간상의 점 집합으로 표현한 데이터."
+    },
+    "geometry.volume": {
+      "label": "볼륨 데이터",
+      "description": "표면만이 아니라 공간 내부의 값을 표현하는 데이터."
+    },
+    "geometry.instance": {
+      "label": "인스턴스",
+      "description": "공유 원형을 여러 위치·속성으로 배치한 표현."
+    },
+    "geometry.geometry_nodes": {
+      "label": "지오메트리 노드",
+      "description": "노드 그래프로 기하 데이터의 생성·변형을 구성하는 시스템."
+    },
+    "geometry.quad": {
+      "label": "쿼드",
+      "description": "연습과 효과에서 평면 요소로 사용한 네 꼭짓점 형태."
+    },
+    "geometry.modeling": {
+      "label": "모델링",
+      "description": "형상과 구조를 제작하는 작업."
+    },
+    "geometry.sculpt": {
+      "label": "스컬프팅",
+      "description": "표면을 조각하듯 변형하는 모델링 방식."
+    },
+    "uv_texture.uv": {
+      "label": "UV 좌표",
+      "description": "표면과 2D 텍스처를 대응시키는 좌표."
+    },
+    "uv_texture.uv_seam": {
+      "label": "UV 심",
+      "description": "펼치기에서 표면을 나누는 경계."
+    },
+    "uv_texture.uv_island": {
+      "label": "UV 아일랜드",
+      "description": "펼쳐진 UV에서 연결된 하나의 영역."
+    },
+    "uv_texture.texel_density": {
+      "label": "텍셀 밀도",
+      "description": "표면의 지정 실제 길이 또는 면적에 대응하는 텍스처 샘플 밀도."
+    },
+    "uv_texture.texel": {
+      "label": "텍셀",
+      "description": "텍스처 격자의 한 샘플 요소."
+    },
+    "uv_texture.texture": {
+      "label": "텍스처·텍스처 맵",
+      "description": "색 또는 데이터 값을 샘플링하는 이미지·자산."
+    },
+    "uv_texture.texture_size": {
+      "label": "텍스처 크기",
+      "description": "텍스처의 가로·세로 샘플 수."
+    },
+    "uv_texture.bake": {
+      "label": "베이크",
+      "description": "형상·조명·표면 정보를 다른 고정 표현으로 계산해 저장하는 일."
+    },
+    "uv_texture.normal_mapping": {
+      "label": "노멀 매핑",
+      "description": "노멀 맵으로 표면의 조명 응답을 바꾸는 방식."
+    },
+    "uv_texture.sampling": {
+      "label": "샘플링",
+      "description": "연속적 또는 격자 데이터를 특정 위치·시간의 값으로 읽는 과정."
+    },
+    "uv_texture.texture_sample": {
+      "label": "텍스처 샘플",
+      "description": "UV와 필터 조건을 사용해 텍스처 값을 읽는 연산."
+    },
+    "uv_texture.filtering": {
+      "label": "필터링",
+      "description": "샘플 주변 값을 어떻게 결합해 출력할지 정하는 방식."
+    },
+    "uv_texture.point_filter": {
+      "label": "포인트·최근접 샘플링",
+      "description": "주변 값을 보간하지 않고 가까운 샘플을 선택하는 방식."
+    },
+    "uv_texture.bilinear": {
+      "label": "바이리니어 필터링",
+      "description": "2D 격자 주변 값을 보간하는 텍스처 필터."
+    },
+    "uv_texture.mipmap": {
+      "label": "밉맵",
+      "description": "여러 축소 단계의 텍스처를 준비하는 표현."
+    },
+    "uv_texture.anti_aliasing": {
+      "label": "안티앨리어싱",
+      "description": "샘플링으로 생기는 경계·무늬의 불안정함을 완화하는 처리."
+    },
+    "uv_texture.texture_compression": {
+      "label": "텍스처 압축",
+      "description": "텍스처 저장·전송·GPU 사용량을 줄이는 인코딩."
+    },
+    "uv_texture.padding": {
+      "label": "텍스처 여백",
+      "description": "아틀라스 영역 사이 등에 확보하는 여유 샘플 공간."
+    },
+    "uv_texture.extrusion": {
+      "label": "아틀라스 경계 확장",
+      "description": "경계 색을 주변으로 확장해 샘플 오염을 줄이는 처리."
+    },
+    "uv_texture.alpha": {
+      "label": "알파",
+      "description": "합성·마스킹 등에 쓰는 커버리지 또는 불투명도 관련 채널."
+    },
+    "uv_texture.alpha_edge": {
+      "label": "알파 경계",
+      "description": "보임과 비보임 사이에서 알파가 전환되는 경계."
+    },
+    "vector.vector_art": {
+      "label": "벡터 아트",
+      "description": "곡선과 도형으로 원본을 구성하는 이미지 표현.",
+      "aliases": [
+        "벡터 에셋",
+        "벡터"
+      ]
+    },
+    "vector.bezier": {
+      "label": "베지어 곡선",
+      "description": "제어점으로 곡선을 정의하는 표현.",
+      "aliases": [
+        "Bézier"
+      ]
+    },
+    "vector.anchor": {
+      "label": "앵커",
+      "description": "벡터 패스의 세그먼트 연결을 정하는 기준점."
+    },
+    "vector.handle": {
+      "label": "곡선 핸들",
+      "description": "앵커 주변의 곡선 방향과 모양을 제어하는 점 또는 벡터."
+    },
+    "vector.segment": {
+      "label": "패스 세그먼트",
+      "description": "패스의 인접 기준점 사이를 잇는 부분."
+    },
+    "vector.path": {
+      "label": "벡터 패스",
+      "description": "점과 세그먼트로 연결한 선 또는 윤곽."
+    },
+    "vector.closed_shape": {
+      "label": "닫힌 도형",
+      "description": "끝이 연결되어 영역을 정의하는 패스 형태."
+    },
+    "vector.compound_shape": {
+      "label": "복합 도형",
+      "description": "여러 경로나 부분이 함께 한 영역 구조를 만드는 표현."
+    },
+    "vector.boolean": {
+      "label": "도형 불리언 구성",
+      "description": "도형의 영역 관계로 합치거나 빼거나 교차하는 연산."
+    },
+    "vector.curve_continuity": {
+      "label": "곡선 연속성",
+      "description": "접합부에서 위치·방향·굽음이 이어지는 정도."
+    },
+    "vector.stroke": {
+      "label": "스트로크",
+      "description": "패스를 따라 그려지는 선 표현."
+    },
+    "vector.fill": {
+      "label": "채움",
+      "description": "닫힌 영역 안에 적용하는 색 또는 패턴."
+    },
+    "vector.mask": {
+      "label": "마스크",
+      "description": "효과가 적용되는 영역이나 정도를 나타내는 표현."
+    },
+    "vector.gradient": {
+      "label": "그라디언트",
+      "description": "위치에 따라 색이나 값을 연속적으로 바꾸는 표현."
+    },
+    "vector.viewbox": {
+      "label": "SVG 뷰박스",
+      "description": "SVG 내부 좌표의 관찰 범위를 지정하는 구조."
+    },
+    "vector.group_hierarchy": {
+      "label": "그룹 계층",
+      "description": "벡터 요소를 묶고 변환·스타일을 공유하는 계층."
+    },
+    "vector.svg": {
+      "label": "SVG 벡터 문서",
+      "description": "벡터 요소와 속성을 구조화해 저장하는 문서 표현."
+    },
+    "vector.pen": {
+      "label": "펜 도구",
+      "description": "앵커와 핸들을 사용해 패스를 구성하는 저작 도구."
+    },
+    "vector.shape_builder": {
+      "label": "셰이프 빌더",
+      "description": "겹치는 도형 영역을 조합하는 저작 기능."
+    },
+    "vector.pathfinder": {
+      "label": "패스파인더",
+      "description": "도형 간 연산으로 복합 형태를 만드는 기능 묶음."
+    },
+    "vector.resolution_independence": {
+      "label": "해상도 독립성",
+      "description": "원본 도형을 다른 크기로 재표현할 수 있다는 성질."
+    },
+    "vector.reusable_shape": {
+      "label": "재사용 도형",
+      "description": "여러 자산에서 공유하는 도형 구성 요소."
+    },
+    "pixel_sprite.sprite": {
+      "label": "스프라이트",
+      "description": "2D 물체 표현에 사용하는 이미지 영역 또는 엔진 자산."
+    },
+    "pixel_sprite.sprite_import": {
+      "label": "스프라이트 임포트",
+      "description": "이미지를 엔진 스프라이트로 해석하는 가져오기 과정."
+    },
+    "pixel_sprite.atlas": {
+      "label": "스프라이트 아틀라스",
+      "description": "여러 이미지 영역을 하나의 텍스처 집합에 패킹한 표현."
+    },
+    "pixel_sprite.slicing": {
+      "label": "스프라이트 슬라이싱",
+      "description": "한 이미지에서 여러 스프라이트 영역을 나누는 작업."
+    },
+    "pixel_sprite.ppu": {
+      "label": "단위당 픽셀 수",
+      "description": "스프라이트 원본 픽셀과 엔진 공간 단위 사이의 비율."
+    },
+    "pixel_sprite.ui_scaling": {
+      "label": "UI 스케일링",
+      "description": "표시 해상도나 레이아웃 조건에 맞춰 UI 크기를 정하는 방식."
+    },
+    "pixel_sprite.sorting_layer": {
+      "label": "소팅 레이어",
+      "description": "2D 요소의 그리기 순서를 조직하는 엔진 분류."
+    },
+    "pixel_sprite.prefab_linkage": {
+      "label": "프리팹 연결",
+      "description": "자산과 이를 사용하는 엔진 프리팹 사이 참조 관계."
+    },
+    "pixel_sprite.animation_ready": {
+      "label": "애니메이션 대응 자산",
+      "description": "부품·피벗·영역·계층이 움직임 작업에 맞게 준비된 자산."
+    },
+    "pixel_sprite.pixel_cluster": {
+      "label": "픽셀 클러스터",
+      "description": "작은 픽셀 덩어리를 묶어 형태·값을 표현하는 구성 단위."
+    },
+    "pixel_sprite.pixelation": {
+      "label": "픽셀화",
+      "description": "화면이나 대상을 제한된 공간 격자로 표현하는 처리.",
+      "aliases": [
+        "픽셀레이트"
+      ]
+    },
+    "pixel_sprite.pixel_art": {
+      "label": "픽셀 아트",
+      "description": "픽셀 단위의 형태와 색 선택을 중요한 표현 요소로 삼는 스타일."
+    },
+    "pixel_sprite.pixel_perfect": {
+      "label": "픽셀 퍼펙트",
+      "description": "정의된 픽셀 격자와 표시 규칙의 일치를 추구하는 조건."
+    },
+    "pixel_sprite.pixel_snapping": {
+      "label": "픽셀 스내핑",
+      "description": "위치나 샘플을 정의된 픽셀 격자에 맞추는 조작."
+    },
+    "pixel_sprite.subpixel_motion": {
+      "label": "서브픽셀 이동",
+      "description": "선택한 격자 한 칸보다 작은 투영 이동."
+    },
+    "pixel_sprite.internal_resolution": {
+      "label": "내부 렌더 해상도",
+      "description": "최종 화면 확대 이전에 렌더하는 이미지 크기."
+    },
+    "pixel_sprite.rasterization": {
+      "label": "래스터화",
+      "description": "도형이나 기하를 픽셀 샘플로 변환하는 과정.",
+      "aliases": [
+        "래스터라이즈"
+      ]
+    },
+    "pixel_sprite.dithering": {
+      "label": "디더링",
+      "description": "제한된 값·색 표현에서 공간 패턴으로 중간 인상을 만드는 처리."
+    },
+    "pixel_sprite.screen_dither": {
+      "label": "화면 공간 디더링",
+      "description": "화면 좌표를 기준으로 디더 패턴을 평가하는 구성."
+    },
+    "pixel_sprite.object_dither": {
+      "label": "오브젝트 공간 디더링",
+      "description": "오브젝트 좌표에 패턴을 연결하는 구성."
+    },
+    "pixel_sprite.world_dither": {
+      "label": "월드 공간 디더링",
+      "description": "월드 좌표에 패턴을 고정하는 구성."
+    },
+    "pixel_sprite.selective_nonpixel": {
+      "label": "선택적 비픽셀 효과·UI",
+      "description": "일부 UI·효과는 픽셀화 경로 바깥에서 출력한다는 프로젝트 요구.",
+      "aliases": [
+        "VFX/UI 중 일부(블룸 등)는 픽셀레이트되지 않고"
+      ]
+    },
+    "pixel_sprite.retro_ps1": {
+      "label": "둠·PS1 계열 미학 목표",
+      "description": "프로젝트에서 저해상도·3D 혼합의 인상에 사용한 참조 표현.",
+      "aliases": [
+        "둠/PS1"
+      ]
+    },
+    "motion.movement": {
+      "label": "움직임",
+      "description": "시간에 따라 위치·방향·형태 등의 상태가 달라지는 표현."
+    },
+    "motion.timing": {
+      "label": "타이밍",
+      "description": "사건·포즈·동작이 발생하는 시각과 지속시간의 배치."
+    },
+    "motion.spacing": {
+      "label": "스페이싱",
+      "description": "연속된 시간 샘플 사이에 대상 위치나 포즈가 벌어진 정도."
+    },
+    "motion.pose": {
+      "label": "포즈",
+      "description": "특정 시점에 놓인 몸이나 물체의 구성 상태."
+    },
+    "motion.key_pose": {
+      "label": "핵심 포즈",
+      "description": "행동의 의미나 구조를 결정하는 주요 포즈."
+    },
+    "motion.keyframe": {
+      "label": "키프레임",
+      "description": "시간축에서 명시적으로 지정한 속성 값 또는 그림."
+    },
+    "motion.key_drawing": {
+      "label": "키 드로잉",
+      "description": "동작의 중요한 상태를 담은 핵심 그림."
+    },
+    "motion.breakdown": {
+      "label": "브레이크다운 포즈",
+      "description": "핵심 포즈 사이 동작 경로와 전환 성격을 결정하는 중간 포즈."
+    },
+    "motion.in_between": {
+      "label": "동화·중간 그림",
+      "description": "핵심 그림 사이의 동작을 이어 주는 그림.",
+      "aliases": [
+        "동화"
+      ]
+    },
+    "motion.arc": {
+      "label": "동작 아크",
+      "description": "움직이는 부분이 그리는 곡선 경로."
+    },
+    "motion.trajectory": {
+      "label": "궤적",
+      "description": "시간에 따른 위치 변화의 경로."
+    },
+    "motion.action_line": {
+      "label": "액션 라인",
+      "description": "포즈의 힘과 흐름을 단순한 선으로 요약한 표현."
+    },
+    "motion.gesture": {
+      "label": "제스처",
+      "description": "자세·행동의 의도와 흐름을 빠르게 포착한 표현."
+    },
+    "motion.anticipation": {
+      "label": "예비 동작",
+      "description": "주요 행동 이전에 방향·힘·발생을 예고하는 동작."
+    },
+    "motion.contact": {
+      "label": "접촉 포즈·접촉 시점",
+      "description": "행동 중 물체나 캐릭터가 대상에 닿는 시점 또는 상태."
+    },
+    "motion.ease": {
+      "label": "이징",
+      "description": "시간에 따른 변화율을 조절하는 보간 성격."
+    },
+    "motion.linear_motion": {
+      "label": "선형 시간 보간",
+      "description": "시간에 비례해 속성 값을 일정하게 변화시키는 보간.",
+      "aliases": [
+        "AnimationCurve로 linear"
+      ]
+    },
+    "motion.ease_in": {
+      "label": "이즈 인",
+      "description": "구간 초기에 변화량이 작고 점차 커지는 전환."
+    },
+    "motion.ease_out": {
+      "label": "이즈 아웃",
+      "description": "구간 후반에 변화량이 줄어드는 전환."
+    },
+    "motion.ease_in_out": {
+      "label": "이즈 인아웃",
+      "description": "구간 처음과 끝을 완만하게 만드는 전환."
+    },
+    "motion.overshoot": {
+      "label": "오버슈트",
+      "description": "목표 상태를 넘어갔다가 돌아오는 동작."
+    },
+    "motion.follow_through": {
+      "label": "후속 동작",
+      "description": "주요 동작이 끝난 뒤 연결된 부분이 계속 움직이는 표현."
+    },
+    "motion.temporal_overlap": {
+      "label": "동작의 시간적 겹침",
+      "description": "신체나 부품의 각 동작이 같은 시점에 시작·끝나지 않고 겹치는 관계."
+    },
+    "motion.squash_stretch": {
+      "label": "스쿼시 앤 스트레치",
+      "description": "눌림과 늘어남으로 힘·탄성·속도를 표현하는 변형."
+    },
+    "motion.secondary_motion": {
+      "label": "보조 동작",
+      "description": "주 행동을 지원하는 추가적인 움직임."
+    },
+    "motion.drag": {
+      "label": "동작의 끌림",
+      "description": "주요 움직임보다 부분이 뒤처져 따라가는 동작 표현."
+    },
+    "motion.settle": {
+      "label": "정착 동작",
+      "description": "잔여 움직임이 줄어 최종 상태에 도달하는 구간."
+    },
+    "motion.weight": {
+      "label": "동작의 무게감",
+      "description": "타이밍·변형·접촉·중심 변화로 읽히는 무거움."
+    },
+    "motion.center_of_mass": {
+      "label": "무게중심",
+      "description": "동작과 균형을 해석하는 질량 중심 또는 단순화된 중심."
+    },
+    "motion.body_mechanics": {
+      "label": "신체 동작 원리",
+      "description": "지지·중심·관절 관계로 몸의 움직임을 설명하는 관점."
+    },
+    "motion.duration": {
+      "label": "지속시간",
+      "description": "선택한 사건이나 구간이 이어지는 시간."
+    },
+    "motion.frame_rate": {
+      "label": "프레임레이트",
+      "description": "시간당 표시 또는 제작 샘플 수."
+    },
+    "motion.loop": {
+      "label": "루프",
+      "description": "동작 끝이 다시 시작으로 이어지는 반복 구조."
+    },
+    "motion.position_curve": {
+      "label": "위치 곡선",
+      "description": "시간에 따른 위치 값을 정의하는 곡선."
+    },
+    "motion.animation_curve": {
+      "label": "애니메이션 커브",
+      "description": "속성 값을 시간에 따라 제어하는 엔진 곡선 표현."
+    },
+    "motion.procedural_animation": {
+      "label": "절차적 애니메이션",
+      "description": "규칙과 함수·시뮬레이션으로 동작을 생성하는 방식."
+    },
+    "motion.authored_motion": {
+      "label": "직접 제작한 동작",
+      "description": "키프레임·드로잉 등으로 의도적으로 제작한 동작 표현."
+    },
+    "motion.spring": {
+      "label": "스프링 동작 모델",
+      "description": "목표를 따라가며 탄성 있는 변화로 움직임을 만드는 모델."
+    },
+    "motion.delayed_follower": {
+      "label": "지연 추종",
+      "description": "기준 대상의 움직임을 시간차를 두고 따라가는 동작."
+    },
+    "motion.afterimage": {
+      "label": "잔상",
+      "description": "이전 상태의 시각 흔적을 남기는 표현."
+    },
+    "motion.residual_motion": {
+      "label": "잔여 동작",
+      "description": "주요 사건 이후에 남아 이어지는 움직임."
+    },
+    "motion.movement_contrast": {
+      "label": "움직임 대비",
+      "description": "요소 간 속도·방향·정지 여부의 차이로 생기는 대비."
+    },
+    "motion.stop_motion": {
+      "label": "스톱모션·프레임별 애니메이션",
+      "description": "사용자 과제에서 작은 그림을 프레임별로 이어 만든 동작을 가리킨 표현.",
+      "aliases": [
+        "스톱모션 애니메이션"
+      ]
+    },
+    "rig_animation.skeleton": {
+      "label": "스켈레톤",
+      "description": "캐릭터·물체를 계층적 뼈대로 표현하는 구조."
+    },
+    "rig_animation.rig": {
+      "label": "리그",
+      "description": "동작을 제어하는 뼈대·컨트롤·제약의 묶음."
+    },
+    "rig_animation.fk": {
+      "label": "순방향 운동학",
+      "description": "상위부터 관절 상태를 정해 말단 위치를 만드는 조절 방식."
+    },
+    "rig_animation.ik": {
+      "label": "역운동학",
+      "description": "말단 목표와 제약으로 중간 관절 구성을 구하는 조절 방식."
+    },
+    "rig_animation.retargeting": {
+      "label": "리타기팅",
+      "description": "동작을 다른 스켈레톤이나 체형에 맞춰 옮기는 작업."
+    },
+    "rig_animation.blend_tree": {
+      "label": "블렌드 트리",
+      "description": "입력 파라미터에 따라 여러 애니메이션을 조합하는 구조."
+    },
+    "rig_animation.state_machine": {
+      "label": "애니메이션 상태 머신",
+      "description": "애니메이션 상태와 전환 조건을 구성하는 구조."
+    },
+    "rig_animation.root_motion": {
+      "label": "루트 모션",
+      "description": "클립의 루트 이동·회전을 실행 이동에 사용하는 표현."
+    },
+    "rig_animation.constraint": {
+      "label": "리그 제약",
+      "description": "관절·컨트롤·대상 사이의 허용 관계를 제한하는 조건."
+    },
+    "rig_animation.animation_event": {
+      "label": "애니메이션 이벤트",
+      "description": "클립의 특정 시점과 동작 호출을 연결하는 표식."
+    },
+    "rig_animation.transition_quality": {
+      "label": "전환 품질",
+      "description": "클립·상태 사이에서 포즈·속도·의도가 부자연스럽게 끊기지 않는 정도."
+    },
+    "rig_animation.foot_sliding": {
+      "label": "발 미끄러짐",
+      "description": "접지해야 할 발이 바닥에 대해 이동해 보이는 결함."
+    },
+    "rig_animation.animation_compression": {
+      "label": "애니메이션 압축",
+      "description": "클립 데이터를 줄이며 동작 오차를 관리하는 처리."
+    },
+    "rig_animation.cutout": {
+      "label": "컷아웃·2D 뼈대 애니메이션",
+      "description": "분리된 2D 부분을 피벗·뼈대·변형으로 움직이는 방식."
+    },
+    "rig_animation.acting": {
+      "label": "액팅",
+      "description": "동작과 표정으로 생각·감정·의도를 전달하는 표현."
+    },
+    "rig_animation.intention": {
+      "label": "행동 의도",
+      "description": "캐릭터가 무엇을 하려는지 움직임으로 드러내는 목표."
+    },
+    "rig_animation.locomotion": {
+      "label": "이동 동작",
+      "description": "걷기·달리기 등 공간을 이동하는 동작 범주."
+    },
+    "rig_animation.expression": {
+      "label": "표정·표현",
+      "description": "감정이나 반응을 드러내는 얼굴·몸의 표현."
+    },
+    "rig_animation.personality": {
+      "label": "동작의 성격",
+      "description": "캐릭터의 성격이 포즈와 움직임에 일관되게 드러나는 목표."
+    },
+    "rig_animation.exaggeration": {
+      "label": "과장",
+      "description": "특정 형태나 움직임 특성을 의도적으로 강화하는 조작."
+    },
+    "rig_animation.emotional_beat": {
+      "label": "감정 비트",
+      "description": "감정이 변하거나 강조되는 시간상의 주요 순간."
+    },
+    "vfx.vfx": {
+      "label": "시각효과",
+      "description": "사건·상태·힘·공간 변화를 전달하는 시각 표현 묶음."
+    },
+    "vfx.particle": {
+      "label": "파티클",
+      "description": "개별 상태를 가진 다수 요소로 효과를 만드는 구성 단위."
+    },
+    "vfx.particle_count": {
+      "label": "파티클 수",
+      "description": "지정 시점·구간에 존재하거나 생성되는 입자 개수."
+    },
+    "vfx.flipbook": {
+      "label": "플립북",
+      "description": "여러 이미지 프레임을 순서대로 샘플링해 재생하는 표현."
+    },
+    "vfx.trail": {
+      "label": "트레일",
+      "description": "움직임의 지나간 경로를 이어 보여주는 효과."
+    },
+    "vfx.mesh_effect": {
+      "label": "메시 기반 효과",
+      "description": "파티클 이미지 대신 기하 표면을 활용하는 효과."
+    },
+    "vfx.procedural_noise": {
+      "label": "절차적 노이즈",
+      "description": "함수로 생성한 불규칙 값을 효과와 표면에 사용하는 표현."
+    },
+    "vfx.dissolve": {
+      "label": "디졸브",
+      "description": "마스크나 임계값으로 형태를 부분적으로 사라지거나 나타나게 하는 효과."
+    },
+    "vfx.distortion": {
+      "label": "왜곡 효과",
+      "description": "좌표나 배경 샘플을 변형하여 굴절·충격 등의 인상을 만드는 효과."
+    },
+    "vfx.bloom": {
+      "label": "블룸",
+      "description": "밝은 영상 영역을 주변으로 퍼뜨리는 후처리 표현."
+    },
+    "vfx.birth": {
+      "label": "효과 발생",
+      "description": "효과가 처음 형성되는 단계."
+    },
+    "vfx.expansion": {
+      "label": "효과 팽창",
+      "description": "효과의 범위나 형태가 커지는 단계."
+    },
+    "vfx.impact": {
+      "label": "임팩트·충격 순간",
+      "description": "접촉·폭발 등 사건의 핵심 강조 순간."
+    },
+    "vfx.primary_impact_shape": {
+      "label": "주 임팩트 형태",
+      "description": "효과에서 사건의 힘과 방향을 가장 먼저 전달하는 큰 형태."
+    },
+    "vfx.breakup": {
+      "label": "형태 분해·흩어짐",
+      "description": "큰 효과 형태가 작은 부분으로 나뉘어 사라지는 변화."
+    },
+    "vfx.secondary_breakup": {
+      "label": "보조 분해",
+      "description": "주 임팩트 이후에 부차적으로 흩어지는 부분."
+    },
+    "vfx.trailing_motion": {
+      "label": "뒤따르는 효과 동작",
+      "description": "주 동작 뒤에 연결되어 흐르는 시각적 움직임."
+    },
+    "vfx.dissipation": {
+      "label": "소산",
+      "description": "효과가 약해지고 흩어져 사라지는 단계."
+    },
+    "vfx.hit": {
+      "label": "히트 효과",
+      "description": "타격 또는 접촉을 전달하는 효과 유형."
+    },
+    "vfx.projectile": {
+      "label": "투사체 효과",
+      "description": "이동하면서 공격이나 사건을 전달하는 시각 대상."
+    },
+    "vfx.explosion": {
+      "label": "폭발 효과",
+      "description": "급격한 팽창과 분해로 에너지 방출을 표현하는 효과."
+    },
+    "vfx.simulation": {
+      "label": "시뮬레이션",
+      "description": "규칙에 따라 시간별 상태를 계산하는 과정."
+    },
+    "vfx.frame_strip": {
+      "label": "프레임 스트립",
+      "description": "효과나 동작의 주요 화면을 시간순으로 나열한 분석 표현."
+    },
+    "vfx.theme": {
+      "label": "캐릭터 테마 적합성",
+      "description": "효과가 캐릭터의 시각적 정체성과 일치하는 목표."
+    },
+    "vfx.surprise_delight": {
+      "label": "놀라움·즐거움",
+      "description": "효과가 전달하려는 감정적 반응."
+    },
+    "shader.shader": {
+      "label": "셰이더",
+      "description": "정점·표면·픽셀 등 렌더 단계의 값을 계산하는 프로그램 표현."
+    },
+    "shader.shader_graph": {
+      "label": "셰이더 그래프",
+      "description": "노드로 셰이더 계산을 구성하는 저작 시스템."
+    },
+    "shader.hlsl": {
+      "label": "HLSL 셰이더 코드",
+      "description": "대화의 Unity 셰이더 구현에 사용한 프로그래밍 언어."
+    },
+    "shader.glsl": {
+      "label": "GLSL 셰이더 코드",
+      "description": "The Book of Shaders 맥락에서 언급된 셰이더 언어."
+    },
+    "shader.compute_shader": {
+      "label": "컴퓨트 셰이더",
+      "description": "렌더 표면 계산 외의 GPU 계산을 구성하는 셰이더 단계."
+    },
+    "shader.function": {
+      "label": "함수 기반 시각 구성",
+      "description": "좌표를 함수로 바꿔 색과 형태를 만드는 표현 관점.",
+      "aliases": [
+        "UV → function → color"
+      ]
+    },
+    "shader.shaping_function": {
+      "label": "형상 제어 함수",
+      "description": "입력 값의 분포나 전환을 바꿔 패턴·형태를 만드는 함수."
+    },
+    "shader.matrix": {
+      "label": "변환 행렬",
+      "description": "공간 또는 다른 벡터 변환을 표현하는 계수 구조."
+    },
+    "shader.pattern": {
+      "label": "패턴",
+      "description": "규칙이나 반복으로 구성한 공간적 무늬."
+    },
+    "shader.noise": {
+      "label": "노이즈",
+      "description": "규칙적인 무늬와 대비되는 불규칙 값이나 패턴."
+    },
+    "shader.image_processing": {
+      "label": "영상 처리",
+      "description": "이미지 값을 변환·필터링·합성하는 연산."
+    },
+    "shader.node_graph": {
+      "label": "노드 그래프",
+      "description": "계산이나 제작 단계를 노드와 연결로 표현한 구조."
+    },
+    "render.render_pass": {
+      "label": "렌더 패스",
+      "description": "프레임 생성에서 정해진 입력과 출력으로 수행하는 렌더 작업 단위."
+    },
+    "render.compositing": {
+      "label": "합성",
+      "description": "여러 영상·레이어·효과를 결합해 화면을 만드는 과정."
+    },
+    "render.compositing_order": {
+      "label": "합성 순서",
+      "description": "어떤 영상 처리와 레이어가 앞뒤로 실행·결합되는지의 순서."
+    },
+    "render.post_processing": {
+      "label": "후처리",
+      "description": "장면 렌더 결과를 입력으로 화면 표현을 바꾸는 단계."
+    },
+    "render.post_process_ordering": {
+      "label": "후처리 순서",
+      "description": "픽셀화·색보정·블룸 등 화면 연산 사이의 순서."
+    },
+    "render.render_texture": {
+      "label": "렌더 텍스처",
+      "description": "카메라나 패스의 출력을 보관·샘플링하는 텍스처."
+    },
+    "render.intermediate_texture": {
+      "label": "중간 텍스처",
+      "description": "최종 출력 전 단계에서 임시 결과를 담는 이미지 자원."
+    },
+    "render.render_queue": {
+      "label": "렌더 큐",
+      "description": "렌더 대상의 처리 순서를 분류하는 값 또는 체계."
+    },
+    "render.depth_buffer": {
+      "label": "깊이 버퍼",
+      "description": "가시성·효과에 사용하는 깊이 값 저장 표현."
+    },
+    "render.stencil": {
+      "label": "스텐실",
+      "description": "픽셀별 정수 표식과 검사로 렌더 영역을 제한하는 표현."
+    },
+    "render.transparency": {
+      "label": "투명 표현",
+      "description": "배경이나 뒤쪽 요소와 함께 표면을 표현하는 방식."
+    },
+    "render.blending": {
+      "label": "블렌딩",
+      "description": "새 값과 기존 버퍼 값을 지정 규칙으로 결합하는 연산."
+    },
+    "render.alpha_clip": {
+      "label": "알파 클립",
+      "description": "알파 등 기준에 따라 픽셀을 남기거나 버리는 처리."
+    },
+    "render.alpha_blend": {
+      "label": "알파 블렌드",
+      "description": "알파를 사용해 앞뒤 색을 합성하는 처리."
+    },
+    "render.premultiplied_alpha": {
+      "label": "프리멀티플라이드 알파",
+      "description": "색 성분에 알파가 미리 곱해진 저장·합성 관례."
+    },
+    "render.camera_stacking": {
+      "label": "카메라 스태킹",
+      "description": "여러 카메라 출력을 한 결과로 구성하는 엔진 기능."
+    },
+    "render.renderer_feature": {
+      "label": "렌더러 피처",
+      "description": "URP 렌더러에 사용자 렌더 동작을 통합하는 구성."
+    },
+    "render.fullscreen_pass": {
+      "label": "풀스크린 패스",
+      "description": "화면 전체를 대상으로 값을 처리하는 렌더 작업."
+    },
+    "render.injection_point": {
+      "label": "주입 지점",
+      "description": "렌더 흐름 중 사용자 연산이 들어가는 위치."
+    },
+    "render.render_graph": {
+      "label": "렌더 그래프",
+      "description": "렌더 작업과 자원 의존성을 그래프로 기술하는 구성."
+    },
+    "render.render_graph_resources": {
+      "label": "렌더 그래프 자원",
+      "description": "패스 사이에 전달되는 텍스처·버퍼 등의 선언된 자원."
+    },
+    "render.normal_2d_map": {
+      "label": "2D 노멀 맵",
+      "description": "스프라이트에 표면 방향 단서를 주는 맵 표현."
+    },
+    "render.urp": {
+      "label": "유니버설 렌더 파이프라인",
+      "description": "대화에서 Unity 구현 기반으로 사용한 렌더 파이프라인."
+    },
+    "render.hdrp": {
+      "label": "고해상도 렌더 파이프라인",
+      "description": "비교 대상으로 등장한 Unity 렌더 파이프라인."
+    },
+    "render.custom_srp": {
+      "label": "커스텀 SRP",
+      "description": "사용자가 구성하는 스크립터블 렌더 파이프라인."
+    },
+    "render.blit": {
+      "label": "블릿 호출",
+      "description": "이전 답변에서 렌더 패스 설명과 대비해 언급한 영상 복사·처리 API."
+    },
+    "qc.draw_call": {
+      "label": "드로우 콜",
+      "description": "렌더 작업을 그리기 명령으로 제출하는 단위 또는 집계 지표."
+    },
+    "qc.batching": {
+      "label": "배칭",
+      "description": "여러 그리기 작업의 제출이나 상태 비용을 묶어 줄이는 방식."
+    },
+    "qc.overdraw": {
+      "label": "오버드로",
+      "description": "같은 화면 영역을 여러 번 처리하는 렌더 중첩 비용의 관점."
+    },
+    "qc.shader_complexity": {
+      "label": "셰이더 복잡도",
+      "description": "셰이더의 계산·메모리 접근·분기 등 비용 특성."
+    },
+    "qc.texture_budget": {
+      "label": "텍스처 예산",
+      "description": "텍스처 해상도·개수·메모리 등에 허용한 범위."
+    },
+    "qc.texture_memory": {
+      "label": "텍스처 메모리",
+      "description": "텍스처가 사용하는 저장 또는 GPU 메모리 크기."
+    },
+    "qc.memory_budget": {
+      "label": "메모리 예산",
+      "description": "자산·클립·렌더 자원에 허용한 메모리 범위."
+    },
+    "qc.lod": {
+      "label": "세부 수준",
+      "description": "조건에 따라 자산 세부량을 바꾸는 표현 전략."
+    },
+    "qc.cpu_cost": {
+      "label": "CPU 비용",
+      "description": "렌더·애니메이션·자산 처리 등이 CPU에서 소요하는 비용."
+    },
+    "qc.gpu_cost": {
+      "label": "GPU 비용",
+      "description": "렌더 작업과 계산이 GPU에서 소요하는 비용."
+    },
+    "qc.platform_budget": {
+      "label": "플랫폼 예산",
+      "description": "타깃 플랫폼에서 유지할 성능·메모리·표시 조건의 묶음."
+    },
+    "qc.visual_regression": {
+      "label": "시각 회귀 검사",
+      "description": "변경 전후에 보존해야 할 화면 특성이 손상되었는지 검사하는 일."
+    },
+    "qc.consistency": {
+      "label": "일관성",
+      "description": "자산·움직임·표시 규칙이 서로 맞게 유지되는 정도."
+    },
+    "qc.asset_portfolio_integrity": {
+      "label": "자산 집합 정합성",
+      "description": "자산 집합이 누락·스타일·규격 불일치 없이 유지되는 조건."
+    },
+    "qc.atlas_budget": {
+      "label": "아틀라스 예산",
+      "description": "아틀라스 수·해상도·메모리·패킹에 허용한 범위."
+    },
+    "qc.resolution_standard": {
+      "label": "해상도 규격",
+      "description": "자산 유형별로 유지할 원본·런타임 해상도 규칙."
+    },
+    "qc.material_count": {
+      "label": "재질 수",
+      "description": "자산·장면이 사용하는 재질의 개수."
+    },
+    "qc.material_slots": {
+      "label": "재질 슬롯",
+      "description": "메시 부분에 재질을 할당하는 슬롯 구성."
+    },
+    "qc.retarget_qa": {
+      "label": "리타깃 품질검사",
+      "description": "리타깃 후 포즈·접촉·비례·동작 의미가 보존되는지의 검사."
+    },
+    "qc.regression_qa": {
+      "label": "회귀 품질검사",
+      "description": "변경으로 기존 자산 기능과 표현이 손상되지 않았는지 검사하는 일."
+    },
+    "qc.object_statistics": {
+      "label": "오브젝트 통계",
+      "description": "메시·재질·자산 구조의 개수를 확인하는 보고."
+    },
+    "pipeline.source_runtime": {
+      "label": "원본–런타임 표현 분리",
+      "description": "편집 원본과 엔진 실행용 표현이 다를 수 있다는 구분."
+    },
+    "pipeline.scene_specification": {
+      "label": "장면 명세",
+      "description": "대상·형태·재질·카메라·동작을 구조적으로 기술한 제작 입력."
+    },
+    "pipeline.generation_script": {
+      "label": "생성 스크립트",
+      "description": "명세에서 자산이나 장면을 생성하는 코드 산출물."
+    },
+    "pipeline.headless_render": {
+      "label": "헤드리스 렌더",
+      "description": "상호작용 UI 없이 렌더 결과를 생성하는 실행 방식."
+    },
+    "pipeline.render_validation": {
+      "label": "렌더 검증",
+      "description": "생성 결과를 실제 화면으로 확인하는 단계."
+    },
+    "pipeline.vision_critique": {
+      "label": "이미지 기반 비평",
+      "description": "렌더 이미지를 관찰하여 시각 의도와의 차이를 평가하는 작업."
+    },
+    "pipeline.turntable": {
+      "label": "턴테이블 렌더",
+      "description": "여러 방향에서 물체를 확인하는 회전형 검사용 영상."
+    },
+    "pipeline.export": {
+      "label": "내보내기",
+      "description": "편집 원본을 전달·실행용 형식으로 변환하는 일."
+    },
+    "pipeline.fbx": {
+      "label": "FBX 교환 파일",
+      "description": "모델·애니메이션 등의 전달 형식으로 언급된 파일 종류."
+    },
+    "pipeline.gltf": {
+      "label": "glTF 교환 파일",
+      "description": "모델·재질 등의 전달 형식으로 언급된 파일 종류."
+    },
+    "pipeline.blend_file": {
+      "label": "Blender 원본 파일",
+      "description": "편집 가능한 Blender 장면·자산 원본."
+    },
+    "pipeline.naming": {
+      "label": "이름 규칙",
+      "description": "자산·노드·부품을 일관되게 식별하는 규칙."
+    },
+    "pipeline.versioning": {
+      "label": "버전 관리",
+      "description": "자산과 명세의 변경 상태를 구분하는 체계."
+    },
+    "pipeline.variant_management": {
+      "label": "변형 자산 관리",
+      "description": "기본 자산과 색·손상·형태 변형들을 일관되게 관리하는 방식."
+    },
+    "pipeline.reuse": {
+      "label": "재사용",
+      "description": "기존 자산·클립·도형·규칙을 다른 제작물에 사용하는 방식."
+    },
+    "pipeline.clip_library": {
+      "label": "클립 라이브러리",
+      "description": "재사용 가능한 애니메이션 클립의 집합."
+    },
+    "pipeline.export_automation": {
+      "label": "내보내기 자동화",
+      "description": "규격에 따라 원본을 반복적으로 실행용 자산으로 변환하는 작업."
+    },
+    "pipeline.damage_variant": {
+      "label": "손상 변형 자산",
+      "description": "기본 자산에 손상 상태를 표현한 변형."
+    },
+    "pipeline.color_variant": {
+      "label": "색 변형 자산",
+      "description": "기본 형태를 유지하고 색 구성을 바꾼 자산."
+    },
+    "pipeline.silhouette_variant": {
+      "label": "실루엣 변형 자산",
+      "description": "기본 자산의 외곽 형태를 달리한 변형."
+    },
+    "pipeline.icon_variant": {
+      "label": "UI 아이콘 변형",
+      "description": "원래 물체를 작은 UI 표시용으로 변환한 자산."
+    },
+    "methods.feedback": {
+      "label": "비교·피드백",
+      "description": "원본·손그림·엔진 결과 사이 차이를 기록하고 수정하는 작업.",
+      "aliases": [
+        "피드백"
+      ]
+    },
+    "methods.screenshot_audit": {
+      "label": "스크린샷 검사",
+      "description": "완성 화면의 문제를 축별로 표시하는 검사."
+    },
+    "methods.markup": {
+      "label": "화면 주석 표시",
+      "description": "문제 영역과 수정 의도를 원본 위에 표시한 결과."
+    },
+    "local_meta.operational_surface": {
+      "label": "조작 가능한 표현·제어 층",
+      "description": "이번 대화에서는 시각 의도를 실제 조작으로 옮길 수 있는 대상·속성·연산의 층이라는 작업상 의미로 사용한 표현."
+    },
+    "local_meta.manipulative_vocab": {
+      "label": "조작 지시 어휘",
+      "description": "이번 요청에서 AD/TA의 의도를 도구 작업에 전달하는 데 사용하는 어휘 집합."
+    },
+    "shape.shape_contrast": {
+      "label": "형태 대비",
+      "description": "대상 사이의 윤곽·덩어리 특성이 달라 구별되는 관계."
+    },
+    "shape.edge": {
+      "label": "시각적 경계",
+      "description": "형태의 구분이나 표면 분절로 읽히는 경계."
+    },
+    "shape.swept_back": {
+      "label": "후퇴한 날개 형태",
+      "description": "드론 예시에서 날개가 뒤로 기울어 뻗는 형태 특성."
+    }
+  },
+  "review_summary": {
+    "checked_by": "tools/review_locales.py",
+    "needs_confirmation": 0
+  }
+}

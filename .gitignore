@@ -216,3 +216,17 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# asrai runtime artifacts
+out/
+index/
+corpus/team/
+
+# macOS
+.DS_Store
+
+# Per-developer agent state, not the project's
+.serena/
+.claude/settings.local.json
+# A copy of the packaged skill; the source is src/asrai/data/skill/SKILL.md
+.claude/skills/

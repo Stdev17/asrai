@@ -1,0 +1,2316 @@
+{
+  "schema_version": "2.0.0",
+  "locale": "zh-Hant",
+  "language_label_en": "Chinese (Traditional)",
+  "language_label_native": "繁體中文",
+  "base": "vocab.v2.json",
+  "base_entry_count": 475,
+  "spec_language": "en",
+  "translation_basis": "editorial_translation_not_verified_against_localized_industry_corpus",
+  "note_en": "Head-term labels and spoken-form descriptions only. Units, operations, quantification profiles, operational guidance and provenance stay in the English/base bundle and are never duplicated here.",
+  "covers": [
+    "zh-Hant"
+  ],
+  "term_count": 475,
+  "terms": {
+    "perception.visual_hierarchy": {
+      "label": "視覺層級",
+      "description": "讓畫面元素先被讀到或後被讀到的重要度關係。"
+    },
+    "perception.readability": {
+      "label": "可讀性",
+      "description": "對象或動作的意義在所需尺寸與時間內被分辨出來的程度。",
+      "aliases": [
+        "辨識度"
+      ]
+    },
+    "perception.silhouette_readability": {
+      "label": "剪影辨識度",
+      "description": "不靠內部描繪、只憑外輪廓量體讀出對象或姿勢的程度。"
+    },
+    "perception.icon_readability": {
+      "label": "圖示辨識度",
+      "description": "小尺寸顯示時分辨符號種類與功能的程度。"
+    },
+    "perception.scale_readability": {
+      "label": "縮放辨識度",
+      "description": "放大縮小或觀看距離改變後主要特徵仍然保持的程度。"
+    },
+    "perception.material_readability": {
+      "label": "材質辨識度",
+      "description": "只憑表面視覺線索分辨出材質意圖的程度。"
+    },
+    "perception.affordance": {
+      "label": "可供性",
+      "description": "指遊戲畫面中能做什麼、以及這種可能性如何被傳達的說法。",
+      "aliases": [
+        "行為可能性"
+      ]
+    },
+    "perception.figure_ground": {
+      "label": "圖與地",
+      "description": "把哪一塊讀成對象、哪一塊讀成背景的分離關係。"
+    },
+    "perception.attention": {
+      "label": "注意",
+      "description": "觀看者把處理資源放到畫面某一部分的現象。",
+      "aliases": [
+        "注意力"
+      ]
+    },
+    "perception.visual_saliency": {
+      "label": "視覺顯著性",
+      "description": "因與周圍有差異而讓某個元素跳出來的性質。"
+    },
+    "perception.preattentive_processing": {
+      "label": "前注意處理",
+      "description": "指某些視覺特徵在有意識細看之前就被分離出來的概念。"
+    },
+    "perception.gestalt": {
+      "label": "完形原理",
+      "description": "討論局部如何被組織成整體或形的一組原理。",
+      "aliases": [
+        "格式塔原理"
+      ]
+    },
+    "perception.perceptual_grouping": {
+      "label": "知覺群組",
+      "description": "多個元素被讀成一個整體的關係。"
+    },
+    "perception.depth_perception": {
+      "label": "深度知覺",
+      "description": "從平面影像讀出前後距離與立體關係的現象。"
+    },
+    "perception.visual_cognition": {
+      "label": "視覺認知",
+      "description": "把視覺資訊解讀為對象、關係與意義的過程。"
+    },
+    "perception.contextual_perception": {
+      "label": "情境知覺",
+      "description": "同一對象因周圍元素與情境不同而印象改變的性質。"
+    },
+    "perception.semiotics": {
+      "label": "符號學",
+      "description": "形狀、顏色與標記傳達特定意義的關係。"
+    },
+    "perception.style_coherence": {
+      "label": "風格一致性",
+      "description": "多個素材與特效符合共用視覺規則的程度。"
+    },
+    "perception.gameplay_clarity": {
+      "label": "玩法清晰度",
+      "description": "玩法所需的對象、事件與可行動作在視覺上被傳達的程度。"
+    },
+    "perception.visual_clutter": {
+      "label": "視覺雜亂",
+      "description": "因互相競爭的視覺元素而讓必要資訊被淹沒的狀態。"
+    },
+    "perception.visual_weight": {
+      "label": "視覺重量",
+      "description": "由尺寸、位置、顏色與對比造成的相對份量感。"
+    },
+    "perception.visual_intent": {
+      "label": "視覺意圖",
+      "description": "想透過操作在畫面上傳達的角色、情緒或資訊。"
+    },
+    "perception.spectacle": {
+      "label": "視覺奇觀",
+      "description": "以強烈的規模感、刺激或變化吸引目光的表現目標。"
+    },
+    "composition.composition": {
+      "label": "構圖",
+      "description": "畫面內元素與留白之間被組織起來的關係。"
+    },
+    "composition.balance": {
+      "label": "平衡",
+      "description": "畫面視覺重量是穩定的還是刻意偏移的程度。"
+    },
+    "composition.focal_point": {
+      "label": "視覺焦點",
+      "description": "畫面中刻意讓人先讀到的點或對象。"
+    },
+    "composition.staging": {
+      "label": "場面安排",
+      "description": "安排人物、道具與攝影機，使動作與關係清楚傳達。",
+      "aliases": [
+        "演出安排"
+      ]
+    },
+    "composition.framing": {
+      "label": "取景",
+      "description": "決定攝影機畫框內要放什麼、要排除什麼。"
+    },
+    "composition.positive_space": {
+      "label": "正空間",
+      "description": "對象形狀所佔的畫面區域。"
+    },
+    "composition.negative_space": {
+      "label": "負空間",
+      "description": "對象周圍或之間留下、看起來是空的區域。",
+      "aliases": [
+        "留白"
+      ]
+    },
+    "composition.overlap": {
+      "label": "遮擋",
+      "description": "畫面投影中兩個對象的區域互相重疊的關係。",
+      "aliases": [
+        "重疊"
+      ]
+    },
+    "composition.foreground": {
+      "label": "前景",
+      "description": "從觀看視點讀成最靠前的畫面層。"
+    },
+    "composition.midground": {
+      "label": "中景",
+      "description": "在前景與背景之間連接事件或空間的層。"
+    },
+    "composition.background": {
+      "label": "背景",
+      "description": "環繞主要對象或讀在其後方的畫面層。"
+    },
+    "composition.line_direction": {
+      "label": "線的方向",
+      "description": "邊界與配置在畫面中形成的方向感。"
+    },
+    "composition.rhythm": {
+      "label": "節奏",
+      "description": "元素或事件的重複、間隔與強弱形成的模式。"
+    },
+    "composition.affinity": {
+      "label": "相似性",
+      "description": "顏色、明度、形狀與動態等被組織得彼此接近的關係。"
+    },
+    "composition.contrast_structure": {
+      "label": "對比",
+      "description": "兩個元素或集合因視覺特性不同而被區分開的關係。"
+    },
+    "composition.visual_progression": {
+      "label": "視覺遞進",
+      "description": "隨時間或場景推進讓視覺特性分階段改變的結構。"
+    },
+    "composition.visual_component": {
+      "label": "視覺要素",
+      "description": "用空間、線、形、明度、色彩、動態與節奏分析畫面的觀點。"
+    },
+    "composition.screen_direction": {
+      "label": "畫面方向",
+      "description": "物體在畫框內朝向或移動的方向。"
+    },
+    "composition.screen_occupancy": {
+      "label": "畫面佔比",
+      "description": "對象在畫框中所佔的大小。"
+    },
+    "composition.reveal": {
+      "label": "揭示",
+      "description": "依順序把被遮住或未知的資訊顯露出來的演出。"
+    },
+    "composition.continuity": {
+      "label": "視覺連續性",
+      "description": "在鏡頭切換或狀態改變之間，空間、動作與視覺關係仍被讀成連貫的程度。"
+    },
+    "composition.tension_release": {
+      "label": "張弛",
+      "description": "在時間上安排事件壓迫感與釋放感的演出。"
+    },
+    "composition.storytelling": {
+      "label": "視覺敘事",
+      "description": "用形狀、配置與時間變化傳達事件與關係的目標。"
+    },
+    "composition.storyboard": {
+      "label": "分鏡",
+      "description": "把事件預先表現成關鍵畫面的連續圖。",
+      "aliases": [
+        "腳本分鏡"
+      ]
+    },
+    "composition.previs": {
+      "label": "前期視覺化",
+      "description": "用簡易素材把分鏡與演出先跑一次的事前視覺化。",
+      "aliases": [
+        "Previs"
+      ]
+    },
+    "composition.localization_safe": {
+      "label": "在地化相容構圖",
+      "description": "語言與顯示內容改變後仍保持功能與層級的配置。"
+    },
+    "shape.shape": {
+      "label": "形狀",
+      "description": "在畫面或平面上被讀成區域與輪廓的形。"
+    },
+    "shape.form": {
+      "label": "形體",
+      "description": "被理解為具有體積與面朝向的物體形態。",
+      "aliases": [
+        "量體"
+      ]
+    },
+    "shape.silhouette": {
+      "label": "剪影",
+      "description": "去掉內部細節後剩下的對象投影外形與量體。"
+    },
+    "shape.contour": {
+      "label": "輪廓",
+      "description": "形的外側邊界，或表示該邊界的線。"
+    },
+    "shape.outer_contour": {
+      "label": "外輪廓",
+      "description": "把物體與背景分開的外側邊界。"
+    },
+    "shape.edge_control": {
+      "label": "邊緣控制",
+      "description": "調節邊界讀起來是銳、是柔、是連續還是消失。"
+    },
+    "shape.proportion": {
+      "label": "比例",
+      "description": "局部之間或局部與整體之間的大小關係。"
+    },
+    "shape.shape_language": {
+      "label": "形狀語言",
+      "description": "用反覆出現的形狀特徵傳達角色、性格與風格的規則。"
+    },
+    "shape.mass": {
+      "label": "量體",
+      "description": "把物體大塊看待時的體積感或視覺團塊。"
+    },
+    "shape.primary_form": {
+      "label": "主形體",
+      "description": "主導整體辨識與剪影的大形。"
+    },
+    "shape.secondary_form": {
+      "label": "次級形體",
+      "description": "附著在主形上、讓功能與分節被讀出來的中等尺度形。"
+    },
+    "shape.tertiary_detail": {
+      "label": "三級細節",
+      "description": "面板線、細小起伏等比大形更小的描繪層。"
+    },
+    "shape.shape_hierarchy": {
+      "label": "形狀層級",
+      "description": "大、中、小形各自承擔的作用與優先順序。"
+    },
+    "shape.plane": {
+      "label": "面",
+      "description": "把立體簡化時朝向相對一致的面區域。"
+    },
+    "shape.planar_break": {
+      "label": "轉折面",
+      "description": "立體的面朝向改變、把形分節的位置。"
+    },
+    "shape.planar_transition": {
+      "label": "面的過渡",
+      "description": "從一個面或量體過渡到另一個面的形變化。"
+    },
+    "shape.primitive_decomposition": {
+      "label": "幾何體分解",
+      "description": "把複雜對象拆成方體、圓柱、楔形等簡單構成。"
+    },
+    "shape.primitive_massing": {
+      "label": "基本量體堆疊",
+      "description": "不做細節、用基本立體做出整體體積與比例的階段。"
+    },
+    "shape.blockout": {
+      "label": "白模配置",
+      "description": "用簡單形體代替最終素材做出空間或物體的草稿。",
+      "aliases": [
+        "量體草稿"
+      ]
+    },
+    "shape.box": {
+      "label": "方體",
+      "description": "由直面構成的盒狀量體。",
+      "aliases": [
+        "立方體"
+      ]
+    },
+    "shape.sphere": {
+      "label": "球體",
+      "description": "用來測試曲面形態與光照材質的球形基本體。"
+    },
+    "shape.cylinder": {
+      "label": "圓柱體",
+      "description": "圓形截面沿長度方向延伸的基本體。"
+    },
+    "shape.wedge": {
+      "label": "楔形",
+      "description": "用傾斜面製造方向感與厚度變化的量體。"
+    },
+    "shape.capsule": {
+      "label": "膠囊形",
+      "description": "無人機例子中細長、兩端圓潤的機身形狀。"
+    },
+    "shape.trapezoid": {
+      "label": "梯形",
+      "description": "擁有長度不同的平行邊的平面形。"
+    },
+    "shape.ellipse": {
+      "label": "橢圓",
+      "description": "用於圓截面投影或平面造形的橢圓。"
+    },
+    "shape.circle": {
+      "label": "圓形",
+      "description": "平面上的圓形元素。"
+    },
+    "shape.triangle": {
+      "label": "三角形",
+      "description": "以三條邊被讀出的平面形。"
+    },
+    "shape.rectangle": {
+      "label": "矩形",
+      "description": "用於配置與量體構成的方形。",
+      "aliases": [
+        "長方形"
+      ]
+    },
+    "shape.notch": {
+      "label": "負形缺口",
+      "description": "在相鄰量體之間把剪影分開的凹入空間。"
+    },
+    "shape.panel_line": {
+      "label": "面板線",
+      "description": "不改變外形、只表現表面分節的內部線。",
+      "aliases": [
+        "分模線"
+      ]
+    },
+    "shape.contour_economy": {
+      "label": "輪廓精簡",
+      "description": "用較少的邊界變化傳達必要特徵的性質。"
+    },
+    "shape.modular_construction": {
+      "label": "模組化構建",
+      "description": "把可重複使用的部件組合起來製作素材的方式。"
+    },
+    "shape.anatomy": {
+      "label": "解剖",
+      "description": "支撐人體形態與動作的結構知識。",
+      "aliases": [
+        "人體解剖"
+      ]
+    },
+    "shape.ribcage": {
+      "label": "胸腔",
+      "description": "簡化人體構成中代表軀幹上部的量體。"
+    },
+    "shape.pelvis": {
+      "label": "骨盆",
+      "description": "簡化人體構成中代表軀幹下部的量體。"
+    },
+    "shape.mannequin": {
+      "label": "人偶模型",
+      "description": "在火柴人基礎上加上基本體積的姿勢表現。",
+      "aliases": [
+        "木人"
+      ]
+    },
+    "space.position": {
+      "label": "位置",
+      "description": "對象在所選座標系中所處的位置。"
+    },
+    "space.rotation": {
+      "label": "旋轉",
+      "description": "對象或參考軸朝向的變化。"
+    },
+    "space.scale": {
+      "label": "縮放",
+      "description": "用乘法改變對象各軸尺寸的變換。"
+    },
+    "space.transform": {
+      "label": "變換",
+      "description": "把位置、旋轉、縮放等空間變換包在一起的表示。",
+      "aliases": [
+        "Transform"
+      ]
+    },
+    "space.affine": {
+      "label": "仿射變換",
+      "description": "保持平行關係的線性變換與平移的組合。"
+    },
+    "space.projection": {
+      "label": "投影",
+      "description": "把三維空間位置對應到攝影機影像位置的變換。"
+    },
+    "space.object_space": {
+      "label": "物件空間",
+      "description": "用對象自身的參考軸與原點表示位置的空間。",
+      "aliases": [
+        "區域空間"
+      ]
+    },
+    "space.world_space": {
+      "label": "世界空間",
+      "description": "用場景共用基準表示位置與朝向的空間。"
+    },
+    "space.view_space": {
+      "label": "視圖空間",
+      "description": "以攝影機為基準表示位置與朝向的空間。",
+      "aliases": [
+        "觀察空間"
+      ]
+    },
+    "space.clip_space": {
+      "label": "裁剪空間",
+      "description": "用於投影與裁剪的齊次座標空間。"
+    },
+    "space.screen_space": {
+      "label": "螢幕空間",
+      "description": "用輸出影像上的位置表示對象的空間。"
+    },
+    "space.depth": {
+      "label": "深度",
+      "description": "前後配置，或相對攝影機的深度關係。"
+    },
+    "space.depth_cue": {
+      "label": "深度線索",
+      "description": "遮擋、透視、光照等讓人讀出前後與立體的視覺線索。"
+    },
+    "space.foreshortening": {
+      "label": "透視縮短",
+      "description": "因觀看方向不同而讓物體某部分長度投影變短的現象。"
+    },
+    "space.perspective_grid": {
+      "label": "透視格線",
+      "description": "為對齊透視關係而使用的輔助線結構。"
+    },
+    "space.axis": {
+      "label": "軸",
+      "description": "解讀變換與朝向所依據的基準方向。"
+    },
+    "space.origin": {
+      "label": "原點",
+      "description": "作為物件位置與變換基準的點。"
+    },
+    "space.pivot": {
+      "label": "軸心點",
+      "description": "旋轉、縮放與擺放的基準點。",
+      "aliases": [
+        "樞軸"
+      ]
+    },
+    "space.parent_child_transform": {
+      "label": "父子變換",
+      "description": "子物件變換從屬於父物件變換的關係。"
+    },
+    "space.size": {
+      "label": "尺寸",
+      "description": "概括對象長寬高或畫面大小的說法。"
+    },
+    "space.direction": {
+      "label": "方向",
+      "description": "對象朝向、延伸或移動的方向。"
+    },
+    "camera.camera": {
+      "label": "攝影機",
+      "description": "決定用什麼視點與投影觀察場景的構成要素。"
+    },
+    "camera.camera_position": {
+      "label": "攝影機位置",
+      "description": "攝影機在場景中所處的位置。"
+    },
+    "camera.camera_angle": {
+      "label": "攝影機角度",
+      "description": "攝影機看向對象的朝向與視點。"
+    },
+    "camera.camera_distance": {
+      "label": "攝影機距離",
+      "description": "攝影機與指定對象或基準點之間的距離。"
+    },
+    "camera.fov": {
+      "label": "視野角",
+      "description": "攝影機所涵蓋的角度範圍。",
+      "aliases": [
+        "FOV",
+        "視場角"
+      ]
+    },
+    "camera.perspective": {
+      "label": "透視投影",
+      "description": "投影尺寸隨距離改變的攝影機方式。"
+    },
+    "camera.orthographic": {
+      "label": "正交投影",
+      "description": "不隨深度產生近大遠小的平行投影方式。",
+      "aliases": [
+        "正射投影"
+      ]
+    },
+    "camera.frustum": {
+      "label": "視錐體",
+      "description": "攝影機用於裁剪與可見性判定的視野體積。"
+    },
+    "camera.near_far": {
+      "label": "近遠裁切面",
+      "description": "攝影機前後所處理的距離範圍。"
+    },
+    "camera.shot_size": {
+      "label": "景別",
+      "description": "依對象在畫框中顯示到什麼範圍劃分的鏡頭類別。"
+    },
+    "camera.wide_shot": {
+      "label": "遠景",
+      "description": "較寬地包含對象周圍空間與關係的畫面構成。",
+      "aliases": [
+        "大景"
+      ]
+    },
+    "camera.close_shot": {
+      "label": "近景",
+      "description": "把對象或局部放大呈現的畫面構成。",
+      "aliases": [
+        "特寫"
+      ]
+    },
+    "camera.low_angle": {
+      "label": "仰角",
+      "description": "從相對較低視點看向對象的構成。",
+      "aliases": [
+        "低角度"
+      ]
+    },
+    "camera.front_view": {
+      "label": "正視圖",
+      "description": "以對象正面為基準的檢查用視點。"
+    },
+    "camera.side_view": {
+      "label": "側視圖",
+      "description": "以對象側面為基準的檢查用視點。"
+    },
+    "camera.three_quarter": {
+      "label": "四分之三視角",
+      "description": "同時顯露正面與側面的斜向視點。"
+    },
+    "value.value": {
+      "label": "明度",
+      "description": "組織明暗關係的美術面向。",
+      "aliases": [
+        "素描關係"
+      ]
+    },
+    "value.tone": {
+      "label": "影調",
+      "description": "在討論中主要指畫面的明暗結構。"
+    },
+    "value.value_grouping": {
+      "label": "明度分群",
+      "description": "把細節歸進大的明暗集團來組織畫面。"
+    },
+    "value.three_value": {
+      "label": "三調子練習",
+      "description": "把畫面簡化成黑、灰、白等三個明度的練習表現。"
+    },
+    "value.grayscale": {
+      "label": "灰階",
+      "description": "去掉色相差異、只顯示明暗成分的表現。",
+      "aliases": [
+        "黑白"
+      ]
+    },
+    "value.value_contrast": {
+      "label": "明度對比",
+      "description": "對象之間的明暗差異。"
+    },
+    "value.tone_affinity": {
+      "label": "影調相似",
+      "description": "對象或畫面區域的明暗關係接近而歸成一群的狀態。"
+    },
+    "value.contrast_hierarchy": {
+      "label": "對比層級",
+      "description": "畫面內多處對比中安排誰優先的結構。"
+    },
+    "value.highlight": {
+      "label": "亮部",
+      "description": "由光照反應或風格化表現造成的明亮強調區域。",
+      "aliases": [
+        "高光"
+      ]
+    },
+    "value.shadow": {
+      "label": "陰影",
+      "description": "受光較少或在表現上被歸暗的區域。"
+    },
+    "lighting.lighting": {
+      "label": "燈光",
+      "description": "用光源與環境光營造形體與畫面氛圍的構成。",
+      "aliases": [
+        "打光"
+      ]
+    },
+    "lighting.light": {
+      "label": "光源",
+      "description": "參與物體與空間光照反應的光，或引擎中的光源。",
+      "aliases": [
+        "燈光物件"
+      ]
+    },
+    "lighting.light_direction": {
+      "label": "光照方向",
+      "description": "光行進的方向，或射向表面的方向。"
+    },
+    "lighting.intensity": {
+      "label": "光強",
+      "description": "控制光源輸出強度的數值。",
+      "aliases": [
+        "強度"
+      ]
+    },
+    "lighting.directional_light": {
+      "label": "平行光",
+      "description": "以方向為主要屬性的引擎光源類型。",
+      "aliases": [
+        "方向光"
+      ]
+    },
+    "lighting.form_shadow": {
+      "label": "暗面",
+      "description": "因表面朝向而較少受到直射光的物體自身暗部。",
+      "aliases": [
+        "自身陰影"
+      ]
+    },
+    "lighting.cast_shadow": {
+      "label": "投射陰影",
+      "description": "射向其他表面的光被物體遮住而產生的影子。",
+      "aliases": [
+        "投射陰影"
+      ]
+    },
+    "lighting.terminator": {
+      "label": "明暗交界線",
+      "description": "在形體上分開受直射光一側與不受光一側的邊界。"
+    },
+    "lighting.ambient": {
+      "label": "環境光",
+      "description": "指個別直射光源之外來自周圍的照明貢獻的說法。"
+    },
+    "lighting.bounce": {
+      "label": "反彈光",
+      "description": "經其他表面反射後到達的間接光貢獻。",
+      "aliases": [
+        "間接光"
+      ]
+    },
+    "lighting.backlight": {
+      "label": "逆光",
+      "description": "從攝影機視角看位於對象後方的打光配置。",
+      "aliases": [
+        "背光"
+      ]
+    },
+    "lighting.lambert": {
+      "label": "蘭伯特",
+      "description": "利用表面朝向與入射方向關係的簡單漫反射模型。"
+    },
+    "lighting.ndotl": {
+      "label": "N·L",
+      "description": "用法線與光方向向量內積表示表面朝向關係的數值。",
+      "review": "confirm_loanword"
+    },
+    "lighting.fake_lighting": {
+      "label": "假光照",
+      "description": "為了辨識度與意圖而非物理一致性額外加入的光照表現。"
+    },
+    "lighting.secondary_lighting": {
+      "label": "二次光照",
+      "description": "在像素化對象上追加染色或光照反應的工序。"
+    },
+    "lighting.radiometry": {
+      "label": "輻射度量學",
+      "description": "定量處理光能傳遞的基礎概念。"
+    },
+    "lighting.light_transport": {
+      "label": "光傳輸",
+      "description": "光在光源、表面與介質之間傳遞的過程。"
+    },
+    "color.color": {
+      "label": "顏色",
+      "description": "表面、光源與影像的色彩成分及其知覺關係。",
+      "aliases": [
+        "色彩"
+      ]
+    },
+    "color.hue": {
+      "label": "色相",
+      "description": "把顏色區分為紅、黃、綠等的色彩模型面向。"
+    },
+    "color.saturation": {
+      "label": "飽和度",
+      "description": "在所選色彩模型或工具中調整顏色偏離無彩色程度的面向。"
+    },
+    "color.warm_cool": {
+      "label": "冷暖關係",
+      "description": "顏色之間被讀成相對偏暖或偏冷的關係。"
+    },
+    "color.simultaneous_contrast": {
+      "label": "同時對比",
+      "description": "因周圍顏色或明度不同而讓同一顏色印象改變的現象。"
+    },
+    "color.palette": {
+      "label": "配色",
+      "description": "一幅畫或一組素材所使用的顏色集合。",
+      "aliases": [
+        "色盤"
+      ]
+    },
+    "color.palette_hierarchy": {
+      "label": "配色層級",
+      "description": "主色、輔助色、點綴色等顏色集合的優先順序。"
+    },
+    "color.palette_discipline": {
+      "label": "配色規範",
+      "description": "一致地維持允許的顏色關係與顏色數量的規則。"
+    },
+    "color.local_color": {
+      "label": "固有色",
+      "description": "與光照效果區分開說明的對象本身的顏色。"
+    },
+    "color.light_color": {
+      "label": "光源色",
+      "description": "光的顏色構成。"
+    },
+    "color.surrounding_color": {
+      "label": "環境色",
+      "description": "放在對象周圍、影響其知覺的顏色。"
+    },
+    "color.perceived_color": {
+      "label": "感知色",
+      "description": "在最終脈絡與觀看條件下人讀到的顏色。"
+    },
+    "color.color_temperature": {
+      "label": "色溫",
+      "description": "從冷暖方向處理光源色或白平衡性質的說法。"
+    },
+    "color.tint": {
+      "label": "色偏",
+      "description": "把顏色往特定方向偏，或套上色彩濾鏡的操作。",
+      "aliases": [
+        "著色"
+      ]
+    },
+    "color.vibrance": {
+      "label": "自然飽和度",
+      "description": "依工具各自的方式選擇性修正色彩強度的調整。"
+    },
+    "color.gamma": {
+      "label": "伽瑪曲線",
+      "description": "指數值轉換的非線性曲線或工具的伽瑪調整。"
+    },
+    "color.exposure": {
+      "label": "曝光",
+      "description": "從曝光角度調整影像或光照訊號亮度的數值。"
+    },
+    "color.srgb": {
+      "label": "sRGB",
+      "description": "處理貼圖與顯示色時出現的 RGB 色彩編碼體系。",
+      "review": "confirm_loanword"
+    },
+    "color.linear": {
+      "label": "線性顏色",
+      "description": "以與光量成正比的數值進行色彩運算的表示。",
+      "aliases": [
+        "線性工作流程"
+      ]
+    },
+    "color.lut": {
+      "label": "LUT",
+      "description": "把輸入顏色轉換成輸出顏色的預先計算對照表。",
+      "aliases": [
+        "查找表"
+      ],
+      "review": "confirm_loanword"
+    },
+    "color.color_grading": {
+      "label": "調色",
+      "description": "依意圖改變最終畫面色彩與明暗關係的工作。"
+    },
+    "color.tone_mapping": {
+      "label": "色調映射",
+      "description": "把較寬的訊號範圍對應到可輸出表現的工序。"
+    },
+    "color.color_contrast": {
+      "label": "色彩對比",
+      "description": "兩個區域顏色被讀成不同的關係。"
+    },
+    "color.color_affinity": {
+      "label": "色彩相似",
+      "description": "各元素顏色接近而被歸成一群讀出的關係。"
+    },
+    "color.complementary_scheme": {
+      "label": "互補色配色",
+      "description": "使用色環上相對關係的配色構成。"
+    },
+    "material.surface": {
+      "label": "表面",
+      "description": "形體對光與貼圖產生反應的邊界，或其表現。"
+    },
+    "material.material": {
+      "label": "材質",
+      "description": "把表面反應與相關貼圖、參數包在一起的表現。"
+    },
+    "material.surface_response": {
+      "label": "表面反應",
+      "description": "表面對光照與視角變化所呈現的反應。"
+    },
+    "material.material_cue": {
+      "label": "材質線索",
+      "description": "讓人讀成金屬、橡膠等的亮部、顏色與表面紋樣等線索。"
+    },
+    "material.pbr": {
+      "label": "PBR",
+      "description": "採用物理表面反應原理的材質與著色方法。",
+      "aliases": [
+        "物理基礎渲染"
+      ],
+      "review": "confirm_loanword"
+    },
+    "material.brdf": {
+      "label": "BRDF",
+      "description": "表示表面反射隨入射與出射方向變化的函式。",
+      "review": "confirm_loanword"
+    },
+    "material.bsdf": {
+      "label": "BSDF",
+      "description": "表示反射與透射等表面散射反應的函式範疇。",
+      "review": "confirm_loanword"
+    },
+    "material.base_color": {
+      "label": "基礎色",
+      "description": "材質工作流程中作為光照計算基本色輸入的數值。",
+      "aliases": [
+        "反照率",
+        "Albedo"
+      ]
+    },
+    "material.metallic": {
+      "label": "金屬度",
+      "description": "金屬／非金屬工作流程中的表面性質輸入。"
+    },
+    "material.roughness": {
+      "label": "粗糙度",
+      "description": "控制反射分布因表面微觀結構而擴散程度的輸入。"
+    },
+    "material.smoothness": {
+      "label": "光滑度",
+      "description": "調整反射反應清晰程度的工具專用輸入。"
+    },
+    "material.ao": {
+      "label": "環境光遮蔽",
+      "description": "表示因周圍遮擋而變暗的線索的數值或貼圖。",
+      "aliases": [
+        "AO"
+      ]
+    },
+    "material.emission": {
+      "label": "自發光",
+      "description": "讓表面看起來自身發亮而加入的材質訊號。"
+    },
+    "material.normal_map": {
+      "label": "法線貼圖",
+      "description": "用貼圖傳達表面朝向變化的表現。"
+    },
+    "material.curvature": {
+      "label": "曲率",
+      "description": "表面彎曲或轉折的程度，或存放該資訊的表現。",
+      "aliases": [
+        "曲率貼圖"
+      ]
+    },
+    "material.mesh_maps": {
+      "label": "模型輔助貼圖",
+      "description": "從網格烘焙出來、用於材質製作的輔助貼圖集合。",
+      "aliases": [
+        "mesh maps"
+      ]
+    },
+    "material.material_layers": {
+      "label": "材質圖層",
+      "description": "用順序與遮罩合成多種材質效果的圖層。"
+    },
+    "material.mask_generator": {
+      "label": "遮罩與產生器",
+      "description": "用條件或貼圖產生材質影響區域的構成。"
+    },
+    "material.metal_rough_workflow": {
+      "label": "金屬粗糙度工作流程",
+      "description": "以金屬度與粗糙度為核心構成表面輸入的工作流程。"
+    },
+    "material.spec_gloss_workflow": {
+      "label": "高光光澤度工作流程",
+      "description": "用反射色與光澤度輸入構成表面的工作流程。"
+    },
+    "material.plastic": {
+      "label": "塑膠",
+      "description": "練習中作為比較對象的塑膠表面印象。"
+    },
+    "material.metal": {
+      "label": "金屬",
+      "description": "練習中作為比較對象的金屬表面印象。"
+    },
+    "material.rubber": {
+      "label": "橡膠",
+      "description": "練習中作為比較對象的橡膠表面印象。"
+    },
+    "material.glass": {
+      "label": "玻璃",
+      "description": "靠透明與反射等線索被讀出的玻璃表面目標。"
+    },
+    "material.painted_metal": {
+      "label": "烤漆金屬",
+      "description": "具有金屬底材與塗裝層差異的表面目標。"
+    },
+    "geometry.geometry": {
+      "label": "幾何",
+      "description": "用空間中的點、線、面與體積表示的形。",
+      "aliases": [
+        "幾何體"
+      ]
+    },
+    "geometry.mesh": {
+      "label": "網格",
+      "description": "用頂點及其連接表示表面的結構。",
+      "aliases": [
+        "網面"
+      ]
+    },
+    "geometry.topology": {
+      "label": "拓樸",
+      "description": "網格元素的連接結構。",
+      "aliases": [
+        "佈線"
+      ]
+    },
+    "geometry.edge_flow": {
+      "label": "邊流",
+      "description": "邊沿著形體與變形方向連接起來的走向。",
+      "aliases": [
+        "走線"
+      ]
+    },
+    "geometry.pole": {
+      "label": "極點",
+      "description": "指連接邊數與周圍規則佈線不同的頂點的用語。"
+    },
+    "geometry.manifold": {
+      "label": "流形",
+      "description": "網格周邊連接構成一致表面的條件。"
+    },
+    "geometry.normal": {
+      "label": "法線",
+      "description": "表示表面朝向的向量。"
+    },
+    "geometry.tangent": {
+      "label": "切線",
+      "description": "構成表面朝向或以 UV 為基礎著色座標系的切向量。"
+    },
+    "geometry.smoothing": {
+      "label": "平滑處理",
+      "description": "設定法線反應，讓相鄰面看起來平滑連接的工作。",
+      "aliases": [
+        "平滑群組"
+      ]
+    },
+    "geometry.normal_interpolation": {
+      "label": "法線內插",
+      "description": "在表面內部把法線資訊串起來進行著色的過程。"
+    },
+    "geometry.hard_edge": {
+      "label": "硬邊",
+      "description": "處理成在著色中能清楚讀出相鄰面朝向變化的邊界。"
+    },
+    "geometry.soft_edge": {
+      "label": "軟邊",
+      "description": "處理成著色相對平滑連接的網格邊界。"
+    },
+    "geometry.bevel": {
+      "label": "倒角",
+      "description": "把銳利的稜削成小面或曲面的操作。"
+    },
+    "geometry.bevel_highlight": {
+      "label": "倒角亮邊",
+      "description": "倒角面受光而顯出稜邊形狀的明亮帶。"
+    },
+    "geometry.subd": {
+      "label": "細分曲面",
+      "description": "透過細分得到更平滑表面的建模方法。",
+      "aliases": [
+        "SubD"
+      ]
+    },
+    "geometry.deformation": {
+      "label": "變形",
+      "description": "隨時間、綁定或程序改變網格位置的操作。"
+    },
+    "geometry.hard_surface": {
+      "label": "硬表面",
+      "description": "處理機械、道具等堅硬且面轉折明確形體的建模範疇。"
+    },
+    "geometry.modifier_stack": {
+      "label": "修改器堆疊",
+      "description": "依順序套用多個非破壞性形體運算的構成。"
+    },
+    "geometry.mirror": {
+      "label": "鏡像",
+      "description": "相對基準面把形體對稱複製或連接的運算。"
+    },
+    "geometry.solidify": {
+      "label": "實體化",
+      "description": "給表面賦予厚度的建模運算。"
+    },
+    "geometry.high_poly": {
+      "label": "高模",
+      "description": "擁有相對較多形體細節的模型表現。"
+    },
+    "geometry.low_poly": {
+      "label": "低模",
+      "description": "為執行成本或風格而限制形體的模型表現。"
+    },
+    "geometry.target_tris": {
+      "label": "目標三角面數",
+      "description": "對目標網格或素材設定的算圖三角面數上限。"
+    },
+    "geometry.wireframe": {
+      "label": "線框",
+      "description": "用線顯示網格連接的檢查用顯示。"
+    },
+    "geometry.curve": {
+      "label": "曲線",
+      "description": "表示空間中連續線形的幾何元素。"
+    },
+    "geometry.point_cloud": {
+      "label": "點雲",
+      "description": "用空間中點集合表示的資料。"
+    },
+    "geometry.volume": {
+      "label": "體積",
+      "description": "不只表面、還表示空間內部數值的資料。",
+      "aliases": [
+        "體資料"
+      ]
+    },
+    "geometry.instance": {
+      "label": "實體副本",
+      "description": "把共用原型以多個位置與屬性擺放出來的表示。",
+      "aliases": [
+        "Instance"
+      ]
+    },
+    "geometry.geometry_nodes": {
+      "label": "幾何節點",
+      "description": "用節點圖構成幾何資料產生與變形的系統。"
+    },
+    "geometry.quad": {
+      "label": "面片",
+      "description": "練習與特效中作為平面元素使用的四頂點形。",
+      "aliases": [
+        "四邊形"
+      ]
+    },
+    "geometry.modeling": {
+      "label": "建模",
+      "description": "製作形體與結構的工作。"
+    },
+    "geometry.sculpt": {
+      "label": "雕刻",
+      "description": "像雕塑一樣變形表面的建模方式。"
+    },
+    "uv_texture.uv": {
+      "label": "UV",
+      "description": "把表面與二維貼圖對應起來的座標。",
+      "aliases": [
+        "UV座標"
+      ],
+      "review": "confirm_loanword"
+    },
+    "uv_texture.uv_seam": {
+      "label": "UV接縫",
+      "description": "展開時把表面分開的邊界。"
+    },
+    "uv_texture.uv_island": {
+      "label": "UV殼",
+      "description": "展開後的 UV 中互相連接的一塊區域。",
+      "aliases": [
+        "UV島"
+      ]
+    },
+    "uv_texture.texel_density": {
+      "label": "紋素密度",
+      "description": "表面指定實際長度或面積上對應的貼圖取樣密度。"
+    },
+    "uv_texture.texel": {
+      "label": "紋素",
+      "description": "貼圖格點中的一個取樣元素。"
+    },
+    "uv_texture.texture": {
+      "label": "貼圖",
+      "description": "被取樣以取得顏色或資料值的影像與素材。",
+      "aliases": [
+        "紋理"
+      ]
+    },
+    "uv_texture.texture_size": {
+      "label": "貼圖尺寸",
+      "description": "貼圖在寬與高方向的取樣數。",
+      "aliases": [
+        "貼圖解析度"
+      ]
+    },
+    "uv_texture.bake": {
+      "label": "烘焙",
+      "description": "把形體、光照與表面資訊計算成另一種固定表現並儲存。"
+    },
+    "uv_texture.normal_mapping": {
+      "label": "法線貼圖映射",
+      "description": "用法線貼圖改變表面光照反應的方式。"
+    },
+    "uv_texture.sampling": {
+      "label": "取樣",
+      "description": "把連續或格點資料讀成特定位置與時刻數值的過程。"
+    },
+    "uv_texture.texture_sample": {
+      "label": "貼圖取樣",
+      "description": "使用 UV 與過濾條件讀取貼圖數值的運算。"
+    },
+    "uv_texture.filtering": {
+      "label": "過濾",
+      "description": "決定如何把鄰近取樣值結合成輸出的方式。",
+      "aliases": [
+        "濾波"
+      ]
+    },
+    "uv_texture.point_filter": {
+      "label": "點取樣",
+      "description": "不對鄰近值內插、直接取最近取樣的方式。",
+      "aliases": [
+        "鄰近取樣"
+      ]
+    },
+    "uv_texture.bilinear": {
+      "label": "雙線性過濾",
+      "description": "對二維格點鄰近值進行內插的貼圖過濾。"
+    },
+    "uv_texture.mipmap": {
+      "label": "Mipmap",
+      "description": "準備多個縮小層級貼圖的表現。",
+      "aliases": [
+        "多層次貼圖"
+      ],
+      "review": "confirm_loanword"
+    },
+    "uv_texture.anti_aliasing": {
+      "label": "反鋸齒",
+      "description": "緩解取樣造成的邊界與紋樣不穩定的處理。",
+      "aliases": [
+        "消除鋸齒"
+      ]
+    },
+    "uv_texture.texture_compression": {
+      "label": "貼圖壓縮",
+      "description": "減少貼圖儲存、傳輸與顯示記憶體用量的編碼。"
+    },
+    "uv_texture.padding": {
+      "label": "邊距留空",
+      "description": "在圖集區域之間等處預留的餘裕取樣空間。",
+      "aliases": [
+        "Padding"
+      ]
+    },
+    "uv_texture.extrusion": {
+      "label": "邊緣擴張",
+      "description": "把邊界顏色向周圍擴出去以減少取樣串色的處理。",
+      "aliases": [
+        "擴邊"
+      ]
+    },
+    "uv_texture.alpha": {
+      "label": "透明通道",
+      "description": "用於合成與遮罩的覆蓋率或不透明度通道。",
+      "aliases": [
+        "Alpha"
+      ]
+    },
+    "uv_texture.alpha_edge": {
+      "label": "透明邊界",
+      "description": "在可見與不可見之間透明度發生轉換的邊界。"
+    },
+    "vector.vector_art": {
+      "label": "向量圖",
+      "description": "用曲線與圖形構成原稿的影像表現。",
+      "aliases": [
+        "向量美術"
+      ]
+    },
+    "vector.bezier": {
+      "label": "貝茲曲線",
+      "description": "用控制點定義曲線的表示。"
+    },
+    "vector.anchor": {
+      "label": "錨點",
+      "description": "決定向量路徑線段如何連接的基準點。"
+    },
+    "vector.handle": {
+      "label": "控制把手",
+      "description": "控制錨點周圍曲線方向與形狀的點或向量。",
+      "aliases": [
+        "方向線"
+      ]
+    },
+    "vector.segment": {
+      "label": "線段",
+      "description": "連接路徑相鄰基準點之間的部分。"
+    },
+    "vector.path": {
+      "label": "路徑",
+      "description": "由點與線段連接成的線或輪廓。"
+    },
+    "vector.closed_shape": {
+      "label": "封閉路徑",
+      "description": "首尾相連以定義區域的路徑形態。"
+    },
+    "vector.compound_shape": {
+      "label": "複合形狀",
+      "description": "多條路徑或部分共同構成一個區域結構的表示。"
+    },
+    "vector.boolean": {
+      "label": "布林運算",
+      "description": "依圖形區域關係進行聯集、差集或交集的運算。"
+    },
+    "vector.curve_continuity": {
+      "label": "曲線連續性",
+      "description": "接合處位置、方向與彎曲程度延續的程度。"
+    },
+    "vector.stroke": {
+      "label": "筆畫",
+      "description": "沿路徑繪製的線的表現。",
+      "aliases": [
+        "描邊"
+      ]
+    },
+    "vector.fill": {
+      "label": "填色",
+      "description": "在封閉區域內套用的顏色或圖樣。"
+    },
+    "vector.mask": {
+      "label": "遮罩",
+      "description": "表示效果套用區域或套用程度的表示。"
+    },
+    "vector.gradient": {
+      "label": "漸層",
+      "description": "隨位置連續改變顏色或數值的表現。"
+    },
+    "vector.viewbox": {
+      "label": "viewBox",
+      "description": "指定 SVG 內部座標觀察範圍的結構。",
+      "review": "confirm_loanword"
+    },
+    "vector.group_hierarchy": {
+      "label": "群組階層",
+      "description": "把向量元素群組並共用變換與樣式的階層。"
+    },
+    "vector.svg": {
+      "label": "SVG",
+      "description": "把向量元素與屬性結構化儲存的文件表現。",
+      "review": "confirm_loanword"
+    },
+    "vector.pen": {
+      "label": "鋼筆工具",
+      "description": "使用錨點與控制把手建構路徑的製作工具。"
+    },
+    "vector.shape_builder": {
+      "label": "形狀建立工具",
+      "description": "組合重疊圖形區域的製作功能。"
+    },
+    "vector.pathfinder": {
+      "label": "路徑管理員",
+      "description": "透過圖形之間運算產生複合形狀的功能集合。"
+    },
+    "vector.resolution_independence": {
+      "label": "解析度無關",
+      "description": "原稿圖形可以用另一個尺寸重新表現的性質。"
+    },
+    "vector.reusable_shape": {
+      "label": "可重用圖形",
+      "description": "在多個素材中共用的圖形構件。"
+    },
+    "pixel_sprite.sprite": {
+      "label": "精靈圖",
+      "description": "用於二維物體表現的影像區域或引擎素材。",
+      "aliases": [
+        "Sprite"
+      ]
+    },
+    "pixel_sprite.sprite_import": {
+      "label": "精靈圖匯入",
+      "description": "把影像解讀為引擎精靈圖的匯入過程。"
+    },
+    "pixel_sprite.atlas": {
+      "label": "精靈圖集",
+      "description": "把多個影像區域打包進一組貼圖的表現。",
+      "aliases": [
+        "圖集"
+      ]
+    },
+    "pixel_sprite.slicing": {
+      "label": "精靈圖切割",
+      "description": "從一張影像中劃分出多個精靈圖區域的工作。",
+      "aliases": [
+        "切圖"
+      ]
+    },
+    "pixel_sprite.ppu": {
+      "label": "PPU",
+      "description": "精靈圖原稿像素與引擎空間單位之間的比例。",
+      "aliases": [
+        "每單位像素數"
+      ],
+      "review": "confirm_loanword"
+    },
+    "pixel_sprite.ui_scaling": {
+      "label": "UI 縮放",
+      "description": "依顯示解析度或版面條件決定 UI 大小的方式。"
+    },
+    "pixel_sprite.sorting_layer": {
+      "label": "排序圖層",
+      "description": "組織二維元素繪製順序的引擎分類。"
+    },
+    "pixel_sprite.prefab_linkage": {
+      "label": "預製物件參照關係",
+      "description": "素材與使用它的引擎預製物件之間的參照關係。"
+    },
+    "pixel_sprite.animation_ready": {
+      "label": "可動畫素材",
+      "description": "部件、軸心、區域與階層已依動畫工作準備好的素材。"
+    },
+    "pixel_sprite.pixel_cluster": {
+      "label": "像素團塊",
+      "description": "把小片像素歸成一群來表現形與明度的構成單位。"
+    },
+    "pixel_sprite.pixelation": {
+      "label": "像素化",
+      "description": "把畫面或對象表現在有限空間格點上的處理。",
+      "aliases": [
+        "馬賽克化"
+      ]
+    },
+    "pixel_sprite.pixel_art": {
+      "label": "像素藝術",
+      "description": "把逐像素的形與配色選擇當作重要表現要素的風格。",
+      "aliases": [
+        "點陣美術"
+      ]
+    },
+    "pixel_sprite.pixel_perfect": {
+      "label": "像素完美",
+      "description": "追求與既定像素格點及顯示規則一致的條件。",
+      "aliases": [
+        "Pixel Perfect"
+      ]
+    },
+    "pixel_sprite.pixel_snapping": {
+      "label": "像素對齊",
+      "description": "把位置或取樣對齊到既定像素格點的操作。"
+    },
+    "pixel_sprite.subpixel_motion": {
+      "label": "次像素位移",
+      "description": "小於所選格點一格的投影位移。"
+    },
+    "pixel_sprite.internal_resolution": {
+      "label": "內部解析度",
+      "description": "最終畫面放大之前算圖的影像尺寸。"
+    },
+    "pixel_sprite.rasterization": {
+      "label": "點陣化",
+      "description": "把圖形或幾何轉換成像素取樣的過程。",
+      "aliases": [
+        "光柵化"
+      ]
+    },
+    "pixel_sprite.dithering": {
+      "label": "抖動",
+      "description": "在有限明度或顏色下用空間圖樣造出中間印象的處理。",
+      "aliases": [
+        "網點抖動"
+      ]
+    },
+    "pixel_sprite.screen_dither": {
+      "label": "螢幕空間抖動",
+      "description": "以螢幕座標評估抖動圖樣的構成。"
+    },
+    "pixel_sprite.object_dither": {
+      "label": "物件空間抖動",
+      "description": "把圖樣綁到物件座標的構成。"
+    },
+    "pixel_sprite.world_dither": {
+      "label": "世界空間抖動",
+      "description": "把圖樣固定在世界座標的構成。"
+    },
+    "pixel_sprite.selective_nonpixel": {
+      "label": "非像素化特效與 UI",
+      "description": "部分 UI 與特效在像素化流程之外輸出的專案需求。"
+    },
+    "pixel_sprite.retro_ps1": {
+      "label": "Doom／PS1 風格",
+      "description": "專案中用於低解析度與三維混合印象的參照表現。"
+    },
+    "motion.movement": {
+      "label": "運動",
+      "description": "位置、朝向與形態等狀態隨時間改變的表現。",
+      "aliases": [
+        "動態"
+      ]
+    },
+    "motion.timing": {
+      "label": "時間掌握",
+      "description": "事件、姿勢與動作發生的時刻與持續長度的安排。",
+      "aliases": [
+        "Timing"
+      ]
+    },
+    "motion.spacing": {
+      "label": "間距",
+      "description": "連續時間取樣之間對象位置或姿勢拉開的程度。"
+    },
+    "motion.pose": {
+      "label": "姿勢",
+      "description": "身體或物體在某一時刻所處的構成狀態。"
+    },
+    "motion.key_pose": {
+      "label": "關鍵姿勢",
+      "description": "決定動作意義或結構的主要姿勢。"
+    },
+    "motion.keyframe": {
+      "label": "關鍵影格",
+      "description": "在時間軸上明確指定的屬性值或畫面。"
+    },
+    "motion.key_drawing": {
+      "label": "原畫",
+      "description": "承載動作重要狀態的核心畫。"
+    },
+    "motion.breakdown": {
+      "label": "中間關鍵畫",
+      "description": "在關鍵姿勢之間決定運動路徑與過渡性質的中間姿勢。",
+      "aliases": [
+        "Breakdown"
+      ]
+    },
+    "motion.in_between": {
+      "label": "中割畫",
+      "description": "銜接原畫之間動作的畫。",
+      "aliases": [
+        "補間畫"
+      ]
+    },
+    "motion.arc": {
+      "label": "運動弧線",
+      "description": "運動部件所劃出的曲線路徑。",
+      "aliases": [
+        "弧線"
+      ]
+    },
+    "motion.trajectory": {
+      "label": "軌跡",
+      "description": "位置隨時間變化的路徑。"
+    },
+    "motion.action_line": {
+      "label": "動勢線",
+      "description": "用簡單的線概括姿勢力量與流向的表現。"
+    },
+    "motion.gesture": {
+      "label": "動態速寫",
+      "description": "快速抓住姿態與動作意圖和流向的表現。",
+      "aliases": [
+        "Gesture"
+      ]
+    },
+    "motion.anticipation": {
+      "label": "預備動作",
+      "description": "在主要動作之前預告方向、力量與發生的動作。"
+    },
+    "motion.contact": {
+      "label": "接觸",
+      "description": "動作中物體或角色碰到目標的時刻或狀態。"
+    },
+    "motion.ease": {
+      "label": "緩動",
+      "description": "調整變化率隨時間分布的內插性質。"
+    },
+    "motion.linear_motion": {
+      "label": "線性運動",
+      "description": "依時間成比例均勻改變屬性值的內插。",
+      "aliases": [
+        "等速"
+      ]
+    },
+    "motion.ease_in": {
+      "label": "緩入",
+      "description": "區間開頭變化量小、隨後逐漸增大的過渡。"
+    },
+    "motion.ease_out": {
+      "label": "緩出",
+      "description": "區間後段變化量逐漸減小的過渡。"
+    },
+    "motion.ease_in_out": {
+      "label": "緩入緩出",
+      "description": "讓區間開頭與結尾都變平緩的過渡。"
+    },
+    "motion.overshoot": {
+      "label": "過衝",
+      "description": "越過目標狀態之後再回來的運動。"
+    },
+    "motion.follow_through": {
+      "label": "跟隨動作",
+      "description": "主要動作結束後連帶部位繼續運動的表現。"
+    },
+    "motion.temporal_overlap": {
+      "label": "動作重疊",
+      "description": "身體或部件各自動作不在同一時刻開始與結束而互相重疊的關係。",
+      "aliases": [
+        "重疊動作"
+      ]
+    },
+    "motion.squash_stretch": {
+      "label": "擠壓與伸展",
+      "description": "用壓扁與拉長表現力量、彈性與速度的變形。"
+    },
+    "motion.secondary_motion": {
+      "label": "次要動作",
+      "description": "支撐主要動作的附加運動。"
+    },
+    "motion.drag": {
+      "label": "拖曳跟隨",
+      "description": "部位比主要運動落後跟上的動作表現。"
+    },
+    "motion.settle": {
+      "label": "收勢",
+      "description": "殘餘運動減弱並到達最終狀態的區間。"
+    },
+    "motion.weight": {
+      "label": "重量感",
+      "description": "從時間掌握、變形、接觸與重心變化讀出的沉重程度。"
+    },
+    "motion.center_of_mass": {
+      "label": "重心",
+      "description": "用來解讀動作與平衡的質量中心或簡化中心。"
+    },
+    "motion.body_mechanics": {
+      "label": "身體力學",
+      "description": "用支撐、重心與關節關係解釋身體運動的觀點。"
+    },
+    "motion.duration": {
+      "label": "時間長度",
+      "description": "所選事件或區間持續的時間。"
+    },
+    "motion.frame_rate": {
+      "label": "影格率",
+      "description": "單位時間內顯示或製作的取樣數。",
+      "aliases": [
+        "幀率"
+      ]
+    },
+    "motion.loop": {
+      "label": "循環",
+      "description": "動作結尾再次接回開頭的重複結構。"
+    },
+    "motion.position_curve": {
+      "label": "位置曲線",
+      "description": "定義位置值隨時間變化的曲線。"
+    },
+    "motion.animation_curve": {
+      "label": "AnimationCurve",
+      "description": "依時間控制屬性值的引擎曲線表現。",
+      "aliases": [
+        "動畫曲線"
+      ],
+      "review": "confirm_loanword"
+    },
+    "motion.procedural_animation": {
+      "label": "程序化動畫",
+      "description": "用規則、函式或模擬產生動作的方式。"
+    },
+    "motion.authored_motion": {
+      "label": "手工製作動作",
+      "description": "用關鍵影格或手繪刻意製作出來的動作表現。",
+      "aliases": [
+        "手 K 動畫"
+      ]
+    },
+    "motion.spring": {
+      "label": "彈簧",
+      "description": "一邊追隨目標一邊以彈性變化製造運動的模型。"
+    },
+    "motion.delayed_follower": {
+      "label": "延遲跟隨",
+      "description": "以時間差跟隨基準對象運動的動作。"
+    },
+    "motion.afterimage": {
+      "label": "殘影",
+      "description": "留下先前狀態視覺痕跡的表現。"
+    },
+    "motion.residual_motion": {
+      "label": "餘動",
+      "description": "主要事件之後殘留並繼續的運動。"
+    },
+    "motion.movement_contrast": {
+      "label": "動態對比",
+      "description": "元素之間速度、方向與靜止與否差異造成的對比。"
+    },
+    "motion.stop_motion": {
+      "label": "定格動畫",
+      "description": "指用小圖逐格連接做出動作的表現。",
+      "aliases": [
+        "停格動畫"
+      ]
+    },
+    "rig_animation.skeleton": {
+      "label": "骨架",
+      "description": "把角色或物體表示為階層骨骼的結構。",
+      "aliases": [
+        "骨骼"
+      ]
+    },
+    "rig_animation.rig": {
+      "label": "綁定",
+      "description": "驅動動作的骨骼、控制器與約束的集合。",
+      "aliases": [
+        "Rig"
+      ]
+    },
+    "rig_animation.fk": {
+      "label": "正向運動學",
+      "description": "由上而下決定關節狀態來定出末端位置的控制方式。",
+      "aliases": [
+        "FK"
+      ]
+    },
+    "rig_animation.ik": {
+      "label": "反向運動學",
+      "description": "由末端目標與約束求解中間關節構成的控制方式。",
+      "aliases": [
+        "IK"
+      ]
+    },
+    "rig_animation.retargeting": {
+      "label": "動作重定向",
+      "description": "把動作移轉到另一套骨架或體型上的工作。"
+    },
+    "rig_animation.blend_tree": {
+      "label": "混合樹",
+      "description": "依輸入參數組合多段動畫的結構。"
+    },
+    "rig_animation.state_machine": {
+      "label": "狀態機",
+      "description": "構成動畫狀態與轉換條件的結構。"
+    },
+    "rig_animation.root_motion": {
+      "label": "根運動",
+      "description": "把片段根節點的位移與旋轉用作執行時移動的表現。"
+    },
+    "rig_animation.constraint": {
+      "label": "約束",
+      "description": "限制關節、控制器與目標之間允許關係的條件。"
+    },
+    "rig_animation.animation_event": {
+      "label": "動畫事件",
+      "description": "把片段中某個時刻與動作呼叫關聯起來的標記。"
+    },
+    "rig_animation.transition_quality": {
+      "label": "過渡品質",
+      "description": "片段或狀態之間姿勢、速度與意圖不生硬斷裂的程度。"
+    },
+    "rig_animation.foot_sliding": {
+      "label": "腳底打滑",
+      "description": "本應踩實的腳相對地面移動的缺陷。",
+      "aliases": [
+        "滑步"
+      ]
+    },
+    "rig_animation.animation_compression": {
+      "label": "動畫壓縮",
+      "description": "在控制動作誤差的前提下減少片段資料的處理。"
+    },
+    "rig_animation.cutout": {
+      "label": "骨架切片動畫",
+      "description": "用軸心、骨骼與變形驅動分離二維部件的方式。",
+      "aliases": [
+        "剪紙動畫"
+      ]
+    },
+    "rig_animation.acting": {
+      "label": "演技",
+      "description": "用動作與表情傳達思考、情緒與意圖的表現。"
+    },
+    "rig_animation.intention": {
+      "label": "意圖",
+      "description": "用運動顯露角色想做什麼的目標。"
+    },
+    "rig_animation.locomotion": {
+      "label": "位移動作",
+      "description": "行走、奔跑等在空間中移動的動作範疇。",
+      "aliases": [
+        "Locomotion"
+      ]
+    },
+    "rig_animation.expression": {
+      "label": "表情",
+      "description": "顯露情緒或反應的臉部與身體表現。"
+    },
+    "rig_animation.personality": {
+      "label": "性格塑造",
+      "description": "讓角色性格在姿勢與運動中一致顯現的目標。"
+    },
+    "rig_animation.exaggeration": {
+      "label": "誇張",
+      "description": "刻意強化特定形態或運動特徵的操作。"
+    },
+    "rig_animation.emotional_beat": {
+      "label": "情緒節拍",
+      "description": "情緒發生變化或被強調的時間上的關鍵瞬間。"
+    },
+    "vfx.vfx": {
+      "label": "視覺特效",
+      "description": "傳達事件、狀態、力量與空間變化的視覺表現集合。",
+      "aliases": [
+        "VFX",
+        "特效"
+      ]
+    },
+    "vfx.particle": {
+      "label": "粒子",
+      "description": "用多個各自帶狀態的元素構成效果的單位。"
+    },
+    "vfx.particle_count": {
+      "label": "粒子數量",
+      "description": "在指定時刻或區間存在或產生的粒子個數。"
+    },
+    "vfx.flipbook": {
+      "label": "序列圖",
+      "description": "依順序取樣多張影像影格播放的表現。",
+      "aliases": [
+        "Flipbook"
+      ]
+    },
+    "vfx.trail": {
+      "label": "拖尾",
+      "description": "把運動經過的路徑連起來呈現的效果。"
+    },
+    "vfx.mesh_effect": {
+      "label": "模型特效",
+      "description": "用幾何表面而非粒子圖片製作的效果。"
+    },
+    "vfx.procedural_noise": {
+      "label": "程序化雜訊",
+      "description": "把函式產生的不規則數值用於效果與表面的表現。"
+    },
+    "vfx.dissolve": {
+      "label": "溶解",
+      "description": "用遮罩或門檻值讓形體局部消失或出現的效果。"
+    },
+    "vfx.distortion": {
+      "label": "扭曲",
+      "description": "變形座標或背景取樣以造出折射與衝擊印象的效果。"
+    },
+    "vfx.bloom": {
+      "label": "光暈",
+      "description": "把明亮影像區域向周圍擴散的後製表現。",
+      "aliases": [
+        "Bloom",
+        "泛光"
+      ]
+    },
+    "vfx.birth": {
+      "label": "生成",
+      "description": "效果最初形成的階段。"
+    },
+    "vfx.expansion": {
+      "label": "擴張",
+      "description": "效果範圍或形態變大的階段。"
+    },
+    "vfx.impact": {
+      "label": "衝擊點",
+      "description": "接觸、爆炸等事件被重點強調的瞬間。"
+    },
+    "vfx.primary_impact_shape": {
+      "label": "主衝擊形狀",
+      "description": "在效果中最先傳達事件力量與方向的大形。"
+    },
+    "vfx.breakup": {
+      "label": "碎裂",
+      "description": "大的效果形態分裂成小塊並消失的變化。"
+    },
+    "vfx.secondary_breakup": {
+      "label": "次級碎裂",
+      "description": "主衝擊之後次要飛散的部分。"
+    },
+    "vfx.trailing_motion": {
+      "label": "拖曳動態",
+      "description": "接在主要動作後面流動的視覺運動。"
+    },
+    "vfx.dissipation": {
+      "label": "消散",
+      "description": "效果減弱、散開並消失的階段。"
+    },
+    "vfx.hit": {
+      "label": "受擊特效",
+      "description": "傳達打擊或接觸的效果類型。"
+    },
+    "vfx.projectile": {
+      "label": "飛行物特效",
+      "description": "一邊移動一邊傳達攻擊或事件的視覺對象。"
+    },
+    "vfx.explosion": {
+      "label": "爆炸",
+      "description": "用急遽膨脹與分解表現能量釋放的效果。"
+    },
+    "vfx.simulation": {
+      "label": "模擬",
+      "description": "依規則逐時間步計算狀態的過程。",
+      "aliases": [
+        "解算"
+      ]
+    },
+    "vfx.frame_strip": {
+      "label": "影格條",
+      "description": "把效果或動作的關鍵畫面依時間順序排開的分析表現。"
+    },
+    "vfx.theme": {
+      "label": "角色主題一致性",
+      "description": "讓效果與角色視覺識別一致的目標。"
+    },
+    "vfx.surprise_delight": {
+      "label": "驚喜感",
+      "description": "效果想要傳達的情緒反應。"
+    },
+    "shader.shader": {
+      "label": "著色器",
+      "description": "計算頂點、表面與像素等算圖階段數值的程式表現。",
+      "aliases": [
+        "Shader"
+      ]
+    },
+    "shader.shader_graph": {
+      "label": "Shader Graph",
+      "description": "用節點構成著色器計算的製作系統。",
+      "aliases": [
+        "著色器圖"
+      ],
+      "review": "confirm_loanword"
+    },
+    "shader.hlsl": {
+      "label": "HLSL",
+      "description": "對話中 Unity 著色器實作所用的程式語言。",
+      "review": "confirm_loanword"
+    },
+    "shader.glsl": {
+      "label": "GLSL",
+      "description": "在 The Book of Shaders 脈絡中提到的著色器語言。",
+      "review": "confirm_loanword"
+    },
+    "shader.compute_shader": {
+      "label": "運算著色器",
+      "description": "構成算圖表面計算之外 GPU 運算的著色器階段。"
+    },
+    "shader.function": {
+      "label": "座標即函式",
+      "description": "把座標變成函式來造出顏色與形的表現觀點。"
+    },
+    "shader.shaping_function": {
+      "label": "塑形函式",
+      "description": "透過改變輸入值分布或過渡來造出圖樣與形的函式。"
+    },
+    "shader.matrix": {
+      "label": "矩陣",
+      "description": "表示空間或其他向量變換的係數結構。"
+    },
+    "shader.pattern": {
+      "label": "圖樣",
+      "description": "用規則或重複構成的空間紋樣。"
+    },
+    "shader.noise": {
+      "label": "雜訊",
+      "description": "與規則紋樣相對的不規則數值或圖樣。"
+    },
+    "shader.image_processing": {
+      "label": "影像處理",
+      "description": "對影像數值進行轉換、濾波與合成的運算。"
+    },
+    "shader.node_graph": {
+      "label": "節點圖",
+      "description": "用節點與連線表示計算或製作階段的結構。"
+    },
+    "render.render_pass": {
+      "label": "算圖階段",
+      "description": "在產生一格畫面時以既定輸入輸出執行的算圖工作單位。",
+      "aliases": [
+        "Render Pass"
+      ]
+    },
+    "render.compositing": {
+      "label": "合成",
+      "description": "把多個影像、圖層與效果結合成畫面的過程。"
+    },
+    "render.compositing_order": {
+      "label": "合成順序",
+      "description": "哪些影像處理與圖層先後執行並結合的順序。"
+    },
+    "render.post_processing": {
+      "label": "後製處理",
+      "description": "以場景算圖結果為輸入改變畫面表現的階段。",
+      "aliases": [
+        "後處理"
+      ]
+    },
+    "render.post_process_ordering": {
+      "label": "後製順序",
+      "description": "像素化、調色、光暈等螢幕運算之間的先後順序。"
+    },
+    "render.render_texture": {
+      "label": "RenderTexture",
+      "description": "保存並取樣攝影機或算圖階段輸出的貼圖。",
+      "aliases": [
+        "算圖貼圖"
+      ],
+      "review": "confirm_script"
+    },
+    "render.intermediate_texture": {
+      "label": "中繼貼圖",
+      "description": "在最終輸出之前存放暫時結果的影像資源。"
+    },
+    "render.render_queue": {
+      "label": "算圖佇列",
+      "description": "劃分算圖對象處理順序的數值或體系。"
+    },
+    "render.depth_buffer": {
+      "label": "深度緩衝",
+      "description": "用於可見性與效果的深度值儲存表現。",
+      "aliases": [
+        "深度緩衝"
+      ]
+    },
+    "render.stencil": {
+      "label": "模板",
+      "description": "用逐像素整數標記與測試限制算圖區域的表現。",
+      "aliases": [
+        "Stencil"
+      ]
+    },
+    "render.transparency": {
+      "label": "透明",
+      "description": "把表面與背景或後方元素一起表現的方式。",
+      "aliases": [
+        "半透明"
+      ]
+    },
+    "render.blending": {
+      "label": "混合",
+      "description": "依既定規則把新值與緩衝區既有值結合的運算。"
+    },
+    "render.alpha_clip": {
+      "label": "透明裁切",
+      "description": "依透明度等門檻值決定保留或捨棄像素的處理。",
+      "aliases": [
+        "Alpha Test"
+      ]
+    },
+    "render.alpha_blend": {
+      "label": "透明混合",
+      "description": "用透明度合成前後顏色的處理。"
+    },
+    "render.premultiplied_alpha": {
+      "label": "預乘透明度",
+      "description": "顏色分量已預先乘上透明度的儲存與合成慣例。"
+    },
+    "render.camera_stacking": {
+      "label": "攝影機堆疊",
+      "description": "把多個攝影機輸出構成一個結果的引擎功能。"
+    },
+    "render.renderer_feature": {
+      "label": "Renderer Feature",
+      "description": "把自訂算圖行為接入 URP 算圖器的構成。",
+      "aliases": [
+        "算圖器功能"
+      ],
+      "review": "confirm_loanword"
+    },
+    "render.fullscreen_pass": {
+      "label": "全螢幕階段",
+      "description": "以整個螢幕為對象處理數值的算圖工作。"
+    },
+    "render.injection_point": {
+      "label": "插入點",
+      "description": "算圖流程中插入自訂運算的位置。"
+    },
+    "render.render_graph": {
+      "label": "Render Graph",
+      "description": "用圖描述算圖工作與資源相依關係的構成。",
+      "aliases": [
+        "算圖圖"
+      ],
+      "review": "confirm_loanword"
+    },
+    "render.render_graph_resources": {
+      "label": "Render Graph 資源",
+      "description": "在各階段之間傳遞的貼圖與緩衝等宣告資源。"
+    },
+    "render.normal_2d_map": {
+      "label": "2D 法線貼圖",
+      "description": "給精靈圖提供表面朝向線索的貼圖表現。"
+    },
+    "render.urp": {
+      "label": "URP",
+      "description": "對話中作為 Unity 實作基礎使用的算圖管線。",
+      "aliases": [
+        "通用算圖管線"
+      ],
+      "review": "confirm_loanword"
+    },
+    "render.hdrp": {
+      "label": "HDRP",
+      "description": "作為比較對象出現的 Unity 算圖管線。",
+      "review": "confirm_loanword"
+    },
+    "render.custom_srp": {
+      "label": "自訂 SRP",
+      "description": "由使用者自行構成的可程式化算圖管線。"
+    },
+    "render.blit": {
+      "label": "CommandBuffer.Blit",
+      "description": "與算圖階段說明對照時提到的影像複製與處理 API。",
+      "aliases": [
+        "Blit"
+      ],
+      "review": "confirm_loanword"
+    },
+    "qc.draw_call": {
+      "label": "繪製呼叫",
+      "description": "把算圖工作提交為繪製指令的單位，或其統計指標。",
+      "aliases": [
+        "Draw Call"
+      ]
+    },
+    "qc.batching": {
+      "label": "批次處理",
+      "description": "把多次繪製的提交或狀態開銷合併以降低成本的方式。",
+      "aliases": [
+        "合批"
+      ]
+    },
+    "qc.overdraw": {
+      "label": "過度繪製",
+      "description": "同一螢幕區域被反覆處理的算圖重疊開銷觀點。",
+      "aliases": [
+        "Overdraw"
+      ]
+    },
+    "qc.shader_complexity": {
+      "label": "著色器複雜度",
+      "description": "著色器在計算、記憶體存取與分支等方面的開銷特性。"
+    },
+    "qc.texture_budget": {
+      "label": "貼圖預算",
+      "description": "對貼圖解析度、數量與記憶體等允許的範圍。"
+    },
+    "qc.texture_memory": {
+      "label": "貼圖記憶體",
+      "description": "貼圖佔用的儲存或顯示記憶體大小。"
+    },
+    "qc.memory_budget": {
+      "label": "記憶體預算",
+      "description": "對素材、動畫片段與算圖資源允許的記憶體範圍。"
+    },
+    "qc.lod": {
+      "label": "LOD",
+      "description": "依條件改變素材細節量的表現策略。",
+      "aliases": [
+        "細節層級"
+      ],
+      "review": "confirm_loanword"
+    },
+    "qc.cpu_cost": {
+      "label": "CPU 開銷",
+      "description": "算圖、動畫與素材處理等在 CPU 上耗用的成本。"
+    },
+    "qc.gpu_cost": {
+      "label": "GPU 開銷",
+      "description": "算圖工作與運算在 GPU 上耗用的成本。"
+    },
+    "qc.platform_budget": {
+      "label": "平台預算",
+      "description": "在目標平台上要維持的效能、記憶體與顯示條件的集合。"
+    },
+    "qc.visual_regression": {
+      "label": "視覺回歸",
+      "description": "檢查改動前後應當保留的畫面特性是否被破壞。"
+    },
+    "qc.consistency": {
+      "label": "一致性",
+      "description": "素材、動態與顯示規則彼此相符並得到維持的程度。"
+    },
+    "qc.asset_portfolio_integrity": {
+      "label": "素材集合完整性",
+      "description": "素材集合沒有缺漏、風格與規格不一致的條件。"
+    },
+    "qc.atlas_budget": {
+      "label": "圖集預算",
+      "description": "對圖集數量、解析度、記憶體與打包允許的範圍。"
+    },
+    "qc.resolution_standard": {
+      "label": "解析度規範",
+      "description": "依素材類型要維持的原稿與執行時解析度規則。"
+    },
+    "qc.material_count": {
+      "label": "材質數量",
+      "description": "素材或場景所使用的材質個數。"
+    },
+    "qc.material_slots": {
+      "label": "材質插槽",
+      "description": "把材質指派給網格各部分的插槽構成。"
+    },
+    "qc.retarget_qa": {
+      "label": "重定向檢查",
+      "description": "重定向後姿勢、接觸、比例與動作意義是否保留的檢查。"
+    },
+    "qc.regression_qa": {
+      "label": "回歸檢查",
+      "description": "檢查改動是否破壞既有素材的功能與表現。"
+    },
+    "qc.object_statistics": {
+      "label": "物件統計",
+      "description": "確認網格、材質與素材結構數量的報告。"
+    },
+    "pipeline.source_runtime": {
+      "label": "原稿與執行時表現之別",
+      "description": "編輯原稿與引擎執行表現可以不同的區分。"
+    },
+    "pipeline.scene_specification": {
+      "label": "場景規格書",
+      "description": "結構化描述對象、形體、材質、攝影機與動作的製作輸入。"
+    },
+    "pipeline.generation_script": {
+      "label": "產生腳本",
+      "description": "從規格書產生素材或場景的程式產物。"
+    },
+    "pipeline.headless_render": {
+      "label": "無介面算圖",
+      "description": "不經互動介面產生算圖結果的執行方式。",
+      "aliases": [
+        "Headless 算圖"
+      ]
+    },
+    "pipeline.render_validation": {
+      "label": "算圖驗證",
+      "description": "在實際畫面上確認產生結果的階段。"
+    },
+    "pipeline.vision_critique": {
+      "label": "視覺講評",
+      "description": "觀察算圖影像並評估其與視覺意圖落差的工作。"
+    },
+    "pipeline.turntable": {
+      "label": "轉檯展示",
+      "description": "從多個方向確認物體的旋轉式檢查影片。",
+      "aliases": [
+        "Turntable"
+      ]
+    },
+    "pipeline.export": {
+      "label": "匯出",
+      "description": "把編輯原稿轉換成交付或執行格式。"
+    },
+    "pipeline.fbx": {
+      "label": "FBX",
+      "description": "作為模型與動畫交付格式提到的檔案類型。",
+      "review": "confirm_loanword"
+    },
+    "pipeline.gltf": {
+      "label": "glTF",
+      "description": "作為模型與材質交付格式提到的檔案類型。",
+      "review": "confirm_loanword"
+    },
+    "pipeline.blend_file": {
+      "label": ".blend",
+      "description": "可編輯的 Blender 場景與素材原稿。",
+      "review": "confirm_loanword"
+    },
+    "pipeline.naming": {
+      "label": "命名規範",
+      "description": "一致地識別素材、節點與部件的規則。"
+    },
+    "pipeline.versioning": {
+      "label": "版本管理",
+      "description": "區分素材與規格書變更狀態的體系。"
+    },
+    "pipeline.variant_management": {
+      "label": "變體管理",
+      "description": "一致管理基礎素材與顏色、損壞、形態變體的方式。"
+    },
+    "pipeline.reuse": {
+      "label": "重複使用",
+      "description": "把既有素材、片段、圖形與規則用在其他產出上的方式。"
+    },
+    "pipeline.clip_library": {
+      "label": "動畫片段庫",
+      "description": "可重複使用動畫片段的集合。"
+    },
+    "pipeline.export_automation": {
+      "label": "匯出自動化",
+      "description": "依規格把原稿反覆轉換成執行時素材的工作。"
+    },
+    "pipeline.damage_variant": {
+      "label": "損壞變體",
+      "description": "在基礎素材上表現損壞狀態的變體。"
+    },
+    "pipeline.color_variant": {
+      "label": "配色變體",
+      "description": "保持基礎形體、改變配色構成的素材。"
+    },
+    "pipeline.silhouette_variant": {
+      "label": "剪影變體",
+      "description": "改變基礎素材外輪廓的變體。"
+    },
+    "pipeline.icon_variant": {
+      "label": "UI 圖示版本",
+      "description": "把原物體轉換成小尺寸 UI 顯示用的素材。"
+    },
+    "methods.feedback": {
+      "label": "回饋",
+      "description": "記錄並修正原作、手繪與引擎結果之間落差的工作。"
+    },
+    "methods.screenshot_audit": {
+      "label": "截圖檢視",
+      "description": "依各個面向標出成品畫面問題的檢查。"
+    },
+    "methods.markup": {
+      "label": "批註標記",
+      "description": "在原圖上標出問題區域與修改意圖的成果。",
+      "aliases": [
+        "標註"
+      ]
+    },
+    "local_meta.operational_surface": {
+      "label": "可操作面",
+      "description": "在本次對話中，指能把視覺意圖落到實際操作上的對象、屬性與運算層的工作性說法。"
+    },
+    "local_meta.manipulative_vocab": {
+      "label": "操作詞彙",
+      "description": "本次請求中用來把 AD/TA 意圖傳達到工具操作的詞彙集合。"
+    },
+    "shape.shape_contrast": {
+      "label": "形狀對比",
+      "description": "對象之間因輪廓與量體特性不同而被區分的關係。"
+    },
+    "shape.edge": {
+      "label": "邊",
+      "description": "被讀成形體劃分或表面分節的邊界。",
+      "aliases": [
+        "邊緣"
+      ]
+    },
+    "shape.swept_back": {
+      "label": "後掠",
+      "description": "無人機例子中機翼向後傾斜延展的形態特徵。"
+    }
+  },
+  "review_summary": {
+    "checked_by": "tools/review_locales.py",
+    "needs_confirmation": 25
+  }
+}

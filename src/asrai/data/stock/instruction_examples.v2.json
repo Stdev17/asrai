@@ -1,0 +1,569 @@
+{
+  "schema_version": "2.0.0",
+  "examples_are": "illustrative_design_specs_not_tool_commands",
+  "examples": [
+    {
+      "$schema": "instruction.v2.schema.json",
+      "schema_version": "2.0.0",
+      "id": "example.body_width",
+      "status": "proposed",
+      "axis": "direction_compliance",
+      "intent": "Increase only the horizontal proportion of the drone body by 20% relative to the reference state.",
+      "target": {
+        "asset_ref": "example://assets/drone-study",
+        "selector": "Drone/Body",
+        "selector_language": "illustrative_scene_path"
+      },
+      "context": {
+        "baseline_ref": "example://snapshots/drone-r0",
+        "baseline_values": {
+          "scale_x": 1.0
+        },
+        "space": "object",
+        "axis": "local_x",
+        "origin": "object_origin",
+        "parent_transform": "preserved",
+        "unit_scale": "unchanged"
+      },
+      "changes": [
+        {
+          "term_id": "space.scale",
+          "operation": "relative_delta",
+          "quantity": {
+            "value": 20,
+            "unit": "percent_relative"
+          },
+          "property_binding": null,
+          "metric": {
+            "id": "scale_x",
+            "definition": "Local X scale of the reference object"
+          },
+          "magnitude_basis": "example"
+        }
+      ],
+      "constraints": [
+        {
+          "id": "preserve_yz",
+          "description": "Local Y and Z scale, the camera, the rig pivot and the wing positions are preserved."
+        }
+      ],
+      "acceptance": [
+        {
+          "status": "not_evaluated",
+          "kind": "numeric",
+          "metric_id": "scale_x",
+          "operator": "approx",
+          "value": 1.2,
+          "unit": "factor",
+          "tolerance": 1e-06
+        },
+        {
+          "status": "not_evaluated",
+          "kind": "human",
+          "description": "Compare whether the original rounded body identity and the principal silhouette are preserved."
+        }
+      ],
+      "execution": {
+        "adapter": null,
+        "binding_resolved": false,
+        "authorized": false,
+        "run_ref": null
+      },
+      "note": "The numbers and target names are a serialization example. They are not recommended thresholds, real assets, or verified results."
+    },
+    {
+      "$schema": "instruction.v2.schema.json",
+      "schema_version": "2.0.0",
+      "id": "example.silhouette_gap",
+      "status": "proposed",
+      "axis": "direction_compliance",
+      "intent": "Check the specified gap between body and wing at a low display resolution.",
+      "target": {
+        "asset_ref": "example://assets/drone-study",
+        "selector": "Drone/BodyWingGap",
+        "selector_language": "illustrative_scene_path"
+      },
+      "context": {
+        "camera_ref": "example://cameras/gameplay",
+        "image_ref": "example://renders/silhouette_pre_fx",
+        "resolution": {
+          "width": 320,
+          "height": 180
+        },
+        "space": "screen_internal",
+        "origin": "top_left",
+        "axes": "x_right_y_down",
+        "time": {
+          "value": 0.8,
+          "unit": "s"
+        },
+        "mask_definition": "binary object-ID silhouette; no bloom or AA",
+        "measurement_scanline_y": 96,
+        "roi": {
+          "x": 138,
+          "y": 96,
+          "width": 44,
+          "height": 1
+        }
+      },
+      "changes": [
+        {
+          "term_id": "shape.notch",
+          "operation": "define_metric",
+          "quantity": {
+            "value": 2,
+            "unit": "px"
+          },
+          "metric": {
+            "id": "gap_px",
+            "definition": "The number of empty pixel columns between the right edge of Body and the left edge of Wing on the y=96 scanline of the ROI. Both edges must be present."
+          },
+          "property_binding": null,
+          "magnitude_basis": "example"
+        }
+      ],
+      "constraints": [
+        {
+          "id": "frame_fixed",
+          "description": "The camera, internal resolution and pose are held; no claim is made to have measured every gap outside the defined ROI."
+        }
+      ],
+      "acceptance": [
+        {
+          "status": "not_evaluated",
+          "kind": "numeric",
+          "metric_id": "gap_px",
+          "operator": "gte",
+          "value": 2,
+          "unit": "px"
+        },
+        {
+          "status": "not_evaluated",
+          "kind": "human",
+          "description": "Check whether that gap actually helps separate the targets. 2px is not a universal readability criterion for every screen."
+        }
+      ],
+      "execution": {
+        "adapter": null,
+        "binding_resolved": false,
+        "authorized": false,
+        "run_ref": null
+      },
+      "note": "The numbers and target names are a serialization example. They are not recommended thresholds, real assets, or verified results."
+    },
+    {
+      "$schema": "instruction.v2.schema.json",
+      "schema_version": "2.0.0",
+      "id": "example.camera_fov",
+      "status": "proposed",
+      "axis": "direction_compliance",
+      "intent": "Describe a request to set the vertical FOV of a perspective camera to 55 degrees.",
+      "target": {
+        "asset_ref": "example://assets/drone-study",
+        "selector": "Cameras/Gameplay",
+        "selector_language": "illustrative_scene_path"
+      },
+      "context": {
+        "projection": "perspective",
+        "fov_axis": "vertical",
+        "aspect_ratio": "16:9",
+        "space": "camera",
+        "camera_position": "preserved",
+        "custom_projection_matrix": false,
+        "runtime_version": "resolve_before_execution"
+      },
+      "changes": [
+        {
+          "term_id": "camera.fov",
+          "operation": "set",
+          "quantity": {
+            "value": 55,
+            "unit": "deg"
+          },
+          "property_binding": {
+            "candidate": "UnityEngine.Camera.fieldOfView",
+            "resolved": false
+          },
+          "magnitude_basis": "example"
+        }
+      ],
+      "constraints": [
+        {
+          "id": "camera_fixed",
+          "description": "The camera position, orientation and subject position are not changed."
+        }
+      ],
+      "acceptance": [
+        {
+          "status": "not_evaluated",
+          "kind": "numeric",
+          "metric_id": "vertical_fov",
+          "operator": "approx",
+          "value": 55,
+          "unit": "deg",
+          "tolerance": 1e-06
+        },
+        {
+          "status": "not_evaluated",
+          "kind": "human",
+          "description": "Check that the required targets are included in the frame from the same viewpoint."
+        }
+      ],
+      "execution": {
+        "adapter": null,
+        "binding_resolved": false,
+        "authorized": false,
+        "run_ref": null
+      },
+      "note": "The numbers and target names are a serialization example. They are not recommended thresholds, real assets, or verified results."
+    },
+    {
+      "$schema": "instruction.v2.schema.json",
+      "schema_version": "2.0.0",
+      "id": "example.material_smoothness",
+      "status": "proposed",
+      "axis": "direction_compliance",
+      "intent": "Set the URP Lit Smoothness input of the selected material to 0.35.",
+      "target": {
+        "asset_ref": "example://assets/drone-study",
+        "selector": "Drone/Body/Material",
+        "selector_language": "illustrative_scene_path"
+      },
+      "context": {
+        "shader_model": "Unity URP Lit",
+        "property_model": "Smoothness scalar",
+        "range": [
+          0,
+          1
+        ],
+        "smoothness_texture": "none",
+        "light_setup": "preserved",
+        "exposure": "preserved",
+        "runtime_version": "resolve_before_execution"
+      },
+      "changes": [
+        {
+          "term_id": "material.smoothness",
+          "operation": "set",
+          "quantity": {
+            "value": 0.35,
+            "unit": "unitless"
+          },
+          "property_binding": {
+            "candidate": "URP Lit / Surface Inputs / Smoothness",
+            "resolved": false
+          },
+          "magnitude_basis": "example"
+        }
+      ],
+      "constraints": [
+        {
+          "id": "material_fixed",
+          "description": "Base color, metallic, normal and the camera are preserved."
+        }
+      ],
+      "acceptance": [
+        {
+          "status": "not_evaluated",
+          "kind": "numeric",
+          "metric_id": "smoothness_scalar",
+          "operator": "approx",
+          "value": 0.35,
+          "unit": "unitless",
+          "tolerance": 1e-06
+        },
+        {
+          "status": "not_evaluated",
+          "kind": "human",
+          "description": "Confirm the highlight width and the material identity under the actual lighting."
+        }
+      ],
+      "execution": {
+        "adapter": null,
+        "binding_resolved": false,
+        "authorized": false,
+        "run_ref": null
+      },
+      "note": "The numbers and target names are a serialization example. They are not recommended thresholds, real assets, or verified results."
+    },
+    {
+      "$schema": "instruction.v2.schema.json",
+      "schema_version": "2.0.0",
+      "id": "example.anticipation",
+      "status": "proposed",
+      "axis": "direction_compliance",
+      "intent": "Define the anticipation as 8 frames long on the 12fps authoring time base.",
+      "target": {
+        "asset_ref": "example://assets/drone-study",
+        "selector": "Drone/Attack/Anticipation",
+        "selector_language": "illustrative_scene_path"
+      },
+      "context": {
+        "timebase": {
+          "clock": "authored_pose",
+          "fps": 12,
+          "origin_seconds": 0
+        },
+        "display_fps": 60,
+        "time_origin": "attack_start",
+        "preserved_impact_time_seconds": 2.0
+      },
+      "changes": [
+        {
+          "term_id": "motion.anticipation",
+          "operation": "set",
+          "quantity": {
+            "value": 8,
+            "unit": "frame"
+          },
+          "property_binding": null,
+          "metric": {
+            "id": "anticipation_duration",
+            "definition": "Length of the anticipation span. Read as 8 exposure intervals of authored_pose at 12fps."
+          },
+          "magnitude_basis": "example"
+        }
+      ],
+      "constraints": [
+        {
+          "id": "impact_fixed",
+          "description": "The hit decision stays at 2.0 seconds. How the other spans are redistributed requires further design."
+        }
+      ],
+      "acceptance": [
+        {
+          "status": "not_evaluated",
+          "kind": "numeric",
+          "metric_id": "anticipation_duration_seconds",
+          "operator": "approx",
+          "value": 0.6666666666666666,
+          "unit": "s",
+          "tolerance": 1e-06
+        },
+        {
+          "status": "not_evaluated",
+          "kind": "human",
+          "description": "Check that the direction of the main action is signaled and that the moment of impact is not blurred."
+        }
+      ],
+      "execution": {
+        "adapter": null,
+        "binding_resolved": false,
+        "authorized": false,
+        "run_ref": null
+      },
+      "note": "The numbers and target names are a serialization example. They are not recommended thresholds, real assets, or verified results."
+    },
+    {
+      "$schema": "instruction.v2.schema.json",
+      "schema_version": "2.0.0",
+      "id": "example.compositing",
+      "status": "proposed",
+      "axis": "direction_compliance",
+      "intent": "Record the ordering between pixelation, the added tint, dithering, and the clean UI.",
+      "target": {
+        "asset_ref": "example://assets/drone-study",
+        "selector": "RenderPipeline",
+        "selector_language": "illustrative_scene_path"
+      },
+      "context": {
+        "pipeline": "Unity URP; concrete renderer unresolved",
+        "working_image_ref": "example://targets/lowres_world",
+        "resolution": {
+          "width": 320,
+          "height": 180
+        },
+        "output_resolution": {
+          "width": 1920,
+          "height": 1080
+        },
+        "color_encoding": "must_be_resolved_at_each_stage",
+        "secondary_lighting_inputs": "unresolved: require surface information source"
+      },
+      "changes": [
+        {
+          "term_id": "render.compositing_order",
+          "operation": "set_sequence",
+          "sequence": [
+            "world_raster",
+            "pixelated_world",
+            "secondary_tint",
+            "dithering",
+            "nearest_upscale",
+            "clean_ui_composite"
+          ],
+          "property_binding": null,
+          "magnitude_basis": "none"
+        },
+        {
+          "term_id": "pixel_sprite.selective_nonpixel",
+          "operation": "set_relation",
+          "relation": {
+            "excluded_from_pixelation": [
+              "clean_ui"
+            ],
+            "bloom_routing": "requires_separate_decision"
+          },
+          "property_binding": null,
+          "magnitude_basis": "none"
+        }
+      ],
+      "constraints": [
+        {
+          "id": "design_not_architecture",
+          "description": "The stage names express intent. The concrete pass count, the position of bloom, and recovery of lighting information are not settled."
+        }
+      ],
+      "acceptance": [
+        {
+          "status": "not_evaluated",
+          "kind": "graph",
+          "description": "Check that the stated precedence relations and the UI exclusion scope are met in the implementation graph."
+        },
+        {
+          "status": "not_evaluated",
+          "kind": "human",
+          "description": "Check that the pixel grid, the dithering and the clean UI appear on the layers required."
+        }
+      ],
+      "execution": {
+        "adapter": null,
+        "binding_resolved": false,
+        "authorized": false,
+        "run_ref": null
+      },
+      "note": "The numbers and target names are a serialization example. They are not recommended thresholds, real assets, or verified results."
+    },
+    {
+      "$schema": "instruction.v2.schema.json",
+      "schema_version": "2.0.0",
+      "id": "example.readability_proxy",
+      "status": "proposed",
+      "axis": "direction_compliance",
+      "intent": "Separate the readability goal from the proxy metric that will be used to check it.",
+      "target": {
+        "asset_ref": "example://assets/drone-study",
+        "selector": "Drone/Body",
+        "selector_language": "illustrative_scene_path"
+      },
+      "context": {
+        "camera_ref": "example://cameras/gameplay",
+        "image_ref": "example://renders/target_size",
+        "resolution": {
+          "width": 320,
+          "height": 180
+        },
+        "background_ref": "example://scenes/dense-background",
+        "exposure_duration_seconds": 0.5
+      },
+      "changes": [
+        {
+          "term_id": "perception.readability",
+          "operation": "define_metric",
+          "metric": {
+            "id": "role_identification",
+            "definition": "A record of observers choosing a role among enemy, background, decoration and UI under fixed exposure conditions. Keep the accuracy rate and the confusion types together.",
+            "proxy_limit": "A role-discrimination metric; it does not establish overall aesthetics, affordance, or the reading of motion."
+          },
+          "property_binding": null,
+          "magnitude_basis": "none"
+        }
+      ],
+      "constraints": [
+        {
+          "id": "no_fake_improvement",
+          "description": "Do not claim a 20% readability improvement before the baseline observation and the target criterion are established."
+        }
+      ],
+      "acceptance": [
+        {
+          "status": "not_evaluated",
+          "kind": "human",
+          "description": "Record the evaluators, the comparison conditions, the error types, and the limits of the judgment."
+        }
+      ],
+      "execution": {
+        "adapter": null,
+        "binding_resolved": false,
+        "authorized": false,
+        "run_ref": null
+      },
+      "note": "The numbers and target names are a serialization example. They are not recommended thresholds, real assets, or verified results."
+    },
+    {
+      "$schema": "instruction.v2.schema.json",
+      "schema_version": "2.0.0",
+      "id": "example.vector_anchor",
+      "status": "proposed",
+      "axis": "direction_compliance",
+      "intent": "Move the specified anchor of a vector contour in SVG user coordinates.",
+      "target": {
+        "asset_ref": "example://assets/drone-study",
+        "selector": "Icon/BodyPath/Anchor3",
+        "selector_language": "illustrative_scene_path"
+      },
+      "context": {
+        "space": "svg_user",
+        "viewBox": [
+          0,
+          0,
+          200,
+          200
+        ],
+        "origin": "viewBox_origin",
+        "axes": "x_right_y_down",
+        "baseline_ref": "example://svg/icon-r0",
+        "output_resolution": {
+          "width": 64,
+          "height": 64
+        }
+      },
+      "changes": [
+        {
+          "term_id": "vector.anchor",
+          "operation": "set",
+          "quantity": {
+            "value": [
+              120,
+              70
+            ],
+            "unit": "svg_user_unit"
+          },
+          "property_binding": null,
+          "magnitude_basis": "example"
+        }
+      ],
+      "constraints": [
+        {
+          "id": "preserve_path",
+          "description": "The remaining anchors, colors, path closure and group transform are preserved. Whether the handles move with it is decided separately."
+        }
+      ],
+      "acceptance": [
+        {
+          "status": "not_evaluated",
+          "kind": "numeric",
+          "metric_id": "anchor_xy",
+          "operator": "equals",
+          "value": [
+            120,
+            70
+          ],
+          "unit": "svg_user_unit"
+        },
+        {
+          "status": "not_evaluated",
+          "kind": "human",
+          "description": "Check that the contour reads at the final 64x64 display size."
+        }
+      ],
+      "execution": {
+        "adapter": null,
+        "binding_resolved": false,
+        "authorized": false,
+        "run_ref": null
+      },
+      "note": "The numbers and target names are a serialization example. They are not recommended thresholds, real assets, or verified results."
+    }
+  ]
+}

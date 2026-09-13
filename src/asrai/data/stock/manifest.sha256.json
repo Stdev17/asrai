@@ -1,0 +1,42 @@
+{
+  "algorithm": "sha256",
+  "file_count": 26,
+  "generated_by": {
+    "trim_vocab.py": "a40fc93f513c88358895176e4f4ad4bb31df83e93ce8d2dc3fcb57bb414662bd",
+    "review_locales.py": "cf0acc7a9a9a75dd8bee2b47058ebd2829f4dea9eca1e759151acd646a9c4e3d",
+    "validate_stock.py": "a964a24c3596d1222f727c502cbd71bba67dd2d2c59b33706367623bd29718c7",
+    "stock_scope_notes.json": "9ef55e62effaafeb0150e67776d82b5bcb95e7a131fec90dbfed0b0b6aa9ac4c"
+  },
+  "origin": {
+    "corpus": "ad_ta_vocab.v1",
+    "bundle_sha256": "661ffe9779cb71d7d96fb7e235cff7ba71e20a05085b43b8868349add16921cf"
+  },
+  "files": {
+    "README.md": "70c4adffd95f34377170e8a4672da94fd4c41c374d624f416b7329ebe9d37045",
+    "examples/anticipation.json": "8937aa0fa247ee616049aec0ae712b367c9f526efbeacf2f1c0ada201996fa7b",
+    "examples/body_width.json": "c4645013e291084182f63e82f5faad9dac91f0666b12eb3c4de5c0da5f06c1f5",
+    "examples/camera_fov.json": "5713f630c2fafa41244c563be774a267b4c3f0e3c5ffbe1e6b58f12e07bc5027",
+    "examples/compositing.json": "070f1252b886c9438a71acb959a4f66f7c588f676ca677c4ff2727af88e97b1b",
+    "examples/material_smoothness.json": "fc6c0ec9d478d1e7ce08a3ce3eaadd336a58e2265561b7d63fe0e13b0583ece0",
+    "examples/readability_proxy.json": "3140430e4df8c2d350674f6c7bbb88b882148b0816db6b0093acb4ee7effae2b",
+    "examples/silhouette_gap.json": "9406e30ecb599bfd3986edb44541259268d92a16812ee6468dcc6bb4d57e4ff2",
+    "examples/vector_anchor.json": "50a69208fe6dcdccd709f44546985f1dd7dbea4830486814d780f26a661942b2",
+    "instruction.v2.schema.json": "d7a0ea31153cfa4bfb4229e57e86d2de4e97556afa80f9c99d4731df6284d945",
+    "instruction_examples.v2.json": "73ecfd4d7bea49d210d03635c2ffd4853b7c3ae53d7743d4337c5ee68915d8e0",
+    "locales/README.md": "af615d42d147497731b3bba4b4c500d8c4fb2838bf5ff2b3b61a46f77369af21",
+    "locales/de.json": "b71f96363b81966ba11e0119dd2d3c359f13a8e5f12636f1f0c9959acd532027",
+    "locales/es.json": "35798c2b5e5be41b78b38b4b7af5429264a62d6edb5bac83a98c868d560bcab2",
+    "locales/fr.json": "7e72e4283d1daee8b49dcc2b574aeaa46666a90b3b2c08cd49293e0751945204",
+    "locales/it.json": "e44ae2be01fe74100c5393049a4f2aa3b6c5f73111639d427626c6ab5391b825",
+    "locales/ja.json": "4938950b3418ec063fec11da4991c00d7a282811a5b9a6e0a62fea20fb1db87b",
+    "locales/ko.json": "fb620c7b5511350b89cd1982143d8783ca6a6f1858a186c56a594d718a4e54f1",
+    "locales/ms.json": "4e65fa823b92bf5e64c23c526b977ee7c6dd55ba73461ec46fd697fc0df1c34b",
+    "locales/pt.json": "9550592a148e571fdc021c1e5e6c7c67f1fbef67d916a0bad8f9cfc64263a7ba",
+    "locales/th.json": "dcefed827841644bef1002033f11af9e25c2613f37305aec9400af7f7f60216f",
+    "locales/zh-Hans.json": "72e247b767d26c8059b8a8cf20b3e2bb4ea6d49406b457635da90cb0ab1b7bcc",
+    "locales/zh-Hant.json": "b82840a4b3b18dbde36cd3976baf6ff3ef8bc91fd43e2d143b08620e70ff4454",
+    "validation_report.json": "b958486967a96f1e39185def5c45ea1bc281ecde144882b1ba8b5dfe1dc5371c",
+    "vocab.v2.json": "9a8e8cc54202d241f952abfc248ab0a9e87d4ce2937f8c32ca7319217c28f17c",
+    "vocab.v2.schema.json": "f24d002752913f93757ff64c162014650b57b1fc53d0832c21b3915ad6afeac6"
+  }
+}

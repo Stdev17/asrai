@@ -1,0 +1,69 @@
+{
+  "$schema": "instruction.v2.schema.json",
+  "schema_version": "2.0.0",
+  "id": "example.material_smoothness",
+  "status": "proposed",
+  "axis": "direction_compliance",
+  "intent": "Set the URP Lit Smoothness input of the selected material to 0.35.",
+  "target": {
+    "asset_ref": "example://assets/drone-study",
+    "selector": "Drone/Body/Material",
+    "selector_language": "illustrative_scene_path"
+  },
+  "context": {
+    "shader_model": "Unity URP Lit",
+    "property_model": "Smoothness scalar",
+    "range": [
+      0,
+      1
+    ],
+    "smoothness_texture": "none",
+    "light_setup": "preserved",
+    "exposure": "preserved",
+    "runtime_version": "resolve_before_execution"
+  },
+  "changes": [
+    {
+      "term_id": "material.smoothness",
+      "operation": "set",
+      "quantity": {
+        "value": 0.35,
+        "unit": "unitless"
+      },
+      "property_binding": {
+        "candidate": "URP Lit / Surface Inputs / Smoothness",
+        "resolved": false
+      },
+      "magnitude_basis": "example"
+    }
+  ],
+  "constraints": [
+    {
+      "id": "material_fixed",
+      "description": "Base color, metallic, normal and the camera are preserved."
+    }
+  ],
+  "acceptance": [
+    {
+      "status": "not_evaluated",
+      "kind": "numeric",
+      "metric_id": "smoothness_scalar",
+      "operator": "approx",
+      "value": 0.35,
+      "unit": "unitless",
+      "tolerance": 1e-06
+    },
+    {
+      "status": "not_evaluated",
+      "kind": "human",
+      "description": "Confirm the highlight width and the material identity under the actual lighting."
+    }
+  ],
+  "execution": {
+    "adapter": null,
+    "binding_resolved": false,
+    "authorized": false,
+    "run_ref": null
+  },
+  "note": "The numbers and target names are a serialization example. They are not recommended thresholds, real assets, or verified results."
+}
