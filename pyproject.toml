@@ -1,0 +1,7 @@
+[project]
+name = "asrai"
+version = "0.1.0"
+description = "Minimum Viable Product. Piloting on Claude Code/Hermes enviornment with macOS."
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = []
