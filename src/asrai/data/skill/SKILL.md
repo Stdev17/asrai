@@ -87,7 +87,8 @@ with one atomic question and the term id an answer is recorded under. Two calls,
    widens the distance to a light on another layer. The ledger never segments a raw image itself.
 2. Phase one: call `light_ledger` and look at `overlay`. White boxes are subjects, magenta boxes are
    proposed emitters (`e1` is the brightest; bright paint is proposed too, on purpose), the yellow
-   arrow is where a subject's bright side points, the cyan arrow is the contour fit (alpha masks
+   arrow is where a subject's bright side points, the violet arrow where its shaded mass sits (it
+   belongs opposite the yellow one), the cyan arrow is the contour fit (alpha masks
    only), the label at the tip names the emitter the subject should answer to and the angle to it,
    and the corner text is `key_fit`: the single light that best explains the frame, with the median
    residual in degrees and the share of subjects within tolerance. A `directional` best hypothesis

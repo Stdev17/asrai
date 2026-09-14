@@ -80,7 +80,7 @@ REJECTED_KINDS = ("paint", "unknown")
 MODES = ("physical", "fake_lighting", "engine_lit")
 ANSWER_VALUES = ("yes", "no", "unknown")
 EMITTER_COLOR, REJECTED_COLOR, SUBJECT_COLOR = (255, 0, 255), (120, 120, 120), (255, 255, 255)
-BRIGHT_COLOR, FIT_COLOR = (255, 220, 0), (0, 255, 255)
+BRIGHT_COLOR, FIT_COLOR, SHADOW_COLOR = (255, 220, 0), (0, 255, 255), (170, 90, 255)
 SPACE = re.compile(r"\s+")
 
 
@@ -690,6 +690,8 @@ def _overlay(rgba: np.ndarray, emitters: list[dict], subjects: list[dict], agree
             continue
         length = max(3 * font.size, 0.6 * np.sqrt(s["pixels"] / np.pi))
         tip = _arrow(d, s["centroid"], s["bright_side"]["vector"], length, BRIGHT_COLOR, lw)
+        if _shadow_measured(s):            # where the shaded mass sits: it belongs opposite the yellow arrow
+            _arrow(d, s["centroid"], s["shadow"]["vector"], 0.7 * length, SHADOW_COLOR, lw)
         if s["contour_fit"]:
             _arrow(d, s["centroid"], s["contour_fit"]["vector"], 0.8 * length, FIT_COLOR, lw)
         exp = _expected(agreement, s["id"], _ranks(emitters))
