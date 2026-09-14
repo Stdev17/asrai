@@ -135,6 +135,27 @@ def _alpha(a: np.ndarray) -> dict:
             "partial_ratio": _r(((a > 0) & (a < 255)).mean())}
 
 
+def luminance(rgb: np.ndarray) -> np.ndarray:
+    """Rec. 709 luma of sRGB-encoded float RGB in [0, 1], taken on linear light."""
+    # sRGB electro-optical transfer function (IEC 61966-2-1). The coefficients are the standard's
+    # own and stay inline: naming each one hides the formula a reader would otherwise recognise.
+    lin = np.where(rgb <= 0.04045, rgb / 12.92, ((rgb + 0.055) / 1.055) ** 2.4)
+    return lin @ LUMA
+
+
+def hsl(rgb: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """HSL of float RGB in [0, 1] over the last axis. Hue is in degrees, nan where no usable hue."""
+    mx, mn = rgb.max(-1), rgb.min(-1)
+    d, L = mx - mn, (mx + mn) / 2
+    denom = 1 - np.abs(2 * L - 1)
+    S = np.where(d < 1e-9, 0.0, d / np.where(denom < 1e-9, 1.0, denom))
+    dd = np.maximum(d, 1e-9)
+    r, g, b = rgb[..., 0], rgb[..., 1], rgb[..., 2]
+    H = np.where(mx == r, ((g - b) / dd) % 6, np.where(mx == g, (b - r) / dd + 2, (r - g) / dd + 4)) * 60
+    chroma = (S > CHROMA_MIN_S) & (L > CHROMA_MIN_L) & (L < CHROMA_MAX_L)
+    return np.where(chroma, H, np.nan), S, L
+
+
 def stats(rgba: np.ndarray, alpha_present: bool) -> dict:
     h, w = rgba.shape[:2]
     a = rgba[..., 3]
@@ -144,27 +165,16 @@ def stats(rgba: np.ndarray, alpha_present: bool) -> dict:
     if n == 0:
         return out | {"empty": True, "silhouette": _silhouette(a) if alpha_present else None}
     rgb = rgba[..., :3].astype(np.float64) / 255.0
-    # sRGB electro-optical transfer function (IEC 61966-2-1). The coefficients are the standard's
-    # own and stay inline: naming each one hides the formula a reader would otherwise recognise.
-    lin = np.where(rgb <= 0.04045, rgb / 12.92, ((rgb + 0.055) / 1.055) ** 2.4)
-    Yf = lin @ LUMA
+    Yf = luminance(rgb)
     px, Y = rgb[opaque], Yf[opaque]
-    mx, mn = px.max(1), px.min(1)
-    d, L = mx - mn, (mx + mn) / 2
-    denom = 1 - np.abs(2 * L - 1)
-    S = np.where(d < 1e-9, 0.0, d / np.where(denom < 1e-9, 1.0, denom))
+    H, S, L = hsl(px)
     out["luminance"] = _pct(Y) | {"rms_contrast": _r(Y.std())}
     out["lightness"] = _pct(L)
     out["saturation"] = _pct(S)
-    chroma = (S > CHROMA_MIN_S) & (L > CHROMA_MIN_L) & (L < CHROMA_MAX_L)
+    chroma = ~np.isnan(H)
     out["chromatic_ratio"] = _r(chroma.mean())
     if chroma.any():
-        p = px[chroma]
-        m = p.max(1)
-        dd = np.maximum(m - p.min(1), 1e-9)
-        r, g, b = p.T
-        hue = np.where(m == r, ((g - b) / dd) % 6, np.where(m == g, (b - r) / dd + 2, (r - g) / dd + 4)) * 60
-        hist, _ = np.histogram(hue, bins=12, range=(0, 360))
+        hist, _ = np.histogram(H[chroma], bins=12, range=(0, 360))
         out["hue_bins_30deg"] = [_r(x) for x in hist / hist.sum()]
     else:
         out["hue_bins_30deg"] = None

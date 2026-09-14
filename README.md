@@ -10,7 +10,7 @@ in Claude Code, Codex CLI, OpenCode and Hermes Agent. The full contract is in [d
 
 ## Status (0.1)
 
-Built and tested: stock vocabulary v2 (475 terms, 12 languages), `measure` (Pillow + numpy),
+Built and tested: stock vocabulary v2 (475 terms, 12 languages), `measure` and `light_ledger` (Pillow + numpy),
 append-only records with layer rules, instruction lint, `doctor` with a version lock, CLI and MCP.
 Not built yet: recipes and previews, precedent retrieval, ingest and promotion, the pairwise bootstrap,
 Blender rendering. The skill says so; agents should not improvise those steps.
@@ -35,12 +35,13 @@ uvx asrai skill-path       # where the bundled SKILL.md is
 asrai vocab search "silhouette" --limit 5          # any language: --lang ko "실루엣"
 asrai vocab get shape.silhouette --lang ja --compact  # MCP: vocab_get(lookup=, full=false)
 asrai measure sprites/orc_idle.png --target-width 96
+asrai light-ledger captures/frame.png --capture captures/capture.json   # lighting pass, overlay under out/
 asrai lint instruction.json
 asrai record observation.json                       # appends to corpus/team/records.jsonl
 asrai doctor --lock
 ```
 
-MCP tools: `vocab_search`, `vocab_get`, `measure`, `record`, `lint`, `doctor`. Every verb prints or
+MCP tools: `vocab_search`, `vocab_get`, `measure`, `light_ledger`, `record`, `lint`, `doctor`. Every verb prints or
 returns one JSON document; nothing modifies an input file.
 
 ## Develop

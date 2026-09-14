@@ -107,7 +107,8 @@ invalid record is never written.
 ## 5. Corpus tiers, packs and the taste profile
 
 ```text
-src/asrai/data/stock/      stock core: vocab.v2.json (475 terms, 22 categories), locales/, schemas   [built]
+src/asrai/data/stock/      stock core: vocab.v2.json (475 terms, 22 categories), locales/, schemas,
+                           surfaces.v1.json (appearance surfaces for the lighting pass, 7.1)            [built]
 corpus/packs/<pack_id>/    community packs: pack.json, cases/*.json, taste_profile.json?           [planned]
 corpus/team/candidate/     ingested cases, stored only                                             [planned]
 corpus/team/canonical/     human-promoted cases, retrievable                                       [planned]
@@ -186,6 +187,40 @@ Pairwise, both orders, no scores. Three axes, never summed: `direction_complianc
 Bias guards: red-preference, brightness insensitivity and position bias of vision models are handled
 by demoting unmeasured colour and brightness observations to `estimated`, by refusing model-chosen
 magnitudes, and by asking A/B and B/A.
+
+### 7.1 Surface pass `[built]`
+
+A holistic "the lighting is off" is the least reliable thing a vision model produces and the most
+common defect of generated images: every object is shaded plausibly on its own, and the shading agrees
+neither across objects nor with the visible sources. The pass decomposes appearance into surfaces and
+asks one atomic question per surface, subject and emitter, in the Davidsonian style (Cho et al. 2024):
+questions are data, answers are yes / no / unknown, and a measurement decides what it can.
+
+- `surfaces.v1.json` (stock): ten surfaces in pass order — `emissive`, `key`, `diffuse`, `specular`,
+  `light_color`, `cast_shadow`, `ambient`, `rim`, `atmosphere`, `albedo` — each with
+  `scope ∈ emitter/subject/pair/global`, one question template, the ledger fields that decide it
+  (empty for observation-only surfaces) and the vocabulary terms it is recorded under (`terms[0]` is
+  the `term_id`). `style_exemption` names `lighting.fake_lighting`: a declared stylistic light turns a
+  disagreement into `intentional_contrast`.
+- `light_ledger.v1` (measurement; tool `light_ledger`, CLI `light-ledger`): proposed emitters (bright
+  blobs that are chromatic or near white, brightest first, `kind: proposed`); per subject the
+  bright-side vector (top-decile luminance centroid against the mask centroid, which reads cel and flat
+  shading) and the contour fit (Johnson & Farid 2005: luminance along the occluding contour against its
+  normal, alpha masks only, with `r2` saying whether the form shades like a Lambertian surface at all),
+  the highlight colour; per (subject, emitter) the angle between the bright side and the direction to
+  the emitter and the hue difference between highlight and emitter; a global key direction with an
+  `alignment` score; the instantiated questions; and an overlay PNG under `out/<sha>/` with every id
+  drawn on the image (Set-of-Mark, Yang et al. 2023), so the observer refers to `pipe_left` and `e2`
+  rather than to "the pipe". Subjects come from the capture contract's `screen_bbox`, from a sprite's
+  alpha, or from boxes the observer proposes; the ledger never segments a raw image itself.
+- Invariance: `mirror=true` measures the horizontally mirrored image with mirrored boxes. A direction
+  claim recorded as `asserted` must mirror with the image, the same rule `order_checked` applies to
+  pairwise verdicts.
+- What stays with the observer: whether a proposed emitter emits, cast shadows, ambient and occlusion,
+  atmosphere, albedo constancy, and depth (a two-dimensional direction cannot separate a source in
+  front of the subject from one behind it). Those answers are `estimated` at best.
+- A fix is a recipe: relighting (IC-Light-class tools) is a Phase 2+ adapter with its own hash and
+  preview, and never runs from an `unknown`.
 
 ## 8. Recipes and the alpha policy
 
@@ -322,6 +357,7 @@ downloads one if needed.
 |---|---|---|---|
 | 0 | stock vocabulary v2 from the origin corpus, learning layer removed, all 22 domain categories kept | validator passes: 475 entries, 8 numeric and 9 rejection tests, locale coverage, no `_ko` keys | done |
 | 1 | core and transports: vocab, measure V0, records, lint, doctor, CLI, MCP | tests pass; MCP `tools/list` and `tools/call` over stdio; fixture set of six images with expected `measure` JSON committed | done |
+| 1b | surface pass: `surfaces.v1.json`, `light_ledger` with overlay and mirror check (7.1) | synthetic Lambertian disc: bright side and contour fit within the lamp's direction, decoy rejected, mirror flips x only; every surface maps onto vocabulary terms and the skill | done |
 | 2 | recipes and tool adapters (section 8), alpha policy, recipe hashes, `preview`, `apply`, `diff`, `contact-sheet` | determinism (same input, recipe, versions → same hash); alpha invariance on 8-bit, indexed and premultiplied fixtures; refusal on 16-bit colour | planned |
 | 3 | forty stock cases and the pack format | every case passes `lint`; each cluster has three cases; first team session rejects under half | planned |
 | 4 | ingest (alias ladder with `mapped_by`), promotion with conflict check, `bootstrap` pairwise elicitation, taste profile | LLM-mapping share under half on ten fixture comments; conflict fixture blocks promotion; profile rebuild is byte-identical | planned |
@@ -338,7 +374,7 @@ recipes refused under `preserve`; 5 lint rejections `[built]`; 6 candidates neve
 byte-equality; 8 cache independence; 9 observer partition; 10 conflict block on promotion; 11
 observation notes carry no digits and layer rules hold `[built]`; 12 CLI and MCP produce identical
 output `[built for vocab_get and measure]`; 13 inputs untouched by any verb; 14 taste profile rebuild
-byte-equality; 15 lock drift detection `[built]`.
+byte-equality; 15 lock drift detection `[built]`; 16 `light_ledger` determinism and mirror invariance `[built]`.
 
 ## 15. Open questions
 

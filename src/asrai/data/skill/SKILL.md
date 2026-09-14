@@ -19,9 +19,9 @@ uvx asrai doctor            # tool/package/corpus versions; --lock writes asrai.
 uvx asrai mcp               # stdio MCP server (register it in your host; see README)
 ```
 
-MCP tools: `vocab_search`, `vocab_get`, `measure`, `record`, `lint`, `doctor`. The CLI has the same
-verbs (`asrai vocab search|get|category|categories|langs|translations`, `asrai measure`,
-`asrai record`, `asrai lint`, `asrai doctor`). Not yet available: precedent retrieval, previews,
+MCP tools: `vocab_search`, `vocab_get`, `measure`, `light_ledger`, `record`, `lint`, `doctor`. The
+CLI has the same verbs (`asrai vocab search|get|category|categories|langs|translations`,
+`asrai measure`, `asrai light-ledger`, `asrai record`, `asrai lint`, `asrai doctor`). Not yet available: precedent retrieval, previews,
 apply, rasterize, render. Say so instead of improvising them.
 
 ## Vocabulary
@@ -70,6 +70,42 @@ Pairwise, not scores. Ask A vs B and B vs A; if the verdict flips, record `unkno
 Bias guards: "too red" without a hue histogram is `estimated`; "too dark/bright" without a
 luminance distribution is `estimated`; the size of a saturation or vibrance change is never yours
 to choose.
+
+## Surface pass (lighting)
+
+"Is the lighting consistent?" is a question a vision model answers unreliably. "Does the bright side
+of `pipe_left` face `e2`?" it answers reliably, given the picture with `pipe_left` and `e2` drawn on
+it. `light_ledger` turns the first question into a list of the second, from `surfaces.v1.json`
+(bundled beside the vocabulary): ten surfaces an image's appearance decomposes into, in pass order,
+each with one atomic question and the term id an answer is recorded under.
+
+1. Subjects. A capture: `capture=capture.json` (its `composed_of` screen boxes). A sprite: one
+   subject over the whole file. A raw image: propose up to sixteen boxes yourself, the things that
+   carry shading, as `subjects=[{"id": "pipe_left", "bbox": [x, y, w, h]}]`. The ledger never
+   segments a raw image on its own.
+2. Call `light_ledger` and look at `overlay`: white boxes are subjects, magenta boxes are proposed
+   emitters (`e1` is the brightest), the yellow arrow is where a subject's bright side points, the cyan
+   arrow is the contour fit (alpha masks only), and the label at the arrow tip names the emitter the
+   shading points at and the angle to it. `agreement` also carries the distance to each emitter, and
+   pair questions are asked against the emitter the shading points at, the nearest one and `e1`.
+3. Answer `questions` in order with yes, no or unknown and one line each. `emissive` comes first
+   because bright paint is the usual false positive and every later pair question is about an emitter.
+4. Levels. A surface with ledger fields (`emissive`, `key`, `diffuse`, `specular`, `light_color`,
+   `rim`) is `asserted` when the field decides it: `angle_deg` near zero agrees, near a half turn
+   disagrees, a small `hue_delta_deg` means the highlight carries the emitter's colour. The ledger's
+   `highlight` is the subject's brightest region: on a pipe with a bright painted band it is the band,
+   so a `specular` answer whose highlight colour is the subject's own paint stays `estimated`. A
+   surface with no field (`cast_shadow`, `ambient`, `atmosphere`, `albedo`) is `estimated` at best.
+5. Mirror check before any direction claim is recorded as `asserted`: call again with `mirror=true`
+   and answer again. A claim that does not mirror with the image is `unknown`.
+6. Record one observation item per answer: `term_id` and `region` from the question, a note that
+   names the subject and emitter ids and carries no digits. If the asset group's context declares
+   `lighting.fake_lighting` (a fixed stylistic light, common in pixel art), a disagreement is
+   `intentional_contrast`, not `direction_compliance`.
+
+The ledger cannot tell depth (a source in front of the subject and one behind it give the same
+two-dimensional direction), whether a proposed emitter emits, or anything about cast shadows. Those
+stay with the observer. A fix is a recipe (relighting is not built), never an observation.
 
 ## Records
 

@@ -7,7 +7,7 @@ from pathlib import Path
 from mcp.server.mcpserver import MCPServer
 from mcp.server.mcpserver.exceptions import ToolError
 
-from . import config, doctor as doctor_mod, measure as measure_mod, records, vocab
+from . import config, doctor as doctor_mod, light, measure as measure_mod, records, vocab
 
 INSTRUCTIONS = (
     "First-pass art direction for game assets. Order of work: vocab_search then vocab_get for exact term ids; "
@@ -55,6 +55,19 @@ def vocab_get(lookup: str, lang: str = "en", full: bool = True) -> dict:
 def measure(path: str, target_width: int | None = None) -> dict:
     """Deterministic measurements of a raster (PNG/JPG/WebP) at native, target and 64px scales. Never modifies the file."""
     return measure_mod.measure(Path(path), target_width)
+
+
+@server.tool()
+@_guard
+def light_ledger(path: str, subjects: list[dict] | None = None, capture: str | None = None, mirror: bool = False) -> dict:
+    """Lighting pass over a raster: proposed emitters, where each subject's shading points, the angle between
+    that and the direction to each emitter (0 = agrees), the highlight colour against the emitter colour, and the
+    atomic questions to answer (surfaces.v1), plus an overlay PNG under out/ with every id drawn on the image.
+    subjects: [{"id": "pipe_left", "bbox": [x, y, w, h]}] in pixels of the image, at most 16. capture: a
+    capture.json whose composed_of screen boxes become the subjects. Vectors are [dx, dy] with y down.
+    mirror=true measures the horizontally mirrored image: a direction claim must survive it to be asserted."""
+    cfg = config.load()
+    return light.ledger(Path(path), subjects, capture, Path(cfg["_root"]) / cfg["paths"]["out"], mirror)
 
 
 @server.tool()

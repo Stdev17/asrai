@@ -122,7 +122,9 @@ def test_doctor_lock_and_drift(tmp_path):
 def test_mcp_tools_in_process_and_over_stdio():
     from asrai.server import server
     names = {t.name for t in asyncio.run(server.list_tools())}
-    assert names == {"vocab_search", "vocab_get", "measure", "record", "lint", "doctor"}
+    assert names == {"vocab_search", "vocab_get", "measure", "light_ledger", "record", "lint", "doctor"}
+    schema = next(t for t in asyncio.run(server.list_tools()) if t.name == "light_ledger").input_schema
+    assert schema["properties"]["subjects"]["anyOf"][0]["type"] == "array"
     msgs = [
         {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": "2025-06-18", "capabilities": {},
                                                                     "clientInfo": {"name": "test", "version": "0"}}},

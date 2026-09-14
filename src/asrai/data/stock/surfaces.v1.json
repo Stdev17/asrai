@@ -1,0 +1,115 @@
+{
+  "schema_version": "surfaces.v1",
+  "title": "Appearance surfaces for the lighting pass",
+  "description": "A vision model answers 'is the lighting consistent?' unreliably and 'does the bright side of pipe_left face e2?' reliably, given the picture with pipe_left and e2 drawn on it. This file lists the surfaces an image's appearance decomposes into, in pass order, with one atomic question each. light_ledger instantiates the questions per emitter, subject and pair; answers are yes, no or unknown and are recorded as observations under terms[0].",
+  "basis": "atomic question graphs for image evaluation (Davidsonian scene graph, Cho et al. 2024); marks drawn on the image so the model refers to ids (Set-of-Mark, Yang et al. 2023); light direction from occluding contours (Johnson and Farid 2005).",
+  "coordinates": "image pixels, x right, y down; a vector [-0.7, -0.7] points to the upper-left",
+  "scopes": {
+    "emitter": "one question per proposed emitter",
+    "subject": "one question per subject",
+    "pair": "one question per subject against the emitter its shading points at, the nearest emitter and the brightest emitter (e1)",
+    "global": "one question for the whole image"
+  },
+  "surfaces": [
+    {
+      "id": "emissive",
+      "label": "Emissive sources",
+      "scope": "emitter",
+      "description": "Anything that reads as producing light: lamps, neon, glowing bands, sky, screens. The ledger proposes the brightest blobs of the image; bright paint under a strong light is the classic false positive, so every candidate is confirmed or rejected before any pair question is answered.",
+      "question": "Is {emitter} a light source rather than a bright surface?",
+      "ledger": ["emitters[].rgb", "emitters[].luminance", "emitters[].area_ratio"],
+      "terms": ["material.emission", "lighting.light", "lighting.secondary_lighting"]
+    },
+    {
+      "id": "key",
+      "label": "Key light",
+      "scope": "global",
+      "description": "The one direction that dominates form shading across the subjects. When no confirmed emitter sits in that direction the key is off screen and only its direction is recorded.",
+      "question": "Does one light direction dominate the shading across the subjects?",
+      "ledger": ["global.key_direction", "global.alignment"],
+      "terms": ["lighting.light_direction", "lighting.directional_light", "lighting.lighting"]
+    },
+    {
+      "id": "diffuse",
+      "label": "Diffuse form shading",
+      "scope": "pair",
+      "description": "The lit side, terminator and form shadow of one subject against one emitter. The ledger measures where the bright side points and the angle to the emitter; the observer decides whether that emitter should be lighting the subject at all.",
+      "question": "Does the bright side of {subject} face {emitter}?",
+      "ledger": ["subjects[].bright_side", "subjects[].contour_fit", "agreement[].angle_deg"],
+      "terms": ["lighting.form_shadow", "lighting.terminator", "lighting.ndotl"]
+    },
+    {
+      "id": "specular",
+      "label": "Specular highlight",
+      "scope": "pair",
+      "description": "The brightest accent on a subject. It sits between the direction to the emitter and the viewer, and on a non-metal it carries the emitter's colour. The ledger's highlight is the subject's brightest region, which on a subject with a bright painted band is that band, not a specular: when the highlight colour matches the subject's own paint, answer from looking and stay estimated. Proposed emitters are excluded from the highlight.",
+      "question": "Does the highlight on {subject} sit on the side facing {emitter} and carry its colour?",
+      "ledger": ["subjects[].highlight", "agreement[].angle_deg", "agreement[].hue_delta_deg"],
+      "terms": ["value.highlight", "material.roughness", "material.surface_response"]
+    },
+    {
+      "id": "light_color",
+      "label": "Light colour cast",
+      "scope": "pair",
+      "description": "The warm or cool cast of lit surfaces against the colour of the emitter that lights them. A warm lamp that leaves every lit surface neutral or cool is the most common defect of generated images.",
+      "question": "Do the lit surfaces of {subject} take the colour of {emitter}?",
+      "ledger": ["agreement[].hue_delta_deg", "emitters[].rgb", "subjects[].highlight.rgb"],
+      "terms": ["color.light_color", "color.color_temperature"]
+    },
+    {
+      "id": "cast_shadow",
+      "label": "Cast shadow",
+      "scope": "subject",
+      "description": "Shadow thrown onto other surfaces: present, pointing away from the key, softer with distance. Not measured; observation only, so unknown is the honest default.",
+      "question": "Does {subject} cast a shadow away from the key light onto what it stands on?",
+      "ledger": [],
+      "terms": ["lighting.cast_shadow", "value.shadow"]
+    },
+    {
+      "id": "ambient",
+      "label": "Ambient, bounce and occlusion",
+      "scope": "subject",
+      "description": "What the unlit side looks like: filled by ambient or bounce, darkened where surfaces meet. Observation only.",
+      "question": "Is the unlit side of {subject} filled by ambient or bounce light and darkened where it meets other surfaces?",
+      "ledger": [],
+      "terms": ["lighting.ambient", "lighting.bounce", "material.ao"]
+    },
+    {
+      "id": "rim",
+      "label": "Rim and backlight",
+      "scope": "subject",
+      "description": "A bright edge on the side away from the key, implying a source behind the subject. Legitimate only when such a source exists in the frame or in the scene's light rig.",
+      "question": "Does a rim light on {subject} correspond to a source behind it?",
+      "ledger": ["subjects[].bright_side", "subjects[].highlight"],
+      "terms": ["lighting.backlight"]
+    },
+    {
+      "id": "atmosphere",
+      "label": "Atmosphere and depth",
+      "scope": "global",
+      "description": "Contrast and saturation falling with distance, haze between planes, glow around emitters. Observation only.",
+      "question": "Do farther subjects lose contrast and saturation relative to nearer ones?",
+      "ledger": [],
+      "terms": ["space.depth_cue", "vfx.bloom"]
+    },
+    {
+      "id": "albedo",
+      "label": "Albedo",
+      "scope": "subject",
+      "description": "The base colour that remains once lighting is removed. One material reads as one albedo wherever it appears; a highlight or a colour cast is not a change of material.",
+      "question": "Does the material of {subject} read as one base colour wherever it appears in the image?",
+      "ledger": [],
+      "terms": ["material.base_color", "material.material_cue", "perception.material_readability"]
+    }
+  ],
+  "levels": {
+    "asserted": "a ledger field named for the surface decides the answer and the observer agrees with it; direction claims also survive the mirror check",
+    "estimated": "answered from looking, or the surface has no ledger field",
+    "unknown": "the mirror check disagrees, the subject or emitter cannot be identified, or the evidence region is missing"
+  },
+  "style_exemption": {
+    "term": "lighting.fake_lighting",
+    "rule": "when the asset group's context declares fake lighting (a fixed stylistic light, common in pixel art), a diffuse or specular disagreement with the emitters is recorded under intentional_contrast, not direction_compliance"
+  },
+  "record": "one observation item per answer: term_id = terms[0] of the surface, region = the subject's bbox (whole_image for emitter and global scopes), note names the subject and emitter ids and carries no digits"
+}

@@ -46,3 +46,18 @@ def test_lint_implementations_agree_on_rejections():
             assert vocab.lint_instruction(bad) == validate_stock.lint_instruction(bad, pack), f"{path.stem}/{key}"
             checked += 1
     assert checked > 20, f"only {checked} rejection paths exercised"
+
+
+def test_surfaces_map_onto_the_vocabulary_and_the_skill():
+    doc = json.loads((vocab.DATA / "surfaces.v1.json").read_text("utf-8"))
+    skill = (vocab.DATA.parent / "skill" / "SKILL.md").read_text("utf-8")
+    ids = [s["id"] for s in doc["surfaces"]]
+    assert len(ids) == len(set(ids)) == 10
+    for s in doc["surfaces"]:
+        assert s["terms"] and all(t in vocab.index() for t in s["terms"]), s["id"]
+        assert s["scope"] in doc["scopes"], s["id"]
+        assert ("{subject}" in s["question"]) == (s["scope"] in ("subject", "pair")), s["id"]
+        assert ("{emitter}" in s["question"]) == (s["scope"] in ("emitter", "pair")), s["id"]
+        assert all(f.split("[")[0].split(".")[0] in ("emitters", "subjects", "agreement", "global") for f in s["ledger"]), s["id"]
+        assert f"`{s['id']}`" in skill, s["id"]         # the skill walks the same list, by id
+    assert doc["style_exemption"]["term"] in vocab.index()

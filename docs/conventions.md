@@ -84,6 +84,16 @@ is a new row.
 | `level ∈ asserted\|estimated\|unknown` | "level" leans ordinal | the values genuinely are ordered by evidence strength, so the prior is not wrong |
 | `record(record=)` | tool and parameter share a word | nothing else reads better, and the tool takes exactly one thing |
 
+**Chosen at birth — alternatives rejected.**
+
+| name | rejected | why |
+|---|---|---|
+| `light_ledger` | `decompose`, `surfaces` (as a tool) | `decompose` is ambiguous alone; `surfaces` collides with the vocabulary's `candidate_surfaces`, where a surface is the place a parameter lives. A ledger of lights says what the rows are |
+| `bright_side.vector` beside `contour_fit.vector` | one merged `light_direction` | two estimates of one quantity stay under the method that produced them, so a fit's number is never cited as if it were the bright side's |
+| `global.alignment` | `coherence` | blurs with the `asset_cohesion` axis |
+| `mirror` (boolean) | `flip` | `flip` reads as a vertical flip to a game artist; a boolean at the tool surface per section 2 |
+| `emitters[].kind: proposed` | `confirmed: false` | the value names what the row is, not what it lacks; `confirmed` is what an observation later says |
+
 **Structural notes — not naming problems, and not fixable by renaming.**
 
 - `vocab_get` runs three operations through one string parameter because spec.md §6 caps the surface at
