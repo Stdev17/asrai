@@ -1,4 +1,4 @@
-<!-- translation-of: README.md@3ae09cad96b075595d6ac077eb7dbe582f97c1ae -->
+<!-- translation-of: README.md@b9ddb03e8d9bc54d263232d61e4a35968244c04d -->
 > 原文 [README.md](../../../README.md) の翻訳です。**英語が正典**であり、食い違う箇所は原文が優先します。
 > 翻訳が原文より遅れていないかは `uv run python tools/check_translations.py` が知らせます。
 

@@ -1,4 +1,4 @@
-<!-- translation-of: README.md@3ae09cad96b075595d6ac077eb7dbe582f97c1ae -->
+<!-- translation-of: README.md@b9ddb03e8d9bc54d263232d61e4a35968244c04d -->
 > 원문 [README.md](../../../README.md)의 번역이다. **영어가 정본이며**, 어긋나는 곳은 원문이 이긴다.
 > 번역이 원문보다 뒤처졌는지는 `uv run python tools/check_translations.py`가 알려준다.
 
