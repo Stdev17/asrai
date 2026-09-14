@@ -81,6 +81,8 @@ file before regenerating anything.
 ## Before you open a pull request
 
 - `uv run pytest -q` is green.
+- `uv run python tools/check_links.py` is clean. It does not run inside pytest: a link is a repository
+  fact, not package behaviour, and the gate stays one command about the code.
 - Any new number names what measured it.
 - Any new failure mode returns `unknown` rather than a default.
 - The skill describes anything new an agent can now do.
