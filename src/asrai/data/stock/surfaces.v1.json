@@ -7,7 +7,7 @@
   "scopes": {
     "emitter": "one question per proposed emitter",
     "subject": "one question per subject",
-    "pair": "per subject, against the emitter it should answer to (highest irradiance proxy: luminance x area over squared distance, depth layers widening the distance) and the emitter its shading points at; asked only where the angle or hue does not decide",
+    "pair": "per subject, against the emitter it should answer to (highest irradiance proxy: luminance x area over squared distance, depth layers widening the distance) and the emitter its shading points at; asked only where the angle does not decide. Only diffuse is asked this way: the surfaces judged against one light per subject are one list each, since the verdict names that light",
     "global": "one question for the whole image"
   },
   "surfaces": [
@@ -15,9 +15,9 @@
       "id": "emissive",
       "label": "Emissive sources",
       "scope": "emitter",
-      "description": "Anything that reads as producing light: lamps, neon, glowing bands, sky, screens. The ledger proposes the brightest blobs of the image; bright paint under a strong light is the classic false positive, so every candidate is confirmed or rejected before any pair question is answered.",
+      "description": "Anything that reads as producing light: lamps, neon, glowing bands, sky, screens. The ledger proposes the brightest blobs of the image; bright paint under a strong light is the classic false positive, so every candidate is confirmed or rejected before any pair question is answered. Each candidate is measured against its own neighbourhood (spill: surfaces within two core radii against surfaces four to eight out, in luminance and in distance to its hue) and against the subjects (receivers: how many point their shading at it). A candidate confirmed as a light that neither lifts its surroundings nor is pointed at by anything is a decal, whatever genre the frame is drawn in, and lands on asset_cohesion.",
       "question": "Is {emitter} a light source rather than a bright surface?",
-      "ledger": ["emitters[].rgb", "emitters[].luminance", "emitters[].area_ratio"],
+      "ledger": ["emitters[].rgb", "emitters[].luminance", "emitters[].area_ratio", "emitters[].spill", "emitters[].receivers"],
       "terms": ["material.emission", "lighting.light", "lighting.secondary_lighting"]
     },
     {
@@ -41,18 +41,18 @@
     {
       "id": "specular",
       "label": "Specular highlight",
-      "scope": "pair",
-      "description": "The brightest accent on a subject. It sits between the direction to the emitter and the viewer, and on a non-metal it carries the emitter's colour. The ledger's highlight is the subject's brightest region, which on a subject with a bright painted band is that band, not a specular: when the highlight colour matches the subject's own paint, answer from looking and stay estimated. Proposed emitters are excluded from the highlight.",
-      "question": "Does the highlight on {subject} sit on the side facing {emitter} and carry its colour?",
-      "ledger": ["subjects[].highlight", "agreement[].angle_deg", "agreement[].hue_delta_deg"],
+      "scope": "subject",
+      "description": "The brightest accent on a subject: it sits on the side facing the light that subject answers to. The ledger's highlight is the subject's brightest region, which on a subject with a bright painted band is that band and not a specular; the brightest region also lies inside the bright side, so on a box without a material mask no measurement separates the two. One list, judged against the light the verdict names, and answered from looking. The colour half of an accent belongs to light_color, so that this question asks one thing.",
+      "question": "Does the highlight on {subject} sit on the side facing the light it answers to?",
+      "ledger": ["subjects[].highlight"],
       "terms": ["value.highlight", "material.roughness", "material.surface_response"]
     },
     {
       "id": "light_color",
       "label": "Light colour cast",
-      "scope": "pair",
-      "description": "The warm or cool cast of lit surfaces against the colour of the emitter that lights them. A warm lamp that leaves every lit surface neutral or cool is the most common defect of generated images.",
-      "question": "Do the lit surfaces of {subject} take the colour of {emitter}?",
+      "scope": "subject",
+      "description": "The warm or cool cast of lit surfaces against the colour of the light that reaches them. A warm lamp that leaves every lit surface neutral or cool is the most common defect of generated images. One list, judged against the light the verdict names.",
+      "question": "Do the lit surfaces of {subject} take the colour of the light it answers to?",
       "ledger": ["agreement[].hue_delta_deg", "subjects[].highlight.hue_shift_from_body_deg", "emitters[].rgb", "subjects[].body_rgb"],
       "terms": ["color.light_color", "color.color_temperature"]
     },
@@ -107,11 +107,11 @@
     "style.mode": "physical (lights in the frame) | fake_lighting (one stylistic key, lighting.fake_lighting) | engine_lit (sprites the engine lights: painted shading is a defect)",
     "emitters": "proposed id -> lamp | neon | sky | screen | glow | paint | unknown; paint and unknown reject the emitter and void every pair with it (a parent answered no counts its children as no, after Cho et al. 2024)",
     "emitter_depth": "proposed id -> layer index, optional",
-    "pairs[].answer": "yes | no | unknown, only for the pairs the form lists: the band where the measurement does not decide",
-    "subjects.<surface>": "{no: [subject ids], unknown: [subject ids]}; every other subject answers yes",
+    "pairs[].answer": "yes | no | unknown, only for the diffuse pairs the form lists: the band where the measurement does not decide",
+    "subjects.<surface>": "{no: [subject ids], unknown: [subject ids]} for every subject-scope surface, specular and light colour among them; every other subject answers yes and nothing is recorded for it",
     "global.key, global.atmosphere": "yes | no | unknown"
   },
-  "thresholds": "agreement within 20 degrees is decided by measurement, beyond 60 likewise; between, the observer is asked. The emitter a subject answers to is its expected key (lamp, sky and screen outrank neon and glow; then the irradiance proxy), or the emitter it points at when that one is at least a quarter as strong. Light colour is the observer's: a subject box that holds a painted band has a highlight in the band's hue, which no measurement can tell from a cast until subjects carry material masks; hue_delta_deg and hue_shift_from_body_deg are hints only. Estimator noise on synthetic discs stays under 3 degrees (bright side) and 8 degrees (contour fit); a hand-drawn scene holds its key to about 10 degrees, so suspicion starts near 18 degrees (cosine 0.95). Team precedent replaces these numbers.",
+  "thresholds": "agreement within 20 degrees is decided by measurement, beyond 60 likewise; between, the observer is asked. The emitter a subject answers to is its expected key (lamp, sky and screen outrank neon and glow; then the irradiance proxy), or the emitter it points at when that one is at least a quarter as strong. Light colour is the observer's: a subject box that holds a painted band has a highlight in the band's hue, which no measurement can tell from a cast until subjects carry material masks; hue_delta_deg and hue_shift_from_body_deg are hints only. Estimator noise on synthetic discs stays under 3 degrees (bright side) and 8 degrees (contour fit); a hand-drawn scene holds its key to about 10 degrees, so suspicion starts near 18 degrees (cosine 0.95). Spill and receivers carry no threshold at all: a sign and a count decide whether a confirmed light is one the frame answers to, and an unmeasurable neighbourhood (a lone sprite, a source at the border) stays unknown. Team precedent replaces these numbers.",
   "levels": {
     "asserted": "a ledger field named for the surface decides the answer and the observer agrees with it; direction claims also survive the mirror check",
     "estimated": "answered from looking, or the surface has no ledger field",
@@ -119,7 +119,7 @@
   },
   "style_exemption": {
     "term": "lighting.fake_lighting",
-    "rule": "when the asset group's context declares fake lighting (a fixed stylistic light, common in pixel art), a diffuse or specular disagreement with the emitters is recorded under intentional_contrast, not direction_compliance"
+    "rule": "when the asset group's context declares fake lighting (a fixed stylistic light, common in pixel art), a diffuse or specular disagreement with the emitters, and a confirmed light the frame does not answer to, are recorded under intentional_contrast, not direction_compliance or asset_cohesion"
   },
   "record": "light_ledger builds the observation record from the verdict: term_id = terms[0] of the surface, region = the subject's bbox (the emitter's bbox for emissive, whole_image for global scopes), level asserted where the measurement decided and estimated where the observer did, notes name subject and emitter ids and carry no magnitude"
 }

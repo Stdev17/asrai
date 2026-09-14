@@ -56,10 +56,12 @@ def test_direction_emitters_fit_key_and_form(tmp_path):
     fit = led["key_fit"]
     assert fit["best"] == "e1" and {h["hypothesis"] for h in fit["hypotheses"]} == {"directional", "e1", "e2"}
     assert next(h for h in fit["hypotheses"] if h["hypothesis"] == "e1")["median_deg"] < 10
+    assert (lamp["receivers"], decoy["receivers"]) == (1, 0)
+    assert lamp["spill"] is decoy["spill"] is None            # a sprite on transparency has no neighbourhood
     form = led["form"]
     assert form["emitters"] == {"e1": None, "e2": None} and form["style"]["mode"] is None
-    assert [(p["surface"], p["emitter"]) for p in form["pairs"]] == [("specular", "e1"), ("light_color", "e1")]
-    assert {q["path"].split(".")[0].split("[")[0] for q in led["questions"]} == {"emitters", "pairs", "subjects", "global", "style"}
+    assert form["pairs"] == []                                # the measurement decided every pair it lists
+    assert {q["path"].split(".")[0].split("[")[0] for q in led["questions"]} == {"emitters", "subjects", "global", "style"}
     assert Image.open(led["overlay"]).size == (160, 120)
 
 
@@ -68,9 +70,8 @@ def test_answers_phase_gives_verdict_and_record(tmp_path):
     form = light.ledger(p, BALL)["form"]
     form["style"]["mode"] = "physical"
     form["emitters"] = {"e1": "lamp", "e2": "paint"}
-    for pair in form["pairs"]:
-        pair["answer"] = "yes" if pair["surface"] == "specular" else "unknown"
     form["subjects"]["cast_shadow"]["no"] = ["ball"]
+    form["subjects"]["light_color"]["unknown"] = ["ball"]
     form["global"] = {"key": "yes", "atmosphere": "unknown"}
     led = light.ledger(p, BALL, answers=form, out_dir=tmp_path / "out")
     assert [e["kind"] for e in led["emitters"]] == ["lamp", "paint"]
@@ -78,6 +79,8 @@ def test_answers_phase_gives_verdict_and_record(tmp_path):
     v = led["verdict"]["subjects"][0]
     assert (v["expected_key"], v["diffuse"], v["basis"], v["axis"]) == ("e1", "agrees", "measurement", "pass")
     assert (v["specular"], v["cast_shadow"], v["ambient"], v["light_color"], v["color_basis"]) == ("yes", "no", "yes", "unknown", "observer")
+    assert led["verdict"]["emitters"] == [{"id": "e1", "kind": "lamp", "receivers": 1, "spill": None, "verdict": "lights"}]
+    assert led["verdict"]["axes"]["asset_cohesion"] == "pass"
     assert led["subjects"][0]["highlight"]["hue_shift_from_body_deg"] < 30      # brighter paint, no cast
     assert led["verdict"]["axes"]["direction_compliance"] == "pass" and led["overlay"].endswith(".answered.png")
     rec = led["record"]
@@ -90,6 +93,29 @@ def test_answers_phase_gives_verdict_and_record(tmp_path):
     assert [i["note"][-8:] for i in by_term["material.emission"]] == [" as lamp", "a source"]
     assert by_term["lighting.form_shadow"][0]["level"] == "asserted" and "e1" in by_term["lighting.form_shadow"][0]["note"]
     assert by_term["lighting.cast_shadow"][0]["level"] == "estimated" and by_term["lighting.light_direction"][0]["region"] == "whole_image"
+    assert by_term["color.light_color"][0]["level"] == "unknown"          # listed undecided; a plain yes records nothing
+    assert "value.highlight" not in by_term
+
+
+def test_a_confirmed_light_the_frame_does_not_answer_to(tmp_path):
+    """Lit from the lower-right, the ball answers to the decoy and ignores the lamp, and nothing near
+    the lamp is brighter for it: a source the frame does not respond to, whatever its genre."""
+    p = tmp_path / "s.png"
+    disc(45, alpha=False).save(p)
+    led = light.ledger(p, BALL)
+    by_id = {e["id"]: e for e in led["emitters"]}
+    assert by_id["e1"]["receivers"] == 0 and by_id["e1"]["spill"]["luminance_gain"] <= 0
+    assert by_id["e2"]["receivers"] == 1                       # the decoy, and e3 is the ball's own lit cap
+    assert "no brighter" in next(q["question"] for q in led["questions"] if q["path"] == "emitters.e1")
+    form = led["form"] | {"emitters": {"e1": "lamp", "e2": "neon", "e3": "paint"}}
+    led = light.ledger(p, BALL, answers=form)
+    assert [(e["id"], e["verdict"]) for e in led["verdict"]["emitters"]] == [("e1", "lights_nothing"), ("e2", "lights")]
+    assert led["verdict"]["axes"] == {"direction_compliance": "fail", "intentional_contrast": "unknown", "asset_cohesion": "fail"}
+    notes = [i["note"] for i in led["record"]["observations"] if i["term_id"] == "material.emission"]
+    assert notes == ["e1 reads as lamp and nothing in the frame takes its light", "e2 confirmed as neon",
+                     "e3 is bright paint, not a source"]
+    fake = light.ledger(p, BALL, answers=form | {"style": {"mode": "fake_lighting"}})["verdict"]["axes"]
+    assert (fake["asset_cohesion"], fake["intentional_contrast"]) == ("unknown", "warn")   # the style owns it
 
 
 def test_depth_layers_change_the_expected_key(tmp_path):

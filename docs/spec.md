@@ -203,7 +203,9 @@ the measurement decide every question it can, and asks the observer only the res
   three lighting modes.
 - `light_ledger.v1` (measurement; tool `light_ledger`, CLI `light-ledger`), phase one: proposed
   emitters (the brightest blobs, brightest first, `kind: proposed`; bright paint qualifies and is
-  rejected by the observer); per subject the bright-side vector (top-decile luminance centroid against
+  rejected by the observer), each with `spill` (what its own neighbourhood does: luminance and
+  distance-to-its-hue in a ring at two core radii against a ring at four to eight, taken outside every
+  bright pixel) and `receivers` (how many subjects point their shading at it); per subject the bright-side vector (top-decile luminance centroid against
   the mask centroid, which reads cel and flat shading) and the contour fit (Johnson & Farid 2005,
   luminance along the occluding contour against its normal, alpha masks only, `r2` saying whether the
   form shades like a Lambertian surface at all), and the highlight colour; per (subject, emitter) the
@@ -218,7 +220,9 @@ the measurement decide every question it can, and asks the observer only the res
   ones void their pairs (a parent answered no counts its children as no: the dependency rule of the
   Davidsonian scene graph, Cho et al. 2024; its averaged score is deliberately not adopted), and the
   ledger returns `verdict` (per subject: expected key, residual in degrees, `agrees | disagrees |
-  unknown` with its basis, the axis outcome; `baked | flat` in `engine_lit` mode) and `record`, an
+  unknown` with its basis, the axis outcome; `baked | flat` in `engine_lit` mode; per confirmed
+  emitter `lights | lights_nothing | unknown`, and a light nothing answers to fails `asset_cohesion`)
+  and `record`, an
   observation record whose measured items are `asserted` and observer items `estimated`, ready for
   `record` once `observer.model` is filled.
 - Depth is an ordinal layer index (nearest first), never a distance. The image-plane direction from a
@@ -233,7 +237,9 @@ the measurement decide every question it can, and asks the observer only the res
   quarter as strong, because the proxy under-reads clipped lamp heads. Light colour stays with the
   observer: a box that holds a painted band has a highlight in the band's hue, which no body/highlight
   comparison can tell from a cast until subjects carry material masks (L0 slices) `[planned]`. Estimator noise on synthetic Lambertian and cel discs, alpha or rectangle
-  masks, stays under three degrees (bright side) and eight (contour fit): conformance 16. A hand-drawn
+  masks, stays under three degrees (bright side) and eight (contour fit): conformance 16. Spill and
+  receivers carry no threshold: a sign and a count decide whether a confirmed light is one the frame
+  answers to, and an unreadable neighbourhood stays `unknown`. A hand-drawn
   scene holds its key to about ten degrees; suspicion starts near eighteen (cosine 0.95). Team
   precedent replaces these numbers.
 - Modes: `physical` (lights in the frame), `fake_lighting` (one stylistic key: the directional
@@ -243,8 +249,10 @@ the measurement decide every question it can, and asks the observer only the res
 - Invariance: `mirror=true` measures the horizontally mirrored image with mirrored boxes. A direction
   recorded as `asserted` must mirror with the image, the same rule `order_checked` applies to pairwise
   verdicts.
-- What stays with the observer: whether a proposed emitter emits, cast shadows, ambient and occlusion,
-  atmosphere, albedo constancy. A fix is a recipe: relighting (IC-Light-class tools, Zhang et al. 2025)
+- What stays with the observer: whether a proposed emitter emits (the spill is evidence for that
+  question, never its answer), the specular accent and the colour cast — one list each, judged against
+  the light the subject answers to, because the brightest region of a box lies inside its bright side —
+  cast shadows, ambient and occlusion, atmosphere, albedo constancy. A fix is a recipe: relighting (IC-Light-class tools, Zhang et al. 2025)
   is a Phase 2+ adapter with its own hash and preview, and never runs from an `unknown`.
 
 ## 8. Recipes and the alpha policy
@@ -382,7 +390,7 @@ downloads one if needed.
 |---|---|---|---|
 | 0 | stock vocabulary v2 from the origin corpus, learning layer removed, all 22 domain categories kept | validator passes: 475 entries, 8 numeric and 9 rejection tests, locale coverage, no `_ko` keys | done |
 | 1 | core and transports: vocab, measure V0, records, lint, doctor, CLI, MCP | tests pass; MCP `tools/list` and `tools/call` over stdio; fixture set of six images with expected `measure` JSON committed | done |
-| 1b | surface pass: `surfaces.v1.json`, `light_ledger` in two phases with key fit, depth layers, typed form, verdict and record (7.1) | synthetic discs: both estimators under the thresholds on eight directions, four mask/shading variants; lamp expected over a nearer decoy, depth layers flip it; rejected emitters void their pairs; the built record validates; mirror flips x only | done |
+| 1b | surface pass: `surfaces.v1.json`, `light_ledger` in two phases with key fit, depth layers, typed form, verdict and record (7.1) | synthetic discs: both estimators under the thresholds on eight directions, four mask/shading variants; lamp expected over a nearer decoy, depth layers flip it; rejected emitters void their pairs; a confirmed lamp nothing points at and nothing near is brighter for fails `asset_cohesion`; the built record validates; mirror flips x only | done |
 | 2 | recipes and tool adapters (section 8), alpha policy, recipe hashes, `preview`, `apply`, `diff`, `contact-sheet` | determinism (same input, recipe, versions → same hash); alpha invariance on 8-bit, indexed and premultiplied fixtures; refusal on 16-bit colour | planned |
 | 3 | forty stock cases and the pack format | every case passes `lint`; each cluster has three cases; first team session rejects under half | planned |
 | 4 | ingest (alias ladder with `mapped_by`), promotion with conflict check, `bootstrap` pairwise elicitation, taste profile | LLM-mapping share under half on ten fixture comments; conflict fixture blocks promotion; profile rebuild is byte-identical | planned |

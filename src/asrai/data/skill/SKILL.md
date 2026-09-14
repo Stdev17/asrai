@@ -94,10 +94,15 @@ with one atomic question and the term id an answer is recorded under. Two calls,
    with a low residual and no emitter near it means an off-screen or stylistic key.
 3. Fill `form`. Its null fields are all you decide: `style.mode` (`physical`, `fake_lighting`,
    `engine_lit`), a kind for every proposed emitter (`paint` rejects it and voids every pair with
-   it), optional `emitter_depth`, an answer for each listed pair (only the band the measurement could
-   not decide), for each subject-only surface the lists of subjects for which it is false or
-   undecidable, and `global.key` and `global.atmosphere`. `questions` restates each null field as a
-   sentence, if you need one. Measured facts are not asked again.
+   it), optional `emitter_depth`, an answer for each listed pair (only the diffuse band the
+   measurement could not decide), for each subject-scope surface the lists of subjects for which it
+   is false or undecidable, and `global.key` and `global.atmosphere`. Every subject left out of both
+   lists answers yes and is recorded as nothing. `specular` and `light_color` are two of those lists,
+   judged against the light the verdict names for each subject: the brightest region of a box always
+   lies inside its bright side, so no measurement separates the two without a material mask.
+   `questions` restates each null field as a sentence, and carries what the measurement already knows
+   about it: an emitter's question says whether surfaces near it are brighter than surfaces farther
+   out. Measured facts are not asked again.
 4. Phase two: call `light_ledger` again with `answers=<the filled form>`. `verdict` gives per subject
    the expected key (lamp, sky and screen outrank neon and glow, then strength over distance), the
    `verdict_emitter` it was judged against (the emitter it points at counts when at least a quarter as
@@ -105,17 +110,22 @@ with one atomic question and the term id an answer is recorded under. Two calls,
    `observer`), and the axis outcome. A pair the verdict needed but the form did not list is
    `unknown`: answer it and call again. Light colour is always yours: the hue numbers are hints, since
    a painted band inside a box looks like a cast to any measurement; `engine_lit` reports `baked | flat` instead,
-   because painted shading on an engine-lit sprite double-lights. `axes` summarises
-   `direction_compliance`, `intentional_contrast` and `asset_cohesion` for the frame.
+   because painted shading on an engine-lit sprite double-lights. `verdict.emitters` answers the other
+   direction for each confirmed light: `lights` when something points at it or its surroundings are
+   brighter for it, `lights_nothing` when neither is true, `unknown` when it has no readable
+   neighbourhood and no subject near it. A light the frame does not answer to is a decal, in any
+   genre, and it is what `axes.asset_cohesion` fails on; `axes` summarises that with
+   `direction_compliance` and `intentional_contrast` for the frame. Under `fake_lighting` both land
+   on `intentional_contrast`, because the style declared them.
 5. Mirror check before recording a direction as `asserted`: phase one again with `mirror=true`; a
    bright side that does not mirror with the image is noise, and its subject is `unknown`.
 6. Record: fill `record.observer.model` with your model id and pass `record` to `record`. Measured
    items are `asserted`, observer items `estimated`; notes name ids and carry no magnitude.
 
 The ledger's `highlight` is the subject's brightest region: on a pipe with a bright painted band it
-is the band, so a `specular` answer whose highlight colour is the subject's own paint stays
-`estimated`. The ledger cannot tell whether a proposed emitter emits, or anything about cast
-shadows, ambient, atmosphere or albedo; those stay with the observer. A fix is a recipe (relighting is
+is the band, not a specular. The ledger cannot tell whether a proposed emitter emits — only what its
+neighbourhood does, which is evidence and not the answer — nor anything about cast shadows, ambient,
+atmosphere or albedo; those stay with the observer. A fix is a recipe (relighting is
 not built), never an observation.
 
 ## Records

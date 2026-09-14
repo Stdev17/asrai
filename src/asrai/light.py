@@ -16,6 +16,11 @@ Two direction estimates per subject:
   direction, and r2 says whether the surface shades like a Lambertian form at all. Alpha masks only:
   a bounding box has no contour of its own. Under 8 degrees of error on synthetic discs.
 
+A candidate emitter is also measured against its own neighbourhood: a light in a rendered frame
+leaves the surfaces near it brighter than the ones farther out and pulled toward its hue, while a
+bright decal pasted onto a surface leaves neither. That spill, and the count of subjects whose
+shading points at the candidate, decide whether a confirmed light is one the frame answers to.
+
 Two phases in one tool. Without `answers`: emitters are proposed (the brightest blobs; bright paint
 qualifies and the observer rejects it), subjects are measured, the key light is fitted, and a form is
 returned whose null fields are the only things the observer must fill. With `answers`: confirmed
@@ -61,6 +66,10 @@ DISAGREE_DEG = 60
 DEPTH_STEP = 0.25           # one layer of depth adds this fraction of the long side to the falloff distance
 BAKED_STRENGTH = 0.15       # engine-lit sprites: a bright side stronger than this is painted-in shading
                             # (a flat sprite measures under 0.1; a shaded disc 0.3 to 0.65)
+SPILL_NEAR = 2.0            # rings at two core radii out against rings at four to eight: a source lifts
+SPILL_FAR = (4.0, 8.0)      # and tints its neighbourhood, a decal does not. Sign only, no magnitude.
+SPILL_MIN_PX = 32           # either ring smaller than this (a lone sprite, a source at the border) is unmeasured
+PAIR_SURFACES = ("diffuse",)                   # the only surface asked per (subject, emitter)
 EMITTER_KINDS = ("lamp", "neon", "sky", "screen", "glow", "paint", "unknown")
 EMITTER_RANK = {"lamp": 0, "sky": 0, "screen": 0}     # designed sources outrank decorative ones (neon, glow, proposed: 1)
 POINTED_MIN_PROXY = 0.25    # a subject may answer to the emitter it points at when that one is at least this
@@ -109,6 +118,37 @@ def _hue(hex_rgb: str) -> float | None:
 def _erode(mask: np.ndarray) -> np.ndarray:
     p = np.pad(mask, 1, constant_values=False)
     return mask & p[:-2, 1:-1] & p[2:, 1:-1] & p[1:-1, :-2] & p[1:-1, 2:]
+
+
+def _dilate(mask: np.ndarray, r: float) -> np.ndarray:
+    """Grow a mask by r pixels. BoxBlur carries running sums, so a large radius costs no more."""
+    if r < 1:
+        return mask
+    return np.asarray(Image.fromarray(mask.astype(np.uint8) * 255, "L").filter(ImageFilter.BoxBlur(int(r)))) > 0
+
+
+def _spill(mask: np.ndarray, bright: np.ndarray, opaque: np.ndarray, Y: np.ndarray, rgb: np.ndarray) -> dict | None:
+    """What the neighbourhood of a candidate emitter does. Rings are taken outside every bright pixel,
+    so a second source next door cannot stand in for the spill. Evidence for the emissive question,
+    never a verdict on its own: a lamp mounted on a dark wall beside a lit floor reads negative."""
+    r = max(2.0, float(np.sqrt(int(mask.sum()) / np.pi)))
+    long = float(max(Y.shape))
+    ground = opaque & ~bright
+    near = _dilate(mask, min(SPILL_NEAR * r, long)) & ground
+    far = (_dilate(mask, min(SPILL_FAR[1] * r, long)) & ~_dilate(mask, min(SPILL_FAR[0] * r, long))) & ground
+    if int(near.sum()) < SPILL_MIN_PX or int(far.sum()) < SPILL_MIN_PX:
+        return None
+    hue = _hue(_hex(rgb[mask].mean(0)))
+
+    def pull(m: np.ndarray) -> float | None:
+        h = measure.hsl(rgb[m])[0]
+        h = h[~np.isnan(h)]
+        return None if hue is None or not len(h) else float(np.mean(np.abs((h - hue + 180) % 360 - 180)))
+
+    near_hue, far_hue = pull(near), pull(far)
+    return {"luminance_gain": _r(float(Y[near].mean() - Y[far].mean())),
+            "hue_pull_deg": None if near_hue is None or far_hue is None else _r(far_hue - near_hue),
+            "ring_px": [int(near.sum()), int(far.sum())]}
 
 
 def _label(mask: np.ndarray) -> np.ndarray:
@@ -161,7 +201,8 @@ def _emitters(rgb: np.ndarray, Y: np.ndarray, opaque: np.ndarray) -> tuple[list[
         rows.append({"id": f"e{i}", "kind": "proposed",
                      "bbox": [int(xs.min()), int(ys.min()), int(xs.max() - xs.min() + 1), int(ys.max() - ys.min() + 1)],
                      "centroid": [_r(xs.mean()), _r(ys.mean())], "area_px": area, "area_ratio": _r(area / (H * W)),
-                     "rgb": _hex(rgb[native].mean(0)), "luminance": _r(Y[native].mean()), "depth": None})
+                     "rgb": _hex(rgb[native].mean(0)), "luminance": _r(Y[native].mean()), "depth": None,
+                     "spill": _spill(native, emit, opaque, Y, rgb), "receivers": None})
     return rows, ids
 
 
@@ -367,8 +408,11 @@ def _form(subjects: list[dict], emitters: list[dict], agreement: list[dict]) -> 
     ranks = _ranks(emitters)
     q = {s["id"]: s["question"] for s in surfaces()["surfaces"]}
     for e in emitters:
+        sp = e.get("spill")
+        hint = "" if not sp else (" Surfaces near it are %s than surfaces farther out (luminance_gain %+g)."
+                                  % ("brighter" if sp["luminance_gain"] > 0 else "no brighter", sp["luminance_gain"]))
         questions.append({"path": f"emitters.{e['id']}", "question": q["emissive"].format(emitter=e["id"])
-                          + f" Answer with one of {EMITTER_KINDS}; paint means rejected."})
+                          + f" Answer with one of {EMITTER_KINDS}; paint means rejected." + hint})
     for s in subjects:
         exp, pt = _expected(agreement, s["id"], ranks), _pointed(agreement, s["id"])
         if not exp:
@@ -377,13 +421,6 @@ def _form(subjects: list[dict], emitters: list[dict], agreement: list[dict]) -> 
             row = next(r for r in agreement if r["subject"] == s["id"] and r["emitter"] == a)
             if row["angle_deg"] is not None and KEY_TOLERANCE_DEG < row["angle_deg"] < DISAGREE_DEG:
                 pairs.append({"subject": s["id"], "emitter": a, "surface": "diffuse", "angle_deg": row["angle_deg"], "answer": None})
-        pairs.append({"subject": s["id"], "emitter": exp["emitter"], "surface": "specular",
-                      "highlight_rgb": s["highlight"]["rgb"], "answer": None})
-        # colour cast stays with the observer: a box holding a painted band has a highlight in the band's
-        # hue, which no body/highlight comparison can tell from a cast until subjects carry material masks
-        pairs.append({"subject": s["id"], "emitter": exp["emitter"], "surface": "light_color",
-                      "hue_delta_deg": exp["hue_delta_deg"], "hue_shift_from_body_deg": s["highlight"]["hue_shift_from_body_deg"],
-                      "answer": None})
     for i, p in enumerate(pairs):
         questions.append({"path": f"pairs[{i}].answer", "question": q[p["surface"]].format(subject=p["subject"], emitter=p["emitter"])})
     for s in _subject_surfaces():
@@ -419,8 +456,8 @@ def _answers(a, emitters: list[dict], subjects: list[dict]) -> dict:
     sids = {s["id"] for s in subjects}
     for i, p in enumerate(pairs):
         if not isinstance(p, dict) or p.get("subject") not in sids or p.get("emitter") not in eids \
-                or p.get("surface") not in ("diffuse", "specular", "light_color") or p.get("answer") not in ANSWER_VALUES + (None,):
-            raise ValueError(f"pairs[{i}] must be {{subject, emitter, surface, answer ∈ {ANSWER_VALUES}}}")
+                or p.get("surface") not in PAIR_SURFACES or p.get("answer") not in ANSWER_VALUES + (None,):
+            raise ValueError(f"pairs[{i}] must be {{subject, emitter, surface ∈ {PAIR_SURFACES}, answer ∈ {ANSWER_VALUES}}}")
     subj = a.get("subjects") or {}
     if not isinstance(subj, dict):
         raise ValueError("subjects must map a surface id to {no: [ids], unknown: [ids]}")
@@ -448,6 +485,18 @@ def _direction(angle: float | None, answer: str | None) -> tuple[str, str]:
     if angle >= DISAGREE_DEG:
         return "disagrees", "measurement"
     return {"yes": "agrees", "no": "disagrees"}.get(answer or "", "unknown"), "observer"
+
+
+def _emitter_verdicts(emitters: list[dict]) -> list[dict]:
+    """A light the frame does not answer to: nothing points at it and nothing near it is brighter for
+    it. Both tests are a sign or a count, so no invented magnitude decides a light source."""
+    rows = []
+    for e in emitters:
+        sp, seen = e.get("spill"), e.get("receivers") or 0
+        lights = seen > 0 or bool(sp and sp["luminance_gain"] > 0)
+        rows.append({"id": e["id"], "kind": e["kind"], "receivers": seen, "spill": sp,
+                     "verdict": "lights" if lights else "lights_nothing" if sp else "unknown"})
+    return rows
 
 
 def _verdict(subjects: list[dict], emitters: list[dict], agreement: list[dict], key_fit: dict | None, ans: dict) -> dict:
@@ -483,21 +532,25 @@ def _verdict(subjects: list[dict], emitters: list[dict], agreement: list[dict], 
                 target = pt                              # answers to a strong-enough source it faces
             v["expected_key"], v["verdict_emitter"], v["residual_deg"] = exp["emitter"], target["emitter"], target["angle_deg"]
             v["diffuse"], v["basis"] = _direction(target["angle_deg"], ans["pairs"].get((s["id"], target["emitter"], "diffuse")))
-            v["specular"] = ans["pairs"].get((s["id"], exp["emitter"], "specular"), "unknown")
-            v["light_color"] = ans["pairs"].get((s["id"], exp["emitter"], "light_color"), "unknown")
             v["color_basis"] = "observer"
             v["axis"] = {"agrees": "pass", "disagrees": "fail"}.get(v["diffuse"], "unknown")
         else:
             v["axis"] = "unknown"      # no confirmed emitter to answer to
         rows.append(v)
     axes = [r["axis"] for r in rows]
+    emits = _emitter_verdicts(emitters)
+    # a declared light the frame ignores is the elements disagreeing with each other, not with a brief;
+    # under a declared stylistic key it is the style, so it lands on intentional_contrast instead
+    dark = [e for e in emits if e["verdict"] == "lights_nothing"]
+    fake = mode == "fake_lighting"
     frame = {"direction_compliance": "fail" if "fail" in axes else "warn" if "warn" in axes
              else "pass" if "pass" in axes else "unknown",
-             "intentional_contrast": ("pass" if directional and directional["within_tolerance"] >= 0.5 else "warn")
-             if mode == "fake_lighting" else "unknown",
-             "asset_cohesion": "unknown"}
+             "intentional_contrast": ("pass" if directional and directional["within_tolerance"] >= 0.5 and not dark
+                                      else "warn") if fake else "unknown",
+             "asset_cohesion": "unknown" if fake or not emits else "fail" if dark
+             else "pass" if any(e["verdict"] == "lights" for e in emits) else "unknown"}
     return {"mode": mode, "key": {"answer": ans["global"]["key"], "best": (key_fit or {}).get("best")},
-            "atmosphere": ans["global"]["atmosphere"], "subjects": rows, "axes": frame}
+            "atmosphere": ans["global"]["atmosphere"], "emitters": emits, "subjects": rows, "axes": frame}
 
 
 def _records(verdict: dict, emitters: list[dict], subjects: list[dict], ans: dict, sha: str, capture: bool) -> dict:
@@ -506,11 +559,14 @@ def _records(verdict: dict, emitters: list[dict], subjects: list[dict], ans: dic
     items = []
     term = {s["id"]: s["terms"][0] for s in surfaces()["surfaces"]}
     boxes = {s["id"]: s["bbox"] for s in subjects}
+    dark = {e["id"] for e in verdict["emitters"] if e["verdict"] == "lights_nothing"}
     for e in emitters:
         kind = ans["kinds"].get(e["id"])
         if kind:
             items.append({"term_id": term["emissive"], "level": "estimated", "region": e["bbox"],
-                          "note": f"{e['id']} is bright paint, not a source" if kind in REJECTED_KINDS else f"{e['id']} confirmed as {kind}"})
+                          "note": f"{e['id']} is bright paint, not a source" if kind in REJECTED_KINDS
+                          else f"{e['id']} reads as {kind} and nothing in the frame takes its light" if e["id"] in dark
+                          else f"{e['id']} confirmed as {kind}"})
     for v in verdict["subjects"]:
         sid, box = v["id"], boxes[v["id"]]
         level = {"measurement": "asserted", "observer": "estimated"}.get(v["basis"], "unknown")
@@ -529,19 +585,15 @@ def _records(verdict: dict, emitters: list[dict], subjects: list[dict], ans: dic
         elif v["expected_key"]:
             items.append({"term_id": term["diffuse"], "level": "unknown", "region": box,
                           "note": f"bright side of {sid} against {against} could not be decided"})
-        if v["mode"] == "physical" and v["expected_key"]:
-            if v["light_color"] != "unknown":
-                items.append({"term_id": term["light_color"], "level": "estimated", "region": box,
-                              "note": f"lit surfaces of {sid} take the colour of {against}" if v["light_color"] == "yes"
-                              else f"lit surfaces of {sid} do not take the colour of {against}"})
-            if v["specular"] != "unknown":
-                items.append({"term_id": term["specular"], "level": "estimated", "region": box,
-                              "note": f"highlight on {sid} sits toward {v['expected_key']} and carries its colour" if v["specular"] == "yes"
-                              else f"highlight on {sid} does not follow {v['expected_key']}"})
+        # every subject surface is one list; only the two that judge a subject against the light it
+        # answers to name that light, and silence stays silence: nothing is recorded for a plain yes
+        named = {} if v["mode"] != "physical" or not against else {
+            "specular": f"highlight on {sid} does not follow {against}",
+            "light_color": f"lit surfaces of {sid} do not take the colour of {against}"}
         for surf in _subject_surfaces():
             if v[surf["id"]] == "no":
                 items.append({"term_id": surf["terms"][0], "level": "estimated", "region": box,
-                              "note": f"{sid}: {surf['label'].lower()} missing or inconsistent"})
+                              "note": named.get(surf["id"], f"{sid}: {surf['label'].lower()} missing or inconsistent")})
             elif v[surf["id"]] == "unknown" and sid in ans["subjects"][surf["id"]]["unknown"]:
                 items.append({"term_id": surf["terms"][0], "level": "unknown", "region": box, "note": f"{sid}: {surf['label'].lower()} undecided"})
     key = verdict["key"]
@@ -633,6 +685,9 @@ def ledger(path: Path, subjects: list[dict] | None = None, capture: str | None =
     rows = [_subject(s, rgba, Y, alpha, emit_ids, confirmed) for s in subs]
     live = [e for e in emitters if confirmed is None or e["kind"] not in REJECTED_KINDS]
     agreement = _agreement(rows, live, max(W, H))
+    for e in live:
+        e["receivers"] = sum(1 for a in agreement if a["emitter"] == e["id"]
+                             and a["angle_deg"] is not None and a["angle_deg"] <= KEY_TOLERANCE_DEG)
     key_fit = _key_fit(rows, live, agreement)
     out = {"schema_version": SCHEMA, "path": str(path), "sha256": meta["sha256"], "width": W, "height": H,
            "mirrored": bool(mirror), "coordinates": "image pixels, x right, y down; vectors are [dx, dy]; depth is a layer index, 0 nearest",

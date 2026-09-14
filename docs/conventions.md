@@ -97,6 +97,9 @@ is a new row.
 | `irradiance_proxy` | `irradiance`, `weight` | luminance × area over squared distance in pixels is not an irradiance; the suffix keeps a model from citing it as one |
 | `depth` as a layer index | `z`, `distance` | for stacked 2-D art depth is an ordering (Illustrator's Depth, Maruani et al. 2025); a distance would invite invented numbers |
 | `form` / `answers` | `questions` as the only interface | a typed sheet whose null fields are the whole ask; prose questions remain, derived from it |
+| `emitters[].spill` | `glow`, `bloom`, `halo` | those name a render effect the artist applied; this is a measurement of the neighbourhood, which a flat cel light can fail while still being a light |
+| `emitters[].receivers` | `used_by`, `lit_subjects` | a count, and the subjects that point at it are already in `agreement`; the plural noun says what the number counts |
+| `verdict.emitters[].verdict: lights_nothing` | `unused`, `orphan`, `fake` | `unused` is an engine word, `orphan` a graph word, `fake` a judgement the style_exemption may overturn; what is measured is that nothing takes its light |
 | `style.mode ∈ physical/fake_lighting/engine_lit` | `fake_lighting: bool` | three expectations, not two; a boolean could not say "the engine lights this" |
 
 **Structural notes — not naming problems, and not fixable by renaming.**
