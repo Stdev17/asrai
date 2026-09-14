@@ -12,7 +12,7 @@
     "bundle_sha256": "661ffe9779cb71d7d96fb7e235cff7ba71e20a05085b43b8868349add16921cf"
   },
   "files": {
-    "README.md": "70c4adffd95f34377170e8a4672da94fd4c41c374d624f416b7329ebe9d37045",
+    "README.md": "8d4cb6fe4c05925257fa12419e882eaf248e14aec77a201e811b1ebb0fed9543",
     "examples/anticipation.json": "8937aa0fa247ee616049aec0ae712b367c9f526efbeacf2f1c0ada201996fa7b",
     "examples/body_width.json": "c4645013e291084182f63e82f5faad9dac91f0666b12eb3c4de5c0da5f06c1f5",
     "examples/camera_fov.json": "5713f630c2fafa41244c563be774a267b4c3f0e3c5ffbe1e6b58f12e07bc5027",
@@ -23,7 +23,7 @@
     "examples/vector_anchor.json": "50a69208fe6dcdccd709f44546985f1dd7dbea4830486814d780f26a661942b2",
     "instruction.v2.schema.json": "d7a0ea31153cfa4bfb4229e57e86d2de4e97556afa80f9c99d4731df6284d945",
     "instruction_examples.v2.json": "73ecfd4d7bea49d210d03635c2ffd4853b7c3ae53d7743d4337c5ee68915d8e0",
-    "locales/README.md": "7a2f12f037b16577035ddf954609c958aff40cfebec9c43aa9416527886b567c",
+    "locales/README.md": "687406c9a4ff341f340d1bc488e891db1ab5b0e0e488301f09c18f2b97f03335",
     "locales/de.json": "b71f96363b81966ba11e0119dd2d3c359f13a8e5f12636f1f0c9959acd532027",
     "locales/es.json": "35798c2b5e5be41b78b38b4b7af5429264a62d6edb5bac83a98c868d560bcab2",
     "locales/fr.json": "7e72e4283d1daee8b49dcc2b574aeaa46666a90b3b2c08cd49293e0751945204",

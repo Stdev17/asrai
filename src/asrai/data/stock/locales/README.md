@@ -1,8 +1,13 @@
-# 어휘 번역 기여
+# Contributing a vocabulary translation
 
-각 `<code>.json`은 `vocab.v2.json`의 475개 표제어에 대한 한 언어의 표기와 발화용 설명이다. **영어 정본과 스펙은 번역 대상이 아니다** — 단위·연산·정량화 프로파일·지침은 `vocab.v2.json`에만 영어로 있다.
+Each `<code>.json` gives one language's head term and spoken description for the 475 entries of
+`vocab.v2.json`. **The English bundle and the spec are not translated** — units, operations,
+quantification profiles and guidance exist only in `vocab.v2.json`, in English.
 
-## 파일 구조
+Eleven languages ship: `de`, `es`, `fr`, `it`, `ja`, `ko`, `ms`, `pt`, `th`, `zh-Hans`, `zh-Hant`.
+`en` is the base bundle itself, not an overlay.
+
+## File shape
 
 ```jsonc
 {
@@ -10,44 +15,52 @@
   "base": "vocab.v2.json",
   "terms": {
     "shape.silhouette": {
-      "label": "Silhouette",            // 이 언어의 표제어. 필수
-      "aliases": ["Umriss"],            // 병행 표기가 실제로 쓰일 때만. 선택
-      "description": "…",               // 한 문장. 발화용이며 스펙이 아니다. 필수
-      "review": "confirm_loanword"      // 자동 검사가 남긴 확인 요청. 아래 참조
+      "label": "Silhouette",            // this language's head term. Required
+      "aliases": ["Umriss"],            // only where a parallel spelling is genuinely used. Optional
+      "description": "…",               // one sentence, for speaking aloud, not a spec. Required
+      "review": "confirm_loanword"      // left by the automatic check; see below
     }
   }
 }
 ```
 
-## `review` 값
+## `review` values
 
-`tools/review_locales.py`가 매 실행마다 다시 계산한다. 고치면 다음 실행에서 사라진다.
+`tools/review_locales.py` recomputes these on every run. Fix the entry and the flag disappears on the
+next one.
 
-| 값 | 뜻 | 기여자가 할 일 |
+| value | what it means | what to do |
 |---|---|---|
-| `confirm_loanword` | 표제어가 영어와 글자 그대로 같다 | 해당 업계에서 실제로 영어를 그대로 쓰면 그대로 두고, 아니면 번역어로 바꾼다 |
-| `confirm_script` | 비라틴 문자권인데 표제어에 해당 문자가 없다 | 위와 같다. `PBR`·`UV`·`LOD`처럼 남는 것이 정상인 경우도 있다 |
-| `missing` | 표제어나 설명이 비었다 | 채운다 |
+| `confirm_loanword` | the head term is letter-for-letter the English one | if the industry in that language really does use the English word, leave it; otherwise translate it |
+| `confirm_script` | a non-Latin-script language whose head term contains none of that script | same as above. `PBR`, `UV` and `LOD` staying as they are is normal |
+| `missing` | the head term or the description is empty | fill it in |
 
-플래그가 없다고 검증된 번역이라는 뜻은 아니다. 기계가 잡을 수 있는 결함이 없다는 뜻뿐이다.
+No flag does not mean the translation is verified. It means a machine found nothing it can catch.
 
-## 규칙
+## Rules
 
-1. **한 언어 안에서 표제어가 겹치면 안 된다.** 같은 표기가 두 항목을 가리키면 코멘트를 어느 항목으로 보낼지 결정할 수 없다. 검증기가 실패시킨다.
-2. **도구 표준어를 이긴다.** 해당 언어판 Illustrator·Blender·Unity가 쓰는 표기가 있으면 그것을 따른다.
-3. **설명은 한 문장.** 스펙을 옮겨 적지 않는다. 조건·단위·연산은 영어 정본에만 둔다.
-4. **`aliases`는 실제 병행 표기에만.** 검색 편의를 위한 억지 동의어는 넣지 않는다.
-5. `terms`의 키는 `vocab.v2.json`의 항목 ID와 정확히 일치해야 한다. 추가·삭제하지 않는다.
+1. **Head terms must be unique within a language.** If one spelling points at two entries, there is no
+   way to decide which entry a comment belongs to. The validator fails on it.
+2. **The tool's own wording wins.** Where that language's Illustrator, Blender or Unity has a spelling,
+   follow it.
+3. **One sentence for the description.** Do not transcribe the spec. Conditions, units and operations
+   stay in the English canon.
+4. **`aliases` is for real parallel spellings only.** No invented synonyms to help search.
+5. **The keys of `terms` must match the entry ids in `vocab.v2.json` exactly.** Never add or remove one.
 
-## PR 전 확인
+## Before opening a pull request
 
 ```bash
-python tools/review_locales.py
-python tools/validate_stock.py
+uv run python tools/review_locales.py
+uv run python tools/validate_stock.py
 ```
 
-앞은 플래그를 갱신하고, 뒤는 커버리지·표제어 충돌·필드 제약을 검사한다. 둘 다 통과해야 한다.
+The first refreshes the flags, the second checks coverage, head-term collisions and field constraints.
+Both must pass, and both also run inside `uv run pytest`.
 
-## 현재 상태
+## Current state
 
-번역은 LLM이 작성한 **편집상 대응어**이며 각 언어권 업계 말뭉치로 검증하지 않았다. 각 파일의 `translation_basis`가 이를 명시한다. `ko`는 v1 원본에서 그대로 옮긴 것이라 플래그가 0건이고, 나머지는 확인 대상이 남아 있다. 계약이나 표기 규정처럼 확정된 표기가 필요한 자리에는 현지 팀 확인을 거쳐야 한다.
+Translations are LLM-drafted **editorial counterparts** and have not been checked against each
+language's industry corpus. Each file says so in its `translation_basis`. `ko` was carried over from the
+v1 original and so has zero flags; the rest still have entries to confirm. Anywhere a settled spelling
+matters — a contract, a style guide — get a local team to confirm it first.

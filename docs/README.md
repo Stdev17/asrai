@@ -31,9 +31,16 @@ One more file sits at the repository root and is not a contract:
 
 Contracts and code comments are in **English**, which is canonical: term ids, field names, error
 strings and the vocabulary's `en` bundle are the specification, and the eleven locale bundles only
-rename head terms — one per language beside English, twelve languages in all. The dated review
-documents in `review/` are in **Korean**, because they were written for named readers — an artist, a
-game designer — rather than for the record.
+rename head terms — one per language beside English, twelve languages in all. Every live document is English, and so is every README, including the two inside the wheel that
+translators and corpus contributors read. `review/` is the one exception: those documents were written
+on a day for named readers — an artist, a game designer, the author — and the rule that they are never
+edited outranks the rule that documents are English, so the Korean ones stay Korean. A review written
+today is written in English.
+
+**Translating the README is a separate thing from the vocabulary's eleven locales.** The locales are a
+feature of the product; a documentation translation is a contributor process, and matching their count
+would mean eleven copies of prose that rots silently. The contract — `spec.md`, `conventions.md` — is
+never translated, because a translated contract is a second source of truth.
 
 ## Changing a document
 

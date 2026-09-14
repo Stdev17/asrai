@@ -55,6 +55,9 @@ audit (2026-09-14, every README and doc read against the code and the schemas):
   - moved out of the contract: the embedding price table (spec.md 10) and the pre-implementation
     playbook (repository root) are dated reviews. AGENTS.md now holds the asrai section spec.md 12
     reserves instead of unrelated web-research notes
+  - English is canonical everywhere except review/, whose never-edited rule outranks it. The two
+    READMEs inside the wheel were Korean, including the one asking eleven language communities for
+    translations; both are English now
 known_limits:
   - measure refuses above 12 Mpx (~4 GB peak at ~320 B/px): a 4K capture fits, 8K does not
   - 16-bit colour PNGs are measured at 8-bit precision; 16-bit grey is rescaled correctly
