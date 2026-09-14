@@ -127,6 +127,17 @@ All records are JSON objects appended to `corpus/team/records.jsonl` (`[built]` 
 `created_at`, `id` and `schema_version` are filled on append. Validation is in `records.validate`; an
 invalid record is never written.
 
+An instruction's `context` is not free-form: `lint` requires the keys that pin what a number means, and
+which keys those are is decided by the operation, the unit or the term `[built]`. A delta operation needs
+`baseline_ref`; units `px`/`px2`/`texel` need `image_ref` (or `grid_ref`) and `resolution`;
+`svg_user_unit` needs `viewBox`; `frame` needs `timebase.fps` and `timebase.clock`; `camera.fov` with
+`set` needs `fov_axis ∈ vertical|horizontal|diagonal` and `projection: perspective`; a material scalar
+with a direct operation needs `shader_model`. On the change itself, `define_metric` needs `metric` and
+`set_sequence` needs a non-empty `sequence` without repeats; on `execution`, `authorized` needs `adapter`
+and `binding_resolved`, and `status: applied` needs `run_ref`. These are conditional requirements rather
+than schema fields, so the surface that carries them to a model is `SKILL.md`, and a test holds the two
+together.
+
 ## 5. Corpus tiers, packs and the taste profile
 
 ```text

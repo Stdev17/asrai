@@ -2,7 +2,7 @@
 
 ```text
 phase: 1 (core and transports) — done, fixtures committed; 1b surface pass (surfaces.v1, light_ledger) — done
-last_acceptance_passed: 53 tests on 3.14 (vocab search/get/locales, lint rules, light_ledger direction/emitters/key fit/form/answers/depth/modes/noise floor/mirror/capture/malformed/a light nothing answers to/a shadow on the wrong side/production perturbations/subject masks, surfaces map onto vocabulary and skill,
+last_acceptance_passed: 54 tests on 3.14 (vocab search/get/locales, lint rules, light_ledger direction/emitters/key fit/form/answers/depth/modes/noise floor/mirror/capture/malformed/a light nothing answers to/a shadow on the wrong side/production perturbations/subject masks, surfaces map onto vocabulary and skill,
   measure determinism incl. 16-bit grey, record validation incl. layer rules, doctor lock/drift, MCP tools
   in-process and over stdio, malformed-input refusal at both trust boundaries, six measure fixtures
   byte-equal, corpus validators inside pytest); validate_stock 21,675 checks; review_locales no defects
@@ -44,6 +44,11 @@ audit (2026-09-14, every README and doc read against the code and the schemas):
   - fixed, leaked at a boundary: subjects[].mask was reachable from neither the CLI (--subject took a
     bbox only) nor the MCP description, two commits after it shipped. The CLI form is now
     ID=X,Y,W,H[,depth][@mask.png] and the tool description names mask
+  - fixed, leaked at a boundary: lint requires nine conditional context keys (baseline_ref, image_ref /
+    grid_ref + resolution, viewBox, timebase.fps + clock, fov_axis + projection, shader_model, and
+    metric / sequence on the change). None was named in spec.md, SKILL.md or the tool schema, so they
+    were discoverable only by failing. SKILL.md now carries the table and a test derives the key list
+    from vocab.py, so it cannot go stale
 known_limits:
   - measure refuses above 12 Mpx (~4 GB peak at ~320 B/px): a 4K capture fits, 8K does not
   - 16-bit colour PNGs are measured at 8-bit precision; 16-bit grey is rescaled correctly

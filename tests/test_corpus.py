@@ -64,3 +64,18 @@ def test_surfaces_map_onto_the_vocabulary_and_the_skill():
         # a surface that claims a ledger field must be one the measurement reaches, and the reverse
         assert bool(s["ledger"]) == (s["decided_by"] != "observer"), s["id"]
     assert doc["style_exemption"]["term"] in vocab.index()
+
+
+def test_the_skill_names_every_context_key_lint_requires():
+    """lint refuses an instruction for a missing `context` key, and the model that wrote it sees only
+    SKILL.md and a tool description with no declared properties. A requirement named nowhere is one a
+    caller can find only by failing, so every key the linter reaches for must appear in the skill."""
+    import re
+    from pathlib import Path
+    source = Path(vocab.__file__).read_text("utf-8")
+    keys = set(re.findall(r'context\.get\("([A-Za-z_]+)"', source))
+    keys |= set(re.findall(r'"([A-Za-z_]+)" not in context', source))
+    keys |= set(re.findall(r'tb\.get\("([A-Za-z_]+)"\)', source)) | {"fps"}
+    skill = (vocab.DATA.parent / "skill" / "SKILL.md").read_text("utf-8")
+    assert keys, "the extraction found no context keys; the linter was probably restructured"
+    assert sorted(k for k in keys if k not in skill) == []

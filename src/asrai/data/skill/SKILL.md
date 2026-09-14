@@ -187,6 +187,24 @@ Model verdicts must set `order_checked: true`. An instruction (kind `instruction
 `instruction.v2`) is linted before it is stored: `magnitude_basis` is one of
 `none | example | precedent | measurement | human | llm`, and `llm` never reaches an applied state.
 
+`lint` also refuses an instruction whose `context` does not pin what its own numbers mean. The rule
+fires from the operation, the unit or the term, so it is invisible until it fails:
+
+| when a change has | `context` must carry |
+|---|---|
+| any delta operation (`add_delta`, `multiply`, `relative_delta`, `percentage_point_delta`) | `baseline_ref` — the fixed thing the delta is measured from |
+| `quantity.unit` of `px`, `px2` or `texel` | `image_ref` (or `grid_ref`) **and** `resolution` |
+| `quantity.unit` of `svg_user_unit` | `viewBox` |
+| `quantity.unit` of `frame` | `timebase.fps` (a positive number) **and** `timebase.clock` |
+| `term_id: camera.fov` with `set` | `fov_axis ∈ vertical \| horizontal \| diagonal` **and** `projection: perspective` |
+| `material.roughness`, `material.smoothness` or `material.metallic` with a direct operation | `shader_model` |
+
+Two more live on the change itself: `define_metric` needs `metric`, and `set_sequence` needs a
+non-empty `sequence` with no repeats. And on `execution`: `authorized` needs both `adapter` and
+`binding_resolved`, and `status: applied` needs `run_ref`. A unit not in the registry, or one the
+term's quantification profile does not admit, is refused whatever the context says.
+
+
 ## Do not
 
 - Do not generate, inpaint or repaint. Do not give absolute aesthetic scores or sum axes.
