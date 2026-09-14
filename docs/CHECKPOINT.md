@@ -107,32 +107,7 @@ repo_docs: every tracked directory carries a README (src/asrai, data, data/skill
   runs by hand (see the CONTRIBUTING checklist); it found and fixed four docs/reviews -> docs/review
   typos left from before the folder was renamed
 next_command: uv run pytest
-sources (surface pass, 7.1; verified 2026-09-14 against arXiv/OpenReview pages):
-  - Cho et al., Davidsonian Scene Graph, ICLR 2024, arXiv:2310.18235. Adopted: atomic questions from
-    typed data, a fixed order, and the dependency rule (a parent answered no counts its children as no,
-    unasked: rejected emitters void their pairs). Not adopted: the averaged accuracy score (asrai keeps
-    three axes and never sums) and the VQA-model answering (host mode answers; api mode is planned).
-  - Yang et al., Set-of-Mark Prompting, 2023, arXiv:2310.11441. Adopted: ids drawn on the image so the
-    observer refers to e2 and pipe_left. Not adopted: SEEM/SAM segmentation; subjects come from the
-    capture contract, a sprite's alpha, or the observer's boxes.
-  - Johnson & Farid, Exposing digital forgeries by detecting inconsistencies in lighting, ACM Multimedia
-    and Security Workshop 2005. Adopted: light direction from luminance along the occluding contour
-    (contour_fit). Not adopted: their 3-D spherical-harmonics extension (Kee & Farid 2010).
-  - Sarkar et al., Shadows Don't Lie and Lines Can't Bend, CVPR 2024, arXiv:2311.17138. Evidence that
-    generated images fail object-shadow and perspective consistency; motivates cast_shadow as a
-    surface. Their shadow classifier is not adopted (observation-only today).
-  - Giroux, Hilliard, Hold-Geoffroy, Vazquez-Corral, Lalonde, Shedding Light, SIGGRAPH Asia 2026,
-    arXiv:2609.10787. Lighting direction, colour and radiance distribution measured from inpainted
-    probes against ground-truth light probes: the same three axes as key/diffuse, light_color and the
-    irradiance proxy. A probe object in an engine capture is a planned measurement.
-  - Maruani et al., Illustrator's Depth, arXiv:2511.17454 (rev. 2026-03). Depth as a layer index for
-    illustrations: the model behind `depth` being an ordinal layer, never a distance.
-  - Yang et al., Depth Anything V2, NeurIPS 2024, arXiv:2406.09414 (25M to 1.3B params). A planned,
-    optional adapter for virtual depth on raw images; not a dependency.
-  - Zhang, Rao, Agrawala, IC-Light, ICLR 2025 (OpenReview u1cQYxRI1H). Relighting as a future recipe,
-    never an observation.
-  - Community practice: Sprite Lamp / SpriteIlluminator / Sprite DLight normal maps with Unity URP
-    Light2D. The `engine_lit` mode: painted directional shading double-lights a normal-mapped sprite.
-noise_floor: bright side under 3 deg and contour fit under 8 deg on synthetic Lambertian and cel discs,
-  alpha or rectangle masks, eight directions (tests/test_light.py); thresholds 20/60 deg sit above it
+art_basis: the surface pass's eight published sources and the estimator noise floor moved to
+  review/2026-09-15-art-direction-rationale.md on 2026-09-15, with what each was adopted for and
+  what was deliberately not taken. A citation is not a status
 ```
