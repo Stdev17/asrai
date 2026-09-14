@@ -91,7 +91,8 @@ commit (`git log -1 --format=%H -- <path>`), write numbers as numerals, then
 `tools/check_translations.py`. Never translate `spec.md`, `conventions.md`, `SKILL.md` or `review/`.
 If the same commit also changes the source, the stamp cannot name it — that commit does not exist yet.
 Stamp the source's previous commit, land both, and re-stamp in a follow-up, which the checker will ask
-for until you do.
+for until you do. A new language lands with a named owner in `docs/i18n/README.md`, who answers for
+its staleness; without one it is not accepted. Staleness itself never blocks a merge.
 
 **Add an image.** Say where it came from and under what licence, in the README of the directory it lands
 in. An image whose origin cannot be stated does not go in.
@@ -104,6 +105,8 @@ in. An image whose origin cannot be stated does not go in.
 4. A new public name has its rejected alternative written down in `conventions.md` §1a.
 5. A new `CHECKPOINT.md` entry on top, stamped, restating the volatile lists.
 6. Commits split by meaning, each one green on its own.
+7. `git commit -s`. Every commit carries a `Signed-off-by` line — the Developer Certificate of Origin,
+   adopted 2026-09-15. Commits before that day carry none and are not rewritten.
 
 ## 8. Pull request states
 

@@ -50,8 +50,25 @@ uv run python tools/check_translations.py
 reports, for every file here: a missing or malformed stamp, a source that does not exist, a source
 that may never be translated — those are errors — and how many commits the source has moved since
 the stamp, with their subjects, so a human can see whether the change was a typo or a promise.
-**Staleness is reported, not enforced**; whether a stale translation blocks a pull request is a
-CI-gate decision and is not made yet.
+**Staleness is reported, never enforced** — decided 2026-09-15: a stale translation does not block a
+pull request. What holds a language current is a person, below.
+
+## Owners
+
+A language is accepted with a named owner: someone who reads it natively, has read the translation
+through, and answers for its staleness when `check_translations.py` reports it. A gate cannot do that
+job — Kubernetes' localization retrospective is the record of a translated page being unsupported from
+the moment it merged — so the gate is not asked to.
+
+| language | owner |
+|---|---|
+| `ko` | none yet |
+| `ja` | none yet |
+| `zh-Hans` | none yet |
+
+The three that exist predate the rule and are the exception it starts from: until a name is in this
+table the maintainer answers for them, and they stay marked unconfirmed. A new language is not
+accepted without a name here.
 
 ## Numbers
 

@@ -99,6 +99,10 @@ file before regenerating anything.
 - If you found a defect in a real asset, the regression test keeps the *real* magnitude. A perturbation
   at an invented strength proves nothing; the vignette that broke the shaded mass was 0.10, and it
   mattered precisely because that is invisible.
+- Every commit is signed off (`git commit -s`). The `Signed-off-by` line is the
+  [Developer Certificate of Origin](https://developercertificate.org/): you certify that you may submit
+  the change under this repository's MIT licence, and nothing more. There is no CLA. Nothing is
+  retroactive — commits before 2026-09-15 carry no line.
 
 ## What not to add
 

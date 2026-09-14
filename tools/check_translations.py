@@ -5,9 +5,10 @@ Every file under docs/i18n/<lang>/ carries a stamp on line 1 naming its source a
 commit at translation time. This script compares that commit with the source's latest one.
 
 A missing, malformed or impossible stamp is an error and exits non-zero: it means the file cannot
-be checked at all, which is worse than being out of date. Staleness is reported and does not fail
-here — whether a stale translation may block a pull request is a CI-gate decision, not this
-script's. The commit subjects are printed with the count so a human can tell a typo from a promise.
+be checked at all, which is worse than being out of date. Staleness is reported and never fails:
+decided 2026-09-15, a stale translation does not block a merge, and a language is held to a named
+owner instead (docs/i18n/README.md). The commit subjects are printed with the count so that owner
+can tell a typo from a promise.
 """
 
 import re
