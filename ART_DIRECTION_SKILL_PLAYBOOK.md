@@ -2,7 +2,7 @@
 
 > **상태:** 설계 검토 리포트 승인 전 초안. 이 문서는 절차이며 코드가 아니다.
 > **작성일:** 2026-09-13
-> **근거 문서:** [`docs/reviews/2026-09-13-art-direction-skill-scenario-review.md`](docs/reviews/2026-09-13-art-direction-skill-scenario-review.md). 결정 근거는 그쪽에 있고 여기는 실행 순서만 적는다.
+> **근거 문서:** [`docs/review/2026-09-13-art-direction-skill-scenario-review.md`](docs/review/2026-09-13-art-direction-skill-scenario-review.md). 결정 근거는 그쪽에 있고 여기는 실행 순서만 적는다.
 > **적용 대상:** GPU 없는 소규모 팀이 AI 생성 또는 수작업 2D 에셋(래스터 PNG, 런타임 스크린샷, SVG)의 1차 아트 디렉팅을 루틴화할 때. 팀 무관(agnostic). hq-gamedev provenance 체계와 무관.
 > **전제:** 캘리브레이션 사례 0건에서 출발. stock 층은 `ad_ta_vocab` 정제본 + 저작 사례 40건. team 층은 ingest로만 자란다.
 

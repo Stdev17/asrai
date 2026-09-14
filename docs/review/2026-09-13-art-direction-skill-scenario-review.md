@@ -4,7 +4,7 @@
 > **작성일:** 2026-09-13
 > **범위:** 게임 에셋(래스터 스프라이트·런타임 스크린샷·SVG) 1차 아트 디렉팅을 루틴화하는 스킬/MCP의 설계 검토. 3D 렌더·텍스처·머티리얼은 제외.
 > **동반 문서:** [`ART_DIRECTION_SKILL_PLAYBOOK.md`](../../ART_DIRECTION_SKILL_PLAYBOOK.md) — 실행 절차.
-> **입력 고정:** `ad_ta_vocab/ad_ta_manipulative_vocab.v1.json` SHA-256 `6e0663094024bdc7f5799932780e4d440f1d8c7ffc7e837c6f9fe0567aa58c71` (492 entries, 22 categories), `ad_ta_instruction.v1.schema.json` SHA-256 `e2b91fb292d0a75982a98fc72d0e75e250240e83ef7cdcca01f941ac4a01a044`. 참고 스펙: `hq-gamedev/docs/superpowers/specs/2026-08-27-typed-visual-art-direction-system-design.md`, `hq-gamedev/docs/reviews/2026-08-27-taste-skill-source-backed-adoption-review.md`.
+> **입력 고정:** `ad_ta_vocab/ad_ta_manipulative_vocab.v1.json` SHA-256 `6e0663094024bdc7f5799932780e4d440f1d8c7ffc7e837c6f9fe0567aa58c71` (492 entries, 22 categories), `ad_ta_instruction.v1.schema.json` SHA-256 `e2b91fb292d0a75982a98fc72d0e75e250240e83ef7cdcca01f941ac4a01a044`. 참고 스펙: `hq-gamedev/docs/superpowers/specs/2026-08-27-typed-visual-art-direction-system-design.md`, `hq-gamedev/docs/review/2026-08-27-taste-skill-source-backed-adoption-review.md`.
 > **확신 표기:** `[확실함]` 직접 확인, `[추정]` 근거 있는 추론, `[확인 안 됨]` 미검증.
 
 ## 1. 결론
@@ -31,7 +31,7 @@
 | P6 | hq-gamedev 결합도 | 독립, provenance 무관 `[확실함]` | 레코드에 내부 해시·supersedes만 둠. 외부 API·계약·CAS 없음. 6절 |
 | P7 | 패키징 | 스킬 → MCP 승격, 스펙 무손실 `[확실함]` | 단일 파이썬 코어, CLI와 MCP는 전송층. conformance fixture 공유. 9.5절 |
 | P8 | 캘리브레이션 쌍 | 0건 `[확실함]` | greenfield 기본. 취향 부트스트랩은 pairwise 선호 질문. vision 유닛은 단계적. 9.3절 |
-| P9 | 문서 위치 | 관례대로 `[확실함]` | 리포트 `docs/reviews/`, 플레이북 레포 루트 |
+| P9 | 문서 위치 | 관례대로 `[확실함]` | 리포트 `docs/review/`, 플레이북 레포 루트 |
 
 ## 3. 선행 사례 조사
 
@@ -429,7 +429,7 @@ S3가 모든 열에서 최악이 아니고, S4를 이기는 열이 팀 확장성
 
 ## 14. 출처
 
-사내·로컬: `hq-gamedev/docs/reviews/2026-08-27-taste-skill-source-backed-adoption-review.md`, `hq-gamedev/docs/superpowers/specs/2026-08-27-typed-visual-art-direction-system-design.md`, `~/Github/agent-sprite-forge` (README, `skills/generate2dsprite/SKILL.md`), `hq-ruby/ad_ta_vocab/*`.
+사내·로컬: `hq-gamedev/docs/review/2026-08-27-taste-skill-source-backed-adoption-review.md`, `hq-gamedev/docs/superpowers/specs/2026-08-27-typed-visual-art-direction-system-design.md`, `~/Github/agent-sprite-forge` (README, `skills/generate2dsprite/SKILL.md`), `hq-ruby/ad_ta_vocab/*`.
 
 외부 (2026-09-13 확인):
 - taste-skill: https://github.com/Leonxlnx/taste-skill

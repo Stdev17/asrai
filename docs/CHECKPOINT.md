@@ -67,6 +67,14 @@ perturbations_run (2026-09-14, synthetic disc scene, both alpha and bbox subject
     (an unchecked light now holds it at warn); sRGB-as-linear plus JPEG flipped the spill sign positive
     around a decal (both rings must now clear the bottom 3% of the 8-bit range); the ordinal emitter ids
     rebound under a strong vignette, so a filled sheet answered about other blobs (the form is stamped)
+repo_docs: every tracked directory carries a README (src/asrai, data, data/skill, data/stock,
+  data/stock/examples, data/stock/locales, tests, tests/fixtures, tools, docs, docs/review), plus
+  CONTRIBUTING.md and a repository map in the root README. Mermaid is used for the four structural
+  diagrams (package dependencies, test gate, document authority, repository map) so they diff as text.
+  docs/README.md carries the authority order: spec.md wins, conventions binds new code, CHECKPOINT is a
+  snapshot, review/ is historical and never edited. A link checker over every relative markdown link
+  runs by hand (see the CONTRIBUTING checklist); it found and fixed four docs/reviews -> docs/review
+  typos left from before the folder was renamed
 next_command: uv run pytest
 sources (surface pass, 7.1; verified 2026-09-14 against arXiv/OpenReview pages):
   - Cho et al., Davidsonian Scene Graph, ICLR 2024, arXiv:2310.18235. Adopted: atomic questions from

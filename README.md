@@ -56,7 +56,35 @@ uv run python tools/make_fixtures.py    # rewrite tests/fixtures/expected/ after
 ```
 
 `uv run pytest` is the single gate: it covers the code, the shipped vocabulary, and byte-equality of
-`measure` against the committed fixtures. Conventions for changes are in [docs/conventions.md](docs/conventions.md).
+`measure` against the committed fixtures. Start at [CONTRIBUTING.md](CONTRIBUTING.md); conventions for
+names and code are in [docs/conventions.md](docs/conventions.md).
+
+## Repository map
+
+Every directory carries a README saying what lives there and the one rule not to break.
+
+```mermaid
+flowchart TD
+    ROOT["asrai/"] --> SRC["src/asrai/<br/>nine modules"] & DOCS["docs/<br/>contract, conventions, status"] & TESTS["tests/<br/>the single gate"] & TOOLS["tools/<br/>corpus scripts"]
+    SRC --> DATA["data/<br/>ships in the wheel"]
+    DATA --> SKILL["skill/<br/>SKILL.md"] & STOCK["stock/<br/>vocabulary, surfaces, locales"]
+    DOCS --> REVIEW["review/<br/>dated decisions"]
+    TESTS --> FIX["fixtures/<br/>byte equality"]
+```
+
+| where | what |
+|---|---|
+| [`src/asrai/`](src/asrai/README.md) | the package: two transports over seven core modules |
+| [`src/asrai/data/`](src/asrai/data/README.md) | everything installed with the wheel |
+| [`src/asrai/data/skill/`](src/asrai/data/skill/README.md) | the agent-facing `SKILL.md` and the no-spec-loss rule |
+| [`src/asrai/data/stock/`](src/asrai/data/stock/README.md) | vocabulary v2, surfaces, schemas, the integrity manifest |
+| [`src/asrai/data/stock/locales/`](src/asrai/data/stock/locales/README.md) | twelve locale bundles |
+| [`src/asrai/data/stock/examples/`](src/asrai/data/stock/examples/README.md) | illustrative `instruction.v2` documents |
+| [`tests/`](tests/README.md) | the suite, its conventions, and how to add to it |
+| [`tests/fixtures/`](tests/fixtures/README.md) | six images, their expected output, and when regenerating is legitimate |
+| [`tools/`](tools/README.md) | corpus validation, locale review, fixture generation |
+| [`docs/`](docs/README.md) | which document is authoritative for what |
+| [`docs/review/`](docs/review/README.md) | dated decision records, never edited |
 
 Layout: `src/asrai/` core (`vocab`, `measure`, `records`, `doctor`, `config`, `cli`, `server`),
 `src/asrai/data/stock/` the vocabulary and locales (contributions welcome: `locales/README.md`),
