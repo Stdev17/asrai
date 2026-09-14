@@ -82,6 +82,9 @@ EMITTER_RANK = {"lamp": 0, "sky": 0, "screen": 0}     # designed sources outrank
 POINTED_MIN_PROXY = 0.25    # a subject may answer to the emitter it points at when that one is at least this
                             # fraction as strong as its expected key; the proxy under-reads clipped lamp heads
 REJECTED_KINDS = ("paint", "unknown")
+LOSSY_FORMATS = ("JPEG", "JPEG2000", "WEBP")   # reported, never corrected: ringing around a bright blob
+                            # moves a spill ring further than a light does, and undoing it would need the
+                            # encoder's tables. The answer to a lossy source is to ask for the original
 MODES = ("physical", "fake_lighting", "engine_lit")
 ANSWER_VALUES = ("yes", "no", "unknown")
 EMITTER_COLOR, REJECTED_COLOR, SUBJECT_COLOR = (255, 0, 255), (120, 120, 120), (255, 255, 255)
@@ -180,12 +183,18 @@ def _label(mask: np.ndarray) -> np.ndarray:
     return labels
 
 
-def _emitters(rgb: np.ndarray, Y: np.ndarray, opaque: np.ndarray) -> tuple[list[dict], np.ndarray]:
-    """The brightest blobs, brightest first, and a label plane: pixel value i belongs to emitter e<i>."""
+def _emitters(rgb: np.ndarray, Y: np.ndarray, opaque: np.ndarray) -> tuple[list[dict], np.ndarray, dict]:
+    """The brightest blobs, brightest first, a label plane (pixel value i belongs to emitter e<i>), and
+    which of the two floors bound. The relative floor is a percentile and so survives any transfer
+    function; the absolute one does not, and in a night scene it is the one that decides. Reporting
+    which bound answers the first question a contributor asks: why was this blob not proposed?"""
     H, W = Y.shape
     if not opaque.any():
-        return [], np.zeros((H, W), dtype=np.int16)
-    floor = max(EMITTER_MIN_Y, EMITTER_FRACTION * float(np.percentile(Y[opaque], EMITTER_PERCENTILE)))
+        return [], np.zeros((H, W), dtype=np.int16), {"value": None, "basis": "none"}
+    rel = EMITTER_FRACTION * float(np.percentile(Y[opaque], EMITTER_PERCENTILE))
+    floor = max(EMITTER_MIN_Y, rel)
+    used = {"value": _r(floor), "basis": "absolute" if EMITTER_MIN_Y > rel else "relative",
+            "absolute": EMITTER_MIN_Y, "relative": _r(rel)}
     emit = opaque & (Y >= floor)
     scale = min(1.0, LABEL_LONG_SIDE / max(H, W))
     small = emit
@@ -212,7 +221,7 @@ def _emitters(rgb: np.ndarray, Y: np.ndarray, opaque: np.ndarray) -> tuple[list[
                      "centroid": [_r(xs.mean()), _r(ys.mean())], "area_px": area, "area_ratio": _r(area / (H * W)),
                      "rgb": _hex(rgb[native].mean(0)), "luminance": _r(Y[native].mean()), "depth": None,
                      "spill": _spill(native, emit, opaque, Y, rgb), "receivers": None})
-    return rows, ids
+    return rows, ids, used
 
 
 def _box(value) -> list[int] | None:
@@ -240,8 +249,36 @@ def _silhouette_subject(rgba: np.ndarray) -> list[dict] | None:
     ys, xs = np.nonzero(rgba[..., 3] >= SILHOUETTE_ALPHA)
     if not len(xs):
         return None
-    return [{"id": "asset", "bbox": [int(xs.min()), int(ys.min()),
-                                     int(xs.max() - xs.min() + 1), int(ys.max() - ys.min() + 1)]}]
+    return [{"id": "asset", "mask": None, "bbox": [int(xs.min()), int(ys.min()),
+                                                   int(xs.max() - xs.min() + 1), int(ys.max() - ys.min() + 1)]}]
+
+
+def _mask(path: str, box: list[int], W: int, H: int, sid: str) -> np.ndarray:
+    """Which pixels of the image are this subject, as the alpha of a layer export.
+
+    A box is the cheapest way to point at a thing and the most expensive to measure: whatever else sits
+    in it is measured as if it were the subject. That is what stops albedo and ambient from separating a
+    dark strap inside a shirt, and what stops the shaded mass from being read on a screenshot at all. A
+    mask ends both, and it costs an artist nothing they do not already have: hand-drawn work is layered,
+    and "export layers" writes exactly this file. The game still ships one flattened sprite; only the
+    package carries the layers.
+
+    Canvas-sized (what a layer export gives) or box-sized, so neither side has to crop."""
+    rgba, meta = measure.load(Path(path))
+    if not meta["alpha_present"]:
+        raise ValueError(f"subjects {sid!r}: mask {path} has no alpha channel, and the mask is its alpha")
+    x, y, w, h = box
+    if (meta["width"], meta["height"]) == (W, H):
+        a = rgba[y:y + h, x:x + w, 3]
+    elif (meta["width"], meta["height"]) == (w, h):
+        a = rgba[..., 3]
+    else:
+        raise ValueError(f"subjects {sid!r}: mask {path} is {meta['width']}x{meta['height']}; expected the "
+                         f"image ({W}x{H}) or the subject's box ({w}x{h})")
+    m = a >= SILHOUETTE_ALPHA
+    if not m.any():
+        raise ValueError(f"subjects {sid!r}: mask {path} is empty inside the subject's box")
+    return m
 
 
 def _subjects(subjects, capture, W: int, H: int) -> list[dict]:
@@ -258,7 +295,8 @@ def _subjects(subjects, capture, W: int, H: int) -> list[dict]:
                 continue
             sid = str(c.get("game_object") or c.get("sprite") or str(c.get("asset_sha256", ""))[:12] or "subject")
             seen[sid] = seen.get(sid, 0) + 1
-            found.append({"id": sid if seen[sid] == 1 else f"{sid}_{seen[sid]}", "bbox": box, "depth": c.get("depth")})
+            found.append({"id": sid if seen[sid] == 1 else f"{sid}_{seen[sid]}", "bbox": box,
+                          "depth": c.get("depth"), "mask": c.get("mask")})
         subjects = sorted(found, key=lambda s: -(s["bbox"][2] * s["bbox"][3]))[:SUBJECTS_MAX]
     if not subjects:
         return []
@@ -277,7 +315,11 @@ def _subjects(subjects, capture, W: int, H: int) -> list[dict]:
         x0, y0, x1, y1 = min(x, W), min(y, H), min(x + w, W), min(y + h, H)
         if x1 - x0 < 1 or y1 - y0 < 1:
             raise ValueError(f"subjects[{i}] {sid!r} lies outside the {W}x{H} image")
-        out.append({"id": sid, "bbox": [x0, y0, x1 - x0, y1 - y0], "depth": _depth(s.get("depth"), f"subjects[{i}]")})
+        mask = s.get("mask")
+        if mask is not None and not isinstance(mask, str):
+            raise ValueError(f"subjects[{i}] {sid!r}: mask is the path of an image whose alpha marks the subject")
+        out.append({"id": sid, "bbox": [x0, y0, x1 - x0, y1 - y0], "mask": mask,
+                    "depth": _depth(s.get("depth"), f"subjects[{i}]")})
     return out
 
 
@@ -304,11 +346,14 @@ def _contour_fit(mask: np.ndarray, Y: np.ndarray) -> dict | None:
 
 
 def _subject(sub: dict, rgba: np.ndarray, Y: np.ndarray, alpha: bool, emit_ids: np.ndarray,
-             confirmed: set[int] | None) -> dict:
+             confirmed: set[int] | None, mask: np.ndarray | None = None) -> dict:
     x, y, w, h = sub["bbox"]
     a = rgba[y:y + h, x:x + w, 3]
     silhouette = alpha and bool((a < SILHOUETTE_ALPHA).any())
-    body = (a >= SILHOUETTE_ALPHA) if silhouette else np.ones((h, w), dtype=bool)
+    body = mask if mask is not None else (a >= SILHOUETTE_ALPHA) if silhouette else np.ones((h, w), dtype=bool)
+    # the subject's pixels are known when a mask says so, or when the file's alpha does -- either by
+    # cutting the ground out of the box, or, for a box wholly inside a silhouette, by there being none
+    known, outlined = mask is not None or alpha, mask is not None or silhouette
     ids = emit_ids[y:y + h, x:x + w] * body
     shade = body.copy()
     for k in np.unique(ids[ids > 0]):
@@ -316,7 +361,8 @@ def _subject(sub: dict, rgba: np.ndarray, Y: np.ndarray, alpha: bool, emit_ids: 
         # before answers: a ring on a pipe leaves, a lit cap stays; after: exactly the confirmed emitters leave
         if (k in confirmed) if confirmed is not None else (blob.sum() < EMITTER_MAX_SHARE * body.sum()):
             shade &= ~blob
-    row = {"id": sub["id"], "bbox": sub["bbox"], "depth": sub["depth"], "mask": "alpha" if silhouette else "bbox",
+    row = {"id": sub["id"], "bbox": sub["bbox"], "depth": sub["depth"],
+           "mask": "given" if mask is not None else "alpha" if silhouette else "bbox",
            "pixels": int(shade.sum()), "centroid": None, "body_rgb": None, "bright_side": None, "shadow": None,
            "contour_fit": None, "highlight": None}
     if row["pixels"] < MIN_PIXELS:
@@ -345,7 +391,7 @@ def _subject(sub: dict, rgba: np.ndarray, Y: np.ndarray, alpha: bool, emit_ids: 
     sd = np.array([lx.mean() + x - cx, ly.mean() + y - cy])
     # strength as for the bright side: a box over a uniform ground has its darkest pixels all round it,
     # so the offset is noise that normalising would turn into a confident diagonal
-    if alpha and np.linalg.norm(bright) > 0 and np.linalg.norm(sd) > 0:
+    if known and np.linalg.norm(bright) > 0 and np.linalg.norm(sd) > 0:
         row["shadow"] = {"vector": _unit(sd), "strength": _r(min(1.0, float(np.linalg.norm(sd)) / radius)),
                          "opposition_deg": _r(_angle(_unit(sd), -bright))}
     hi = shade & (Ys >= np.percentile(v, HIGHLIGHT_PERCENTILE))
@@ -357,7 +403,7 @@ def _subject(sub: dict, rgba: np.ndarray, Y: np.ndarray, alpha: bool, emit_ids: 
     shift = None if hue_hi is None or hue_body is None else _r(abs((hue_hi - hue_body + 180) % 360 - 180))
     row["highlight"] = {"centroid": [_r(hx.mean() + x), _r(hy.mean() + y)], "rgb": _hex(px[hi].mean(0)),
                         "luminance": _r(Ys[hi].mean()), "hue_shift_from_body_deg": shift}
-    if silhouette:
+    if outlined:
         row["contour_fit"] = _contour_fit(body, Ys)
     return row
 
@@ -752,13 +798,15 @@ def ledger(path: Path, subjects: list[dict] | None = None, capture: str | None =
     if subjects is None and not capture and alpha:
         subjects = _silhouette_subject(rgba)
     subs = _subjects(subjects, capture, W, H)
+    masks = {s["id"]: _mask(s["mask"], s["bbox"], W, H, s["id"]) for s in subs if s.get("mask")}
     if mirror:
         rgba = np.ascontiguousarray(rgba[:, ::-1])
         subs = [s | {"bbox": [W - s["bbox"][0] - s["bbox"][2], *s["bbox"][1:]]} for s in subs]
+        masks = {k: np.ascontiguousarray(v[:, ::-1]) for k, v in masks.items()}
     opaque = rgba[..., 3] > 0 if alpha else np.ones((H, W), dtype=bool)
     rgb = rgba[..., :3].astype(np.float64) / 255.0
     Y = measure.luminance(rgb)
-    emitters, emit_ids = _emitters(rgb, Y, opaque)
+    emitters, emit_ids, floor = _emitters(rgb, Y, opaque)
     ans = _answers(answers, emitters, subs, meta["sha256"]) if answers is not None else None
     confirmed = None
     if ans:
@@ -766,7 +814,7 @@ def ledger(path: Path, subjects: list[dict] | None = None, capture: str | None =
             e["kind"] = ans["kinds"][e["id"]] or "unknown"
             e["depth"] = ans["emitter_depth"].get(e["id"])
         confirmed = {i for i, e in enumerate(emitters, 1) if e["kind"] not in REJECTED_KINDS}
-    rows = [_subject(s, rgba, Y, alpha, emit_ids, confirmed) for s in subs]
+    rows = [_subject(s, rgba, Y, alpha, emit_ids, confirmed, masks.get(s["id"])) for s in subs]
     live = [e for e in emitters if confirmed is None or e["kind"] not in REJECTED_KINDS]
     agreement = _agreement(rows, live, max(W, H))
     for e in live:
@@ -775,7 +823,8 @@ def ledger(path: Path, subjects: list[dict] | None = None, capture: str | None =
     key_fit = _key_fit(rows, live, agreement)
     out = {"schema_version": SCHEMA, "path": str(path), "sha256": meta["sha256"], "width": W, "height": H,
            "mirrored": bool(mirror), "coordinates": "image pixels, x right, y down; vectors are [dx, dy]; depth is a layer index, 0 nearest",
-           "emitters": emitters, "subjects": rows, "agreement": agreement, "key_fit": key_fit, "overlay": None}
+           "source": {"format": meta["format"], "lossy": meta["format"] in LOSSY_FORMATS},
+           "emitter_floor": floor, "emitters": emitters, "subjects": rows, "agreement": agreement, "key_fit": key_fit, "overlay": None}
     if ans:
         verdict = _verdict(rows, live, agreement, key_fit, ans)
         out |= {"verdict": verdict, "record": _records(verdict, emitters, rows, ans, meta["sha256"], bool(capture))}

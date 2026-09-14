@@ -237,13 +237,21 @@ exactly for the observer tier.
   (empty for observation-only surfaces) and the vocabulary terms it is recorded under (`terms[0]` is
   the `term_id`). It also carries the answer contract (`light_answers.v1`), the thresholds and the
   three lighting modes.
+- A subject is `{id, bbox, depth?, mask?}`. `mask` is the path of an image whose alpha marks the
+  subject's pixels, canvas-sized or box-sized — a layer export. It is the one primitive that separates a
+  material inside a box, and the same one the shaded mass needs on a frame without alpha, so albedo,
+  ambient, specular and `cast_shadow` on an L2 capture all wait on it rather than on four measurements.
+  The ledger never derives it: a rock and the sand under one warm light share their chroma.
 - Subjects come from the capture contract, the observer's boxes, or, for a file with alpha and neither
   of those, its own silhouette as the subject `asset`: a lone sprite handed over with nothing else is
   the first case a reviewer reaches for. Handing the form back unfilled is a valid phase two, returning
   what the measurement decides and `unknown` elsewhere, so the whole pass runs without a vocabulary. The
   form is stamped with the image it was filled for: emitter ids are ordinal by brightness and rebind when
   the pixels change, so a sheet filled for one export is refused against another.
-- `light_ledger.v1` (measurement; tool `light_ledger`, CLI `light-ledger`), phase one: proposed
+- `light_ledger.v1` (measurement; tool `light_ledger`, CLI `light-ledger`), phase one: `source` (the
+  file's format and whether it is lossy — disclosed, never corrected), `emitter_floor` (which of the two
+  floors bound: the relative one is a percentile and survives any transfer function, the absolute one
+  does not and is what decides in a night scene), proposed
   emitters (the brightest blobs, brightest first, `kind: proposed`; bright paint qualifies and is
   rejected by the observer), each with `spill` (what its own neighbourhood does: luminance and
   distance-to-its-hue in a ring at two core radii against a ring at four to eight, taken outside every

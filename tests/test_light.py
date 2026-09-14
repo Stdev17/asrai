@@ -321,3 +321,60 @@ def test_a_form_belongs_to_the_image_it_was_filled_for(tmp_path):
         light.ledger(q, BALL, answers=form)
     form.pop("image_sha256")                      # a hand-written sheet may omit it
     assert light.ledger(q, BALL, answers=form)["verdict"]["mode"] == "physical"
+
+
+def _disc_mask(path, size, origin=(0, 0)):
+    """A layer export: the disc's own pixels, alpha 255, everything else transparent."""
+    W, H = size
+    ox, oy = origin
+    yy, xx = np.mgrid[:H, :W]
+    inside = ((xx + ox - 90) / 36) ** 2 + ((yy + oy - 70) / 36) ** 2 <= 1
+    rgba = np.zeros((H, W, 4), np.uint8)
+    rgba[..., 3] = np.where(inside, 255, 0)
+    Image.fromarray(rgba, "RGBA").save(path)
+    return str(path)
+
+
+def test_a_subject_mask_gives_a_box_the_pixels_it_is_made_of(tmp_path):
+    """A box is the cheapest way to point at a thing and the most expensive to measure: whatever else is
+    in it is measured as the subject. On a file without alpha that costs the shaded mass and the contour
+    fit entirely. A layer export -- which a hand-drawn package already has, and which no segmentation can
+    recover, since a rock and the sand under one warm light share their chroma -- gives them back."""
+    p = scene(tmp_path / "s.png", alpha=False)
+    bare = light.ledger(p, BALL)["subjects"][0]
+    assert (bare["mask"], bare["shadow"], bare["contour_fit"]) == ("bbox", None, None)
+
+    for tag, size, origin in (("canvas", (160, 120), (0, 0)), ("box", (80, 80), (50, 30))):
+        m = _disc_mask(tmp_path / f"{tag}.png", size, origin)
+        s = light.ledger(p, [{"id": "ball", "bbox": [50, 30, 80, 80], "mask": m}])["subjects"][0]
+        assert s["mask"] == "given" and s["pixels"] < bare["pixels"], (tag, s["pixels"])
+        assert np.dot(s["bright_side"]["vector"], UPPER_LEFT) > 0.99, (tag, s["bright_side"])
+        assert light._shadow_measured(s) and s["shadow"]["opposition_deg"] < 10, (tag, s["shadow"])
+        assert s["contour_fit"]["r2"] > 0.5 and np.dot(s["contour_fit"]["vector"], UPPER_LEFT) > 0.98
+
+
+def test_a_mask_is_checked_at_the_boundary(tmp_path):
+    p = scene(tmp_path / "s.png", alpha=False)
+    def box(**kw):
+        return light.ledger(p, [{"id": "ball", "bbox": [50, 30, 80, 80]} | kw])
+    Image.fromarray(np.zeros((120, 160, 3), np.uint8), "RGB").save(tmp_path / "opaque.png")
+    with pytest.raises(ValueError, match="no alpha"):
+        box(mask=str(tmp_path / "opaque.png"))
+    with pytest.raises(ValueError, match="expected the image"):
+        box(mask=_disc_mask(tmp_path / "wrong.png", (99, 99)))
+    with pytest.raises(ValueError, match="empty inside"):
+        box(mask=_disc_mask(tmp_path / "empty.png", (160, 120), (900, 900)))
+    with pytest.raises(ValueError, match="path of an image"):
+        box(mask=7)
+
+
+def test_the_ledger_says_which_floor_bound_and_whether_the_source_is_lossy(tmp_path):
+    """The relative floor is a percentile and survives any transfer function; the absolute one does not,
+    and in a night scene it is the one that decides. Both are reported rather than asked for."""
+    p = scene(tmp_path / "s.png")
+    led = light.ledger(p, BALL)
+    assert led["source"] == {"format": "PNG", "lossy": False}
+    f = led["emitter_floor"]
+    assert f["basis"] in ("absolute", "relative") and f["value"] == max(f["absolute"], f["relative"])
+    Image.open(p).convert("RGB").save(tmp_path / "s.jpg", quality=90)
+    assert light.ledger(tmp_path / "s.jpg", BALL)["source"] == {"format": "JPEG", "lossy": True}

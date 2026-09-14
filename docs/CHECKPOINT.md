@@ -2,7 +2,7 @@
 
 ```text
 phase: 1 (core and transports) — done, fixtures committed; 1b surface pass (surfaces.v1, light_ledger) — done
-last_acceptance_passed: 48 tests on 3.14 (vocab search/get/locales, lint rules, light_ledger direction/emitters/key fit/form/answers/depth/modes/noise floor/mirror/capture/malformed/a light nothing answers to/a shadow on the wrong side/production perturbations, surfaces map onto vocabulary and skill,
+last_acceptance_passed: 51 tests on 3.14 (vocab search/get/locales, lint rules, light_ledger direction/emitters/key fit/form/answers/depth/modes/noise floor/mirror/capture/malformed/a light nothing answers to/a shadow on the wrong side/production perturbations/subject masks, surfaces map onto vocabulary and skill,
   measure determinism incl. 16-bit grey, record validation incl. layer rules, doctor lock/drift, MCP tools
   in-process and over stdio, malformed-input refusal at both trust boundaries, six measure fixtures
   byte-equal, corpus validators inside pytest); validate_stock 21,675 checks; review_locales no defects
@@ -40,8 +40,21 @@ known_limits:
     measurement settles and into the one the observer is asked. Light ones (0.15) cost under 9 deg
   - a vignette also dims an emitter near the frame border below the proposal floor, which is global
     (0.6 x the 99th percentile): a neon sign at the edge of a graded screenshot is not proposed at all
-  - SPILL_MIN_Y is calibrated on the synthetic scene (clean rings sit 5x above it). Re-check it against
-    the cyberpunk reference, where e4 read -0.023, before trusting it on night scenes
+  - the absolute emitter floor (EMITTER_MIN_Y 0.30 linear) is the one constant in the pass that a
+    transfer function moves. On the pixel-art night reference it is the binding one and the relative
+    floor sits at 0.298, so the two nearly tie; a darker frame would be chosen by an absolute level.
+    Reported as emitter_floor.basis rather than corrected
+colour_space (answered 2026-09-14, no input field added):
+  - every rank-based measurement is invariant to a monotone transfer by construction: bright side, shaded
+    mass and key fit are percentile centroids, and the emitter relative floor is a percentile. Measured:
+    8 emitters x 3 references x {shipped, gamma 2.2, gamma 1/2.2}, masks pinned, and the rank share of
+    each spill ring was identical to two decimals while the luminance difference swung 10-20x
+  - the difference form still held its sign on all 18 real rows; it flipped only when the file's tonal
+    range was destroyed (sRGB read as linear, then JPEG), which SPILL_MIN_Y refuses. A mid-rank form was
+    tried and rejected: it reads 1.00 on the bloomed synthetic where the difference form correctly reads
+    lights_nothing, because both ring forms include subjects and not only ground
+  - SPILL_MIN_Y verified against the night reference: all 8 emitters measurable (p50 Y 0.015, gains
+    +0.013..+0.075), so the guard does not silence dark genres
 perturbations_run (2026-09-14, synthetic disc scene, both alpha and bbox subjects):
   - injected: URP bloom, vignette (0.1..0.7), sRGB-as-linear both ways, JPEG q60, film grain, matte-line
     fringing, atlas extrude writing opaque padding, and the stacks a real hand-over combines

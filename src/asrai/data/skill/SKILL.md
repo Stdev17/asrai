@@ -86,10 +86,16 @@ honest default. Two calls, one form, no prose.
 
 1. Subjects. A sprite: pass nothing, its own silhouette becomes the subject `asset`. A capture:
    `capture=capture.json` (its `composed_of` screen boxes). A raw image: propose up to sixteen boxes yourself, the things that
-   carry shading, as `subjects=[{"id": "pipe_left", "bbox": [x, y, w, h], "depth": 0}]`. `depth` is
+   carry shading, as `subjects=[{"id": "pipe_left", "bbox": [x, y, w, h], "depth": 0}]`. Any subject may
+   also carry `mask`, the path of an image whose alpha marks its pixels (canvas-sized or box-sized): a
+   layer export. Without one, a box on a frame with no alpha measures whatever else is in it, which costs
+   the shaded mass and the contour fit. Never derive a mask by segmenting the image; ask for the layer. `depth` is
    an optional layer index (nearest first, as an illustrator stacks layers), never a distance; it only
    widens the distance to a light on another layer. The ledger never segments a raw image itself.
-2. Phase one: call `light_ledger` and look at `overlay`. White boxes are subjects, magenta boxes are
+2. Phase one: call `light_ledger` and look at `overlay`. `source` says whether the file is lossy, and
+   `emitter_floor` which of the two floors bound: `relative` is a percentile and survives any colour
+   space, `absolute` is a fixed level and is what decides in a night scene. Neither is asked of you, and
+   a lossy source is reported, never corrected — ask for the original instead. White boxes are subjects, magenta boxes are
    proposed emitters (`e1` is the brightest; bright paint is proposed too, on purpose), the yellow
    arrow is where a subject's bright side points, the violet arrow where its shaded mass sits (it
    belongs opposite the yellow one), the cyan arrow is the contour fit (alpha masks
