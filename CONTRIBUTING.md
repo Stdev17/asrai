@@ -62,7 +62,10 @@ flowchart TD
   `tools/check_translations.py` says by how much; a number may not.
 - **an image → where it came from.** Any image a change adds says its origin and its licence in the
   README of the directory it lands in. An image whose origin cannot be stated does not go in.
-- **anything landing → `CHECKPOINT.md`.** Keep `last_acceptance_passed` truthful.
+- **anything landing → a new `CHECKPOINT.md` entry.** That file is append-only: a stamped entry on top,
+  nothing below it edited. Keep `last_acceptance_passed` truthful in the entry you add.
+- **a rationale → a stamp.** Anything explaining *why* opens with `> YYYY-MM-DD · verified at <sha> ·
+  <author>`, so a reader can tell how old the reasoning is without running `git log`.
 
 ## The three changes people actually make
 

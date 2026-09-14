@@ -17,7 +17,7 @@ flowchart LR
 |---|---|---|
 | [`spec.md`](spec.md) | what the tools promise, what a record means, what may never happen | **the contract.** When anything else disagrees with it, spec.md wins and the other file is amended |
 | [`conventions.md`](conventions.md) | how code and names are written here, and which alternatives were rejected and why | binding on new code; subordinate to spec.md |
-| [`CHECKPOINT.md`](CHECKPOINT.md) | what is built, what passed, what is known to be limited, what a human still has to decide | a status snapshot, rewritten as work lands. Never a promise |
+| [`CHECKPOINT.md`](CHECKPOINT.md) | what is built, what passed, what is known to be limited, what a human still has to decide | a status log, **append-only**: a new entry on top, no entry below it edited. The newest is what is true now. Never a promise |
 | [`../CONTRIBUTING.md`](../CONTRIBUTING.md) | how to make a change that will be accepted | process, not contract |
 | [`runbook.md`](runbook.md) | the steps for the operations people repeat here, and what may never be created | procedure. Steps only; it holds no reasons and outranks nothing |
 | [`review/`](review/) | why a decision was made, at the time it was made | historical. Dated, never edited — see its README. The pre-implementation playbook lives here too |
@@ -55,5 +55,8 @@ README — and a language or a document is added by adding a file, with no chang
 reason recorded in `review/` or in `conventions.md` §1a, and it usually needs a test. Everything
 unmarked is still open and can be edited in the ordinary way.
 
-`CHECKPOINT.md` is the one file expected to churn. Keep `last_acceptance_passed` truthful — it is the
-only place that says how many tests passed and what they covered.
+`CHECKPOINT.md` is the one file expected to churn, and since 2026-09-15 it churns by growing rather than
+by being rewritten: add an entry on top, stamped with the date, the revision its facts were checked at,
+and the author, and leave every entry below it alone. Keep `last_acceptance_passed` truthful in the new
+entry — it is the only place that says how many tests passed and what they covered. Because old entries
+are frozen observations, `tests/claims.json` never anchors a number here.

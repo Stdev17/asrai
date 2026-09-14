@@ -1,6 +1,6 @@
 {
   "schema_version": "claims.v1",
-  "note": "Numbers this repository states in prose. Each row carries the value, what computes it, and the exact wording that must appear in every document that claims it. A claim that moves fails the suite instead of drifting quietly through the docs; test_asrai.py evaluates them. Adding a number to prose means adding it here.",
+  "note": "Numbers this repository states in prose. Each row carries the value, what computes it, and the exact wording that must appear in every document that claims it. A claim that moves fails the suite instead of drifting quietly through the docs; test_asrai.py evaluates them. Adding a number to prose means adding it here. Never point a claim at docs/CHECKPOINT.md: it is append-only, so an old entry is a frozen observation that a moving claim would falsify.",
   "claims": [
     {
       "id": "vocab.terms",
@@ -109,7 +109,6 @@
       "value": 12,
       "truth": "measure.MAX_PIXELS // 1_000_000",
       "claimed_in": {
-        "docs/CHECKPOINT.md": "12 Mpx",
         "docs/conventions.md": "12 Mpx",
         "src/asrai/README.md": "12 Mpx"
       }
@@ -138,7 +137,7 @@
       "value": 3620,
       "truth": "test_asrai.tool_surface_bytes(): the tools/list reply as compact JSON",
       "claimed_in": {
-        "docs/CHECKPOINT.md": "3,620 bytes"
+        "src/asrai/README.md": "3,620 bytes"
       }
     },
     {
@@ -147,8 +146,7 @@
       "truth": "test_asrai.SOFT_CAP_TOKENS",
       "claimed_in": {
         "docs/spec.md": "soft cap of 1,000 tokens",
-        "CONTRIBUTING.md": "warns above 1,000 tokens",
-        "docs/CHECKPOINT.md": "warned above 1,000"
+        "CONTRIBUTING.md": "warns above 1,000 tokens"
       }
     },
     {
@@ -158,8 +156,7 @@
       "claimed_in": {
         "docs/spec.md": "hard cap of 1,200 tokens",
         "CONTRIBUTING.md": "fails above 1,200",
-        "src/asrai/README.md": "under 1,200 tokens",
-        "docs/CHECKPOINT.md": "hard cap of 1,200 tokens"
+        "src/asrai/README.md": "under 1,200 tokens"
       }
     },
     {
@@ -167,8 +164,7 @@
       "value": 4.25,
       "truth": "test_asrai.BYTES_PER_TOKEN: o200k_base over the compact tools/list reply, measured 2026-09-14",
       "claimed_in": {
-        "docs/spec.md": "4.25 bytes per token",
-        "docs/CHECKPOINT.md": "4.25 bytes per token"
+        "docs/spec.md": "4.25 bytes per token"
       }
     }
   ]
