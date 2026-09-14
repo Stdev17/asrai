@@ -117,6 +117,10 @@ honest default. Two calls, one form, no prose.
    with `shadow_opposition_deg` and `shadow_basis`: the angle by which a subject's shaded mass fails to
    sit opposite its lit side, on the same twenty and sixty degree bands. It needs no emitter, so it is
    the one surface that judges a lone sprite, and `unknown` there means too flat to place, never fine.
+   It is read only on a file with alpha, which is what says which pixels are the subject: on a screenshot
+   the bottom decile of a box is the ground, and a vignette or a sky gradient would make that ground a
+   confident direction. A form carries `image_sha256`; phase two refuses one filled for another image,
+   since emitter ids are ordinal and rebind when the pixels change.
    `verdict` gives per subject the expected key (lamp, sky and screen outrank neon and glow, then strength over distance), the
    `verdict_emitter` it was judged against (the emitter it points at counts when at least a quarter as
    strong), the residual in degrees, `agrees | disagrees | unknown` with its basis (`measurement` or
@@ -126,7 +130,10 @@ honest default. Two calls, one form, no prose.
    because painted shading on an engine-lit sprite double-lights. `verdict.emitters` answers the other
    direction for each confirmed light: `lights` when something points at it or its surroundings are
    brighter for it, `lights_nothing` when neither is true, `unknown` when it has no readable
-   neighbourhood and no subject near it. A light the frame does not answer to is a decal, in any
+   neighbourhood and no subject near it — a sprite on transparency, a source at the border, or a frame
+   whose darks are crushed into the bottom code values, where the codec moves a ring further than a light
+   does. A confirmed light left `unknown` holds `asset_cohesion` at `warn`: an axis does not pass on
+   evidence it never had. A light the frame does not answer to is a decal, in any
    genre, and it is what `axes.asset_cohesion` fails on, together with a shaded mass that contradicts
    its own lit side; `axes` summarises that with
    `direction_compliance` and `intentional_contrast` for the frame. Under `fake_lighting` both land

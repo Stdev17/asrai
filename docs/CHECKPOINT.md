@@ -2,7 +2,7 @@
 
 ```text
 phase: 1 (core and transports) — done, fixtures committed; 1b surface pass (surfaces.v1, light_ledger) — done
-last_acceptance_passed: 45 tests on 3.14 (vocab search/get/locales, lint rules, light_ledger direction/emitters/key fit/form/answers/depth/modes/noise floor/mirror/capture/malformed/a light nothing answers to/a shadow on the wrong side, surfaces map onto vocabulary and skill,
+last_acceptance_passed: 48 tests on 3.14 (vocab search/get/locales, lint rules, light_ledger direction/emitters/key fit/form/answers/depth/modes/noise floor/mirror/capture/malformed/a light nothing answers to/a shadow on the wrong side/production perturbations, surfaces map onto vocabulary and skill,
   measure determinism incl. 16-bit grey, record validation incl. layer rules, doctor lock/drift, MCP tools
   in-process and over stdio, malformed-input refusal at both trust boundaries, six measure fixtures
   byte-equal, corpus validators inside pytest); validate_stock 21,675 checks; review_locales no defects
@@ -27,15 +27,33 @@ pending_human:
     negative; it is one of two tests (the other is receivers) and both must be empty before a light is
     called one the frame does not answer to
   - cast_shadow measures where a subject's shaded mass sits against its lit side, which needs no emitter
-    and judges a lone sprite; inside one box it cannot separate cast from form shadow, on a bbox subject
-    it places whatever is darkest in the box, and a subject too flat for either mass to carry a
-    direction is unknown, never yes
+    and judges a lone sprite; inside one box it cannot separate cast from form shadow, it is read only
+    on a file with alpha (which is what says which pixels are the subject), and a subject too flat for
+    either mass to carry a direction is unknown, never yes
   - a flattened preview of a transparent sprite (the checkerboard baked into the pixels) is not the
     asset: measure reports alpha_present false and light_ledger proposes the checkerboard as emitters.
     Ask for the PNG with its alpha
 known_limits:
   - measure refuses above 12 Mpx (~4 GB peak at ~320 B/px): a 4K capture fits, 8K does not
   - 16-bit colour PNGs are measured at 8-bit precision; 16-bit grey is rescaled correctly
+  - a heavy vignette (0.55) bends a sprite's shaded mass by about 20 deg, out of the band the
+    measurement settles and into the one the observer is asked. Light ones (0.15) cost under 9 deg
+  - a vignette also dims an emitter near the frame border below the proposal floor, which is global
+    (0.6 x the 99th percentile): a neon sign at the edge of a graded screenshot is not proposed at all
+  - SPILL_MIN_Y is calibrated on the synthetic scene (clean rings sit 5x above it). Re-check it against
+    the cyberpunk reference, where e4 read -0.023, before trusting it on night scenes
+perturbations_run (2026-09-14, synthetic disc scene, both alpha and bbox subjects):
+  - injected: URP bloom, vignette (0.1..0.7), sRGB-as-linear both ways, JPEG q60, film grain, matte-line
+    fringing, atlas extrude writing opaque padding, and the stacks a real hand-over combines
+  - held: bright_side (under 1 deg across every perturbation and stack), contour_fit (under 4 deg, and
+    r2 reports the silhouette that is not one form), bloom at every radius and gain (it widens the
+    emitter mask symmetrically, so the spill sign survives), atlas padding (a phantom emitter, correctly
+    proposed and rejectable; the silhouette box grows by the padding)
+  - moved, and fixed: a vignette of a tenth fabricated a shaded mass on a bbox subject (alpha now
+    required); a vignette over 0.4 and a crushed export made spill unmeasurable and the axis read pass
+    (an unchecked light now holds it at warn); sRGB-as-linear plus JPEG flipped the spill sign positive
+    around a decal (both rings must now clear the bottom 3% of the 8-bit range); the ordinal emitter ids
+    rebound under a strong vignette, so a filled sheet answered about other blobs (the form is stamped)
 next_command: uv run pytest
 sources (surface pass, 7.1; verified 2026-09-14 against arXiv/OpenReview pages):
   - Cho et al., Davidsonian Scene Graph, ICLR 2024, arXiv:2310.18235. Adopted: atomic questions from

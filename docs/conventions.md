@@ -103,6 +103,9 @@ is a new row.
 | `SHADED_STRENGTH` | `BAKED_STRENGTH` | one measured constant answers two questions, so the name says what it measures (a subject carries directional shading), not the first use it was written for |
 | `verdict.emitters[].verdict: lights_nothing` | `unused`, `orphan`, `fake` | `unused` is an engine word, `orphan` a graph word, `fake` a judgement the style_exemption may overturn; what is measured is that nothing takes its light |
 | `style.mode ∈ physical/fake_lighting/engine_lit` | `fake_lighting: bool` | three expectations, not two; a boolean could not say "the engine lights this" |
+| `answers.image_sha256` | `answers.path`, a form id, nothing at all | emitter ids are ordinal by brightness and rebind when the pixels change; a path would match after a re-export, an id would need a store. The sha is already measured, and the field is optional so a hand-written sheet still runs |
+| `SPILL_MIN_Y` (both rings clear the bottom 3% of the 8-bit range) | a standard-error gate on the difference, a relative gain | the flip that motivated it was six standard errors of a real pixel difference, so no statistic rejects it; a ratio in near-black divides by the quantisation step. What is actually wrong is that both rings are crushed, which is what the constant says, and the magnitude comes from the file format rather than from taste |
+| `asset_cohesion: warn` for an unchecked light | leaving it `pass`, or `unknown` | `pass` was the axis reading evidence it never had, and `unknown` would throw away the shaded masses that were measured. `warn` is the axis saying which half it could not see |
 
 **Structural notes — not naming problems, and not fixable by renaming.**
 

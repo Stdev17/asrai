@@ -240,7 +240,9 @@ exactly for the observer tier.
 - Subjects come from the capture contract, the observer's boxes, or, for a file with alpha and neither
   of those, its own silhouette as the subject `asset`: a lone sprite handed over with nothing else is
   the first case a reviewer reaches for. Handing the form back unfilled is a valid phase two, returning
-  what the measurement decides and `unknown` elsewhere, so the whole pass runs without a vocabulary.
+  what the measurement decides and `unknown` elsewhere, so the whole pass runs without a vocabulary. The
+  form is stamped with the image it was filled for: emitter ids are ordinal by brightness and rebind when
+  the pixels change, so a sheet filled for one export is refused against another.
 - `light_ledger.v1` (measurement; tool `light_ledger`, CLI `light-ledger`), phase one: proposed
   emitters (the brightest blobs, brightest first, `kind: proposed`; bright paint qualifies and is
   rejected by the observer), each with `spill` (what its own neighbourhood does: luminance and
@@ -264,7 +266,8 @@ exactly for the observer tier.
   unknown` with its basis, the axis outcome; `baked | flat` in `engine_lit` mode; per confirmed
   emitter `lights | lights_nothing | unknown`; a light nothing answers to and a subject whose shaded
   mass contradicts its own lit side both fail `asset_cohesion`, which is the only axis a lone sprite with
-  no emitters can speak on) and `record`, an
+  no emitters can speak on, while a confirmed light whose neighbourhood could not be read holds it at
+  `warn`, never `pass`) and `record`, an
   observation record whose measured items are `asserted` and observer items `estimated`, ready for
   `record` once `observer.model` is filled.
 - Depth is an ordinal layer index (nearest first), never a distance. The image-plane direction from a

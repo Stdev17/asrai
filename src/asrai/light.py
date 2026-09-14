@@ -71,6 +71,11 @@ SHADED_STRENGTH = 0.15      # a bright side stronger than this carries direction
 SPILL_NEAR = 2.0            # rings at two core radii out against rings at four to eight: a source lifts
 SPILL_FAR = (4.0, 8.0)      # and tints its neighbourhood, a decal does not. Sign only, no magnitude.
 SPILL_MIN_PX = 32           # either ring smaller than this (a lone sprite, a source at the border) is unmeasured
+SPILL_MIN_Y = 8 / 255 / 12.92   # ... and so is a neighbourhood crushed into the bottom 3% of the 8-bit
+                            # range (sRGB's linear segment). There a ring mean is a handful of code values
+                            # and the codec moves it further than any light does: an export written in the
+                            # wrong colour space and sent through JPEG read +0.002 of spill, six standard
+                            # errors of it, around a decal that lights nothing at all
 PAIR_SURFACES = ("diffuse",)                   # the only surface asked per (subject, emitter)
 EMITTER_KINDS = ("lamp", "neon", "sky", "screen", "glow", "paint", "unknown")
 EMITTER_RANK = {"lamp": 0, "sky": 0, "screen": 0}     # designed sources outrank decorative ones (neon, glow, proposed: 1)
@@ -140,6 +145,8 @@ def _spill(mask: np.ndarray, bright: np.ndarray, opaque: np.ndarray, Y: np.ndarr
     far = (_dilate(mask, min(SPILL_FAR[1] * r, long)) & ~_dilate(mask, min(SPILL_FAR[0] * r, long))) & ground
     if int(near.sum()) < SPILL_MIN_PX or int(far.sum()) < SPILL_MIN_PX:
         return None
+    if min(float(Y[near].mean()), float(Y[far].mean())) < SPILL_MIN_Y:
+        return None                                  # both rings are black: there is nothing to compare
     hue = _hue(_hex(rgb[mask].mean(0)))
 
     def pull(m: np.ndarray) -> float | None:
@@ -326,13 +333,19 @@ def _subject(sub: dict, rgba: np.ndarray, Y: np.ndarray, alpha: bool, emit_ids: 
     row["bright_side"] = {"vector": _unit(d), "strength": _r(min(1.0, float(np.linalg.norm(d)) / radius))}
     # the shaded mass must sit opposite the lit side, whatever lights the subject: no emitter is needed,
     # so a lone sprite is judged on this alone. Form shadow and cast shadow are not separable inside one box.
+    # Only where the file carries alpha: without it the bottom decile of a box is the ground behind the
+    # subject, and any frame-wide gradient turns that ground into a confident direction. A vignette of a
+    # tenth -- under the default post-process volume of a URP project, and below what anyone would call a
+    # defect -- measures 0.40 of shaded strength on a ball whose shading it never touched, and lands it
+    # 10 deg from its lit side: an asserted yes about the background. Alpha says which pixels are the
+    # subject, or, on a box wholly inside a silhouette, that none of them are ground.
     bright = np.array(row["bright_side"]["vector"])
     lo = shade & (Ys <= np.percentile(v, SHADOW_PERCENTILE))
     ly, lx = np.nonzero(lo)
     sd = np.array([lx.mean() + x - cx, ly.mean() + y - cy])
     # strength as for the bright side: a box over a uniform ground has its darkest pixels all round it,
     # so the offset is noise that normalising would turn into a confident diagonal
-    if np.linalg.norm(bright) > 0 and np.linalg.norm(sd) > 0:
+    if alpha and np.linalg.norm(bright) > 0 and np.linalg.norm(sd) > 0:
         row["shadow"] = {"vector": _unit(sd), "strength": _r(min(1.0, float(np.linalg.norm(sd)) / radius)),
                          "opposition_deg": _r(_angle(_unit(sd), -bright))}
     hi = shade & (Ys >= np.percentile(v, HIGHLIGHT_PERCENTILE))
@@ -423,7 +436,7 @@ def _key_fit(subjects: list[dict], emitters: list[dict], agreement: list[dict]) 
     return {"tolerance_deg": KEY_TOLERANCE_DEG, "best": best["hypothesis"], "hypotheses": hyps}
 
 
-def _form(subjects: list[dict], emitters: list[dict], agreement: list[dict]) -> tuple[dict, list[dict]]:
+def _form(subjects: list[dict], emitters: list[dict], agreement: list[dict], sha: str) -> tuple[dict, list[dict]]:
     """The typed answer sheet: null is what the observer fills; everything the measurement decided is
     absent. Pair questions exist only for the emitter a subject should answer to and the one it points
     at, and only in the band where the angle or hue does not decide."""
@@ -460,17 +473,23 @@ def _form(subjects: list[dict], emitters: list[dict], agreement: list[dict]) -> 
                   {"path": "global.atmosphere", "question": q["atmosphere"]},
                   {"path": "style.mode", "question": f"One of {MODES}: physical lights, a fixed stylistic key "
                    "(lighting.fake_lighting), or sprites the engine will light (no shading may be painted in)."}]
-    form = {"schema_version": ANSWERS, "style": {"mode": None}, "emitters": {e["id"]: None for e in emitters},
+    form = {"schema_version": ANSWERS, "image_sha256": sha, "style": {"mode": None}, "emitters": {e["id"]: None for e in emitters},
             "emitter_depth": {}, "pairs": pairs,
             "subjects": {s["id"]: {"no": [], "unknown": []} for s in _subject_surfaces()},
             "global": {"key": None, "atmosphere": None}}
     return form, questions
 
 
-def _answers(a, emitters: list[dict], subjects: list[dict]) -> dict:
+def _answers(a, emitters: list[dict], subjects: list[dict], sha: str) -> dict:
     """The filled form, checked at the trust boundary. Unfilled fields count as unknown."""
     if not isinstance(a, dict):
         raise ValueError("answers must be the form returned by light_ledger, filled in")
+    # emitter ids are ordinal by brightness, so they rebind when the pixels change: a re-export, a
+    # colour-grade pass or a different crop can make e2 a different blob than the one answered about.
+    # A form carries the image it was filled for; a hand-written one may omit it.
+    if a.get("image_sha256") not in (None, sha):
+        raise ValueError("answers were filled for a different image: emitter ids are ordinal by "
+                         "brightness and rebind when the pixels change, so run phase one on this file again")
     style = a.get("style") or {}
     mode = style.get("mode") or "physical"
     if not isinstance(style, dict) or mode not in MODES:
@@ -587,12 +606,17 @@ def _verdict(subjects: list[dict], emitters: list[dict], agreement: list[dict], 
     # a declared light the frame ignores is the elements disagreeing with each other, not with a brief;
     # under a declared stylistic key it is the style, so it lands on intentional_contrast instead
     dark = [e for e in emits if e["verdict"] == "lights_nothing"]
+    # a confirmed light whose neighbourhood could not be read is not a light that passed: bloom, a
+    # vignette or any exposure lift raises the emitter floor until the rings have no ground left, and
+    # the frame then reports no dark emitter because it measured none. That is warn, never pass.
+    unchecked = [e for e in emits if e["verdict"] == "unknown"]
     shadows = [r for r in rows if r.get("shadow_basis") == "measurement"]
     crossed = [r["id"] for r in shadows if r["cast_shadow"] == "no"]
     fake = mode == "fake_lighting"
     cohesion = "unknown"
     if not fake:
         cohesion = ("fail" if dark or crossed else
+                    "warn" if unchecked else
                     "pass" if shadows or any(e["verdict"] == "lights" for e in emits) else "unknown")
     frame = {"direction_compliance": "fail" if "fail" in axes else "warn" if "warn" in axes
              else "pass" if "pass" in axes else "unknown",
@@ -735,7 +759,7 @@ def ledger(path: Path, subjects: list[dict] | None = None, capture: str | None =
     rgb = rgba[..., :3].astype(np.float64) / 255.0
     Y = measure.luminance(rgb)
     emitters, emit_ids = _emitters(rgb, Y, opaque)
-    ans = _answers(answers, emitters, subs) if answers is not None else None
+    ans = _answers(answers, emitters, subs, meta["sha256"]) if answers is not None else None
     confirmed = None
     if ans:
         for e in emitters:
@@ -756,7 +780,7 @@ def ledger(path: Path, subjects: list[dict] | None = None, capture: str | None =
         verdict = _verdict(rows, live, agreement, key_fit, ans)
         out |= {"verdict": verdict, "record": _records(verdict, emitters, rows, ans, meta["sha256"], bool(capture))}
     else:
-        out["form"], out["questions"] = _form(rows, live, agreement)
+        out["form"], out["questions"] = _form(rows, live, agreement, meta["sha256"])
     if out_dir is not None:
         tag = hashlib.sha256(json.dumps([s["bbox"] for s in subs]).encode()).hexdigest()[:6]
         file = Path(out_dir) / meta["sha256"][:12] / f"light_ledger.{tag}{'.answered' if ans else ''}{'.mirror' if mirror else ''}.png"

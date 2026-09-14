@@ -168,7 +168,9 @@ def test_fake_and_engine_lit_modes(tmp_path):
     engine = light.ledger(p, BALL, answers=base | {"style": {"mode": "engine_lit"}})["verdict"]["subjects"][0]
     assert (engine["diffuse"], engine["axis"]) == ("baked", "warn")
     scene(tmp_path / "flat.png", flat=True)
-    flat = light.ledger(tmp_path / "flat.png", BALL, answers=base | {"style": {"mode": "engine_lit"}})
+    # its own form: a flat disc proposes a different emitter set, and a form is filled for one image
+    flat_form = light.ledger(tmp_path / "flat.png", BALL)["form"]
+    flat = light.ledger(tmp_path / "flat.png", BALL, answers=flat_form | {"style": {"mode": "engine_lit"}})
     assert (flat["verdict"]["subjects"][0]["diffuse"], flat["verdict"]["axes"]["direction_compliance"]) == ("flat", "pass")
 
 
@@ -245,3 +247,77 @@ def test_malformed_input_raises_value_error(tmp_path):
                 {"subjects": {"cast_shadow": {"no": ["ghost"]}}}, {"global": {"key": "yes!"}}, {"emitter_depth": {"e1": 1.5}}):
         with pytest.raises(ValueError):
             light.ledger(p, BALL, answers=bad)
+
+
+# --- perturbations reported from production pipelines -------------------------------------------
+# Each is a defect that ships, not a stress test: the default URP post-process volume carries bloom
+# and a vignette, assets come back from chat and trackers re-encoded, and an export written in the
+# wrong colour space crushes its own shadows. Every one of these used to move a slot.
+
+def _vignette(a, k=0.15):
+    """The default post-process volume: the frame corners darken. A tenth of it is invisible to an eye."""
+    H, W = a.shape[:2]
+    yy, xx = np.mgrid[:H, :W]
+    r = np.hypot((xx - W / 2) / (W / 2), (yy - H / 2) / (H / 2)) / np.sqrt(2)
+    f = (1 - k * r ** 2)[..., None]
+    return np.dstack([a[..., :3] * f, a[..., 3:]]) if a.shape[2] == 4 else a * f
+
+
+def _crushed(a):
+    """An sRGB export sampled as linear, then handed over through a tracker: the ground lands on the
+    bottom few code values and the codec's ringing around a bright decal outweighs any real spill."""
+    import io
+    x = np.dstack([a[..., :3] ** 2.2, a[..., 3:]]) if a.shape[2] == 4 else a ** 2.2
+    buf = io.BytesIO()
+    Image.fromarray((np.clip(x[..., :3], 0, 1) * 255).round().astype(np.uint8), "RGB").save(buf, "JPEG", quality=60)
+    return np.asarray(Image.open(buf).convert("RGB")).astype(np.float64) / 255
+
+
+def _write(path, fn, alpha=True):
+    a = np.asarray(disc(225, alpha=alpha)).astype(np.float64) / 255
+    out = np.clip(fn(a) * 255, 0, 255).round().astype(np.uint8)
+    Image.fromarray(out, "RGBA" if out.shape[2] == 4 else "RGB").save(path)
+    return path
+
+
+def test_a_vignette_is_not_a_shaded_mass(tmp_path):
+    """The bottom decile of a box in a file without alpha is the ground behind the subject, and any
+    frame-wide gradient turns that ground into a confident direction. A vignette of a tenth used to
+    measure 0.40 of shaded strength on a ball it never touched, and land it 10 deg from the lit side:
+    an asserted yes about the background. Alpha says which pixels are the subject; nothing else does."""
+    for k in (0.0, 0.15, 0.55):
+        flat = light.ledger(_write(tmp_path / f"r{k}.png", lambda a: _vignette(a, k), alpha=False), BALL)["subjects"][0]
+        assert flat["mask"] == "bbox" and flat["shadow"] is None, (k, flat["shadow"])
+        # under alpha the same gradient only bends the shaded mass: a heavy vignette costs 19 deg, which
+        # leaves the band the measurement settles and hands the subject to the observer, never to a no
+        sprite = light.ledger(_write(tmp_path / f"a{k}.png", lambda a: _vignette(a, k)))["subjects"][0]
+        opp = sprite["shadow"]["opposition_deg"]
+        assert light._shadow_measured(sprite) and opp < light.DISAGREE_DEG, (k, sprite["shadow"])
+        assert (opp <= light.KEY_TOLERANCE_DEG) == (k < 0.5), (k, opp)
+
+
+def test_a_light_nobody_could_check_never_passes_for_cohesion(tmp_path):
+    """A confirmed light whose neighbourhood cannot be read is not a light that passed. Two ways to lose
+    it: a crushed export, and a sprite on transparency that has no neighbourhood at all. Either way the
+    frame reports no dark emitter because it measured none, which is warn and never pass."""
+    for name, fn, alpha, subs in (("crushed", _crushed, False, BALL), ("sprite", lambda a: a, True, None)):
+        p = _write(tmp_path / f"{name}.png", fn, alpha=alpha)
+        form = light.ledger(p, subs)["form"]
+        form["style"]["mode"] = "physical"
+        form["emitters"] = {e["id"]: "neon" for e in light.ledger(p, subs)["emitters"]}
+        v = light.ledger(p, subs, answers=form)["verdict"]
+        assert any(e["verdict"] == "unknown" and not e["spill"] for e in v["emitters"]), (name, v["emitters"])
+        assert v["axes"]["asset_cohesion"] == "warn", (name, v["axes"])
+
+
+def test_a_form_belongs_to_the_image_it_was_filled_for(tmp_path):
+    """Emitter ids are ordinal by brightness, so they rebind when the pixels change: under a vignette the
+    lamp stopped being e1 and a sheet answered for one export silently re-bound to other blobs."""
+    p, q = scene(tmp_path / "s.png"), _write(tmp_path / "v.png", _vignette, alpha=False)
+    form = light.ledger(p, BALL)["form"]
+    assert form["image_sha256"] == light.ledger(p, BALL)["sha256"]
+    assert light.ledger(p, BALL, answers=form)["verdict"]["mode"] == "physical"
+    with pytest.raises(ValueError, match="different image"):
+        light.ledger(q, BALL, answers=form)
+    form.pop("image_sha256")                      # a hand-written sheet may omit it
+    assert light.ledger(q, BALL, answers=form)["verdict"]["mode"] == "physical"
