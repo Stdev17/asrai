@@ -60,6 +60,8 @@ flowchart TD
 - **a number in English prose → every translation of that document.** `docs/i18n/` mirrors a
   document, and the suite requires the same numeral in the mirror. Prose may lag behind its source and
   `tools/check_translations.py` says by how much; a number may not.
+- **an image → where it came from.** Any image a change adds says its origin and its licence in the
+  README of the directory it lands in. An image whose origin cannot be stated does not go in.
 - **anything landing → `CHECKPOINT.md`.** Keep `last_acceptance_passed` truthful.
 
 ## The three changes people actually make
