@@ -19,6 +19,7 @@ flowchart LR
 | [`conventions.md`](conventions.md) | how code and names are written here, and which alternatives were rejected and why | binding on new code; subordinate to spec.md |
 | [`CHECKPOINT.md`](CHECKPOINT.md) | what is built, what passed, what is known to be limited, what a human still has to decide | a status snapshot, rewritten as work lands. Never a promise |
 | [`../CONTRIBUTING.md`](../CONTRIBUTING.md) | how to make a change that will be accepted | process, not contract |
+| [`runbook.md`](runbook.md) | the steps for the operations people repeat here, and what may never be created | procedure. Steps only; it holds no reasons and outranks nothing |
 | [`review/`](review/) | why a decision was made, at the time it was made | historical. Dated, never edited — see its README. The pre-implementation playbook lives here too |
 
 One more file sits at the repository root and is not a contract:

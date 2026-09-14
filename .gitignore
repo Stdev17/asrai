@@ -230,3 +230,7 @@ corpus/team/
 .claude/settings.local.json
 # A copy of the packaged skill; the source is src/asrai/data/skill/SKILL.md
 .claude/skills/
+
+# Agent scratch, never tracked
+*.scratch.md
+scratch/

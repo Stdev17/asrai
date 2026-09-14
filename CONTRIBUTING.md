@@ -95,6 +95,14 @@ file before regenerating anything.
   at an invented strength proves nothing; the vignette that broke the shaded mass was 0.10, and it
   mattered precisely because that is invisible.
 
+## What not to add
+
+No plan files, progress notes, summaries, task lists or second checkpoints. They are indistinguishable
+from a documentation contribution at review time, and a worktree does not hide them — a pull request
+shows everything. Scratch goes outside the repository or under `*.scratch.md`; status goes in a
+`CHECKPOINT.md` entry; reasoning goes in a dated `docs/review/` file. [`docs/runbook.md`](docs/runbook.md)
+§3 is the full rule.
+
 ## Scope
 
 Say no to: absolute aesthetic scores, summing the three axes, generating or repainting pixels, and any
