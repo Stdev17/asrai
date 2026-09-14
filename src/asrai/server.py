@@ -59,15 +59,19 @@ def measure(path: str, target_width: int | None = None) -> dict:
 
 @server.tool()
 @_guard
-def light_ledger(path: str, subjects: list[dict] | None = None, capture: str | None = None, mirror: bool = False) -> dict:
-    """Lighting pass over a raster: proposed emitters, where each subject's shading points, the angle between
-    that and the direction to each emitter (0 = agrees), the highlight colour against the emitter colour, and the
-    atomic questions to answer (surfaces.v1), plus an overlay PNG under out/ with every id drawn on the image.
-    subjects: [{"id": "pipe_left", "bbox": [x, y, w, h]}] in pixels of the image, at most 16. capture: a
-    capture.json whose composed_of screen boxes become the subjects. Vectors are [dx, dy] with y down.
-    mirror=true measures the horizontally mirrored image: a direction claim must survive it to be asserted."""
+def light_ledger(path: str, subjects: list[dict] | None = None, capture: str | None = None, mirror: bool = False,
+                 answers: dict | None = None) -> dict:
+    """Lighting pass over a raster, in two phases. Without answers: proposed emitters (brightest blobs, e1 first),
+    per subject where the shading points, per (subject, emitter) the angle (0 = agrees), distance and hue difference,
+    a key-light fit (which single light explains the frame, residuals in degrees), an overlay PNG under out/ with
+    every id drawn on the image, and `form`: the typed answer sheet whose null fields are all an observer must fill.
+    With answers (the filled form): confirmed emitters leave the shading, and `verdict` (per subject: expected key,
+    agrees/disagrees, axis) and `record` (an observation record to pass to `record` after filling observer.model)
+    come back. subjects: [{"id": "pipe_left", "bbox": [x, y, w, h], "depth": 0}] in pixels, at most 16; depth is
+    an optional layer index (0 nearest). capture: a capture.json whose composed_of screen boxes become the subjects.
+    Vectors are [dx, dy] with y down. mirror=true measures the horizontally mirrored image."""
     cfg = config.load()
-    return light.ledger(Path(path), subjects, capture, Path(cfg["_root"]) / cfg["paths"]["out"], mirror)
+    return light.ledger(Path(path), subjects, capture, Path(cfg["_root"]) / cfg["paths"]["out"], mirror, answers)
 
 
 @server.tool()

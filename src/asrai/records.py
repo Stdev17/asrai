@@ -19,7 +19,7 @@ SCHEMAS = {"observation": "observation.v1", "pairwise": "pairwise.v1", "instruct
 # Reading order and coherence exist only between elements of one frame: never asserted on a lone asset.
 L2_ONLY = frozenset(t for t in ("perception.visual_hierarchy", "perception.attention", "perception.style_coherence")
                     if t in vocab.index())
-DIGIT = re.compile(r"\d")
+DIGIT = re.compile(r"(?<![A-Za-z_])\d")   # a digit inside an id (e2, pipe_2) is a name; a bare digit is a magnitude
 HEX64 = re.compile(r"^[0-9a-f]{64}$")
 
 
@@ -98,7 +98,7 @@ def _validate_observation(r: dict) -> list[str]:
                                             and all(isinstance(v, int) and v >= 0 for v in region)):
             e.append(f"{p}: region must be 'whole_image' or [x, y, w, h] in pixels of the observed scale")
         if DIGIT.search(str(o.get("note", ""))):
-            e.append(f"{p}: note must not contain numbers; magnitudes come from measurements or precedents")
+            e.append(f"{p}: note must not contain numbers (ids like e2 are fine); magnitudes come from measurements or precedents")
     return e
 
 

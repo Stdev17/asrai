@@ -192,35 +192,60 @@ magnitudes, and by asking A/B and B/A.
 
 A holistic "the lighting is off" is the least reliable thing a vision model produces and the most
 common defect of generated images: every object is shaded plausibly on its own, and the shading agrees
-neither across objects nor with the visible sources. The pass decomposes appearance into surfaces and
-asks one atomic question per surface, subject and emitter, in the Davidsonian style (Cho et al. 2024):
-questions are data, answers are yes / no / unknown, and a measurement decides what it can.
+neither across objects nor with the visible sources. The pass decomposes appearance into surfaces, lets
+the measurement decide every question it can, and asks the observer only the rest, through a typed form.
 
 - `surfaces.v1.json` (stock): ten surfaces in pass order — `emissive`, `key`, `diffuse`, `specular`,
   `light_color`, `cast_shadow`, `ambient`, `rim`, `atmosphere`, `albedo` — each with
   `scope ∈ emitter/subject/pair/global`, one question template, the ledger fields that decide it
   (empty for observation-only surfaces) and the vocabulary terms it is recorded under (`terms[0]` is
-  the `term_id`). `style_exemption` names `lighting.fake_lighting`: a declared stylistic light turns a
-  disagreement into `intentional_contrast`.
-- `light_ledger.v1` (measurement; tool `light_ledger`, CLI `light-ledger`): proposed emitters (bright
-  blobs that are chromatic or near white, brightest first, `kind: proposed`); per subject the
-  bright-side vector (top-decile luminance centroid against the mask centroid, which reads cel and flat
-  shading) and the contour fit (Johnson & Farid 2005: luminance along the occluding contour against its
-  normal, alpha masks only, with `r2` saying whether the form shades like a Lambertian surface at all),
-  the highlight colour; per (subject, emitter) the angle between the bright side and the direction to
-  the emitter and the hue difference between highlight and emitter; a global key direction with an
-  `alignment` score; the instantiated questions; and an overlay PNG under `out/<sha>/` with every id
-  drawn on the image (Set-of-Mark, Yang et al. 2023), so the observer refers to `pipe_left` and `e2`
-  rather than to "the pipe". Subjects come from the capture contract's `screen_bbox`, from a sprite's
-  alpha, or from boxes the observer proposes; the ledger never segments a raw image itself.
+  the `term_id`). It also carries the answer contract (`light_answers.v1`), the thresholds and the
+  three lighting modes.
+- `light_ledger.v1` (measurement; tool `light_ledger`, CLI `light-ledger`), phase one: proposed
+  emitters (the brightest blobs, brightest first, `kind: proposed`; bright paint qualifies and is
+  rejected by the observer); per subject the bright-side vector (top-decile luminance centroid against
+  the mask centroid, which reads cel and flat shading) and the contour fit (Johnson & Farid 2005,
+  luminance along the occluding contour against its normal, alpha masks only, `r2` saying whether the
+  form shades like a Lambertian surface at all), and the highlight colour; per (subject, emitter) the
+  angle between bright side and the direction to the emitter, the image distance, the hue difference
+  between highlight and emitter, and an irradiance proxy (luminance × area / distance², depth layers
+  widening the distance, normalised so the emitter a subject should answer to reads one); `key_fit`:
+  one directional hypothesis (the mean bright side: an off-screen or stylistic key) and one point
+  hypothesis per emitter, each with the per-subject residuals summarised as median, max and share
+  within tolerance, and the best by median; the overlay PNG under `out/<sha>/` with every id drawn on
+  the image (Set-of-Mark, Yang et al. 2023); and `form`, the typed answer sheet.
+- Phase two, with `answers` (the filled form): confirmed emitters leave every subject's shading, rejected
+  ones void their pairs (a parent answered no counts its children as no: the dependency rule of the
+  Davidsonian scene graph, Cho et al. 2024; its averaged score is deliberately not adopted), and the
+  ledger returns `verdict` (per subject: expected key, residual in degrees, `agrees | disagrees |
+  unknown` with its basis, the axis outcome; `baked | flat` in `engine_lit` mode) and `record`, an
+  observation record whose measured items are `asserted` and observer items `estimated`, ready for
+  `record` once `observer.model` is filled.
+- Depth is an ordinal layer index (nearest first), never a distance. The image-plane direction from a
+  subject to an emitter is exact without it (a line in space projects to the line through the two
+  projected points); depth only decides which light a subject should answer to (falloff) and, later,
+  whether a source lies in front or behind. Engine captures will carry real positions and lights in the
+  capture contract (`lights[]`, `composed_of[].world_position`) `[planned]`; a raw image gets layer
+  indexes from the observer; a monocular depth adapter is `[planned, optional]`.
+- Thresholds: agreement within twenty degrees is decided by measurement, beyond sixty likewise, between
+  the observer is asked. The emitter a subject answers to is its expected key (designed sources — lamp,
+  sky, screen — outrank decorative ones, then the proxy), or the one it points at when at least a
+  quarter as strong, because the proxy under-reads clipped lamp heads. Light colour stays with the
+  observer: a box that holds a painted band has a highlight in the band's hue, which no body/highlight
+  comparison can tell from a cast until subjects carry material masks (L0 slices) `[planned]`. Estimator noise on synthetic Lambertian and cel discs, alpha or rectangle
+  masks, stays under three degrees (bright side) and eight (contour fit): conformance 16. A hand-drawn
+  scene holds its key to about ten degrees; suspicion starts near eighteen (cosine 0.95). Team
+  precedent replaces these numbers.
+- Modes: `physical` (lights in the frame), `fake_lighting` (one stylistic key: the directional
+  hypothesis is the expectation and physical disagreement lands on `intentional_contrast`),
+  `engine_lit` (sprites the engine will light through normal maps: painted directional shading is a
+  defect, since the engine lights it again).
 - Invariance: `mirror=true` measures the horizontally mirrored image with mirrored boxes. A direction
-  claim recorded as `asserted` must mirror with the image, the same rule `order_checked` applies to
-  pairwise verdicts.
+  recorded as `asserted` must mirror with the image, the same rule `order_checked` applies to pairwise
+  verdicts.
 - What stays with the observer: whether a proposed emitter emits, cast shadows, ambient and occlusion,
-  atmosphere, albedo constancy, and depth (a two-dimensional direction cannot separate a source in
-  front of the subject from one behind it). Those answers are `estimated` at best.
-- A fix is a recipe: relighting (IC-Light-class tools) is a Phase 2+ adapter with its own hash and
-  preview, and never runs from an `unknown`.
+  atmosphere, albedo constancy. A fix is a recipe: relighting (IC-Light-class tools, Zhang et al. 2025)
+  is a Phase 2+ adapter with its own hash and preview, and never runs from an `unknown`.
 
 ## 8. Recipes and the alpha policy
 
@@ -357,7 +382,7 @@ downloads one if needed.
 |---|---|---|---|
 | 0 | stock vocabulary v2 from the origin corpus, learning layer removed, all 22 domain categories kept | validator passes: 475 entries, 8 numeric and 9 rejection tests, locale coverage, no `_ko` keys | done |
 | 1 | core and transports: vocab, measure V0, records, lint, doctor, CLI, MCP | tests pass; MCP `tools/list` and `tools/call` over stdio; fixture set of six images with expected `measure` JSON committed | done |
-| 1b | surface pass: `surfaces.v1.json`, `light_ledger` with overlay and mirror check (7.1) | synthetic Lambertian disc: bright side and contour fit within the lamp's direction, decoy rejected, mirror flips x only; every surface maps onto vocabulary terms and the skill | done |
+| 1b | surface pass: `surfaces.v1.json`, `light_ledger` in two phases with key fit, depth layers, typed form, verdict and record (7.1) | synthetic discs: both estimators under the thresholds on eight directions, four mask/shading variants; lamp expected over a nearer decoy, depth layers flip it; rejected emitters void their pairs; the built record validates; mirror flips x only | done |
 | 2 | recipes and tool adapters (section 8), alpha policy, recipe hashes, `preview`, `apply`, `diff`, `contact-sheet` | determinism (same input, recipe, versions → same hash); alpha invariance on 8-bit, indexed and premultiplied fixtures; refusal on 16-bit colour | planned |
 | 3 | forty stock cases and the pack format | every case passes `lint`; each cluster has three cases; first team session rejects under half | planned |
 | 4 | ingest (alias ladder with `mapped_by`), promotion with conflict check, `bootstrap` pairwise elicitation, taste profile | LLM-mapping share under half on ten fixture comments; conflict fixture blocks promotion; profile rebuild is byte-identical | planned |
@@ -374,7 +399,7 @@ recipes refused under `preserve`; 5 lint rejections `[built]`; 6 candidates neve
 byte-equality; 8 cache independence; 9 observer partition; 10 conflict block on promotion; 11
 observation notes carry no digits and layer rules hold `[built]`; 12 CLI and MCP produce identical
 output `[built for vocab_get and measure]`; 13 inputs untouched by any verb; 14 taste profile rebuild
-byte-equality; 15 lock drift detection `[built]`; 16 `light_ledger` determinism and mirror invariance `[built]`.
+byte-equality; 15 lock drift detection `[built]`; 16 `light_ledger` determinism, mirror invariance and estimator noise floor `[built]`.
 
 ## 15. Open questions
 

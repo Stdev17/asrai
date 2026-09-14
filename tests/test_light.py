@@ -1,56 +1,136 @@
-"""light_ledger: a Lambertian disc lit from the upper-left must point there, agree with the lamp
-placed there, disagree with the decoy, and mirror with the image."""
+"""light_ledger: a Lambertian disc lit from the upper-left must point there, answer to the lamp placed
+there, reject the decoy, mirror with the image, and turn a filled form into verdicts and a record."""
 import json
 
 import numpy as np
 import pytest
 from PIL import Image
 
-from asrai import light
+from asrai import light, records
 
-LIGHT = np.array([-0.5, -0.5, np.sqrt(0.5)])           # unit: towards the upper-left, out of the image
 BALL = [{"id": "ball", "bbox": [50, 30, 80, 80]}]
 UPPER_LEFT = np.array([-1.0, -1.0]) / np.sqrt(2)
 
 
-def scene(path):
+def disc(ang_deg, alpha=True, cel=False, flat=False):
+    """A 36 px disc at (90, 70) lit from `ang_deg` in the image plane (y down), a white lamp at the
+    upper-left and a small cyan decoy at the lower-right; the decoy is nearer, the lamp stronger."""
     W, H = 160, 120
-    img = np.zeros((H, W, 4), np.uint8)
     yy, xx = np.mgrid[:H, :W]
+    L = np.array([np.cos(np.radians(ang_deg)) * 0.7071, np.sin(np.radians(ang_deg)) * 0.7071, 0.7071])
     nx, ny = (xx - 90) / 36, (yy - 70) / 36
     inside = nx ** 2 + ny ** 2 <= 1
     nz = np.sqrt(np.clip(1 - nx ** 2 - ny ** 2, 0, 1))
-    shade = 0.08 + 0.45 * np.clip(nx * LIGHT[0] + ny * LIGHT[1] + nz * LIGHT[2], 0, 1)
+    ndl = np.clip(nx * L[0] + ny * L[1] + nz * L[2], 0, 1)
+    shade = np.full(ndl.shape, 0.3) if flat else np.where(ndl > 0.45, 0.5, 0.12) if cel else 0.08 + 0.45 * ndl
     srgb = np.where(shade <= 0.0031308, shade * 12.92, 1.055 * shade ** (1 / 2.4) - 0.055)
-    for c, k in enumerate((1.0, 0.92, 0.80)):            # a warm grey ball
-        img[..., c] = np.where(inside, srgb * k * 255, 0).round()
-    img[..., 3] = np.where(inside, 255, 0)
-    img[(xx - 18) ** 2 + (yy - 14) ** 2 <= 36] = (255, 255, 240, 255)     # white lamp, upper-left
-    img[(xx - 150) ** 2 + (yy - 110) ** 2 <= 25] = (0, 255, 255, 255)     # cyan decoy, lower-right
-    Image.fromarray(img, "RGBA").save(path)
+    rgb = np.zeros((H, W, 3), np.uint8)
+    for c, k in enumerate((1.0, 0.92, 0.80)):                       # a warm grey ball on a dark ground
+        rgb[..., c] = np.where(inside, srgb * k * 255, 30 if c < 2 else 40).round()
+    lamp, decoy = (xx - 18) ** 2 + (yy - 14) ** 2 <= 36, (xx - 150) ** 2 + (yy - 110) ** 2 <= 16
+    rgb[lamp], rgb[decoy] = (255, 255, 240), (0, 255, 255)
+    if not alpha:
+        return Image.fromarray(rgb, "RGB")
+    return Image.fromarray(np.dstack([rgb, np.where(inside | lamp | decoy, 255, 0).astype(np.uint8)]), "RGBA")
+
+
+def scene(path, **kw):
+    disc(225, **kw).save(path)
     return path
 
 
-def test_direction_emitters_fit_and_questions(tmp_path):
+def test_direction_emitters_fit_key_and_form(tmp_path):
     led = light.ledger(scene(tmp_path / "s.png"), BALL, out_dir=tmp_path / "out")
     assert led == light.ledger(tmp_path / "s.png", BALL, out_dir=tmp_path / "out")
     ball = led["subjects"][0]
-    assert ball["mask"] == "alpha" and np.dot(ball["bright_side"]["vector"], UPPER_LEFT) > 0.9
-    assert ball["contour_fit"]["r2"] > 0.5 and np.dot(ball["contour_fit"]["vector"], UPPER_LEFT) > 0.9
-    assert len(led["emitters"]) == 2 and led["emitters"][0]["id"] == "e1"
-    lamp, decoy = led["emitters"]                        # brightest first: the white lamp, then cyan
-    assert np.hypot(*(np.array(lamp["centroid"]) - (18, 14))) < 2 and np.hypot(*(np.array(decoy["centroid"]) - (150, 110))) < 2
+    assert ball["mask"] == "alpha" and np.dot(ball["bright_side"]["vector"], UPPER_LEFT) > 0.99
+    assert ball["contour_fit"]["r2"] > 0.5 and np.dot(ball["contour_fit"]["vector"], UPPER_LEFT) > 0.99
+    lamp, decoy = led["emitters"]                                   # brightest first
+    assert lamp["id"] == "e1" and np.hypot(*(np.array(lamp["centroid"]) - (18, 14))) < 2
+    assert np.hypot(*(np.array(decoy["centroid"]) - (150, 110))) < 2
     by = {a["emitter"]: a for a in led["agreement"]}
-    assert by[decoy["id"]]["distance_px"] < by[lamp["id"]]["distance_px"]   # nearer, yet not what the shading points at
-    assert by[lamp["id"]]["angle_deg"] < 20 and by[decoy["id"]]["angle_deg"] > 120
-    assert by[lamp["id"]]["hue_delta_deg"] is None and by[decoy["id"]]["hue_delta_deg"] > 90
-    assert led["global"]["alignment"] > 0.99 and np.dot(led["global"]["key_direction"], UPPER_LEFT) > 0.9
+    assert by["e1"]["angle_deg"] < 10 and by["e2"]["angle_deg"] > 120
+    assert by["e1"]["irradiance_proxy"] == 1.0 > by["e2"]["irradiance_proxy"]
+    assert by["e2"]["distance_px"] < by["e1"]["distance_px"]         # nearer, yet weaker and not pointed at
+    assert by["e1"]["hue_delta_deg"] is None and by["e2"]["hue_delta_deg"] > 90
+    fit = led["key_fit"]
+    assert fit["best"] == "e1" and {h["hypothesis"] for h in fit["hypotheses"]} == {"directional", "e1", "e2"}
+    assert next(h for h in fit["hypotheses"] if h["hypothesis"] == "e1")["median_deg"] < 10
+    form = led["form"]
+    assert form["emitters"] == {"e1": None, "e2": None} and form["style"]["mode"] is None
+    assert [(p["surface"], p["emitter"]) for p in form["pairs"]] == [("specular", "e1"), ("light_color", "e1")]
+    assert {q["path"].split(".")[0].split("[")[0] for q in led["questions"]} == {"emitters", "pairs", "subjects", "global", "style"}
     assert Image.open(led["overlay"]).size == (160, 120)
-    surfaces = [q["surface"] for q in led["questions"]]
-    assert surfaces[:2] == ["emissive", "emissive"] and surfaces.count("diffuse") == 2   # lamp: pointed at and brightest; decoy: nearest
-    pair = next(q for q in led["questions"] if q["surface"] == "diffuse")
-    assert pair["term_id"] == "lighting.form_shadow" and pair["region"] == [50, 30, 80, 80]
-    assert "ball" in pair["question"] and pair["emitter"] in pair["question"]
+
+
+def test_answers_phase_gives_verdict_and_record(tmp_path):
+    p = scene(tmp_path / "s.png")
+    form = light.ledger(p, BALL)["form"]
+    form["style"]["mode"] = "physical"
+    form["emitters"] = {"e1": "lamp", "e2": "paint"}
+    for pair in form["pairs"]:
+        pair["answer"] = "yes" if pair["surface"] == "specular" else "unknown"
+    form["subjects"]["cast_shadow"]["no"] = ["ball"]
+    form["global"] = {"key": "yes", "atmosphere": "unknown"}
+    led = light.ledger(p, BALL, answers=form, out_dir=tmp_path / "out")
+    assert [e["kind"] for e in led["emitters"]] == ["lamp", "paint"]
+    assert {a["emitter"] for a in led["agreement"]} == {"e1"}       # the rejected decoy voids its pairs
+    v = led["verdict"]["subjects"][0]
+    assert (v["expected_key"], v["diffuse"], v["basis"], v["axis"]) == ("e1", "agrees", "measurement", "pass")
+    assert (v["specular"], v["cast_shadow"], v["ambient"], v["light_color"], v["color_basis"]) == ("yes", "no", "yes", "unknown", "observer")
+    assert led["subjects"][0]["highlight"]["hue_shift_from_body_deg"] < 30      # brighter paint, no cast
+    assert led["verdict"]["axes"]["direction_compliance"] == "pass" and led["overlay"].endswith(".answered.png")
+    rec = led["record"]
+    assert rec["observer"]["model"] is None and rec["evidence_layer"] == "L1"
+    rec["observer"]["model"] = "test-model"
+    assert records.validate(rec) == []
+    by_term = {}
+    for item in rec["observations"]:
+        by_term.setdefault(item["term_id"], []).append(item)
+    assert [i["note"][-8:] for i in by_term["material.emission"]] == [" as lamp", "a source"]
+    assert by_term["lighting.form_shadow"][0]["level"] == "asserted" and "e1" in by_term["lighting.form_shadow"][0]["note"]
+    assert by_term["lighting.cast_shadow"][0]["level"] == "estimated" and by_term["lighting.light_direction"][0]["region"] == "whole_image"
+
+
+def test_depth_layers_change_the_expected_key(tmp_path):
+    """Pushing the lamp three layers back makes the nearer decoy the light to answer to."""
+    p = scene(tmp_path / "s.png")
+    form = light.ledger(p, [BALL[0] | {"depth": 0}])["form"]
+    form["emitters"], form["emitter_depth"] = {"e1": "lamp", "e2": "lamp"}, {"e1": 3}
+    v = light.ledger(p, [BALL[0] | {"depth": 0}], answers=form)["verdict"]["subjects"][0]
+    assert (v["expected_key"], v["pointed_at"], v["verdict_emitter"], v["diffuse"]) == ("e2", "e1", "e1", "agrees")   # still strong enough
+    form["emitter_depth"] = {"e1": 6}
+    v = light.ledger(p, [BALL[0] | {"depth": 0}], answers=form)["verdict"]["subjects"][0]
+    assert (v["expected_key"], v["verdict_emitter"], v["diffuse"], v["axis"]) == ("e2", "e2", "disagrees", "fail")
+    form["emitters"] = {"e1": "lamp", "e2": "neon"}                  # a designed source outranks a decorative one
+    v = light.ledger(p, [BALL[0] | {"depth": 0}], answers=form)["verdict"]["subjects"][0]
+    assert (v["expected_key"], v["diffuse"]) == ("e1", "agrees")
+
+
+def test_fake_and_engine_lit_modes(tmp_path):
+    p = scene(tmp_path / "s.png")
+    base = light.ledger(p, BALL)["form"]
+    fake = light.ledger(p, BALL, answers=base | {"style": {"mode": "fake_lighting"}})["verdict"]
+    assert (fake["subjects"][0]["expected_key"], fake["subjects"][0]["diffuse"]) == ("directional", "agrees")
+    assert fake["axes"]["intentional_contrast"] == "pass"
+    engine = light.ledger(p, BALL, answers=base | {"style": {"mode": "engine_lit"}})["verdict"]["subjects"][0]
+    assert (engine["diffuse"], engine["axis"]) == ("baked", "warn")
+    scene(tmp_path / "flat.png", flat=True)
+    flat = light.ledger(tmp_path / "flat.png", BALL, answers=base | {"style": {"mode": "engine_lit"}})
+    assert (flat["verdict"]["subjects"][0]["diffuse"], flat["verdict"]["axes"]["direction_compliance"]) == ("flat", "pass")
+
+
+@pytest.mark.parametrize("alpha,cel", [(True, False), (False, False), (True, True), (False, True)],
+                         ids=["lambert-alpha", "lambert-rect", "cel-alpha", "cel-rect"])
+def test_estimator_noise_floor_on_every_direction(tmp_path, alpha, cel):
+    """Both estimators stay well inside the thresholds the ledger reasons with (surfaces.v1 thresholds)."""
+    for ang in range(0, 360, 45):
+        disc(ang, alpha=alpha, cel=cel).save(tmp_path / "d.png")
+        s = light.ledger(tmp_path / "d.png", [{"id": "d", "bbox": [54, 34, 72, 72]}])["subjects"][0]
+        truth = np.array([np.cos(np.radians(ang)), np.sin(np.radians(ang))])
+        assert light._angle(s["bright_side"]["vector"], truth) < 5, (ang, s["bright_side"])
+        if alpha:
+            assert s["contour_fit"]["r2"] > 0.5 and light._angle(s["contour_fit"]["vector"], truth) < 10, (ang, s["contour_fit"])
 
 
 def test_mirror_flips_x_only(tmp_path):
@@ -67,23 +147,29 @@ def test_no_alpha_and_no_subjects(tmp_path):
     img[10:20, 60:75] = 255
     Image.fromarray(img, "RGB").save(tmp_path / "f.png")
     led = light.ledger(tmp_path / "f.png")
-    assert led["subjects"] == [] and led["global"] is None and led["overlay"] is None
-    assert [e["kind"] for e in led["emitters"]] == ["proposed"]
-    assert {q["surface"] for q in led["questions"]} == {"emissive", "key", "atmosphere"}
+    assert led["subjects"] == [] and led["key_fit"] is None and led["overlay"] is None
+    assert [e["kind"] for e in led["emitters"]] == ["proposed"] and led["form"]["pairs"] == []
 
 
 def test_capture_boxes_become_subjects(tmp_path):
     p = scene(tmp_path / "frame.png")
     cap = tmp_path / "capture.json"
-    cap.write_text(json.dumps({"composed_of": [{"game_object": "Ball", "screen_bbox": [50, 30, 80, 80]},
+    cap.write_text(json.dumps({"composed_of": [{"game_object": "Ball", "screen_bbox": [50, 30, 80, 80], "depth": 2},
                                                {"game_object": "Ball", "screen_bbox": [0, 0, 8, 8]},
                                                {"game_object": "Ghost"}]}), "utf-8")
-    assert [s["id"] for s in light.ledger(p, capture=str(cap))["subjects"]] == ["Ball", "Ball_2"]
+    subs = light.ledger(p, capture=str(cap))["subjects"]
+    assert [(s["id"], s["depth"]) for s in subs] == [("Ball", 2), ("Ball_2", None)]
 
 
-def test_malformed_subjects_raise_value_error(tmp_path):
+def test_malformed_input_raises_value_error(tmp_path):
     p = scene(tmp_path / "s.png")
     for bad in ("ball", [{"id": "b"}], [{"id": "b", "bbox": [0, 0, 0, 5]}], [{"id": "b", "bbox": [1.5, 0, 5, 5]}],
-                [{"id": "b", "bbox": [500, 500, 5, 5]}], [{"id": "b", "bbox": [0, 0, 5, 5]}] * 2, [7]):
+                [{"id": "b", "bbox": [500, 500, 5, 5]}], [{"id": "b", "bbox": [0, 0, 5, 5]}] * 2, [7],
+                [{"id": "b", "bbox": [0, 0, 5, 5], "depth": -1}]):
         with pytest.raises(ValueError):
             light.ledger(p, bad)
+    for bad in ("yes", {"emitters": {"zz": "lamp"}}, {"emitters": {"e1": "sun"}}, {"style": {"mode": "magic"}},
+                {"pairs": [{"subject": "ball", "emitter": "e1", "surface": "diffuse", "answer": "maybe"}]},
+                {"subjects": {"cast_shadow": {"no": ["ghost"]}}}, {"global": {"key": "yes!"}}, {"emitter_depth": {"e1": 1.5}}):
+        with pytest.raises(ValueError):
+            light.ledger(p, BALL, answers=bad)

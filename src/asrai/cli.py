@@ -49,6 +49,7 @@ def build_parser() -> argparse.ArgumentParser:
     lg.add_argument("path"); lg.add_argument("--subject", action="append", metavar="ID=X,Y,W,H", help="repeatable, pixels of the image")
     lg.add_argument("--capture", help="capture.json whose composed_of screen boxes become the subjects")
     lg.add_argument("--mirror", action="store_true", help="measure the horizontally mirrored image")
+    lg.add_argument("--answers", help="the filled form (JSON file, or - for stdin): returns verdict and record")
     lg.add_argument("--out", help="overlay directory (default: paths.out from asrai.toml)")
     r = sub.add_parser("record", help="append a validated record to the team log")
     r.add_argument("file", help="JSON file, or - for stdin")
@@ -82,7 +83,8 @@ def main(argv: list[str] | None = None) -> int:
             cfg = config.load()
             subjects = [_subject(s) for s in args.subject] if args.subject else None
             out = Path(args.out) if args.out else Path(cfg["_root"]) / cfg["paths"]["out"]
-            _emit(light.ledger(Path(args.path), subjects, args.capture, out, args.mirror))
+            answers = _read_json(args.answers) if args.answers else None
+            _emit(light.ledger(Path(args.path), subjects, args.capture, out, args.mirror, answers))
         elif args.command == "record":
             cfg = config.load()
             _emit(records.append(_read_json(args.file), config.team_dir(cfg) / "records.jsonl"))

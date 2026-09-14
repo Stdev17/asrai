@@ -93,6 +93,10 @@ def test_records_validation_and_append(tmp_path):
     assert len(records.read(log)) == 1
     with pytest.raises(ValueError, match="must not contain numbers"):
         records.append(base | {"observations": [{"term_id": "color.saturation", "level": "estimated", "note": "about 5% too much"}]}, log)
+    records.append(base | {"observations": [{"term_id": "lighting.form_shadow", "level": "estimated",
+                                             "note": "bright side of pipe_2 faces e1 rather than e2"}]}, log)  # ids may end in digits
+    with pytest.raises(ValueError, match="must not contain numbers"):
+        records.append(base | {"observations": [{"term_id": "lighting.form_shadow", "level": "estimated", "note": "reads at 1080p"}]}, log)
     with pytest.raises(ValueError, match="can only be unknown"):
         records.append(base | {"observations": [{"term_id": "perception.visual_hierarchy", "level": "asserted", "note": "reads first"}]}, log)
     with pytest.raises(ValueError, match="must be L2"):
@@ -104,7 +108,7 @@ def test_records_validation_and_append(tmp_path):
     with pytest.raises(ValueError, match="order_checked"):
         records.append(pair, log)
     records.append(pair | {"by": "human"}, log)
-    assert len(records.read(log)) == 2
+    assert len(records.read(log)) == 3
 
 
 def test_doctor_lock_and_drift(tmp_path):
@@ -124,7 +128,7 @@ def test_mcp_tools_in_process_and_over_stdio():
     names = {t.name for t in asyncio.run(server.list_tools())}
     assert names == {"vocab_search", "vocab_get", "measure", "light_ledger", "record", "lint", "doctor"}
     schema = next(t for t in asyncio.run(server.list_tools()) if t.name == "light_ledger").input_schema
-    assert schema["properties"]["subjects"]["anyOf"][0]["type"] == "array"
+    assert schema["properties"]["subjects"]["anyOf"][0]["type"] == "array" and "answers" in schema["properties"]
     msgs = [
         {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": "2025-06-18", "capabilities": {},
                                                                     "clientInfo": {"name": "test", "version": "0"}}},

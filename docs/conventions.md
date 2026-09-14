@@ -93,6 +93,11 @@ is a new row.
 | `global.alignment` | `coherence` | blurs with the `asset_cohesion` axis |
 | `mirror` (boolean) | `flip` | `flip` reads as a vertical flip to a game artist; a boolean at the tool surface per section 2 |
 | `emitters[].kind: proposed` | `confirmed: false` | the value names what the row is, not what it lacks; `confirmed` is what an observation later says |
+| `key_fit` with `median_deg`, `within_tolerance` | `global.alignment` (mean resultant length) | a resultant length assumes one directional light and hides its unit; residual degrees per hypothesis say which light explains the frame and how badly |
+| `irradiance_proxy` | `irradiance`, `weight` | luminance × area over squared distance in pixels is not an irradiance; the suffix keeps a model from citing it as one |
+| `depth` as a layer index | `z`, `distance` | for stacked 2-D art depth is an ordering (Illustrator's Depth, Maruani et al. 2025); a distance would invite invented numbers |
+| `form` / `answers` | `questions` as the only interface | a typed sheet whose null fields are the whole ask; prose questions remain, derived from it |
+| `style.mode ∈ physical/fake_lighting/engine_lit` | `fake_lighting: bool` | three expectations, not two; a boolean could not say "the engine lights this" |
 
 **Structural notes — not naming problems, and not fixable by renaming.**
 

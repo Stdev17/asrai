@@ -75,37 +75,48 @@ to choose.
 
 "Is the lighting consistent?" is a question a vision model answers unreliably. "Does the bright side
 of `pipe_left` face `e2`?" it answers reliably, given the picture with `pipe_left` and `e2` drawn on
-it. `light_ledger` turns the first question into a list of the second, from `surfaces.v1.json`
-(bundled beside the vocabulary): ten surfaces an image's appearance decomposes into, in pass order,
-each with one atomic question and the term id an answer is recorded under.
+it. `light_ledger` turns the first into the fewest of the second, from `surfaces.v1.json` (bundled
+beside the vocabulary): ten surfaces an image's appearance decomposes into — `emissive`, `key`,
+`diffuse`, `specular`, `light_color`, `cast_shadow`, `ambient`, `rim`, `atmosphere`, `albedo` — each
+with one atomic question and the term id an answer is recorded under. Two calls, one form, no prose.
 
 1. Subjects. A capture: `capture=capture.json` (its `composed_of` screen boxes). A sprite: one
    subject over the whole file. A raw image: propose up to sixteen boxes yourself, the things that
-   carry shading, as `subjects=[{"id": "pipe_left", "bbox": [x, y, w, h]}]`. The ledger never
-   segments a raw image on its own.
-2. Call `light_ledger` and look at `overlay`: white boxes are subjects, magenta boxes are proposed
-   emitters (`e1` is the brightest), the yellow arrow is where a subject's bright side points, the cyan
-   arrow is the contour fit (alpha masks only), and the label at the arrow tip names the emitter the
-   shading points at and the angle to it. `agreement` also carries the distance to each emitter, and
-   pair questions are asked against the emitter the shading points at, the nearest one and `e1`.
-3. Answer `questions` in order with yes, no or unknown and one line each. `emissive` comes first
-   because bright paint is the usual false positive and every later pair question is about an emitter.
-4. Levels. A surface with ledger fields (`emissive`, `key`, `diffuse`, `specular`, `light_color`,
-   `rim`) is `asserted` when the field decides it: `angle_deg` near zero agrees, near a half turn
-   disagrees, a small `hue_delta_deg` means the highlight carries the emitter's colour. The ledger's
-   `highlight` is the subject's brightest region: on a pipe with a bright painted band it is the band,
-   so a `specular` answer whose highlight colour is the subject's own paint stays `estimated`. A
-   surface with no field (`cast_shadow`, `ambient`, `atmosphere`, `albedo`) is `estimated` at best.
-5. Mirror check before any direction claim is recorded as `asserted`: call again with `mirror=true`
-   and answer again. A claim that does not mirror with the image is `unknown`.
-6. Record one observation item per answer: `term_id` and `region` from the question, a note that
-   names the subject and emitter ids and carries no digits. If the asset group's context declares
-   `lighting.fake_lighting` (a fixed stylistic light, common in pixel art), a disagreement is
-   `intentional_contrast`, not `direction_compliance`.
+   carry shading, as `subjects=[{"id": "pipe_left", "bbox": [x, y, w, h], "depth": 0}]`. `depth` is
+   an optional layer index (nearest first, as an illustrator stacks layers), never a distance; it only
+   widens the distance to a light on another layer. The ledger never segments a raw image itself.
+2. Phase one: call `light_ledger` and look at `overlay`. White boxes are subjects, magenta boxes are
+   proposed emitters (`e1` is the brightest; bright paint is proposed too, on purpose), the yellow
+   arrow is where a subject's bright side points, the cyan arrow is the contour fit (alpha masks
+   only), the label at the tip names the emitter the subject should answer to and the angle to it,
+   and the corner text is `key_fit`: the single light that best explains the frame, with the median
+   residual in degrees and the share of subjects within tolerance. A `directional` best hypothesis
+   with a low residual and no emitter near it means an off-screen or stylistic key.
+3. Fill `form`. Its null fields are all you decide: `style.mode` (`physical`, `fake_lighting`,
+   `engine_lit`), a kind for every proposed emitter (`paint` rejects it and voids every pair with
+   it), optional `emitter_depth`, an answer for each listed pair (only the band the measurement could
+   not decide), for each subject-only surface the lists of subjects for which it is false or
+   undecidable, and `global.key` and `global.atmosphere`. `questions` restates each null field as a
+   sentence, if you need one. Measured facts are not asked again.
+4. Phase two: call `light_ledger` again with `answers=<the filled form>`. `verdict` gives per subject
+   the expected key (lamp, sky and screen outrank neon and glow, then strength over distance), the
+   `verdict_emitter` it was judged against (the emitter it points at counts when at least a quarter as
+   strong), the residual in degrees, `agrees | disagrees | unknown` with its basis (`measurement` or
+   `observer`), and the axis outcome. A pair the verdict needed but the form did not list is
+   `unknown`: answer it and call again. Light colour is always yours: the hue numbers are hints, since
+   a painted band inside a box looks like a cast to any measurement; `engine_lit` reports `baked | flat` instead,
+   because painted shading on an engine-lit sprite double-lights. `axes` summarises
+   `direction_compliance`, `intentional_contrast` and `asset_cohesion` for the frame.
+5. Mirror check before recording a direction as `asserted`: phase one again with `mirror=true`; a
+   bright side that does not mirror with the image is noise, and its subject is `unknown`.
+6. Record: fill `record.observer.model` with your model id and pass `record` to `record`. Measured
+   items are `asserted`, observer items `estimated`; notes name ids and carry no magnitude.
 
-The ledger cannot tell depth (a source in front of the subject and one behind it give the same
-two-dimensional direction), whether a proposed emitter emits, or anything about cast shadows. Those
-stay with the observer. A fix is a recipe (relighting is not built), never an observation.
+The ledger's `highlight` is the subject's brightest region: on a pipe with a bright painted band it
+is the band, so a `specular` answer whose highlight colour is the subject's own paint stays
+`estimated`. The ledger cannot tell whether a proposed emitter emits, or anything about cast
+shadows, ambient, atmosphere or albedo; those stay with the observer. A fix is a recipe (relighting is
+not built), never an observation.
 
 ## Records
 

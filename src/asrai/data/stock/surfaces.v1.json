@@ -7,7 +7,7 @@
   "scopes": {
     "emitter": "one question per proposed emitter",
     "subject": "one question per subject",
-    "pair": "one question per subject against the emitter its shading points at, the nearest emitter and the brightest emitter (e1)",
+    "pair": "per subject, against the emitter it should answer to (highest irradiance proxy: luminance x area over squared distance, depth layers widening the distance) and the emitter its shading points at; asked only where the angle or hue does not decide",
     "global": "one question for the whole image"
   },
   "surfaces": [
@@ -26,7 +26,7 @@
       "scope": "global",
       "description": "The one direction that dominates form shading across the subjects. When no confirmed emitter sits in that direction the key is off screen and only its direction is recorded.",
       "question": "Does one light direction dominate the shading across the subjects?",
-      "ledger": ["global.key_direction", "global.alignment"],
+      "ledger": ["key_fit.best", "key_fit.hypotheses[].median_deg", "key_fit.hypotheses[].within_tolerance"],
       "terms": ["lighting.light_direction", "lighting.directional_light", "lighting.lighting"]
     },
     {
@@ -35,7 +35,7 @@
       "scope": "pair",
       "description": "The lit side, terminator and form shadow of one subject against one emitter. The ledger measures where the bright side points and the angle to the emitter; the observer decides whether that emitter should be lighting the subject at all.",
       "question": "Does the bright side of {subject} face {emitter}?",
-      "ledger": ["subjects[].bright_side", "subjects[].contour_fit", "agreement[].angle_deg"],
+      "ledger": ["subjects[].bright_side", "subjects[].contour_fit", "agreement[].angle_deg", "agreement[].irradiance_proxy"],
       "terms": ["lighting.form_shadow", "lighting.terminator", "lighting.ndotl"]
     },
     {
@@ -53,7 +53,7 @@
       "scope": "pair",
       "description": "The warm or cool cast of lit surfaces against the colour of the emitter that lights them. A warm lamp that leaves every lit surface neutral or cool is the most common defect of generated images.",
       "question": "Do the lit surfaces of {subject} take the colour of {emitter}?",
-      "ledger": ["agreement[].hue_delta_deg", "emitters[].rgb", "subjects[].highlight.rgb"],
+      "ledger": ["agreement[].hue_delta_deg", "subjects[].highlight.hue_shift_from_body_deg", "emitters[].rgb", "subjects[].body_rgb"],
       "terms": ["color.light_color", "color.color_temperature"]
     },
     {
@@ -102,6 +102,16 @@
       "terms": ["material.base_color", "material.material_cue", "perception.material_readability"]
     }
   ],
+  "answers": {
+    "schema_version": "light_answers.v1",
+    "style.mode": "physical (lights in the frame) | fake_lighting (one stylistic key, lighting.fake_lighting) | engine_lit (sprites the engine lights: painted shading is a defect)",
+    "emitters": "proposed id -> lamp | neon | sky | screen | glow | paint | unknown; paint and unknown reject the emitter and void every pair with it (a parent answered no counts its children as no, after Cho et al. 2024)",
+    "emitter_depth": "proposed id -> layer index, optional",
+    "pairs[].answer": "yes | no | unknown, only for the pairs the form lists: the band where the measurement does not decide",
+    "subjects.<surface>": "{no: [subject ids], unknown: [subject ids]}; every other subject answers yes",
+    "global.key, global.atmosphere": "yes | no | unknown"
+  },
+  "thresholds": "agreement within 20 degrees is decided by measurement, beyond 60 likewise; between, the observer is asked. The emitter a subject answers to is its expected key (lamp, sky and screen outrank neon and glow; then the irradiance proxy), or the emitter it points at when that one is at least a quarter as strong. Light colour is the observer's: a subject box that holds a painted band has a highlight in the band's hue, which no measurement can tell from a cast until subjects carry material masks; hue_delta_deg and hue_shift_from_body_deg are hints only. Estimator noise on synthetic discs stays under 3 degrees (bright side) and 8 degrees (contour fit); a hand-drawn scene holds its key to about 10 degrees, so suspicion starts near 18 degrees (cosine 0.95). Team precedent replaces these numbers.",
   "levels": {
     "asserted": "a ledger field named for the surface decides the answer and the observer agrees with it; direction claims also survive the mirror check",
     "estimated": "answered from looking, or the surface has no ledger field",
@@ -111,5 +121,5 @@
     "term": "lighting.fake_lighting",
     "rule": "when the asset group's context declares fake lighting (a fixed stylistic light, common in pixel art), a diffuse or specular disagreement with the emitters is recorded under intentional_contrast, not direction_compliance"
   },
-  "record": "one observation item per answer: term_id = terms[0] of the surface, region = the subject's bbox (whole_image for emitter and global scopes), note names the subject and emitter ids and carries no digits"
+  "record": "light_ledger builds the observation record from the verdict: term_id = terms[0] of the surface, region = the subject's bbox (the emitter's bbox for emissive, whole_image for global scopes), level asserted where the measurement decided and estimated where the observer did, notes name subject and emitter ids and carry no magnitude"
 }

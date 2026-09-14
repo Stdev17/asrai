@@ -58,6 +58,6 @@ def test_surfaces_map_onto_the_vocabulary_and_the_skill():
         assert s["scope"] in doc["scopes"], s["id"]
         assert ("{subject}" in s["question"]) == (s["scope"] in ("subject", "pair")), s["id"]
         assert ("{emitter}" in s["question"]) == (s["scope"] in ("emitter", "pair")), s["id"]
-        assert all(f.split("[")[0].split(".")[0] in ("emitters", "subjects", "agreement", "global") for f in s["ledger"]), s["id"]
+        assert all(f.split("[")[0].split(".")[0] in ("emitters", "subjects", "agreement", "key_fit") for f in s["ledger"]), s["id"]
         assert f"`{s['id']}`" in skill, s["id"]         # the skill walks the same list, by id
     assert doc["style_exemption"]["term"] in vocab.index()

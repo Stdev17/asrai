@@ -2,7 +2,7 @@
 
 ```text
 phase: 1 (core and transports) — done, fixtures committed; 1b surface pass (surfaces.v1, light_ledger) — done
-last_acceptance_passed: 35 tests on 3.14 (vocab search/get/locales, lint rules, light_ledger direction/emitters/fit/mirror/capture/malformed, surfaces map onto vocabulary and skill,
+last_acceptance_passed: 42 tests on 3.14 (vocab search/get/locales, lint rules, light_ledger direction/emitters/key fit/form/answers/depth/modes/noise floor/mirror/capture/malformed, surfaces map onto vocabulary and skill,
   measure determinism incl. 16-bit grey, record validation incl. layer rules, doctor lock/drift, MCP tools
   in-process and over stdio, malformed-input refusal at both trust boundaries, six measure fixtures
   byte-equal, corpus validators inside pytest); validate_stock 21,675 checks; review_locales no defects
@@ -24,4 +24,32 @@ known_limits:
   - measure refuses above 12 Mpx (~4 GB peak at ~320 B/px): a 4K capture fits, 8K does not
   - 16-bit colour PNGs are measured at 8-bit precision; 16-bit grey is rescaled correctly
 next_command: uv run pytest
+sources (surface pass, 7.1; verified 2026-09-14 against arXiv/OpenReview pages):
+  - Cho et al., Davidsonian Scene Graph, ICLR 2024, arXiv:2310.18235. Adopted: atomic questions from
+    typed data, a fixed order, and the dependency rule (a parent answered no counts its children as no,
+    unasked: rejected emitters void their pairs). Not adopted: the averaged accuracy score (asrai keeps
+    three axes and never sums) and the VQA-model answering (host mode answers; api mode is planned).
+  - Yang et al., Set-of-Mark Prompting, 2023, arXiv:2310.11441. Adopted: ids drawn on the image so the
+    observer refers to e2 and pipe_left. Not adopted: SEEM/SAM segmentation; subjects come from the
+    capture contract, a sprite's alpha, or the observer's boxes.
+  - Johnson & Farid, Exposing digital forgeries by detecting inconsistencies in lighting, ACM Multimedia
+    and Security Workshop 2005. Adopted: light direction from luminance along the occluding contour
+    (contour_fit). Not adopted: their 3-D spherical-harmonics extension (Kee & Farid 2010).
+  - Sarkar et al., Shadows Don't Lie and Lines Can't Bend, CVPR 2024, arXiv:2311.17138. Evidence that
+    generated images fail object-shadow and perspective consistency; motivates cast_shadow as a
+    surface. Their shadow classifier is not adopted (observation-only today).
+  - Giroux, Hilliard, Hold-Geoffroy, Vazquez-Corral, Lalonde, Shedding Light, SIGGRAPH Asia 2026,
+    arXiv:2609.10787. Lighting direction, colour and radiance distribution measured from inpainted
+    probes against ground-truth light probes: the same three axes as key/diffuse, light_color and the
+    irradiance proxy. A probe object in an engine capture is a planned measurement.
+  - Maruani et al., Illustrator's Depth, arXiv:2511.17454 (rev. 2026-03). Depth as a layer index for
+    illustrations: the model behind `depth` being an ordinal layer, never a distance.
+  - Yang et al., Depth Anything V2, NeurIPS 2024, arXiv:2406.09414 (25M to 1.3B params). A planned,
+    optional adapter for virtual depth on raw images; not a dependency.
+  - Zhang, Rao, Agrawala, IC-Light, ICLR 2025 (OpenReview u1cQYxRI1H). Relighting as a future recipe,
+    never an observation.
+  - Community practice: Sprite Lamp / SpriteIlluminator / Sprite DLight normal maps with Unity URP
+    Light2D. The `engine_lit` mode: painted directional shading double-lights a normal-mapped sprite.
+noise_floor: bright side under 3 deg and contour fit under 8 deg on synthetic Lambertian and cel discs,
+  alpha or rectangle masks, eight directions (tests/test_light.py); thresholds 20/60 deg sit above it
 ```
