@@ -92,7 +92,8 @@
       "truth": "light.KEY_TOLERANCE_DEG",
       "claimed_in": {
         "docs/spec.md": "twenty degrees",
-        "src/asrai/data/skill/SKILL.md": "twenty and sixty degree bands"
+        "src/asrai/data/skill/SKILL.md": "twenty and sixty degree bands",
+        "src/asrai/data/stock/surfaces.v1.json": "within 20 degrees"
       }
     },
     {
@@ -101,7 +102,8 @@
       "truth": "light.DISAGREE_DEG",
       "claimed_in": {
         "docs/spec.md": "beyond sixty",
-        "src/asrai/data/skill/SKILL.md": "twenty and sixty degree bands"
+        "src/asrai/data/skill/SKILL.md": "twenty and sixty degree bands",
+        "src/asrai/data/stock/surfaces.v1.json": "beyond 60"
       }
     },
     {

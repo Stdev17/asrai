@@ -234,3 +234,6 @@ corpus/team/
 # Agent scratch, never tracked
 *.scratch.md
 scratch/
+
+# Experiment records: evidence kept beside the code, never tracked
+docs/experiments/

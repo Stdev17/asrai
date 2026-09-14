@@ -99,6 +99,10 @@ file before regenerating anything.
 - If you found a defect in a real asset, the regression test keeps the *real* magnitude. A perturbation
   at an invented strength proves nothing; the vignette that broke the shaded mass was 0.10, and it
   mattered precisely because that is invisible.
+- Each commit message names every owner its diff touches. A file the message cannot account for rides in
+  unread — a reviewer reads what the message points at — and the longest-lived defects in this
+  repository's history sat in exactly such files, carried by one commit that never mentioned them.
+  Give that file its own commit, or leave it out.
 - Every commit is signed off (`git commit -s`). The `Signed-off-by` line is the
   [Developer Certificate of Origin](https://developercertificate.org/): you certify that you may submit
   the change under this repository's MIT licence, and nothing more. There is no CLA. Nothing is

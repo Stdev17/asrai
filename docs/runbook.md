@@ -42,7 +42,8 @@ documentation contribution, and every review meets one.
 Where the note goes instead:
 
 - **scratch that nobody else needs** — outside the repository, or under a name `.gitignore` already
-  covers: `*.scratch.md`, or anything in `scratch/`
+  covers: `*.scratch.md`, anything in `scratch/`, or an experiment record under `docs/experiments/`
+  (evidence kept beside the code — a run's diffs, a measurement — never tracked)
 - **what landed, and what is true now** — a new `CHECKPOINT.md` entry
 - **why a decision was made** — a dated file in `review/`
 
@@ -104,7 +105,8 @@ in. An image whose origin cannot be stated does not go in.
 3. Anything an agent can now do is described in `SKILL.md`.
 4. A new public name has its rejected alternative written down in `conventions.md` §1a.
 5. A new `CHECKPOINT.md` entry on top, stamped, restating the volatile lists.
-6. Commits split by meaning, each one green on its own.
+6. Commits split by meaning, each one green on its own, and each message naming every owner its diff
+   touches. A file the message cannot account for goes in its own commit or stays out.
 7. `git commit -s`. Every commit carries a `Signed-off-by` line — the Developer Certificate of Origin,
    adopted 2026-09-15. Commits before that day carry none and are not rewritten.
 

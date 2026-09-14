@@ -49,7 +49,7 @@ Do not add a plan, a progress note, a summary, a task list or a second checkpoin
 not at the root, not under `docs/`, and not in a worktree, whose files arrive in the pull request like
 any other. Neither a reviewer nor a CI gate can tell an agent's working note from a documentation
 contribution, and every review meets one. Scratch goes outside the repository or under a name
-`.gitignore` already covers (`*.scratch.md`, `scratch/`); what landed goes in a new `CHECKPOINT.md`
+`.gitignore` already covers (`*.scratch.md`, `scratch/`, `docs/experiments/`); what landed goes in a new `CHECKPOINT.md`
 entry; why it was decided goes in a dated file under `docs/review/`.
 
 ## Contributing to this repository
