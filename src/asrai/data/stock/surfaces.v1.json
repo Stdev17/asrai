@@ -60,9 +60,9 @@
       "id": "cast_shadow",
       "label": "Cast shadow",
       "scope": "subject",
-      "description": "Shadow thrown onto other surfaces: present, pointing away from the key, softer with distance. Not measured; observation only, so unknown is the honest default.",
-      "question": "Does {subject} cast a shadow away from the key light onto what it stands on?",
-      "ledger": [],
+      "description": "Shadow thrown away from the light: onto other surfaces, and onto the subject's own parts, where a helmet darkens a face and a strap darkens a shirt. The ledger measures where a subject's shaded mass sits against its lit side, which must be opposite it. That needs no emitter at all, so a lone sprite can be judged on it, and it is the surface that catches shading painted for looks rather than for a light. It cannot separate a cast shadow from the form shadow inside one box, cannot see a missing contact shadow on the ground, and says nothing about a subject too flat to carry directional shading, so a subject the observer lists overrides it.",
+      "question": "Does the shadow of {subject} fall away from the light, onto its own parts and onto what it stands on?",
+      "ledger": ["subjects[].shadow", "subjects[].bright_side"],
       "terms": ["lighting.cast_shadow", "value.shadow"]
     },
     {
@@ -108,10 +108,10 @@
     "emitters": "proposed id -> lamp | neon | sky | screen | glow | paint | unknown; paint and unknown reject the emitter and void every pair with it (a parent answered no counts its children as no, after Cho et al. 2024)",
     "emitter_depth": "proposed id -> layer index, optional",
     "pairs[].answer": "yes | no | unknown, only for the diffuse pairs the form lists: the band where the measurement does not decide",
-    "subjects.<surface>": "{no: [subject ids], unknown: [subject ids]} for every subject-scope surface, specular and light colour among them; every other subject answers yes and nothing is recorded for it",
+    "subjects.<surface>": "{no: [subject ids], unknown: [subject ids]} for every subject-scope surface, specular and light colour among them; every other subject answers yes and nothing is recorded for it, except cast_shadow, where a subject nobody lists falls through to the measurement",
     "global.key, global.atmosphere": "yes | no | unknown"
   },
-  "thresholds": "agreement within 20 degrees is decided by measurement, beyond 60 likewise; between, the observer is asked. The emitter a subject answers to is its expected key (lamp, sky and screen outrank neon and glow; then the irradiance proxy), or the emitter it points at when that one is at least a quarter as strong. Light colour is the observer's: a subject box that holds a painted band has a highlight in the band's hue, which no measurement can tell from a cast until subjects carry material masks; hue_delta_deg and hue_shift_from_body_deg are hints only. Estimator noise on synthetic discs stays under 3 degrees (bright side) and 8 degrees (contour fit); a hand-drawn scene holds its key to about 10 degrees, so suspicion starts near 18 degrees (cosine 0.95). Spill and receivers carry no threshold at all: a sign and a count decide whether a confirmed light is one the frame answers to, and an unmeasurable neighbourhood (a lone sprite, a source at the border) stays unknown. Team precedent replaces these numbers.",
+  "thresholds": "agreement within 20 degrees is decided by measurement, beyond 60 likewise; between, the observer is asked. The emitter a subject answers to is its expected key (lamp, sky and screen outrank neon and glow; then the irradiance proxy), or the emitter it points at when that one is at least a quarter as strong. Light colour is the observer's: a subject box that holds a painted band has a highlight in the band's hue, which no measurement can tell from a cast until subjects carry material masks; hue_delta_deg and hue_shift_from_body_deg are hints only. Estimator noise on synthetic discs stays under 3 degrees (bright side) and 8 degrees (contour fit); a hand-drawn scene holds its key to about 10 degrees, so suspicion starts near 18 degrees (cosine 0.95). The shaded mass of a subject is read against its lit side on the same twenty and sixty degree bands, and only where the bright side is stronger than a flat sprite measures. Spill and receivers carry no threshold at all: a sign and a count decide whether a confirmed light is one the frame answers to, and an unmeasurable neighbourhood (a lone sprite, a source at the border) stays unknown. Team precedent replaces these numbers.",
   "levels": {
     "asserted": "a ledger field named for the surface decides the answer and the observer agrees with it; direction claims also survive the mirror check",
     "estimated": "answered from looking, or the surface has no ledger field",

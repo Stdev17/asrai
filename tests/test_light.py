@@ -118,6 +118,32 @@ def test_a_confirmed_light_the_frame_does_not_answer_to(tmp_path):
     assert (fake["asset_cohesion"], fake["intentional_contrast"]) == ("unknown", "warn")   # the style owns it
 
 
+def test_a_shadow_painted_on_the_wrong_side(tmp_path):
+    """A lone sprite, no light to answer to: the lit side points upper-left, so the shaded mass must
+    sit lower-right. Painted upper-right instead, it fails on its own, with nothing else to compare."""
+    img = np.array(disc(225))
+    yy, xx = np.mgrid[:120, :160]
+    img[((xx - 18) ** 2 + (yy - 14) ** 2 <= 36) | ((xx - 150) ** 2 + (yy - 110) ** 2 <= 16)] = 0   # lamps away
+    img[((xx - 108) ** 2 + (yy - 52) ** 2 <= 144) & (img[..., 3] > 0), :3] = 10
+    p = tmp_path / "s.png"
+    Image.fromarray(img, "RGBA").save(p)
+    led = light.ledger(p, BALL)
+    sub = led["subjects"][0]
+    assert np.dot(sub["bright_side"]["vector"], UPPER_LEFT) > 0.9
+    assert 60 < sub["shadow"]["opposition_deg"] < 130
+    assert "ball" not in next(q["question"] for q in led["questions"] if q["path"] == "subjects.cast_shadow")
+    form = led["form"] | {"emitters": {e["id"]: "paint" for e in led["emitters"]}}
+    v = light.ledger(p, BALL, answers=form)
+    row = v["verdict"]["subjects"][0]
+    assert (row["cast_shadow"], row["shadow_basis"]) == ("no", "measurement")
+    assert v["verdict"]["axes"] == {"direction_compliance": "unknown", "intentional_contrast": "unknown",
+                                   "asset_cohesion": "fail"}          # nothing else in the frame can speak
+    shadow = [i for i in v["record"]["observations"] if i["term_id"] == "lighting.cast_shadow"]
+    assert [(i["level"], i["note"]) for i in shadow] == [("asserted", "the shaded mass of ball does not sit opposite its lit side")]
+    listed = light.ledger(p, BALL, answers=form | {"subjects": {"cast_shadow": {"unknown": ["ball"]}}})
+    assert listed["verdict"]["subjects"][0]["cast_shadow"] == "unknown"       # the observer overrides
+
+
 def test_depth_layers_change_the_expected_key(tmp_path):
     """Pushing the lamp three layers back makes the nearer decoy the light to answer to."""
     p = scene(tmp_path / "s.png")
@@ -155,6 +181,9 @@ def test_estimator_noise_floor_on_every_direction(tmp_path, alpha, cel):
         s = light.ledger(tmp_path / "d.png", [{"id": "d", "bbox": [54, 34, 72, 72]}])["subjects"][0]
         truth = np.array([np.cos(np.radians(ang)), np.sin(np.radians(ang))])
         assert light._angle(s["bright_side"]["vector"], truth) < 5, (ang, s["bright_side"])
+        assert light._shadow_measured(s) == alpha, (ang, s["shadow"])   # a box on a uniform ground has no
+        if alpha:                                                       # shaded mass of its own to place
+            assert s["shadow"]["opposition_deg"] < 10, (ang, s["shadow"])
         if alpha:
             assert s["contour_fit"]["r2"] > 0.5 and light._angle(s["contour_fit"]["vector"], truth) < 10, (ang, s["contour_fit"])
 

@@ -97,14 +97,19 @@ with one atomic question and the term id an answer is recorded under. Two calls,
    it), optional `emitter_depth`, an answer for each listed pair (only the diffuse band the
    measurement could not decide), for each subject-scope surface the lists of subjects for which it
    is false or undecidable, and `global.key` and `global.atmosphere`. Every subject left out of both
-   lists answers yes and is recorded as nothing. `specular` and `light_color` are two of those lists,
+   lists answers yes and is recorded as nothing, except `cast_shadow`, which the measurement owns: a
+   subject left out falls through to it, and a subject you list overrides it. List one when you can see
+   what pixels cannot, such as a missing contact shadow on the ground. `specular` and `light_color` are two of those lists,
    judged against the light the verdict names for each subject: the brightest region of a box always
    lies inside its bright side, so no measurement separates the two without a material mask.
    `questions` restates each null field as a sentence, and carries what the measurement already knows
    about it: an emitter's question says whether surfaces near it are brighter than surfaces farther
    out. Measured facts are not asked again.
-4. Phase two: call `light_ledger` again with `answers=<the filled form>`. `verdict` gives per subject
-   the expected key (lamp, sky and screen outrank neon and glow, then strength over distance), the
+4. Phase two: call `light_ledger` again with `answers=<the filled form>`. `cast_shadow` comes back
+   with `shadow_opposition_deg` and `shadow_basis`: the angle by which a subject's shaded mass fails to
+   sit opposite its lit side, on the same twenty and sixty degree bands. It needs no emitter, so it is
+   the one surface that judges a lone sprite, and `unknown` there means too flat to place, never fine.
+   `verdict` gives per subject the expected key (lamp, sky and screen outrank neon and glow, then strength over distance), the
    `verdict_emitter` it was judged against (the emitter it points at counts when at least a quarter as
    strong), the residual in degrees, `agrees | disagrees | unknown` with its basis (`measurement` or
    `observer`), and the axis outcome. A pair the verdict needed but the form did not list is
@@ -114,7 +119,8 @@ with one atomic question and the term id an answer is recorded under. Two calls,
    direction for each confirmed light: `lights` when something points at it or its surroundings are
    brighter for it, `lights_nothing` when neither is true, `unknown` when it has no readable
    neighbourhood and no subject near it. A light the frame does not answer to is a decal, in any
-   genre, and it is what `axes.asset_cohesion` fails on; `axes` summarises that with
+   genre, and it is what `axes.asset_cohesion` fails on, together with a shaded mass that contradicts
+   its own lit side; `axes` summarises that with
    `direction_compliance` and `intentional_contrast` for the frame. Under `fake_lighting` both land
    on `intentional_contrast`, because the style declared them.
 5. Mirror check before recording a direction as `asserted`: phase one again with `mirror=true`; a
@@ -124,8 +130,9 @@ with one atomic question and the term id an answer is recorded under. Two calls,
 
 The ledger's `highlight` is the subject's brightest region: on a pipe with a bright painted band it
 is the band, not a specular. The ledger cannot tell whether a proposed emitter emits — only what its
-neighbourhood does, which is evidence and not the answer — nor anything about cast shadows, ambient,
-atmosphere or albedo; those stay with the observer. A fix is a recipe (relighting is
+neighbourhood does, which is evidence and not the answer. Inside one box it cannot separate a cast
+shadow from the form shadow, and it never sees a contact shadow that is absent from the ground; ambient,
+atmosphere and albedo it does not measure at all. Those stay with the observer. A fix is a recipe (relighting is
 not built), never an observation.
 
 ## Records

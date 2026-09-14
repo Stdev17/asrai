@@ -99,6 +99,8 @@ is a new row.
 | `form` / `answers` | `questions` as the only interface | a typed sheet whose null fields are the whole ask; prose questions remain, derived from it |
 | `emitters[].spill` | `glow`, `bloom`, `halo` | those name a render effect the artist applied; this is a measurement of the neighbourhood, which a flat cel light can fail while still being a light |
 | `emitters[].receivers` | `used_by`, `lit_subjects` | a count, and the subjects that point at it are already in `agreement`; the plural noun says what the number counts |
+| `subjects[].shadow` with `opposition_deg` | `cast_shadow_direction`, `dark_side` | the field is named for the mass it found, and the number for the only thing measured about it: the angle by which it fails to oppose the lit side. `dark_side` would pair with `bright_side` and imply the two were measured the same way, which is what `opposition_deg` compares |
+| `SHADED_STRENGTH` | `BAKED_STRENGTH` | one measured constant answers two questions, so the name says what it measures (a subject carries directional shading), not the first use it was written for |
 | `verdict.emitters[].verdict: lights_nothing` | `unused`, `orphan`, `fake` | `unused` is an engine word, `orphan` a graph word, `fake` a judgement the style_exemption may overturn; what is measured is that nothing takes its light |
 | `style.mode ∈ physical/fake_lighting/engine_lit` | `fake_lighting: bool` | three expectations, not two; a boolean could not say "the engine lights this" |
 

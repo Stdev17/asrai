@@ -64,8 +64,10 @@ CONTOUR_MIN = 16            # contour samples needed for a least-squares directi
 KEY_TOLERANCE_DEG = 20
 DISAGREE_DEG = 60
 DEPTH_STEP = 0.25           # one layer of depth adds this fraction of the long side to the falloff distance
-BAKED_STRENGTH = 0.15       # engine-lit sprites: a bright side stronger than this is painted-in shading
-                            # (a flat sprite measures under 0.1; a shaded disc 0.3 to 0.65)
+SHADOW_PERCENTILE = 10      # the shaded mass is the bottom decile, as the bright side is the top
+SHADED_STRENGTH = 0.15      # a bright side stronger than this carries directional shading: painted-in on an
+                            # engine-lit sprite, and the condition for its shaded mass to mean anything
+                            # (a flat sprite measures 0; a shaded disc 0.3 to 0.65)
 SPILL_NEAR = 2.0            # rings at two core radii out against rings at four to eight: a source lifts
 SPILL_FAR = (4.0, 8.0)      # and tints its neighbourhood, a decal does not. Sign only, no magnitude.
 SPILL_MIN_PX = 32           # either ring smaller than this (a lone sprite, a source at the border) is unmeasured
@@ -298,8 +300,8 @@ def _subject(sub: dict, rgba: np.ndarray, Y: np.ndarray, alpha: bool, emit_ids: 
         if (k in confirmed) if confirmed is not None else (blob.sum() < EMITTER_MAX_SHARE * body.sum()):
             shade &= ~blob
     row = {"id": sub["id"], "bbox": sub["bbox"], "depth": sub["depth"], "mask": "alpha" if silhouette else "bbox",
-           "pixels": int(shade.sum()), "centroid": None, "body_rgb": None, "bright_side": None, "contour_fit": None,
-           "highlight": None}
+           "pixels": int(shade.sum()), "centroid": None, "body_rgb": None, "bright_side": None, "shadow": None,
+           "contour_fit": None, "highlight": None}
     if row["pixels"] < MIN_PIXELS:
         return row
     ys, xs = np.nonzero(shade)
@@ -312,6 +314,17 @@ def _subject(sub: dict, rgba: np.ndarray, Y: np.ndarray, alpha: bool, emit_ids: 
     d = np.array([tx.mean() + x - cx, ty.mean() + y - cy])
     radius = np.sqrt(row["pixels"] / np.pi)
     row["bright_side"] = {"vector": _unit(d), "strength": _r(min(1.0, float(np.linalg.norm(d)) / radius))}
+    # the shaded mass must sit opposite the lit side, whatever lights the subject: no emitter is needed,
+    # so a lone sprite is judged on this alone. Form shadow and cast shadow are not separable inside one box.
+    bright = np.array(row["bright_side"]["vector"])
+    lo = shade & (Ys <= np.percentile(v, SHADOW_PERCENTILE))
+    ly, lx = np.nonzero(lo)
+    sd = np.array([lx.mean() + x - cx, ly.mean() + y - cy])
+    # strength as for the bright side: a box over a uniform ground has its darkest pixels all round it,
+    # so the offset is noise that normalising would turn into a confident diagonal
+    if np.linalg.norm(bright) > 0 and np.linalg.norm(sd) > 0:
+        row["shadow"] = {"vector": _unit(sd), "strength": _r(min(1.0, float(np.linalg.norm(sd)) / radius)),
+                         "opposition_deg": _r(_angle(_unit(sd), -bright))}
     hi = shade & (Ys >= np.percentile(v, HIGHLIGHT_PERCENTILE))
     hy, hx = np.nonzero(hi)
     px = rgba[y:y + h, x:x + w, :3].astype(np.float64) / 255
@@ -424,8 +437,15 @@ def _form(subjects: list[dict], emitters: list[dict], agreement: list[dict]) -> 
     for i, p in enumerate(pairs):
         questions.append({"path": f"pairs[{i}].answer", "question": q[p["surface"]].format(subject=p["subject"], emitter=p["emitter"])})
     for s in _subject_surfaces():
+        extra = ""
+        if s["id"] == "cast_shadow":
+            open_ids = [r["id"] for r in subjects if _shadow_measured(r)
+                        and KEY_TOLERANCE_DEG < r["shadow"]["opposition_deg"] < DISAGREE_DEG]
+            extra = (" The shaded mass is measured against the lit side; it left %s undecided." % ", ".join(open_ids)
+                     if open_ids else " The shaded mass is measured against the lit side wherever a subject"
+                     " carries shading; a subject listed here overrides that.")
         questions.append({"path": f"subjects.{s['id']}", "question": "For which subjects is this false, and for which "
-                          "can it not be decided? " + s["question"].replace("{subject}", "<subject>")})
+                          "can it not be decided? " + s["question"].replace("{subject}", "<subject>") + extra})
     questions += [{"path": "global.key", "question": q["key"] + " key_fit names the best hypothesis and its residual."},
                   {"path": "global.atmosphere", "question": q["atmosphere"]},
                   {"path": "style.mode", "question": f"One of {MODES}: physical lights, a fixed stylistic key "
@@ -476,6 +496,12 @@ def _answers(a, emitters: list[dict], subjects: list[dict]) -> dict:
             "global": {"key": glob.get("key") or "unknown", "atmosphere": glob.get("atmosphere") or "unknown"}}
 
 
+def _shadow_measured(s: dict) -> bool:
+    """Both masses have to carry a direction before the angle between them says anything."""
+    return bool(s["shadow"] and s["bright_side"] and min(s["bright_side"]["strength"],
+                                                         s["shadow"]["strength"]) > SHADED_STRENGTH)
+
+
 def _direction(angle: float | None, answer: str | None) -> tuple[str, str]:
     """(verdict, basis): the measurement decides outside the contested band, the observer inside it."""
     if angle is None:
@@ -514,10 +540,19 @@ def _verdict(subjects: list[dict], emitters: list[dict], agreement: list[dict], 
         if not s["bright_side"]:
             rows.append(v | {"axis": "unknown"})
             continue
+        measured = _shadow_measured(s)
+        v["shadow_opposition_deg"] = s["shadow"]["opposition_deg"] if measured else None
+        listed = s["id"] in ans["subjects"]["cast_shadow"]["no"] | ans["subjects"]["cast_shadow"]["unknown"]
+        if not listed and mode != "engine_lit":
+            # this surface is the one the measurement owns, so silence here is not the usual yes: a
+            # subject too flat to place its shaded mass, and unlisted, is undecided rather than fine
+            decided, basis = _direction(s["shadow"]["opposition_deg"] if measured else None, None)
+            v["cast_shadow"] = {"agrees": "yes", "disagrees": "no"}.get(decided, "unknown")
+            v["shadow_basis"] = basis if measured else "none"
         exp, pt = _expected(agreement, s["id"], ranks), _pointed(agreement, s["id"])
         v["pointed_at"] = pt["emitter"] if pt else None
         if mode == "engine_lit":
-            baked = s["bright_side"]["strength"] > BAKED_STRENGTH
+            baked = s["bright_side"]["strength"] > SHADED_STRENGTH
             v |= {"diffuse": "baked" if baked else "flat", "basis": "measurement", "axis": "warn" if baked else "pass"}
         elif mode == "fake_lighting":
             if directional:
@@ -542,13 +577,18 @@ def _verdict(subjects: list[dict], emitters: list[dict], agreement: list[dict], 
     # a declared light the frame ignores is the elements disagreeing with each other, not with a brief;
     # under a declared stylistic key it is the style, so it lands on intentional_contrast instead
     dark = [e for e in emits if e["verdict"] == "lights_nothing"]
+    shadows = [r for r in rows if r.get("shadow_basis") == "measurement"]
+    crossed = [r["id"] for r in shadows if r["cast_shadow"] == "no"]
     fake = mode == "fake_lighting"
+    cohesion = "unknown"
+    if not fake:
+        cohesion = ("fail" if dark or crossed else
+                    "pass" if shadows or any(e["verdict"] == "lights" for e in emits) else "unknown")
     frame = {"direction_compliance": "fail" if "fail" in axes else "warn" if "warn" in axes
              else "pass" if "pass" in axes else "unknown",
-             "intentional_contrast": ("pass" if directional and directional["within_tolerance"] >= 0.5 and not dark
-                                      else "warn") if fake else "unknown",
-             "asset_cohesion": "unknown" if fake or not emits else "fail" if dark
-             else "pass" if any(e["verdict"] == "lights" for e in emits) else "unknown"}
+             "intentional_contrast": ("pass" if directional and directional["within_tolerance"] >= 0.5
+                                      and not dark and not crossed else "warn") if fake else "unknown",
+             "asset_cohesion": cohesion}
     return {"mode": mode, "key": {"answer": ans["global"]["key"], "best": (key_fit or {}).get("best")},
             "atmosphere": ans["global"]["atmosphere"], "emitters": emits, "subjects": rows, "axes": frame}
 
@@ -590,9 +630,13 @@ def _records(verdict: dict, emitters: list[dict], subjects: list[dict], ans: dic
         named = {} if v["mode"] != "physical" or not against else {
             "specular": f"highlight on {sid} does not follow {against}",
             "light_color": f"lit surfaces of {sid} do not take the colour of {against}"}
+        levels = {}
+        if v.get("shadow_basis") == "measurement":
+            named["cast_shadow"] = f"the shaded mass of {sid} does not sit opposite its lit side"
+            levels["cast_shadow"] = "asserted"
         for surf in _subject_surfaces():
             if v[surf["id"]] == "no":
-                items.append({"term_id": surf["terms"][0], "level": "estimated", "region": box,
+                items.append({"term_id": surf["terms"][0], "level": levels.get(surf["id"], "estimated"), "region": box,
                               "note": named.get(surf["id"], f"{sid}: {surf['label'].lower()} missing or inconsistent")})
             elif v[surf["id"]] == "unknown" and sid in ans["subjects"][surf["id"]]["unknown"]:
                 items.append({"term_id": surf["terms"][0], "level": "unknown", "region": box, "note": f"{sid}: {surf['label'].lower()} undecided"})

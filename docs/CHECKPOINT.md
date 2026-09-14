@@ -2,7 +2,7 @@
 
 ```text
 phase: 1 (core and transports) — done, fixtures committed; 1b surface pass (surfaces.v1, light_ledger) — done
-last_acceptance_passed: 43 tests on 3.14 (vocab search/get/locales, lint rules, light_ledger direction/emitters/key fit/form/answers/depth/modes/noise floor/mirror/capture/malformed/a light nothing answers to, surfaces map onto vocabulary and skill,
+last_acceptance_passed: 44 tests on 3.14 (vocab search/get/locales, lint rules, light_ledger direction/emitters/key fit/form/answers/depth/modes/noise floor/mirror/capture/malformed/a light nothing answers to/a shadow on the wrong side, surfaces map onto vocabulary and skill,
   measure determinism incl. 16-bit grey, record validation incl. layer rules, doctor lock/drift, MCP tools
   in-process and over stdio, malformed-input refusal at both trust boundaries, six measure fixtures
   byte-equal, corpus validators inside pytest); validate_stock 21,675 checks; review_locales no defects
@@ -23,6 +23,13 @@ pending_human:
   - spill reads the neighbourhood, so a real lamp mounted on a dark wall beside a lit floor can read
     negative; it is one of two tests (the other is receivers) and both must be empty before a light is
     called one the frame does not answer to
+  - cast_shadow measures where a subject's shaded mass sits against its lit side, which needs no emitter
+    and judges a lone sprite; inside one box it cannot separate cast from form shadow, on a bbox subject
+    it places whatever is darkest in the box, and a subject too flat for either mass to carry a
+    direction is unknown, never yes
+  - a flattened preview of a transparent sprite (the checkerboard baked into the pixels) is not the
+    asset: measure reports alpha_present false and light_ledger proposes the checkerboard as emitters.
+    Ask for the PNG with its alpha
 known_limits:
   - measure refuses above 12 Mpx (~4 GB peak at ~320 B/px): a 4K capture fits, 8K does not
   - 16-bit colour PNGs are measured at 8-bit precision; 16-bit grey is rescaled correctly

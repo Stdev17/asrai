@@ -195,6 +195,41 @@ common defect of generated images: every object is shaded plausibly on its own, 
 neither across objects nor with the visible sources. The pass decomposes appearance into surfaces, lets
 the measurement decide every question it can, and asks the observer only the rest, through a typed form.
 
+```mermaid
+flowchart TD
+    IN["image: raster or capture frame"]
+    SUB["subjects<br/>capture composed_of boxes, or the observer's<br/>id · bbox · depth layer"]
+
+    subgraph MEASURE["phase one: measurement only, deterministic and mirror invariant"]
+        EM["emitters e1..e8, brightest blobs<br/>spill: ring at 2r against 4 to 8r<br/>receivers: subjects pointing at it"]
+        SJ["per subject<br/>bright_side, top decile<br/>shadow, bottom decile<br/>contour_fit, Johnson and Farid<br/>highlight · body_rgb"]
+        PR["per subject and emitter<br/>angle · distance · hue delta<br/>irradiance proxy"]
+        KF["key_fit<br/>one directional plus one per emitter<br/>residuals in degrees"]
+    end
+
+    IN --> MEASURE
+    SUB --> MEASURE
+    MEASURE --> GATE{"residual in degrees"}
+    GATE -->|"within 20 agrees, beyond 60 disagrees"| MEAS["basis: measurement"]
+    GATE -->|"between 20 and 60"| FORM
+    MEASURE --> FORM["form: the null fields and nothing else<br/>style.mode · emitter kinds · contested diffuse pairs<br/>subject lists · key · atmosphere"]
+    FORM --> OBS["observer: host model or human<br/>reads the overlay, where every id is drawn"]
+    OBS --> ANS["basis: observer"]
+    MEAS --> VER
+    ANS --> VER
+
+    subgraph VER["phase two: verdict"]
+        VS["per subject<br/>expected key · residual · diffuse<br/>specular · light colour · cast shadow"]
+        VE["per emitter<br/>lights, lights_nothing or unknown"]
+    end
+
+    VER --> AX["axes, never summed<br/>direction_compliance: shading against the light it answers to<br/>asset_cohesion: a light nothing answers to, a shaded mass<br/>that contradicts its own lit side<br/>intentional_contrast: the same two under a declared style"]
+    AX --> REC["observation record<br/>measured asserted, observed estimated<br/>notes name ids, never magnitudes"]
+    REC --> LOG["team log, append only"]
+    LOG -.->|"precedent, the only source of a magnitude"| OBS
+```
+
+
 - `surfaces.v1.json` (stock): ten surfaces in pass order — `emissive`, `key`, `diffuse`, `specular`,
   `light_color`, `cast_shadow`, `ambient`, `rim`, `atmosphere`, `albedo` — each with
   `scope ∈ emitter/subject/pair/global`, one question template, the ledger fields that decide it
@@ -206,7 +241,8 @@ the measurement decide every question it can, and asks the observer only the res
   rejected by the observer), each with `spill` (what its own neighbourhood does: luminance and
   distance-to-its-hue in a ring at two core radii against a ring at four to eight, taken outside every
   bright pixel) and `receivers` (how many subjects point their shading at it); per subject the bright-side vector (top-decile luminance centroid against
-  the mask centroid, which reads cel and flat shading) and the contour fit (Johnson & Farid 2005,
+  the mask centroid, which reads cel and flat shading), the shaded mass (the same over the bottom decile,
+  with the angle by which it fails to oppose the bright side) and the contour fit (Johnson & Farid 2005,
   luminance along the occluding contour against its normal, alpha masks only, `r2` saying whether the
   form shades like a Lambertian surface at all), and the highlight colour; per (subject, emitter) the
   angle between bright side and the direction to the emitter, the image distance, the hue difference
@@ -221,8 +257,9 @@ the measurement decide every question it can, and asks the observer only the res
   Davidsonian scene graph, Cho et al. 2024; its averaged score is deliberately not adopted), and the
   ledger returns `verdict` (per subject: expected key, residual in degrees, `agrees | disagrees |
   unknown` with its basis, the axis outcome; `baked | flat` in `engine_lit` mode; per confirmed
-  emitter `lights | lights_nothing | unknown`, and a light nothing answers to fails `asset_cohesion`)
-  and `record`, an
+  emitter `lights | lights_nothing | unknown`; a light nothing answers to and a subject whose shaded
+  mass contradicts its own lit side both fail `asset_cohesion`, which is the only axis a lone sprite with
+  no emitters can speak on) and `record`, an
   observation record whose measured items are `asserted` and observer items `estimated`, ready for
   `record` once `observer.model` is filled.
 - Depth is an ordinal layer index (nearest first), never a distance. The image-plane direction from a
@@ -239,7 +276,9 @@ the measurement decide every question it can, and asks the observer only the res
   comparison can tell from a cast until subjects carry material masks (L0 slices) `[planned]`. Estimator noise on synthetic Lambertian and cel discs, alpha or rectangle
   masks, stays under three degrees (bright side) and eight (contour fit): conformance 16. Spill and
   receivers carry no threshold: a sign and a count decide whether a confirmed light is one the frame
-  answers to, and an unreadable neighbourhood stays `unknown`. A hand-drawn
+  answers to, and an unreadable neighbourhood stays `unknown`. The shaded mass is read on the same
+  twenty and sixty degree bands, and only where both masses carry a direction: a subject flatter than a
+  flat sprite measures, or a box whose darkest pixels lie all round it, is `unknown` and never `yes`. A hand-drawn
   scene holds its key to about ten degrees; suspicion starts near eighteen (cosine 0.95). Team
   precedent replaces these numbers.
 - Modes: `physical` (lights in the frame), `fake_lighting` (one stylistic key: the directional
@@ -250,7 +289,8 @@ the measurement decide every question it can, and asks the observer only the res
   recorded as `asserted` must mirror with the image, the same rule `order_checked` applies to pairwise
   verdicts.
 - What stays with the observer: whether a proposed emitter emits (the spill is evidence for that
-  question, never its answer), the specular accent and the colour cast — one list each, judged against
+  question, never its answer), a missing contact shadow on the ground and the separation of cast from
+  form shadow inside one box, the specular accent and the colour cast — one list each, judged against
   the light the subject answers to, because the brightest region of a box lies inside its bright side —
   cast shadows, ambient and occlusion, atmosphere, albedo constancy. A fix is a recipe: relighting (IC-Light-class tools, Zhang et al. 2025)
   is a Phase 2+ adapter with its own hash and preview, and never runs from an `unknown`.
