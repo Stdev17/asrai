@@ -1,0 +1,71 @@
+# `docs/i18n/` — translated documents
+
+A translation is a **quality-control device**, not a translation service: it exists so a contributor
+who thinks in Korean, Japanese or Chinese carries the same mental model as one who thinks in English.
+That is also why it is bounded — a translation that has drifted teaches the wrong model, which is
+worse than no translation at all.
+
+## What may be translated, and what may never be
+
+| document | translated? | why |
+|---|---|---|
+| [`README.md`](../../README.md) | yes | the entry point; a reader decides here whether the project is for them |
+| [`CONTRIBUTING.md`](../../CONTRIBUTING.md) | on demand | process, not contract |
+| a directory `README.md` | on demand | same |
+| [`spec.md`](../spec.md), [`conventions.md`](../conventions.md), `SKILL.md` | **never** | a translated contract is a second source of truth. When two say different things, work stops to find out which one the code obeys |
+| [`review/`](../review/) | never | dated records, never edited at all |
+
+`docs/README.md` carries the same rule in one paragraph. This file is the mechanics.
+
+## Layout
+
+One directory per language, mirroring the repository path of the source:
+
+```text
+docs/i18n/ko/README.md          <- README.md
+docs/i18n/ja/CONTRIBUTING.md    <- CONTRIBUTING.md        (when someone needs it)
+docs/i18n/zh-Hans/tests/README.md  <- tests/README.md     (when someone needs it)
+```
+
+Nothing needs to be added to the tooling to extend this: `tools/check_translations.py` reads the path
+out of each file's own stamp, so a new language or a new document is a new file and nothing else. The
+language codes are the ones the vocabulary already uses (`locales/README.md`), so a contributor is
+never asked to learn a second set.
+
+## The stamp
+
+Line 1 of every translated file, exactly:
+
+```text
+<!-- translation-of: README.md@3ae09cad96b075595d6ac077eb7dbe582f97c1ae -->
+```
+
+The path is repository-relative; the hash is the source's commit at the moment the translation was
+made. Below it, one blockquote in the target language saying English is canonical.
+
+```bash
+uv run python tools/check_translations.py
+```
+
+reports, for every file here: a missing or malformed stamp, a source that does not exist, a source
+that may never be translated — those are errors — and how many commits the source has moved since
+the stamp, with their subjects, so a human can see whether the change was a typo or a promise.
+**Staleness is reported, not enforced**; whether a stale translation blocks a pull request is a
+CI-gate decision and is not made yet.
+
+## Numbers
+
+A number in a translated document is checked by the same gate as the English one: `tests/claims.json`
+registers what computes it, and the suite requires the numeral to appear in every translation of a
+document that states it. So write numbers as **numerals** — `용어 475개`, not `사백칠십오 개의 용어` —
+even where the English spells them out. That is the one place where a translation is deliberately not
+a mirror of its source.
+
+Translators do not edit `claims.json`. It is keyed on the English file; the translations are found
+from it.
+
+## Status
+
+All three are LLM-drafted and unconfirmed by a native speaker of the industry's language, exactly as
+the locale bundles are (`src/asrai/data/stock/locales/README.md`). Where a settled spelling matters,
+get a local team to confirm it. Corrections are the cheapest contribution this repository takes.

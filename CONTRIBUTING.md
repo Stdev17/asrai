@@ -57,6 +57,9 @@ flowchart TD
   you forget.
 - **a number in prose → `tests/claims.json`.** Any count a document states — terms, locales, tools,
   fixtures, a threshold — is registered there with what computes it and the wording that carries it.
+- **a number in English prose → every translation of that document.** `docs/i18n/` mirrors a
+  document, and the suite requires the same numeral in the mirror. Prose may lag behind its source and
+  `tools/check_translations.py` says by how much; a number may not.
 - **anything landing → `CHECKPOINT.md`.** Keep `last_acceptance_passed` truthful.
 
 ## The three changes people actually make
@@ -81,8 +84,9 @@ file before regenerating anything.
 ## Before you open a pull request
 
 - `uv run pytest -q` is green.
-- `uv run python tools/check_links.py` is clean. It does not run inside pytest: a link is a repository
-  fact, not package behaviour, and the gate stays one command about the code.
+- `uv run python tools/check_links.py` and `uv run python tools/check_translations.py` are clean.
+  Neither runs inside pytest: a link and a translation are repository facts, not package behaviour,
+  and the gate stays one command about the code.
 - Any new number names what measured it.
 - Any new failure mode returns `unknown` rather than a default.
 - The skill describes anything new an agent can now do.

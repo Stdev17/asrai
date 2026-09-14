@@ -42,6 +42,12 @@ feature of the product; a documentation translation is a contributor process, an
 would mean eleven copies of prose that rots silently. The contract — `spec.md`, `conventions.md` — is
 never translated, because a translated contract is a second source of truth.
 
+Translations live in [`i18n/`](i18n/README.md): one directory per language, mirroring the repository
+path of the source, each file stamped with the commit it was translated from.
+`tools/check_translations.py` reports how far each has drifted, and the test suite holds a translation
+to the same numbers as the file it mirrors. Three exist today — `ko`, `ja`, `zh-Hans`, all of the root
+README — and a language or a document is added by adding a file, with no change to the tooling.
+
 ## Changing a document
 
 `spec.md` marks decided items `[decided]`. Changing one of those is a contract change: it needs a

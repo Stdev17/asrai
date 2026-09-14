@@ -229,7 +229,8 @@ def test_every_number_the_documents_claim_is_the_number_the_repository_has():
     """Prose counts drift silently: "twelve locale bundles" outlived the twelfth bundle in three files at
     once, and the per-file test counts in tests/README summed to thirty-six against a suite of fifty-one.
     tests/claims.json registers each number with what computes it and the exact wording that carries it,
-    so a value that moves, or a document that keeps the old one, fails here instead of misleading a reader."""
+    so a value that moves, or a document that keeps the old one, fails here instead of misleading a reader.
+    A translation under docs/i18n/ is held to the same number as the English file it mirrors."""
     import asyncio
     import json
     from pathlib import Path
@@ -262,7 +263,7 @@ def test_every_number_the_documents_claim_is_the_number_the_repository_has():
     claims = json.loads((root / "tests" / "claims.json").read_text("utf-8"))["claims"]
     assert {c["id"] for c in claims} == set(truth), "claims.json and this test disagree on what is registered"
 
-    wrong, absent, unanchored = [], [], []
+    wrong, absent, unanchored, untranslated = [], [], [], []
     for c in claims:
         value = truth[c["id"]]()
         if value != c["value"]:
@@ -275,6 +276,15 @@ def test_every_number_the_documents_claim_is_the_number_the_repository_has():
                 unanchored.append(f"{c['id']} -> {path}: {phrase!r} does not contain {value}")
             elif phrase not in (root / path).read_text("utf-8"):
                 absent.append(f"{c['id']} -> {path}: {phrase!r}")
+            # a translation of a document that states a number states the same number. It is found from
+            # the English row, so no translator edits claims.json; the numeral is what is required,
+            # which is why docs/i18n/README.md asks for numerals even where English spells a count out.
+            # For a one-digit value this net is weak -- a stray 6 passes it -- and the strong check
+            # stays on the English source above.
+            for mirror in sorted((root / "docs" / "i18n").glob(f"*/{path}")):
+                if str(value) not in mirror.read_text("utf-8"):
+                    untranslated.append(f"{c['id']} -> {mirror.relative_to(root)}: no {value}")
     assert not wrong, wrong
     assert not unanchored, unanchored
     assert not absent, absent
+    assert not untranslated, untranslated

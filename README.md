@@ -8,6 +8,10 @@ replaces the judgment and never invents a magnitude.
 It ships as one Python package with a CLI and a stdio MCP server, plus a bundled `SKILL.md`, and works
 in Claude Code, Codex CLI, OpenCode and Hermes Agent. The full contract is in [docs/spec.md](docs/spec.md).
 
+This page in [한국어](docs/i18n/ko/README.md) · [日本語](docs/i18n/ja/README.md) ·
+[简体中文](docs/i18n/zh-Hans/README.md) — drafts, unconfirmed by a native speaker of the industry's
+language. English is canonical, and [why that is](docs/i18n/README.md) is worth two minutes.
+
 ## Status (0.1)
 
 Built and tested: stock vocabulary v2 (475 terms, 12 languages), `measure` and `light_ledger` (Pillow + numpy),
