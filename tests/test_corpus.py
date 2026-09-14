@@ -79,3 +79,28 @@ def test_the_skill_names_every_context_key_lint_requires():
     skill = (vocab.DATA.parent / "skill" / "SKILL.md").read_text("utf-8")
     assert keys, "the extraction found no context keys; the linter was probably restructured"
     assert sorted(k for k in keys if k not in skill) == []
+
+
+def test_the_skill_names_every_tool_the_server_exposes():
+    """No spec loss, mechanised for the tool list: a capability in server.py that SKILL.md does not
+    describe is shipped dead, because the agent reading the skill never learns to call it."""
+    import asyncio
+    from asrai.server import server
+    skill = (vocab.DATA.parent / "skill" / "SKILL.md").read_text("utf-8")
+    names = sorted(t.name for t in asyncio.run(server.list_tools()))
+    assert [n for n in names if f"`{n}`" not in skill] == []
+
+
+def test_the_stock_manifest_matches_the_files_it_records():
+    """CONTRIBUTING asks for the digest in the same commit as the data, and nothing enforced it: the
+    entry for validation_report.json was found stale during a documentation pass, with no way to say
+    when it had drifted. A digest nobody checks records nothing."""
+    import hashlib
+    import json
+    manifest = json.loads((vocab.DATA / "manifest.sha256.json").read_text("utf-8"))
+    wrong = {name: "missing" for name in manifest["files"] if not (vocab.DATA / name).exists()}
+    wrong |= {name: "stale" for name, digest in manifest["files"].items()
+              if (vocab.DATA / name).exists()
+              and hashlib.sha256((vocab.DATA / name).read_bytes()).hexdigest() != digest}
+    assert wrong == {}, wrong
+    assert manifest["file_count"] == len(manifest["files"])

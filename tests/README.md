@@ -19,10 +19,15 @@ flowchart TD
 
 | file | tests | what it holds |
 |---|---|---|
-| `test_asrai.py` | 10 | vocabulary search/get/locales, lint rules, `measure` determinism, record validation and layer rules, `doctor` lock and drift, the MCP tools in-process **and** over stdio, and refusal of malformed input at both trust boundaries |
-| `test_corpus.py` | 5 | the shipped vocabulary validates, the locales carry no hard defect, the shipped `lint` and the vendored validator agree (both on acceptance and on rejection), and every surface in `surfaces.v1.json` maps onto a real vocabulary term and is named in `SKILL.md` |
-| `test_fixtures.py` | 3 | `measure` reproduces the committed JSON byte for byte, the CLI and the core agree, and a fully transparent asset is reported as empty rather than measured |
-| `test_light.py` | 18 | the surface pass: direction, emitters, key fit, the form, the answered phase, depth, the three modes, the estimator noise floor on every direction, the mirror check, capture boxes, subject masks, and the production perturbations |
+Counts below are collected tests, which is what `pytest` reports; several functions are parametrised, so
+they do not match the number of `def test_` lines.
+
+| file | tests | what it holds |
+|---|---|---|
+| `test_asrai.py` | 11 | vocabulary search/get/locales, lint rules, `measure` determinism, record validation and layer rules, `doctor` lock and drift, the MCP tools in-process **and** over stdio, refusal of malformed input at both trust boundaries, and every number the documents claim against `claims.json` |
+| `test_corpus.py` | 13 | the shipped vocabulary validates, the locales carry no hard defect, the shipped `lint` and the vendored validator agree (both on acceptance and on rejection), every surface in `surfaces.v1.json` maps onto a real vocabulary term and is named in `SKILL.md`, and the skill names every `context` key the linter requires |
+| `test_fixtures.py` | 8 | `measure` reproduces the committed JSON byte for byte for each of the six images, the CLI and the core agree, and a fully transparent asset is reported as empty rather than measured |
+| `test_light.py` | 23 | the surface pass: direction, emitters, key fit, the form, the answered phase, depth, the three modes, the estimator noise floor on every direction, the mirror check, capture boxes and what a capture could not read, subject masks, holds, and the production perturbations |
 
 ## Conventions
 
@@ -36,6 +41,10 @@ file that came back through a tracker — because the magnitude is only defensib
 
 **Every assertion carries its context**: `assert ..., (k, s["shadow"])`. A bare failure in a
 parametrised loop costs a debugging round-trip that the third argument would have saved.
+
+**A number a document states is registered in `claims.json`.** It holds the value, what computes it,
+and the exact wording that must appear in each document claiming it, so a count that moves fails here
+rather than drifting through the prose. Adding a number to a README means adding a row.
 
 **No new dependency, no fixtures directory of mocks.** The synthetic scene in `test_light.py` (`disc()`)
 is built from numpy in twelve lines and is exact, so an estimator's error is known and not assumed.

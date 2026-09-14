@@ -196,9 +196,9 @@ outputs, exit_code, stderr}` and versions recorded per run. ImageMagick only for
 `montage`. Inkscape for `--export-type=png --export-width`. Blender headless (`blender --background
 --python <script>`) with **stdlib-only** scripts, because Blender bundles its own Python.
 
-**MCP / CLI** `[built]`: six tools, `vocab_search, vocab_get, measure, record, lint, doctor`; two slots
-are reserved for `retrieve` and `preview`. Never more than eight: every tool schema costs the host
-tokens on every turn.
+**MCP / CLI** `[built]`: seven tools — `vocab_search, vocab_get, measure, light_ledger, record, lint,
+doctor`; two slots are reserved for `retrieve` and `preview`. Never more than eight: every tool schema
+costs the host tokens on every turn.
 
 ## 7. Judgment protocol
 
@@ -311,6 +311,8 @@ exactly for the observer tier.
   whether a source lies in front or behind. Engine captures will carry real positions and lights in the
   capture contract (`lights[]`, `composed_of[].world_position`) `[planned]`; a raw image gets layer
   indexes from the observer; a monocular depth adapter is `[planned, optional]`.
+- At most the eight brightest blobs are proposed as emitters, `e1` first, and at most sixteen subjects
+  are measured: a frame with a dozen neon signs is read through its eight strongest.
 - Thresholds: agreement within twenty degrees is decided by measurement, beyond sixty likewise, between
   the observer is asked. The emitter a subject answers to is its expected key (designed sources — lamp,
   sky, screen — outrank decorative ones, then the proxy), or the one it points at when at least a

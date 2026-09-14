@@ -78,7 +78,7 @@ flowchart TD
 | [`src/asrai/data/`](src/asrai/data/README.md) | everything installed with the wheel |
 | [`src/asrai/data/skill/`](src/asrai/data/skill/README.md) | the agent-facing `SKILL.md` and the no-spec-loss rule |
 | [`src/asrai/data/stock/`](src/asrai/data/stock/README.md) | vocabulary v2, surfaces, schemas, the integrity manifest |
-| [`src/asrai/data/stock/locales/`](src/asrai/data/stock/locales/README.md) | twelve locale bundles |
+| [`src/asrai/data/stock/locales/`](src/asrai/data/stock/locales/README.md) | eleven locale bundles, one per language beside English |
 | [`src/asrai/data/stock/examples/`](src/asrai/data/stock/examples/README.md) | illustrative `instruction.v2` documents |
 | [`tests/`](tests/README.md) | the suite, its conventions, and how to add to it |
 | [`tests/fixtures/`](tests/fixtures/README.md) | six images, their expected output, and when regenerating is legitimate |

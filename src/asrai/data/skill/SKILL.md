@@ -97,7 +97,7 @@ honest default. Two calls, one form, no prose.
    `emitter_floor` which of the two floors bound: `relative` is a percentile and survives any colour
    space, `absolute` is a fixed level and is what decides in a night scene. Neither is asked of you, and
    a lossy source is reported, never corrected — ask for the original instead. White boxes are subjects, magenta boxes are
-   proposed emitters (`e1` is the brightest; bright paint is proposed too, on purpose), the yellow
+   proposed emitters (the eight brightest blobs, `e1` first; bright paint is proposed too, on purpose), the yellow
    arrow is where a subject's bright side points, the violet arrow where its shaded mass sits (it
    belongs opposite the yellow one), the cyan arrow is the contour fit (alpha masks
    only), the label at the tip names the emitter the subject should answer to and the angle to it,

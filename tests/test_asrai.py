@@ -196,3 +196,58 @@ def test_malformed_record_validates_instead_of_raising():
                 base | {"observations": [{"term_id": "shape.silhouette", "level": "estimated"}, 7]}):
         errors = records.validate(bad)
         assert isinstance(errors, list) and errors, bad
+
+
+NUMBER_WORDS = {6: "six", 7: "seven", 8: "eight", 9: "nine", 10: "ten", 11: "eleven", 12: "twelve",
+                16: "sixteen", 20: "twenty", 22: "twenty-two", 60: "sixty"}
+
+
+def test_every_number_the_documents_claim_is_the_number_the_repository_has():
+    """Prose counts drift silently: "twelve locale bundles" outlived the twelfth bundle in three files at
+    once, and the per-file test counts in tests/README summed to thirty-six against a suite of fifty-one.
+    tests/claims.json registers each number with what computes it and the exact wording that carries it,
+    so a value that moves, or a document that keeps the old one, fails here instead of misleading a reader."""
+    import asyncio
+    import json
+    from pathlib import Path
+    from asrai import light, measure, vocab
+    from asrai.server import server
+
+    root = Path(__file__).resolve().parent.parent
+    data = vocab.DATA
+    truth = {
+        "vocab.terms": lambda: len(vocab.index()),
+        "vocab.categories": lambda: len(vocab.categories()),
+        "vocab.languages": lambda: len(vocab.locale_codes()),
+        "locales.bundles": lambda: len(list((data / "locales").glob("*.json"))),
+        "mcp.tools": lambda: len(asyncio.run(server.list_tools())),
+        "package.modules": lambda: len(list((root / "src" / "asrai").glob("*.py"))),
+        "surfaces.count": lambda: len(light.surfaces()["surfaces"]),
+        "light.subjects_max": lambda: light.SUBJECTS_MAX,
+        "light.emitters_max": lambda: light.EMITTERS_MAX,
+        "light.key_tolerance_deg": lambda: light.KEY_TOLERANCE_DEG,
+        "light.disagree_deg": lambda: light.DISAGREE_DEG,
+        "measure.max_megapixels": lambda: measure.MAX_PIXELS // 1_000_000,
+        "fixtures.images": lambda: len([p for p in (root / "tests" / "fixtures").iterdir()
+                                        if p.suffix in (".png", ".jpg")]),
+        "instruction.examples": lambda: len(list((data / "examples").glob("*.json"))),
+    }
+    claims = json.loads((root / "tests" / "claims.json").read_text("utf-8"))["claims"]
+    assert {c["id"] for c in claims} == set(truth), "claims.json and this test disagree on what is registered"
+
+    wrong, absent, unanchored = [], [], []
+    for c in claims:
+        value = truth[c["id"]]()
+        if value != c["value"]:
+            wrong.append(f"{c['id']}: claims.json says {c['value']}, {c['truth']} gives {value}")
+            continue
+        word = NUMBER_WORDS.get(value, "")
+        for path, phrase in c["claimed_in"].items():
+            # the wording has to carry the number itself, or a claim could be met by unrelated prose
+            if str(value) not in phrase and (not word or word not in phrase.lower()):
+                unanchored.append(f"{c['id']} -> {path}: {phrase!r} does not contain {value}")
+            elif phrase not in (root / path).read_text("utf-8"):
+                absent.append(f"{c['id']} -> {path}: {phrase!r}")
+    assert not wrong, wrong
+    assert not unanchored, unanchored
+    assert not absent, absent

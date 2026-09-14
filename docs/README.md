@@ -33,9 +33,10 @@ Two more files sit at the repository root and are not contracts:
 ## Language
 
 Contracts and code comments are in **English**, which is canonical: term ids, field names, error
-strings and the vocabulary's `en` bundle are the specification, and the twelve locales only rename head
-terms. The dated review documents in `review/` are in **Korean**, because they were written for named
-readers — an artist, a game designer — rather than for the record.
+strings and the vocabulary's `en` bundle are the specification, and the eleven locale bundles only
+rename head terms — one per language beside English, twelve languages in all. The dated review
+documents in `review/` are in **Korean**, because they were written for named readers — an artist, a
+game designer — rather than for the record.
 
 ## Changing a document
 

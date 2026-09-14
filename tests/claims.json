@@ -1,0 +1,137 @@
+{
+  "schema_version": "claims.v1",
+  "note": "Numbers this repository states in prose. Each row carries the value, what computes it, and the exact wording that must appear in every document that claims it. A claim that moves fails the suite instead of drifting quietly through the docs; test_asrai.py evaluates them. Adding a number to prose means adding it here.",
+  "claims": [
+    {
+      "id": "vocab.terms",
+      "value": 475,
+      "truth": "len(vocab.index())",
+      "claimed_in": {
+        "README.md": "475 terms",
+        "docs/spec.md": "475 terms",
+        "src/asrai/data/stock/README.md": "475"
+      }
+    },
+    {
+      "id": "vocab.categories",
+      "value": 22,
+      "truth": "len(vocab.categories())",
+      "claimed_in": {
+        "docs/spec.md": "22 categories",
+        "src/asrai/data/stock/README.md": "22"
+      }
+    },
+    {
+      "id": "vocab.languages",
+      "value": 12,
+      "truth": "len(vocab.locale_codes()), en included",
+      "claimed_in": {
+        "README.md": "12 languages",
+        "docs/README.md": "twelve languages"
+      }
+    },
+    {
+      "id": "locales.bundles",
+      "value": 11,
+      "truth": "files under data/stock/locales, en is the base bundle",
+      "claimed_in": {
+        "README.md": "eleven locale bundles",
+        "tools/README.md": "eleven locale bundles",
+        "docs/spec.md": "11 other languages"
+      }
+    },
+    {
+      "id": "mcp.tools",
+      "value": 7,
+      "truth": "len(server.list_tools())",
+      "claimed_in": {
+        "docs/spec.md": "seven tools",
+        "src/asrai/README.md": "the seven tools below"
+      }
+    },
+    {
+      "id": "package.modules",
+      "value": 9,
+      "truth": "*.py under src/asrai",
+      "claimed_in": {
+        "README.md": "nine modules",
+        "src/asrai/README.md": "Nine modules"
+      }
+    },
+    {
+      "id": "surfaces.count",
+      "value": 10,
+      "truth": "len(light.surfaces()['surfaces'])",
+      "claimed_in": {
+        "docs/spec.md": "ten surfaces",
+        "src/asrai/data/skill/SKILL.md": "ten surfaces"
+      }
+    },
+    {
+      "id": "light.subjects_max",
+      "value": 16,
+      "truth": "light.SUBJECTS_MAX",
+      "claimed_in": {
+        "docs/spec.md": "sixteen subjects",
+        "src/asrai/data/skill/SKILL.md": "up to sixteen boxes",
+        "src/asrai/server.py": "at most\n    16"
+      }
+    },
+    {
+      "id": "light.emitters_max",
+      "value": 8,
+      "truth": "light.EMITTERS_MAX",
+      "claimed_in": {
+        "docs/spec.md": "eight brightest",
+        "src/asrai/data/skill/SKILL.md": "eight brightest"
+      }
+    },
+    {
+      "id": "light.key_tolerance_deg",
+      "value": 20,
+      "truth": "light.KEY_TOLERANCE_DEG",
+      "claimed_in": {
+        "docs/spec.md": "twenty degrees",
+        "src/asrai/data/skill/SKILL.md": "twenty and sixty degree bands"
+      }
+    },
+    {
+      "id": "light.disagree_deg",
+      "value": 60,
+      "truth": "light.DISAGREE_DEG",
+      "claimed_in": {
+        "docs/spec.md": "beyond sixty",
+        "src/asrai/data/skill/SKILL.md": "twenty and sixty degree bands"
+      }
+    },
+    {
+      "id": "measure.max_megapixels",
+      "value": 12,
+      "truth": "measure.MAX_PIXELS // 1_000_000",
+      "claimed_in": {
+        "docs/CHECKPOINT.md": "12 Mpx",
+        "docs/conventions.md": "12 Mpx",
+        "src/asrai/README.md": "12 Mpx"
+      }
+    },
+    {
+      "id": "fixtures.images",
+      "value": 6,
+      "truth": "images under tests/fixtures",
+      "claimed_in": {
+        "docs/spec.md": "six images",
+        "tests/fixtures/README.md": "Six small images",
+        "tests/README.md": "six"
+      }
+    },
+    {
+      "id": "instruction.examples",
+      "value": 8,
+      "truth": "files under data/stock/examples",
+      "claimed_in": {
+        "src/asrai/data/stock/examples/README.md": "Eight `instruction.v2` documents",
+        "src/asrai/data/stock/README.md": "8"
+      }
+    }
+  ]
+}

@@ -23,7 +23,7 @@
     "examples/vector_anchor.json": "50a69208fe6dcdccd709f44546985f1dd7dbea4830486814d780f26a661942b2",
     "instruction.v2.schema.json": "d7a0ea31153cfa4bfb4229e57e86d2de4e97556afa80f9c99d4731df6284d945",
     "instruction_examples.v2.json": "73ecfd4d7bea49d210d03635c2ffd4853b7c3ae53d7743d4337c5ee68915d8e0",
-    "locales/README.md": "af615d42d147497731b3bba4b4c500d8c4fb2838bf5ff2b3b61a46f77369af21",
+    "locales/README.md": "7a2f12f037b16577035ddf954609c958aff40cfebec9c43aa9416527886b567c",
     "locales/de.json": "b71f96363b81966ba11e0119dd2d3c359f13a8e5f12636f1f0c9959acd532027",
     "locales/es.json": "35798c2b5e5be41b78b38b4b7af5429264a62d6edb5bac83a98c868d560bcab2",
     "locales/fr.json": "7e72e4283d1daee8b49dcc2b574aeaa46666a90b3b2c08cd49293e0751945204",
@@ -36,7 +36,7 @@
     "locales/zh-Hans.json": "72e247b767d26c8059b8a8cf20b3e2bb4ea6d49406b457635da90cb0ab1b7bcc",
     "locales/zh-Hant.json": "b82840a4b3b18dbde36cd3976baf6ff3ef8bc91fd43e2d143b08620e70ff4454",
     "surfaces.v1.json": "b346be917a388598f0206e52b500321e2a0bbf16694f05f23392c106e2478bfb",
-    "validation_report.json": "b958486967a96f1e39185def5c45ea1bc281ecde144882b1ba8b5dfe1dc5371c",
+    "validation_report.json": "292ab4d876178f143b5c13d742cef7859209e8d0d2151d52d9439235b8386a79",
     "vocab.v2.json": "9a8e8cc54202d241f952abfc248ab0a9e87d4ce2937f8c32ca7319217c28f17c",
     "vocab.v2.schema.json": "f24d002752913f93757ff64c162014650b57b1fc53d0832c21b3915ad6afeac6"
   }

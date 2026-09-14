@@ -50,7 +50,10 @@ flowchart TD
 - **behaviour → contract.** A promise belongs in `spec.md`; a naming decision and its rejected
   alternatives belong in `conventions.md` §1a. Write the rejected alternative down — it is the cheapest
   thing in this repository and it stops the same argument recurring.
-- **stock data → `manifest.sha256.json`.** Refresh the digest in the same commit.
+- **stock data → `manifest.sha256.json`.** Refresh the digest in the same commit; a test now fails if
+  you forget.
+- **a number in prose → `tests/claims.json`.** Any count a document states — terms, locales, tools,
+  fixtures, a threshold — is registered there with what computes it and the wording that carries it.
 - **anything landing → `CHECKPOINT.md`.** Keep `last_acceptance_passed` truthful.
 
 ## The three changes people actually make

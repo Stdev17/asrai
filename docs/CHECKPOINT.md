@@ -2,7 +2,7 @@
 
 ```text
 phase: 1 (core and transports) — done, fixtures committed; 1b surface pass (surfaces.v1, light_ledger) — done
-last_acceptance_passed: 54 tests on 3.14 (vocab search/get/locales, lint rules, light_ledger direction/emitters/key fit/form/answers/depth/modes/noise floor/mirror/capture/malformed/a light nothing answers to/a shadow on the wrong side/production perturbations/subject masks, surfaces map onto vocabulary and skill,
+last_acceptance_passed: 57 tests on 3.14 (vocab search/get/locales, lint rules, light_ledger direction/emitters/key fit/form/answers/depth/modes/noise floor/mirror/capture/malformed/a light nothing answers to/a shadow on the wrong side/production perturbations/subject masks, surfaces map onto vocabulary and skill,
   measure determinism incl. 16-bit grey, record validation incl. layer rules, doctor lock/drift, MCP tools
   in-process and over stdio, malformed-input refusal at both trust boundaries, six measure fixtures
   byte-equal, corpus validators inside pytest); validate_stock 21,675 checks; review_locales no defects
@@ -49,6 +49,11 @@ audit (2026-09-14, every README and doc read against the code and the schemas):
     metric / sequence on the change). None was named in spec.md, SKILL.md or the tool schema, so they
     were discoverable only by failing. SKILL.md now carries the table and a test derives the key list
     from vocab.py, so it cannot go stale
+  - fixed, drifted: "twelve locale bundles" in three files against eleven; per-file test counts in
+    tests/README summing to 36 against a suite of 51; spec.md 6 listing six tools against seven.
+    tests/claims.json now registers 14 numbers with what computes each and the wording that carries it
+  - fixed, unchecked: manifest.sha256.json had drifted on validation_report.json with nothing to catch
+    it; a test now compares every digest
 known_limits:
   - measure refuses above 12 Mpx (~4 GB peak at ~320 B/px): a 4K capture fits, 8K does not
   - 16-bit colour PNGs are measured at 8-bit precision; 16-bit grey is rescaled correctly
@@ -56,6 +61,8 @@ known_limits:
     measurement settles and into the one the observer is asked. Light ones (0.15) cost under 9 deg
   - a vignette also dims an emitter near the frame border below the proposal floor, which is global
     (0.6 x the 99th percentile): a neon sign at the edge of a graded screenshot is not proposed at all
+  - at most the eight brightest blobs are proposed and at most sixteen subjects measured; a frame with
+    a dozen neon signs is read through its eight strongest
   - the absolute emitter floor (EMITTER_MIN_Y 0.30 linear) is the one constant in the pass that a
     transfer function moves. On the pixel-art night reference it is the binding one and the relative
     floor sits at 0.298, so the two nearly tie; a darker frame would be chosen by an absolute level.
