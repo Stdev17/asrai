@@ -24,8 +24,18 @@
       "decided_by": "evidence",
       "description": "Anything that reads as producing light: lamps, neon, glowing bands, sky, screens. The ledger proposes the brightest blobs of the image; bright paint under a strong light is the classic false positive, so every candidate is confirmed or rejected before any pair question is answered. Each candidate is measured against its own neighbourhood (spill: surfaces within two core radii against surfaces four to eight out, in luminance and in distance to its hue) and against the subjects (receivers: how many point their shading at it). A candidate confirmed as a light that neither lifts its surroundings nor is pointed at by anything is a decal, whatever genre the frame is drawn in, and lands on asset_cohesion. Spill is not read where both rings sit in the bottom few code values of the 8-bit range: there the codec's ringing around a bright blob outweighs any light, and an export written in the wrong colour space then reads spill around a decal that lights nothing.",
       "question": "Is {emitter} a light source rather than a bright surface?",
-      "ledger": ["emitters[].rgb", "emitters[].luminance", "emitters[].area_ratio", "emitters[].spill", "emitters[].receivers"],
-      "terms": ["material.emission", "lighting.light", "lighting.secondary_lighting"]
+      "ledger": [
+        "emitters[].rgb",
+        "emitters[].luminance",
+        "emitters[].area_ratio",
+        "emitters[].spill",
+        "emitters[].receivers"
+      ],
+      "terms": [
+        "material.emission",
+        "lighting.light",
+        "lighting.secondary_lighting"
+      ]
     },
     {
       "id": "key",
@@ -34,8 +44,16 @@
       "decided_by": "evidence",
       "description": "The one direction that dominates form shading across the subjects. When no confirmed emitter sits in that direction the key is off screen and only its direction is recorded.",
       "question": "Does one light direction dominate the shading across the subjects?",
-      "ledger": ["key_fit.best", "key_fit.hypotheses[].median_deg", "key_fit.hypotheses[].within_tolerance"],
-      "terms": ["lighting.light_direction", "lighting.directional_light", "lighting.lighting"]
+      "ledger": [
+        "key_fit.best",
+        "key_fit.hypotheses[].median_deg",
+        "key_fit.hypotheses[].within_tolerance"
+      ],
+      "terms": [
+        "lighting.light_direction",
+        "lighting.directional_light",
+        "lighting.lighting"
+      ]
     },
     {
       "id": "diffuse",
@@ -44,8 +62,17 @@
       "decided_by": "measurement",
       "description": "The lit side, terminator and form shadow of one subject against one emitter. The ledger measures where the bright side points and the angle to the emitter; the observer decides whether that emitter should be lighting the subject at all.",
       "question": "Does the bright side of {subject} face {emitter}?",
-      "ledger": ["subjects[].bright_side", "subjects[].contour_fit", "agreement[].angle_deg", "agreement[].irradiance_proxy"],
-      "terms": ["lighting.form_shadow", "lighting.terminator", "lighting.ndotl"]
+      "ledger": [
+        "subjects[].bright_side",
+        "subjects[].contour_fit",
+        "agreement[].angle_deg",
+        "agreement[].irradiance_proxy"
+      ],
+      "terms": [
+        "lighting.form_shadow",
+        "lighting.terminator",
+        "lighting.ndotl"
+      ]
     },
     {
       "id": "specular",
@@ -54,8 +81,14 @@
       "decided_by": "evidence",
       "description": "The brightest accent on a subject: it sits on the side facing the light that subject answers to. The ledger's highlight is the subject's brightest region, which on a subject with a bright painted band is that band and not a specular; the brightest region also lies inside the bright side, so on a box without a material mask no measurement separates the two. One list, judged against the light the verdict names, and answered from looking. The colour half of an accent belongs to light_color, so that this question asks one thing.",
       "question": "Does the highlight on {subject} sit on the side facing the light it answers to?",
-      "ledger": ["subjects[].highlight"],
-      "terms": ["value.highlight", "material.roughness", "material.surface_response"]
+      "ledger": [
+        "subjects[].highlight"
+      ],
+      "terms": [
+        "value.highlight",
+        "material.roughness",
+        "material.surface_response"
+      ]
     },
     {
       "id": "light_color",
@@ -64,8 +97,16 @@
       "decided_by": "evidence",
       "description": "The warm or cool cast of lit surfaces against the colour of the light that reaches them. A warm lamp that leaves every lit surface neutral or cool is the most common defect of generated images. One list, judged against the light the verdict names.",
       "question": "Do the lit surfaces of {subject} take the colour of the light it answers to?",
-      "ledger": ["agreement[].hue_delta_deg", "subjects[].highlight.hue_shift_from_body_deg", "emitters[].rgb", "subjects[].body_rgb"],
-      "terms": ["color.light_color", "color.color_temperature"]
+      "ledger": [
+        "agreement[].hue_delta_deg",
+        "subjects[].highlight.hue_shift_from_body_deg",
+        "emitters[].rgb",
+        "subjects[].body_rgb"
+      ],
+      "terms": [
+        "color.light_color",
+        "color.color_temperature"
+      ]
     },
     {
       "id": "cast_shadow",
@@ -74,8 +115,14 @@
       "decided_by": "measurement",
       "description": "Shadow thrown away from the light: onto other surfaces, and onto the subject's own parts, where a helmet darkens a face and a strap darkens a shirt. The ledger measures where a subject's shaded mass sits against its lit side, which must be opposite it. That needs no emitter at all, so a lone sprite can be judged on it, and it is the surface that catches shading painted for looks rather than for a light. It is read only where the subject's pixels are known -- a subject mask, or the file's own alpha: without either, the bottom decile of a box is the ground behind the subject, and any frame-wide gradient (a vignette, a sky, a floor falloff) turns that ground into a confident direction. It cannot separate a cast shadow from the form shadow inside one box, cannot see a missing contact shadow on the ground, and says nothing about a subject too flat to carry directional shading, so a subject the observer lists overrides it.",
       "question": "Does the shadow of {subject} fall away from the light, onto its own parts and onto what it stands on?",
-      "ledger": ["subjects[].shadow", "subjects[].bright_side"],
-      "terms": ["lighting.cast_shadow", "value.shadow"]
+      "ledger": [
+        "subjects[].shadow",
+        "subjects[].bright_side"
+      ],
+      "terms": [
+        "lighting.cast_shadow",
+        "value.shadow"
+      ]
     },
     {
       "id": "ambient",
@@ -85,7 +132,11 @@
       "description": "What the unlit side looks like: filled by ambient or bounce, darkened where surfaces meet. Observation only: the fill of an unlit side is albedo-invariant per material, so it would be measurable on one material at a time, and a box holds as many as the artist drew. A subject mask is what would make it one.",
       "question": "Is the unlit side of {subject} filled by ambient or bounce light and darkened where it meets other surfaces?",
       "ledger": [],
-      "terms": ["lighting.ambient", "lighting.bounce", "material.ao"]
+      "terms": [
+        "lighting.ambient",
+        "lighting.bounce",
+        "material.ao"
+      ]
     },
     {
       "id": "rim",
@@ -95,7 +146,9 @@
       "description": "A bright edge on the side away from the key, implying a source behind the subject. Legitimate only when such a source exists in the frame or in the scene's light rig.",
       "question": "Does a rim light on {subject} correspond to a source behind it?",
       "ledger": [],
-      "terms": ["lighting.backlight"]
+      "terms": [
+        "lighting.backlight"
+      ]
     },
     {
       "id": "atmosphere",
@@ -105,7 +158,10 @@
       "description": "Contrast and saturation falling with distance, haze between planes, glow around emitters. Observation only.",
       "question": "Do farther subjects lose contrast and saturation relative to nearer ones?",
       "ledger": [],
-      "terms": ["space.depth_cue", "vfx.bloom"]
+      "terms": [
+        "space.depth_cue",
+        "vfx.bloom"
+      ]
     },
     {
       "id": "albedo",
@@ -115,13 +171,17 @@
       "description": "The base colour that remains once lighting is removed. One material reads as one albedo wherever it appears; a highlight or a colour cast is not a change of material.",
       "question": "Does the material of {subject} read as one base colour wherever it appears in the image?",
       "ledger": [],
-      "terms": ["material.base_color", "material.material_cue", "perception.material_readability"]
+      "terms": [
+        "material.base_color",
+        "material.material_cue",
+        "perception.material_readability"
+      ]
     }
   ],
   "answers": {
     "schema_version": "light_answers.v1",
     "style.mode": "physical (lights in the frame) | fake_lighting (one stylistic key, lighting.fake_lighting) | engine_lit (sprites the engine lights: painted shading is a defect)",
-    "emitters": "proposed id -> lamp | neon | sky | screen | glow | paint | unknown; paint and unknown reject the emitter and void every pair with it (a parent answered no counts its children as no, after Cho et al. 2024)",
+    "emitters": "proposed id -> lamp | neon | sky | screen | glow | paint | unknown. paint is a judgment and rejects the emitter, voiding every pair with it (a parent answered no counts its children as no, after Cho et al. 2024). unknown is a hold and not a judgment: the blob is not confirmed, so nothing is judged against it, but it keeps a row as unclassified and holds asset_cohesion at warn. A form handed back unfilled holds every proposed emitter this way, which is why an unanswered frame never reads pass",
     "emitter_depth": "proposed id -> layer index, optional",
     "image_sha256": "the image the sheet was filled for, stamped by phase one. Emitter ids are ordinal by brightness, so they rebind when the pixels change: a re-export, a colour grade or a different crop can make e2 a different blob than the one answered about. Phase two refuses a sheet stamped for another image; a hand-written sheet may omit the field",
     "pairs[].answer": "yes | no | unknown, only for the diffuse pairs the form lists: the band where the measurement does not decide. The form handed back unfilled is a valid answer sheet: it returns what the measurement decides and unknown elsewhere",

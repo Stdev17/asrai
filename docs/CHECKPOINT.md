@@ -2,7 +2,7 @@
 
 ```text
 phase: 1 (core and transports) — done, fixtures committed; 1b surface pass (surfaces.v1, light_ledger) — done
-last_acceptance_passed: 51 tests on 3.14 (vocab search/get/locales, lint rules, light_ledger direction/emitters/key fit/form/answers/depth/modes/noise floor/mirror/capture/malformed/a light nothing answers to/a shadow on the wrong side/production perturbations/subject masks, surfaces map onto vocabulary and skill,
+last_acceptance_passed: 52 tests on 3.14 (vocab search/get/locales, lint rules, light_ledger direction/emitters/key fit/form/answers/depth/modes/noise floor/mirror/capture/malformed/a light nothing answers to/a shadow on the wrong side/production perturbations/subject masks, surfaces map onto vocabulary and skill,
   measure determinism incl. 16-bit grey, record validation incl. layer rules, doctor lock/drift, MCP tools
   in-process and over stdio, malformed-input refusal at both trust boundaries, six measure fixtures
   byte-equal, corpus validators inside pytest); validate_stock 21,675 checks; review_locales no defects
@@ -33,6 +33,11 @@ pending_human:
   - a flattened preview of a transparent sprite (the checkerboard baked into the pixels) is not the
     asset: measure reports alpha_present false and light_ledger proposes the checkerboard as emitters.
     Ask for the PNG with its alpha
+audit (2026-09-14, every README and doc read against the code and the schemas):
+  - fixed, silent: an emitter answered `unknown` was treated as a rejection, so on one decoy scene
+    naming e1 a lamp read fail while "I cannot tell" read pass and dropped the row entirely. unknown is
+    a hold: it keeps a row as `unclassified` and holds asset_cohesion at warn. paint still rejects,
+    because that is a judgment. The sibling verdict `unknown` became `unreadable`
 known_limits:
   - measure refuses above 12 Mpx (~4 GB peak at ~320 B/px): a 4K capture fits, 8K does not
   - 16-bit colour PNGs are measured at 8-bit precision; 16-bit grey is rescaled correctly

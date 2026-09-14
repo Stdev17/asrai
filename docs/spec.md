@@ -267,15 +267,18 @@ exactly for the observer tier.
   hypothesis per emitter, each with the per-subject residuals summarised as median, max and share
   within tolerance, and the best by median; the overlay PNG under `out/<sha>/` with every id drawn on
   the image (Set-of-Mark, Yang et al. 2023); and `form`, the typed answer sheet.
-- Phase two, with `answers` (the filled form): confirmed emitters leave every subject's shading, rejected
-  ones void their pairs (a parent answered no counts its children as no: the dependency rule of the
-  Davidsonian scene graph, Cho et al. 2024; its averaged score is deliberately not adopted), and the
+- Phase two, with `answers` (the filled form): confirmed emitters leave every subject's shading, emitters
+  rejected as paint void their pairs (a parent answered no counts its children as no: the dependency rule
+  of the Davidsonian scene graph, Cho et al. 2024; its averaged score is deliberately not adopted), and a
+  blob answered `unknown` is held rather than rejected: nothing is judged against it, it keeps a row as
+  `unclassified`, and it holds `asset_cohesion` at `warn`, because the answer an observer gives when they
+  cannot tell must not be the one that clears the frame, and the
   ledger returns `verdict` (per subject: expected key, residual in degrees, `agrees | disagrees |
   unknown` with its basis, the axis outcome; `baked | flat` in `engine_lit` mode; per confirmed
-  emitter `lights | lights_nothing | unknown`; a light nothing answers to and a subject whose shaded
+  emitter `lights | lights_nothing | unreadable`, plus `unclassified` for each held one; a light nothing answers to and a subject whose shaded
   mass contradicts its own lit side both fail `asset_cohesion`, which is the only axis a lone sprite with
-  no emitters can speak on, while a confirmed light whose neighbourhood could not be read holds it at
-  `warn`, never `pass`) and `record`, an
+  no emitters can speak on, while a confirmed light whose neighbourhood could not be read, or a blob
+  nobody classified, holds it at `warn`, never `pass`) and `record`, an
   observation record whose measured items are `asserted` and observer items `estimated`, ready for
   `record` once `observer.model` is filled.
 - Depth is an ordinal layer index (nearest first), never a distance. The image-plane direction from a

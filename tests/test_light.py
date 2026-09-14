@@ -208,11 +208,14 @@ def test_a_lone_sprite_is_its_own_subject_and_an_unfilled_form_is_a_verdict(tmp_
     assert [s["id"] for s in led["subjects"]] == ["asset"] and asset["mask"] == "alpha"
     assert asset["bbox"] == [12, 8, 143, 107]                  # the whole silhouette: disc, lamp and decoy
     v = light.ledger(p, answers=led["form"])["verdict"]        # returned unfilled
-    assert v["mode"] == "physical" and [e["id"] for e in v["emitters"]] == []
+    # nobody said what the two bright blobs are, so they are held, not dropped: the measurement still
+    # answers on its own, and the axis says which half of the frame nobody looked at
+    assert v["mode"] == "physical"
+    assert [(e["id"], e["verdict"]) for e in v["emitters"]] == [("e1", "unclassified"), ("e2", "unclassified")]
     row = v["subjects"][0]
     assert (row["diffuse"], row["cast_shadow"], row["shadow_basis"]) == ("unknown", "yes", "measurement")
     assert v["axes"] == {"direction_compliance": "unknown", "intentional_contrast": "unknown",
-                         "asset_cohesion": "pass"}
+                         "asset_cohesion": "warn"}
     assert light.ledger(p, answers={})["verdict"] == v          # an empty object says the same thing
 
 
@@ -306,8 +309,24 @@ def test_a_light_nobody_could_check_never_passes_for_cohesion(tmp_path):
         form["style"]["mode"] = "physical"
         form["emitters"] = {e["id"]: "neon" for e in light.ledger(p, subs)["emitters"]}
         v = light.ledger(p, subs, answers=form)["verdict"]
-        assert any(e["verdict"] == "unknown" and not e["spill"] for e in v["emitters"]), (name, v["emitters"])
+        assert any(e["verdict"] == "unreadable" and not e["spill"] for e in v["emitters"]), (name, v["emitters"])
         assert v["axes"]["asset_cohesion"] == "warn", (name, v["axes"])
+
+
+def test_a_hold_is_not_a_rejection(tmp_path):
+    """An observer who cannot classify a blob must not thereby clear the frame. Same pixels as the decoy
+    scene, one answer apart: calling e1 a lamp exposes a source nothing in the frame takes light from,
+    so "I cannot tell" was the one answer that made it disappear. unknown is a hold, not a finding."""
+    p = tmp_path / "s.png"
+    disc(45, alpha=False).save(p)
+    seen = {}
+    for kind in ("lamp", "unknown"):
+        form = light.ledger(p, BALL)["form"] | {"emitters": {"e1": kind, "e2": "neon", "e3": "paint"}}
+        v = light.ledger(p, BALL, answers=form)["verdict"]
+        seen[kind] = (v["axes"]["asset_cohesion"], {e["id"]: e["verdict"] for e in v["emitters"]})
+    assert seen["lamp"] == ("fail", {"e1": "lights_nothing", "e2": "lights"}), seen
+    assert seen["unknown"][1] == {"e2": "lights", "e1": "unclassified"}, seen   # held, not dropped
+    assert seen["unknown"][0] == "warn", seen                                   # and it never reaches pass
 
 
 def test_a_form_belongs_to_the_image_it_was_filled_for(tmp_path):

@@ -81,7 +81,9 @@ EMITTER_KINDS = ("lamp", "neon", "sky", "screen", "glow", "paint", "unknown")
 EMITTER_RANK = {"lamp": 0, "sky": 0, "screen": 0}     # designed sources outrank decorative ones (neon, glow, proposed: 1)
 POINTED_MIN_PROXY = 0.25    # a subject may answer to the emitter it points at when that one is at least this
                             # fraction as strong as its expected key; the proxy under-reads clipped lamp heads
-REJECTED_KINDS = ("paint", "unknown")
+REJECTED_KINDS = ("paint",)   # a judgment: the blob does not emit, so its pairs are void
+HELD_KINDS = ("unknown",)     # not a judgment: the observer could not say. Held, never rejected,
+UNCONFIRMED = REJECTED_KINDS + HELD_KINDS   # because an axis does not pass on evidence nobody gave
 LOSSY_FORMATS = ("JPEG", "JPEG2000", "WEBP")   # reported, never corrected: ringing around a bright blob
                             # moves a spill ring further than a light does, and undoing it would need the
                             # encoder's tables. The answer to a lossy source is to ask for the original
@@ -588,19 +590,25 @@ def _direction(angle: float | None, answer: str | None) -> tuple[str, str]:
     return {"yes": "agrees", "no": "disagrees"}.get(answer or "", "unknown"), "observer"
 
 
-def _emitter_verdicts(emitters: list[dict]) -> list[dict]:
+def _emitter_verdicts(emitters: list[dict], held: list[dict]) -> list[dict]:
     """A light the frame does not answer to: nothing points at it and nothing near it is brighter for
-    it. Both tests are a sign or a count, so no invented magnitude decides a light source."""
+    it. Both tests are a sign or a count, so no invented magnitude decides a light source.
+
+    A blob the observer left unclassified is neither answer. It is a hold, so it keeps its row and its
+    measured spill: dropping it would let the one honest answer be the one that hides a decal."""
     rows = []
     for e in emitters:
         sp, seen = e.get("spill"), e.get("receivers") or 0
         lights = seen > 0 or bool(sp and sp["luminance_gain"] > 0)
         rows.append({"id": e["id"], "kind": e["kind"], "receivers": seen, "spill": sp,
-                     "verdict": "lights" if lights else "lights_nothing" if sp else "unknown"})
+                     "verdict": "lights" if lights else "lights_nothing" if sp else "unreadable"})
+    rows += [{"id": e["id"], "kind": e["kind"], "receivers": None, "spill": e.get("spill"),
+              "verdict": "unclassified"} for e in held]
     return rows
 
 
-def _verdict(subjects: list[dict], emitters: list[dict], agreement: list[dict], key_fit: dict | None, ans: dict) -> dict:
+def _verdict(subjects: list[dict], emitters: list[dict], held: list[dict], agreement: list[dict],
+             key_fit: dict | None, ans: dict) -> dict:
     mode = ans["mode"]
     ranks = _ranks(emitters)
     directional = next((h for h in (key_fit or {}).get("hypotheses", []) if h["hypothesis"] == "directional"), None)
@@ -648,14 +656,15 @@ def _verdict(subjects: list[dict], emitters: list[dict], agreement: list[dict], 
             v["axis"] = "unknown"      # no confirmed emitter to answer to
         rows.append(v)
     axes = [r["axis"] for r in rows]
-    emits = _emitter_verdicts(emitters)
+    emits = _emitter_verdicts(emitters, held)
     # a declared light the frame ignores is the elements disagreeing with each other, not with a brief;
     # under a declared stylistic key it is the style, so it lands on intentional_contrast instead
     dark = [e for e in emits if e["verdict"] == "lights_nothing"]
     # a confirmed light whose neighbourhood could not be read is not a light that passed: bloom, a
     # vignette or any exposure lift raises the emitter floor until the rings have no ground left, and
     # the frame then reports no dark emitter because it measured none. That is warn, never pass.
-    unchecked = [e for e in emits if e["verdict"] == "unknown"]
+    # ... and so is a blob nobody classified: unknown is a hold, not a finding of "not a light"
+    unchecked = [e for e in emits if e["verdict"] in ("unreadable", "unclassified")]
     shadows = [r for r in rows if r.get("shadow_basis") == "measurement"]
     crossed = [r["id"] for r in shadows if r["cast_shadow"] == "no"]
     fake = mode == "fake_lighting"
@@ -683,8 +692,11 @@ def _records(verdict: dict, emitters: list[dict], subjects: list[dict], ans: dic
     for e in emitters:
         kind = ans["kinds"].get(e["id"])
         if kind:
-            items.append({"term_id": term["emissive"], "level": "estimated", "region": e["bbox"],
-                          "note": f"{e['id']} is bright paint, not a source" if kind in REJECTED_KINDS
+            held = kind in HELD_KINDS
+            items.append({"term_id": term["emissive"], "level": "unknown" if held else "estimated",
+                          "region": e["bbox"],
+                          "note": f"{e['id']} was left unclassified, so nothing is judged against it" if held
+                          else f"{e['id']} is bright paint, not a source" if kind in REJECTED_KINDS
                           else f"{e['id']} reads as {kind} and nothing in the frame takes its light" if e["id"] in dark
                           else f"{e['id']} confirmed as {kind}"})
     for v in verdict["subjects"]:
@@ -759,7 +771,7 @@ def _overlay(rgba: np.ndarray, emitters: list[dict], subjects: list[dict], agree
 
     for e in emitters:
         x, y, w, h = e["bbox"]
-        color = REJECTED_COLOR if e["kind"] in REJECTED_KINDS else EMITTER_COLOR
+        color = REJECTED_COLOR if e["kind"] in REJECTED_KINDS else EMITTER_COLOR   # a hold stays proposed
         d.rectangle([x, y, x + w - 1, y + h - 1], outline=color, width=lw)
         label((x, max(0, y - font.size - 2)), e["id"], color)
     for s in subjects:
@@ -813,9 +825,10 @@ def ledger(path: Path, subjects: list[dict] | None = None, capture: str | None =
         for e in emitters:
             e["kind"] = ans["kinds"][e["id"]] or "unknown"
             e["depth"] = ans["emitter_depth"].get(e["id"])
-        confirmed = {i for i, e in enumerate(emitters, 1) if e["kind"] not in REJECTED_KINDS}
+        confirmed = {i for i, e in enumerate(emitters, 1) if e["kind"] not in UNCONFIRMED}
     rows = [_subject(s, rgba, Y, alpha, emit_ids, confirmed, masks.get(s["id"])) for s in subs]
-    live = [e for e in emitters if confirmed is None or e["kind"] not in REJECTED_KINDS]
+    live = [e for e in emitters if confirmed is None or e["kind"] not in UNCONFIRMED]
+    held = [e for e in emitters if confirmed is not None and e["kind"] in HELD_KINDS]
     agreement = _agreement(rows, live, max(W, H))
     for e in live:
         e["receivers"] = sum(1 for a in agreement if a["emitter"] == e["id"]
@@ -826,7 +839,7 @@ def ledger(path: Path, subjects: list[dict] | None = None, capture: str | None =
            "source": {"format": meta["format"], "lossy": meta["format"] in LOSSY_FORMATS},
            "emitter_floor": floor, "emitters": emitters, "subjects": rows, "agreement": agreement, "key_fit": key_fit, "overlay": None}
     if ans:
-        verdict = _verdict(rows, live, agreement, key_fit, ans)
+        verdict = _verdict(rows, live, held, agreement, key_fit, ans)
         out |= {"verdict": verdict, "record": _records(verdict, emitters, rows, ans, meta["sha256"], bool(capture))}
     else:
         out["form"], out["questions"] = _form(rows, live, agreement, meta["sha256"])

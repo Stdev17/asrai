@@ -104,8 +104,9 @@ honest default. Two calls, one form, no prose.
    residual in degrees and the share of subjects within tolerance. A `directional` best hypothesis
    with a low residual and no emitter near it means an off-screen or stylistic key.
 3. Fill `form`. Its null fields are all you decide: `style.mode` (`physical`, `fake_lighting`,
-   `engine_lit`), a kind for every proposed emitter (`paint` rejects it and voids every pair with
-   it), optional `emitter_depth`, an answer for each listed pair (only the diffuse band the
+   `engine_lit`), a kind for every proposed emitter (`paint` is a judgment and rejects it, voiding every
+   pair with it; `unknown` is a hold, so the emitter is not confirmed but stays visible and holds
+   `asset_cohesion` at `warn`, and a kind you leave null is read as `unknown`), optional `emitter_depth`, an answer for each listed pair (only the diffuse band the
    measurement could not decide), for each subject-scope surface the lists of subjects for which it
    is false or undecidable, and `global.key` and `global.atmosphere`. Every subject left out of both
    lists answers yes and is recorded as nothing, except `cast_shadow`, which the measurement owns: a
@@ -135,11 +136,11 @@ honest default. Two calls, one form, no prose.
    a painted band inside a box looks like a cast to any measurement; `engine_lit` reports `baked | flat` instead,
    because painted shading on an engine-lit sprite double-lights. `verdict.emitters` answers the other
    direction for each confirmed light: `lights` when something points at it or its surroundings are
-   brighter for it, `lights_nothing` when neither is true, `unknown` when it has no readable
+   brighter for it, `lights_nothing` when neither is true, `unreadable` when it has no readable
    neighbourhood and no subject near it — a sprite on transparency, a source at the border, or a frame
    whose darks are crushed into the bottom code values, where the codec moves a ring further than a light
-   does. A confirmed light left `unknown` holds `asset_cohesion` at `warn`: an axis does not pass on
-   evidence it never had. A light the frame does not answer to is a decal, in any
+   does — and `unclassified` for a blob you held. Either one holds `asset_cohesion` at `warn`: an axis
+   does not pass on evidence it never had, and the honest answer must not be the one that clears a frame. A light the frame does not answer to is a decal, in any
    genre, and it is what `axes.asset_cohesion` fails on, together with a shaded mass that contradicts
    its own lit side; `axes` summarises that with
    `direction_compliance` and `intentional_contrast` for the frame. Under `fake_lighting` both land
