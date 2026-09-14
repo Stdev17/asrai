@@ -19,6 +19,16 @@ cheaply re-applicable** for teams without a GPU. It does this in four steps that
 order: deterministic measurement, qualified observation, precedent retrieval, previewable recipe.
 It never replaces the judgment.
 
+**Who it is for** `[decided]`. Three readers, and a feature earns its place by serving all three or by
+naming the one it serves. This is the lens every later design decision is argued under.
+
+| reader | what they cannot do alone | what asrai owes them |
+|---|---|---|
+| no art training | see that a lamp and a highlight disagree at all | the defect named and located without vocabulary: an id, a box, a direction, in a sentence they can hand to whoever fixes it. The measurement carries them, so `unknown` must never read as fine |
+| an artist | prove it to anyone else cheaply, or avoid re-arguing it every sprite | the basis of every claim (measured or observed), the mirror check, and a record that survives into the next review |
+| an art director | nothing; they see more than the measurement ever will | silence on what the measurement can settle, the contested band handed over with its evidence attached, and their override kept as precedent that changes later verdicts |
+
+
 Non-goals `[decided]`: image generation, inpainting or repainting; absolute aesthetic scores;
 automatic replacement of a team's canonical rules; a GUI for artists; modelling, rigging or
 animation judgment (a rendered view of a mesh is in scope, the mesh's construction is not).
@@ -197,37 +207,28 @@ the measurement decide every question it can, and asks the observer only the res
 
 ```mermaid
 flowchart TD
-    IN["image: raster or capture frame"]
-    SUB["subjects<br/>capture composed_of boxes, or the observer's<br/>id · bbox · depth layer"]
-
-    subgraph MEASURE["phase one: measurement only, deterministic and mirror invariant"]
-        EM["emitters e1..e8, brightest blobs<br/>spill: ring at 2r against 4 to 8r<br/>receivers: subjects pointing at it"]
-        SJ["per subject<br/>bright_side, top decile<br/>shadow, bottom decile<br/>contour_fit, Johnson and Farid<br/>highlight · body_rgb"]
-        PR["per subject and emitter<br/>angle · distance · hue delta<br/>irradiance proxy"]
-        KF["key_fit<br/>one directional plus one per emitter<br/>residuals in degrees"]
-    end
-
-    IN --> MEASURE
-    SUB --> MEASURE
-    MEASURE --> GATE{"residual in degrees"}
-    GATE -->|"within 20 agrees, beyond 60 disagrees"| MEAS["basis: measurement"]
-    GATE -->|"between 20 and 60"| FORM
-    MEASURE --> FORM["form: the null fields and nothing else<br/>style.mode · emitter kinds · contested diffuse pairs<br/>subject lists · key · atmosphere"]
-    FORM --> OBS["observer: host model or human<br/>reads the overlay, where every id is drawn"]
-    OBS --> ANS["basis: observer"]
-    MEAS --> VER
-    ANS --> VER
-
-    subgraph VER["phase two: verdict"]
-        VS["per subject<br/>expected key · residual · diffuse<br/>specular · light colour · cast shadow"]
-        VE["per emitter<br/>lights, lights_nothing or unknown"]
-    end
-
-    VER --> AX["axes, never summed<br/>direction_compliance: shading against the light it answers to<br/>asset_cohesion: a light nothing answers to, a shaded mass<br/>that contradicts its own lit side<br/>intentional_contrast: the same two under a declared style"]
-    AX --> REC["observation record<br/>measured asserted, observed estimated<br/>notes name ids, never magnitudes"]
-    REC --> LOG["team log, append only"]
-    LOG -.->|"precedent, the only source of a magnitude"| OBS
+    ASSET[asset] --> MEASURE[measure]
+    SUBJECTS[subjects] --> MEASURE
+    MEASURE --> WHO{"who decides"}
+    WHO -->|"measurement<br/>diffuse, cast_shadow"| BAND{"contested band"}
+    WHO -->|"evidence<br/>emissive, key, specular, light_color"| FORM
+    WHO -.->|"observer<br/>ambient, rim, atmosphere, albedo"| FORM
+    BAND -->|no| VERDICT
+    BAND -->|yes| FORM[form]
+    FORM --> OBSERVER[observer]
+    OBSERVER --> VERDICT[verdict]
+    VERDICT --> AXES[axes]
+    AXES --> RECORD[record]
+    RECORD --> PRECEDENT[precedent]
+    PRECEDENT -.-> OBSERVER
 ```
+
+Every surface carries `decided_by`, which is the split the diagram branches on: `measurement` decides
+outside the twenty and sixty degree band and asks inside it, `evidence` measures around the question and
+leaves the answer to the observer, `observer` measures nothing and defaults to `unknown`. Two surfaces
+are measurement, four evidence, four observer; the ledger fields are listed per surface and are empty
+exactly for the observer tier.
+
 
 
 - `surfaces.v1.json` (stock): ten surfaces in pass order — `emissive`, `key`, `diffuse`, `specular`,

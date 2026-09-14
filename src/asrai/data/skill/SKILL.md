@@ -78,7 +78,11 @@ of `pipe_left` face `e2`?" it answers reliably, given the picture with `pipe_lef
 it. `light_ledger` turns the first into the fewest of the second, from `surfaces.v1.json` (bundled
 beside the vocabulary): ten surfaces an image's appearance decomposes into — `emissive`, `key`,
 `diffuse`, `specular`, `light_color`, `cast_shadow`, `ambient`, `rim`, `atmosphere`, `albedo` — each
-with one atomic question and the term id an answer is recorded under. Two calls, one form, no prose.
+with one atomic question, the term id an answer is recorded under, and `decided_by`, which says who
+owns it: `measurement` settles `diffuse` and `cast_shadow` outside the contested band, `evidence`
+measures around `emissive`, `key`, `specular` and `light_color` and leaves the answer to you, and
+`observer` means `ambient`, `rim`, `atmosphere` and `albedo` are yours alone, where `unknown` is the
+honest default. Two calls, one form, no prose.
 
 1. Subjects. A capture: `capture=capture.json` (its `composed_of` screen boxes). A sprite: one
    subject over the whole file. A raw image: propose up to sixteen boxes yourself, the things that

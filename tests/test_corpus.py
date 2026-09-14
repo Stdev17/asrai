@@ -60,4 +60,7 @@ def test_surfaces_map_onto_the_vocabulary_and_the_skill():
         assert ("{emitter}" in s["question"]) == (s["scope"] in ("emitter", "pair")), s["id"]
         assert all(f.split("[")[0].split(".")[0] in ("emitters", "subjects", "agreement", "key_fit") for f in s["ledger"]), s["id"]
         assert f"`{s['id']}`" in skill, s["id"]         # the skill walks the same list, by id
+        assert s["decided_by"] in doc["decided_by"], s["id"]
+        # a surface that claims a ledger field must be one the measurement reaches, and the reverse
+        assert bool(s["ledger"]) == (s["decided_by"] != "observer"), s["id"]
     assert doc["style_exemption"]["term"] in vocab.index()

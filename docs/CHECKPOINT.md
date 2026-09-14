@@ -10,6 +10,9 @@ in_progress: nothing
 next_slice: phase 2 — recipes, tool adapters, alpha policy, recipe hashes, preview/apply/diff (spec.md 8)
 working_tree: main carries phase 1 (tag v0.1.0), AGENTS.md and the surface pass. Phase 2 starts in a separate
   git worktree, because this checkout is shared with another session.
+design_lens: spec.md 1 now carries the three readers a feature must serve (no art training, an artist,
+  an art director) and surfaces.v1 carries decided_by per surface (measurement 2, evidence 4, observer 4),
+  so coverage is read from the data rather than argued in prose
 pending_human:
   - review docs/spec.md and the artist brief
   - decide observer.mode default and embedding egress (spec.md 10)
