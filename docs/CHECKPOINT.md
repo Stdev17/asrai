@@ -14,6 +14,10 @@ design_lens: spec.md 1 now carries the three readers a feature must serve (no ar
   an art director) and surfaces.v1 carries decided_by per surface (measurement 2, evidence 4, observer 4),
   so coverage is read from the data rather than argued in prose
 pending_human:
+  - six CI-gate questions, listed at the end of review/2026-09-15-ci-gate-discovery.md: whether a stale
+    translation blocks, DCO or nothing, generated changelog or hand-written, who the second approver is
+    at bus factor 1, whether contributed images need a provenance field, whether a held pull request is
+    a state this project wants
   - review docs/spec.md and the artist brief
   - decide observer.mode default and embedding egress (spec.md 10)
   - confirm Blender/Inkscape versions on team machines (none installed on the dev machine)
@@ -63,6 +67,12 @@ mcp_surface (decided 2026-09-14): the eight-tool cap was never a host limit and 
   alone 38.5% of it; what left the descriptions is in SKILL.md, which is read once. The vocab_get overload
   survives on the same budget (docs/conventions.md 1a, structural notes)
 known_limits:
+  - the byte-equal fixture gate is decoder-bound, and flat.jpg is the exposed one: perturbing its decode
+    by +/-1 on 0.1% of subpixels moves 2 of its 78 committed numbers (1% moves 10), landing on
+    percentiles, which jump a whole quantisation step. Arithmetic is not the risk -- the tightest of the
+    304 rounded values sits 9.8e-07 from a rounding boundary against float noise near 1e-16 -- but PNG
+    decoding is exact by definition and JPEG's is not, and pillow>=12,<13 lets the bundled decoder move.
+    A dependency patch release can turn a green change red under a message blaming the author
   - measure refuses above 12 Mpx (~4 GB peak at ~320 B/px): a 4K capture fits, 8K does not
   - 16-bit colour PNGs are measured at 8-bit precision; 16-bit grey is rescaled correctly
   - a heavy vignette (0.55) bends a sprite's shaded mass by about 20 deg, out of the band the
@@ -106,6 +116,16 @@ repo_docs: every tracked directory carries a README (src/asrai, data, data/skill
   snapshot, review/ is historical and never edited. A link checker over every relative markdown link
   runs by hand (see the CONTRIBUTING checklist); it found and fixed four docs/reviews -> docs/review
   typos left from before the folder was renamed
+ci_gate (discovery 2026-09-15, nothing decided): review/2026-09-15-ci-gate-discovery.md. There is no
+  .github/ at all. Measured that day: 21 commits by 1 author; CHECKPOINT.md in 12 of the last 12 commits
+  and spec.md in 10, at 8.1 files per commit, so two concurrent pull requests collide with near-certainty
+  on a status file that is rewritten rather than appended; the suite is 58 tests in 2.5 s, so CI minutes
+  bound nothing; the declared floor 3.11 was run and passes. The precedents say the gate should check
+  provenance and conformance (Getty AAT requires a source for a term, Google Fonts blocks on FAIL and
+  lets WARN through) and should never check merit, and that projects lose artists on the reply rather
+  than the standard (Godot proposal 779, the Krita artist-programmer thread). The missing piece that
+  maps onto this codebase: `unknown` is a hold everywhere in the data model and a pull request has no
+  equivalent -- merged or closed, nothing held
 next_command: uv run pytest
 art_basis: the surface pass's eight published sources and the estimator noise floor moved to
   review/2026-09-15-art-direction-rationale.md on 2026-09-15, with what each was adopted for and
