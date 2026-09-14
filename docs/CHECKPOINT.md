@@ -24,6 +24,133 @@ be, on the day the policy changed. Their wording is unchanged; only the shape is
 
 ---
 
+## 2026-09-15 · verified at `75ad625` · Shelby Yoon
+
+**State.**
+
+- phase: 1 (core and transports) done, fixtures committed; 1b surface pass (`surfaces.v1`,
+  `light_ledger`) done
+- last_acceptance_passed: 58 tests on 3.14 (vocab search/get/locales, lint rules, light_ledger direction/
+  emitters/key fit/form/answers/depth/modes/noise floor/mirror/capture/malformed/a light nothing answers
+  to/a shadow on the wrong side/production perturbations/subject masks, surfaces map onto vocabulary and
+  skill, measure determinism incl. 16-bit grey, record validation incl. layer rules, doctor lock/drift,
+  MCP tools in-process and over stdio and inside their token budget, malformed-input refusal at both trust
+  boundaries, six measure fixtures byte-equal, corpus validators inside pytest, every registered number
+  matching its claim in every file that states it — `surfaces.v1.json` now among them); `check_links`
+  0 broken; `check_translations` 3 current, 0 stale
+- in_progress: nothing
+- next_slice: phase 2 — recipes, tool adapters, alpha policy, recipe hashes, preview/apply/diff
+  (`spec.md` §8). The CI gate: discovery done and all six of its questions answered; `.github/` is still
+  unwritten — the pull-request template, the DCO check and `CHANGELOG.md` are the next round
+- next_command: `uv run pytest`
+- working_tree: `main` carries phase 1 (tag v0.1.0), AGENTS.md, the surface pass and the documentation
+  rounds; 31 commits ahead of `origin/main`, nothing pushed. Phase 2 starts in a separate git worktree,
+  because this checkout is shared with another session
+
+**What landed.**
+
+- **Two commits this entry owes.** `853e11b` made this file append-only and `1ecfc08` refused links
+  that climb above the repository root. Both landed after the entry below was verified and neither got
+  an entry: the append rule was broken by the commit after the one that wrote it. This entry is the
+  correction, and nothing below it is changed
+- **The three open gate questions are decided** (below). `docs/i18n/README.md` gained an owner table,
+  `tools/check_translations.py` says staleness never fails by decision, and `CONTRIBUTING.md` and the
+  runbook carry the sign-off
+- **A forensic pass over all thirty commits** — the spec-perturbation probe run backwards: the message
+  as the spec, the diff as the footprint, `git log -S` for the commit that planted each defect a later
+  one fixed. Kept as an ignored experiment record, `docs/experiments/2026-09-15-boundary-forensics/`,
+  never tracked; its numbers are in the decision below and nowhere else in the tree. What it changed
+  here: runbook §7.6, `claims.json` anchoring 20 and 60 in `surfaces.v1.json`, and the known limit on
+  unsourced numbers
+- `.gitignore` covers `docs/experiments/`; runbook §3 and `AGENTS.md` name it beside the other scratch
+  names. A copy of DeliveryKnight's `spec-perturbation` skill sits in the ignored `.claude/skills/`
+
+**Decided today.**
+
+- **A stale translation never blocks a merge.** A language is accepted with a named owner who reads it
+  natively and answers for its staleness; none of `ko`, `ja`, `zh-Hans` has one yet and the table says
+  so. The gate reports; a person holds
+- **DCO.** Every commit from today carries `Signed-off-by` (`git commit -s`); no CLA; nothing
+  retroactive — the thirty commits before it carry none
+- **The changelog is hand-written**, not generated from commit messages. The file lands with the
+  pull-request template round; until then no document names it
+- **Each commit message names every owner its diff touches** (runbook §7.6). Basis, measured on this
+  history — 28 authored commits, 31 defects a later commit said it found: defects planted did not track
+  how far a commit went beyond its message (Spearman +0.15 against unstated owners, +0.04 with
+  `91a4bc7` set aside) and did track size (+0.49 against files touched). Twenty of the 31 sat inside
+  the intent the message stated. Across all 31, what found them was reading documents against code
+  (11) and a registered number or a checker (8) — never a scope rule. The exception is cargo:
+  `91a4bc7` carried 1,941 lines its message never named — three reviews, the playbook, the README and
+  three tool scripts — and the five defects in them lived 11 to 27 commits, the longest in the history,
+  because a reviewer reads what the message points at. The wall catches a worker leaving scope; this
+  history's leaks were planted inside scope in the largest commits, so the rule that follows is the wall
+  run backwards
+
+**Known limits.**
+
+- the byte-equal fixture gate is decoder-bound, and `flat.jpg` is the exposed one: perturbing its decode
+  by ±1 on 0.1% of subpixels moves 2 of its 78 committed numbers (1% moves 10), landing on percentiles,
+  which jump a whole quantisation step. Arithmetic is not the risk — the tightest of the 304 rounded
+  values sits 9.8e-07 from a rounding boundary against float noise near 1e-16 — but PNG decoding is
+  exact by definition and JPEG's is not, and `pillow>=12,<13` lets the bundled decoder move. A
+  dependency patch release can turn a green change red under a message blaming the author
+- `measure` refuses above 12 Mpx (~4 GB peak at ~320 B/px): a 4K capture fits, 8K does not
+- 16-bit colour PNGs are measured at 8-bit precision; 16-bit grey is rescaled correctly
+- a heavy vignette (0.55) bends a sprite's shaded mass by about 20 deg, out of the band the measurement
+  settles and into the one the observer is asked. Light ones (0.15) cost under 9 deg
+- a vignette also dims an emitter near the frame border below the proposal floor, which is global
+  (0.6 x the 99th percentile): a neon sign at the edge of a graded screenshot is not proposed at all
+- at most the eight brightest blobs are proposed and at most sixteen subjects measured; a frame with a
+  dozen neon signs is read through its eight strongest
+- the absolute emitter floor (`EMITTER_MIN_Y` 0.30 linear) is the one constant in the pass that a
+  transfer function moves. On the pixel-art night reference it is the binding one and the relative floor
+  sits at 0.298, so the two nearly tie; a darker frame would be chosen by an absolute level. Reported as
+  `emitter_floor.basis` rather than corrected
+- **four** numbers have no recorded basis: `DISAGREE_DEG = 60`, the assertion that hand-drawn scenes
+  hold their key to roughly 10 deg, why the surface list is these ten
+  (`review/2026-09-15-art-direction-rationale.md` §6), and — found by the forensic pass after that review
+  was written — "suspicion starts near 18 deg (cosine 0.95)", stated in a `light.py` comment and in
+  `surfaces.v1.json`'s `thresholds`, used by no code
+- `surfaces.v1.json`'s `thresholds` is 1,582 characters of prose inside shipped data carrying eight
+  numbers; nothing in the code reads the field, and `claims.json` sees only the two it now anchors there
+  (20 and 60). The other six are held by nothing
+
+**Waiting on a human.**
+
+- the four unsourced numbers above: measure them, or demote each to a named choice with a date
+- name an owner for each of `ko`, `ja` and `zh-Hans`, and confirm the three README translations against
+  each language's industry wording
+- write `.github/`: the pull-request template, the DCO check, and `CHANGELOG.md`
+- review `docs/spec.md` and the artist brief
+- decide `observer.mode` default and embedding egress (`spec.md` §10)
+- confirm Blender/Inkscape versions on team machines (none installed on the dev machine)
+- `light_ledger` proposes emitters from luminance alone: bright paint is proposed too, by design (the
+  emissive question rejects it); the highlight of a subject with a bright painted band is that band
+- spill reads the neighbourhood, so a real lamp mounted on a dark wall beside a lit floor can read
+  negative; it is one of two tests (the other is receivers) and both must be empty before a light is
+  called one the frame does not answer to
+- `cast_shadow` measures where a subject's shaded mass sits against its lit side, which needs no emitter
+  and judges a lone sprite; inside one box it cannot separate cast from form shadow, it is read only on
+  a file with alpha (which is what says which pixels are the subject), and a subject too flat for either
+  mass to carry a direction is `unknown`, never yes
+- a flattened preview of a transparent sprite (the checkerboard baked into the pixels) is not the asset:
+  `measure` reports `alpha_present` false and `light_ledger` proposes the checkerboard as emitters. Ask
+  for the PNG with its alpha
+
+**Standing facts.**
+
+- design lens: `spec.md` §1 carries the three readers a feature must serve (no art training, an artist,
+  an art director) and `surfaces.v1` carries `decided_by` per surface (measurement 2, evidence 4,
+  observer 4), so coverage is read from the data rather than argued in prose
+- repo docs: every tracked directory carries a README (`src/asrai`, `data`, `data/skill`, `data/stock`,
+  `data/stock/examples`, `data/stock/locales`, `tests`, `tests/fixtures`, `tools`, `docs`, `docs/review`,
+  `docs/i18n`), plus `CONTRIBUTING.md`, `docs/runbook.md` and a repository map in the root README.
+  Mermaid carries the four structural diagrams so they diff as text. `docs/README.md` holds the
+  authority order
+- scratch never tracked: `*.scratch.md`, `scratch/`, `docs/experiments/`, `.claude/skills/`
+
+---
+
 ## 2026-09-15 · verified at `a6b0537` · Shelby Yoon
 
 **State.**
