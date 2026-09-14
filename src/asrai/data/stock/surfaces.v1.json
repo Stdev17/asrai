@@ -122,7 +122,7 @@
     "style.mode": "physical (lights in the frame) | fake_lighting (one stylistic key, lighting.fake_lighting) | engine_lit (sprites the engine lights: painted shading is a defect)",
     "emitters": "proposed id -> lamp | neon | sky | screen | glow | paint | unknown; paint and unknown reject the emitter and void every pair with it (a parent answered no counts its children as no, after Cho et al. 2024)",
     "emitter_depth": "proposed id -> layer index, optional",
-    "pairs[].answer": "yes | no | unknown, only for the diffuse pairs the form lists: the band where the measurement does not decide",
+    "pairs[].answer": "yes | no | unknown, only for the diffuse pairs the form lists: the band where the measurement does not decide. The form handed back unfilled is a valid answer sheet: it returns what the measurement decides and unknown elsewhere",
     "subjects.<surface>": "{no: [subject ids], unknown: [subject ids]} for every subject-scope surface, specular and light colour among them; every other subject answers yes and nothing is recorded for it, except cast_shadow, where a subject nobody lists falls through to the measurement",
     "global.key, global.atmosphere": "yes | no | unknown"
   },

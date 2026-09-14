@@ -84,8 +84,8 @@ measures around `emissive`, `key`, `specular` and `light_color` and leaves the a
 `observer` means `ambient`, `rim`, `atmosphere` and `albedo` are yours alone, where `unknown` is the
 honest default. Two calls, one form, no prose.
 
-1. Subjects. A capture: `capture=capture.json` (its `composed_of` screen boxes). A sprite: one
-   subject over the whole file. A raw image: propose up to sixteen boxes yourself, the things that
+1. Subjects. A sprite: pass nothing, its own silhouette becomes the subject `asset`. A capture:
+   `capture=capture.json` (its `composed_of` screen boxes). A raw image: propose up to sixteen boxes yourself, the things that
    carry shading, as `subjects=[{"id": "pipe_left", "bbox": [x, y, w, h], "depth": 0}]`. `depth` is
    an optional layer index (nearest first, as an illustrator stacks layers), never a distance; it only
    widens the distance to a light on another layer. The ledger never segments a raw image itself.
@@ -110,7 +110,10 @@ honest default. Two calls, one form, no prose.
    `questions` restates each null field as a sentence, and carries what the measurement already knows
    about it: an emitter's question says whether surfaces near it are brighter than surfaces farther
    out. Measured facts are not asked again.
-4. Phase two: call `light_ledger` again with `answers=<the filled form>`. `cast_shadow` comes back
+4. Phase two: call `light_ledger` again with `answers=<the filled form>`. Handing the form back
+   untouched is a valid call and the shortest path there is: it returns everything the measurement
+   decides on its own (`diffuse` where the angle is outside the band, `cast_shadow`) and `unknown` for
+   the rest, with no vocabulary asked of you. Fill a field only where you can improve on that. `cast_shadow` comes back
    with `shadow_opposition_deg` and `shadow_basis`: the angle by which a subject's shaded mass fails to
    sit opposite its lit side, on the same twenty and sixty degree bands. It needs no emitter, so it is
    the one surface that judges a lone sprite, and `unknown` there means too flat to place, never fine.

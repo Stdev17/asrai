@@ -237,6 +237,10 @@ exactly for the observer tier.
   (empty for observation-only surfaces) and the vocabulary terms it is recorded under (`terms[0]` is
   the `term_id`). It also carries the answer contract (`light_answers.v1`), the thresholds and the
   three lighting modes.
+- Subjects come from the capture contract, the observer's boxes, or, for a file with alpha and neither
+  of those, its own silhouette as the subject `asset`: a lone sprite handed over with nothing else is
+  the first case a reviewer reaches for. Handing the form back unfilled is a valid phase two, returning
+  what the measurement decides and `unknown` elsewhere, so the whole pass runs without a vocabulary.
 - `light_ledger.v1` (measurement; tool `light_ledger`, CLI `light-ledger`), phase one: proposed
   emitters (the brightest blobs, brightest first, `kind: proposed`; bright paint qualifies and is
   rejected by the observer), each with `spill` (what its own neighbourhood does: luminance and

@@ -227,6 +227,16 @@ def _depth(value, where: str) -> int | None:
     return int(value)
 
 
+def _silhouette_subject(rgba: np.ndarray) -> list[dict] | None:
+    """A lone sprite is its own subject. Without this a file handed over with no boxes and no capture
+    measures nothing at all, which is the one case a first reviewer reaches for first."""
+    ys, xs = np.nonzero(rgba[..., 3] >= SILHOUETTE_ALPHA)
+    if not len(xs):
+        return None
+    return [{"id": "asset", "bbox": [int(xs.min()), int(ys.min()),
+                                     int(xs.max() - xs.min() + 1), int(ys.max() - ys.min() + 1)]}]
+
+
 def _subjects(subjects, capture, W: int, H: int) -> list[dict]:
     """Model-supplied boxes, or the capture contract's screen boxes. Clipped to the image, ids unique."""
     if subjects is None and capture:
@@ -708,11 +718,15 @@ def _overlay(rgba: np.ndarray, emitters: list[dict], subjects: list[dict], agree
 def ledger(path: Path, subjects: list[dict] | None = None, capture: str | None = None,
            out_dir: Path | None = None, mirror: bool = False, answers: dict | None = None) -> dict:
     """Phase one (no answers): emitters, per-subject direction, agreement, key fit, form, questions, overlay.
-    Phase two (answers): the same over confirmed emitters, plus verdict and an observation record."""
+    Phase two (answers): the same over confirmed emitters, plus verdict and an observation record.
+    With no subjects and no capture, a file with alpha is its own subject. Handing the form back
+    unfilled is a valid phase two: it returns everything the measurement decides and nothing else."""
     path = Path(path)
     rgba, meta = measure.load(path)
     alpha = meta["alpha_present"]
     H, W = rgba.shape[:2]
+    if subjects is None and not capture and alpha:
+        subjects = _silhouette_subject(rgba)
     subs = _subjects(subjects, capture, W, H)
     if mirror:
         rgba = np.ascontiguousarray(rgba[:, ::-1])

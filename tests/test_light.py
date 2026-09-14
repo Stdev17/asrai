@@ -197,6 +197,23 @@ def test_mirror_flips_x_only(tmp_path):
     assert m["subjects"][0]["bbox"] == [30, 30, 80, 80]
 
 
+def test_a_lone_sprite_is_its_own_subject_and_an_unfilled_form_is_a_verdict(tmp_path):
+    """The first reviewer's path: hand over one file, hand the form back untouched, read what the
+    measurement alone decided. No boxes, no emitter kinds, no vocabulary."""
+    p = scene(tmp_path / "s.png")
+    led = light.ledger(p)
+    asset = led["subjects"][0]
+    assert [s["id"] for s in led["subjects"]] == ["asset"] and asset["mask"] == "alpha"
+    assert asset["bbox"] == [12, 8, 143, 107]                  # the whole silhouette: disc, lamp and decoy
+    v = light.ledger(p, answers=led["form"])["verdict"]        # returned unfilled
+    assert v["mode"] == "physical" and [e["id"] for e in v["emitters"]] == []
+    row = v["subjects"][0]
+    assert (row["diffuse"], row["cast_shadow"], row["shadow_basis"]) == ("unknown", "yes", "measurement")
+    assert v["axes"] == {"direction_compliance": "unknown", "intentional_contrast": "unknown",
+                         "asset_cohesion": "pass"}
+    assert light.ledger(p, answers={})["verdict"] == v          # an empty object says the same thing
+
+
 def test_no_alpha_and_no_subjects(tmp_path):
     img = np.full((60, 90, 3), 40, np.uint8)
     img[10:20, 60:75] = 255
