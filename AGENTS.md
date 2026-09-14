@@ -1,40 +1,49 @@
-# Web research: fetch ladder
+# asrai
 
-Climb only as far as needed. Stop at the first rung that returns real content.
+First-pass art direction for game assets: deterministic **measurement**, qualified **observation**,
+precedent retrieval, previewable **recipes**. It records the judgments a human art director or
+technical artist makes; it never replaces them, and it never invents a magnitude.
 
-Rungs 2-4 are Firecrawl operations, named by REST endpoint against
-`https://api.firecrawl.dev/v2`. MCP tools (`firecrawl_scrape`), CLI subcommands
-(`firecrawl scrape`), and SDK methods (`firecrawl.scrape()`) all map onto these 1:1 —
-use whichever binding the runtime exposes.
+Codex CLI and OpenCode read this file where Claude Code reads a skills directory. It is a pointer, not
+a copy: the operating procedure is the bundled `SKILL.md`, and duplicating it here would give an agent
+two versions to drift between.
 
-1. **Built-in fetch** — static HTML, public, single page. Free; use by default.
-2. **`POST /scrape`** — JS-rendered shells, bot walls, PDFs (`parsers: ["pdf"]`),
-   consent/geo walls (`location`), cross-host redirects.
-   - `maxAge: 0` for anything time-sensitive (pricing, status, changelogs).
-     Indexed content is reused by default, so a stale page returns as a fresh 200.
-   - `proxy: "auto"` self-escalates. Don't hand-pick a tier.
-   - `formats: ["summary"]` to triage many pages without filling context.
-3. **`POST /map`**, then **`POST /crawl`** — need a whole section, not one page.
-   Map first to enumerate URLs, then crawl with `includePaths` scoped to what matters.
-4. **`POST /scrape/{scrapeId}/interact`** — content only exists after a click,
-   scroll, or form submit.
+## Register the server
 
-Discovery when the URL is unknown: **`POST /search`**. Attaching `scrapeOptions` is the
-cheap bulk path, but those fetches ignore `maxAge` — use it to find pages, then
-re-scrape the few that carry the claim.
+```bash
+codex mcp add asrai -- uvx asrai mcp      # Codex CLI
+```
 
-On failure, diagnose — never guess or retry with tweaked params:
-**`POST /support/ask`** with the job ID in the question, which returns prose plus
-machine-readable `fixParameters`. Where the CLI is installed, `firecrawl doctor <job-id>`.
+OpenCode, in `opencode.json`:
 
-## Unreachable — substitute immediately, do not retry
+```json
+{"mcp": {"asrai": {"type": "local", "command": ["uvx", "asrai", "mcp"], "enabled": true}}}
+```
 
-- **reddit.com** — policy-blocked at the API. Identical error on every proxy tier,
-  stealth included; the request never leaves Firecrawl, so no proxy setting helps.
-  `/.json`, `api.reddit.com`, and `old.reddit.com` all 403 from datacenter IPs.
-  Substitute: `POST /search` with `site:reddit.com/r/<sub> <query>` and cite the
-  result snippets. Full thread access requires Reddit OAuth credentials.
-- **Hard paywalls** (WSJ, FT, Bloomberg), **SSO/auth-gated apps**, **PACER**.
-  A 200 carrying only teaser text is not success — confirm body content before citing.
+## Read the skill before touching an asset
 
-Verified 2026-09-13 against api.firecrawl.dev/v2.
+```bash
+uvx asrai skill-path      # prints the bundled SKILL.md; read that file, then work
+```
+
+It carries the gate order, the evidence layers, the qualified levels, the surface pass, the record
+shapes, and the four things never to do. Everything below is only what you need before you open it.
+
+## The four rules that hold whatever the task
+
+1. **Direction may be observed; magnitude may not.** A number comes from a measurement, a precedent or
+   a human. A model-proposed one is stored as `magnitude_basis: llm` and can never reach `apply`.
+2. **`unknown` is a hold, not a verdict.** It never becomes a change, and no axis passes on evidence it
+   was not given. Ask for a measurement or a human instead.
+3. **Input bytes are immutable.** Every output is a new file under `out/`. Records are appended, never
+   edited.
+4. **Never paste the whole vocabulary into context.** `vocab_search`, then `vocab_get` for the one or
+   two ids you will cite.
+
+Not built yet: precedent retrieval, previews, `apply`, rasterize, render. Say so rather than improvising
+them — `docs/spec.md` is the contract and marks what is `[built]`.
+
+## Contributing to this repository
+
+[`CONTRIBUTING.md`](CONTRIBUTING.md), then [`docs/README.md`](docs/README.md) for which document
+outranks which. One gate: `uv run pytest`.

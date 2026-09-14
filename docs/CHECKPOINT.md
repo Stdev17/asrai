@@ -19,8 +19,6 @@ pending_human:
   - confirm Blender/Inkscape versions on team machines (none installed on the dev machine)
   - decide the vocab_get overload: three operations on one string parameter, capped by the eight-tool
     budget (docs/conventions.md 1a, structural notes)
-  - AGENTS.md is committed and still holds only web-research notes; spec.md 12 reserves that filename
-    for the asrai skill section on Codex and OpenCode
   - light_ledger proposes emitters from luminance alone: bright paint is proposed too, by design (the
     emissive question rejects it); the highlight of a subject with a bright painted band is that band
   - spill reads the neighbourhood, so a real lamp mounted on a dark wall beside a lit floor can read
@@ -54,6 +52,9 @@ audit (2026-09-14, every README and doc read against the code and the schemas):
     tests/claims.json now registers 14 numbers with what computes each and the wording that carries it
   - fixed, unchecked: manifest.sha256.json had drifted on validation_report.json with nothing to catch
     it; a test now compares every digest
+  - moved out of the contract: the embedding price table (spec.md 10) and the pre-implementation
+    playbook (repository root) are dated reviews. AGENTS.md now holds the asrai section spec.md 12
+    reserves instead of unrelated web-research notes
 known_limits:
   - measure refuses above 12 Mpx (~4 GB peak at ~320 B/px): a 4K capture fits, 8K does not
   - 16-bit colour PNGs are measured at 8-bit precision; 16-bit grey is rescaled correctly

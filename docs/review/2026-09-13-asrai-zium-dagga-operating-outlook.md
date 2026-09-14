@@ -11,7 +11,7 @@
 
 ### 1.1 읽은 순서와 근거의 우선순위
 
-현재 [README](../../README.md), [패키지 선언](../../pyproject.toml), [spec](../spec.md), 실제 `src/asrai/` 코어·CLI·MCP·테스트를 먼저 확인했다. 이어 [bundled skill](../../src/asrai/data/skill/SKILL.md), [stock 설명](../../src/asrai/data/stock/README.md)과 로케일 설명, [플레이북](../../ART_DIRECTION_SKILL_PLAYBOOK.md), [기존 시나리오 검토](2026-09-13-art-direction-skill-scenario-review.md), [아티스트 안내](2026-09-13-art-direction-artist-brief.md), [CHECKPOINT](../CHECKPOINT.md)를 대조했다.
+현재 [README](../../README.md), [패키지 선언](../../pyproject.toml), [spec](../spec.md), 실제 `src/asrai/` 코어·CLI·MCP·테스트를 먼저 확인했다. 이어 [bundled skill](../../src/asrai/data/skill/SKILL.md), [stock 설명](../../src/asrai/data/stock/README.md)과 로케일 설명, [플레이북](2026-09-13-art-direction-skill-playbook.md), [기존 시나리오 검토](2026-09-13-art-direction-skill-scenario-review.md), [아티스트 안내](2026-09-13-art-direction-artist-brief.md), [CHECKPOINT](../CHECKPOINT.md)를 대조했다.
 
 현재 의도는 spec으로 읽고, 현재 능력은 코드와 실행으로 판단했다. 기존 검토의 3D 제외·약 305개 어휘·MCP 후순위 도입은 이후 개정으로 대체되었다. 지금은 **475개 어휘를 유지하고, 3D는 렌더된 뷰를 통해 다루도록 설계하며, MCP는 처음부터 제공**한다. 기존 검토에 적힌 경쟁 제품의 부재나 API 가격은 이번 전망의 확정 근거로 재사용하지 않았다.
 

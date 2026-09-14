@@ -19,16 +19,13 @@ flowchart LR
 | [`conventions.md`](conventions.md) | how code and names are written here, and which alternatives were rejected and why | binding on new code; subordinate to spec.md |
 | [`CHECKPOINT.md`](CHECKPOINT.md) | what is built, what passed, what is known to be limited, what a human still has to decide | a status snapshot, rewritten as work lands. Never a promise |
 | [`../CONTRIBUTING.md`](../CONTRIBUTING.md) | how to make a change that will be accepted | process, not contract |
-| [`review/`](review/) | why a decision was made, at the time it was made | historical. Dated, never edited — see its README |
+| [`review/`](review/) | why a decision was made, at the time it was made | historical. Dated, never edited — see its README. The pre-implementation playbook lives here too |
 
-Two more files sit at the repository root and are not contracts:
+One more file sits at the repository root and is not a contract:
 
-- [`../ART_DIRECTION_SKILL_PLAYBOOK.md`](../ART_DIRECTION_SKILL_PLAYBOOK.md) — the procedure a team follows
-  to routinise first-pass art direction. Written before implementation; the reasoning behind it is in
-  `review/2026-09-13-art-direction-skill-scenario-review.md`.
-- [`../AGENTS.md`](../AGENTS.md) — currently holds only web-research notes. `spec.md` §12 reserves this
-  filename for the asrai skill section on Codex and OpenCode, so it will be rewritten; it is listed
-  under `pending_human` in CHECKPOINT.
+- [`../AGENTS.md`](../AGENTS.md) — the asrai section Codex CLI and OpenCode read in place of a skills
+  directory (`spec.md` §12). It points at the bundled `SKILL.md` rather than restating it, so the two
+  cannot drift.
 
 ## Language
 

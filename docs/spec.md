@@ -425,20 +425,17 @@ the rendered evidence goes to the embedding provider. Records and measurements s
 zero-retention terms of Google and Voyage survive the OpenRouter route is `[unverified]`; until a team
 checks, `allow_external_embedding = false` is the safe setting and costs only visual neighbours.
 
-Embedding models reachable through OpenRouter, verified 2026-09-13:
-
-| model | dimensions | image tokenisation | price |
-|---|---|---|---|
-| `google/gemini-embedding-2` | 128–3072, MRL; default 3072; recommended 768 / 1536 / 3072 | about 258 tokens per image `[estimated: Google lists $0.00012 per image at $0.45 per M]`; up to 6 images per input; 8,192 tokens per input | $0.20/M text, $0.45/M image tokens |
-| `voyageai/voyage-multimodal-3.5` | 256 / 512 / 1024 (default) / 2048 | 1 token per 560 pixels: 64² ≈ 7, 256² ≈ 117, 512² ≈ 468, 1024² ≈ 1,872, 1920×1080 ≈ 3,703; 16 M pixels max | $0.12/M tokens |
+Embedding provider survey, decision and open terms:
+[`review/2026-09-13-embedding-provider-survey.md`](review/2026-09-13-embedding-provider-survey.md). A
+vendor price list is not a promise this document can keep, so the numbers stay in the dated review and
+only the decision is here.
 
 Decisions `[decided]`: default `google/gemini-embedding-2` at **768** dimensions (a corpus of hundreds
 to a few thousand items gains nothing from 3072, and the cache is rebuildable if that proves wrong);
 one model and one dimension per index; per-asset input is the rendered evidence, never the source:
-raster → whole image downscaled to a 1024 px long side plus the silhouette render; SVG → the L1 raster
-at target width; mesh → the four render-profile views as one interleaved input (one vector);
-screenshot → the whole frame downscaled to 1024 px. Cost is negligible at this scale: a thousand
-sprites cost about $0.12 on Gemini and under $0.10 on Voyage.
+raster -> whole image downscaled to a 1024 px long side plus the silhouette render; SVG -> the L1 raster
+at target width; mesh -> the four render-profile views as one interleaved input (one vector);
+screenshot -> the whole frame downscaled to 1024 px.
 
 ## 11. Version pinning and reproducibility
 

@@ -3,7 +3,7 @@
 > **상태:** 결정 프로브 해소 완료, 설계 검토 리포트. 구현 전 인간 검토 대상.
 > **작성일:** 2026-09-13
 > **범위:** 게임 에셋(래스터 스프라이트·런타임 스크린샷·SVG) 1차 아트 디렉팅을 루틴화하는 스킬/MCP의 설계 검토. 3D 렌더·텍스처·머티리얼은 제외.
-> **동반 문서:** [`ART_DIRECTION_SKILL_PLAYBOOK.md`](../../ART_DIRECTION_SKILL_PLAYBOOK.md) — 실행 절차.
+> **동반 문서:** [`ART_DIRECTION_SKILL_PLAYBOOK.md`](2026-09-13-art-direction-skill-playbook.md) — 실행 절차.
 > **입력 고정:** `ad_ta_vocab/ad_ta_manipulative_vocab.v1.json` SHA-256 `6e0663094024bdc7f5799932780e4d440f1d8c7ffc7e837c6f9fe0567aa58c71` (492 entries, 22 categories), `ad_ta_instruction.v1.schema.json` SHA-256 `e2b91fb292d0a75982a98fc72d0e75e250240e83ef7cdcca01f941ac4a01a044`. 참고 스펙: `hq-gamedev/docs/superpowers/specs/2026-08-27-typed-visual-art-direction-system-design.md`, `hq-gamedev/docs/review/2026-08-27-taste-skill-source-backed-adoption-review.md`.
 > **확신 표기:** `[확실함]` 직접 확인, `[추정]` 근거 있는 추론, `[확인 안 됨]` 미검증.
 
