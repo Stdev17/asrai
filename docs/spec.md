@@ -92,8 +92,21 @@ Rules `[decided]`, `[built]` in `records.py`:
   starts a new comparability partition; old L1 records stay but do not mix.
 - Engine prefabs are never parsed for appearance. Unity, Godot or Blender scenes reach asrai through
   the **capture contract**: a folder of PNG frames plus `capture.json` with `engine`, `scene`, `camera`,
-  `resolution`, `capture_profile_id` and `composed_of: [{asset_sha256, screen_bbox?}]`. Reference
-  capture scripts per engine are `[planned]` and optional; the contract is what is required.
+  `resolution`, `capture_profile_id` and `composed_of[]`. Reference capture scripts per engine are
+  `[planned]` and optional; the contract is what is required.
+
+  A `composed_of` row is `{asset_sha256, screen_bbox?, game_object?, sprite?, depth?, mask?}` `[built]`.
+  `screen_bbox` is `[x, y, w, h]` in whole pixels of the frame and is what makes a row measurable at all.
+  The subject id an overlay draws is the first of `game_object`, `sprite`, or the first twelve characters
+  of `asset_sha256`, with a numeric suffix on a repeat — so the engine, not asrai, names what a reviewer
+  points at. `depth` is the ordinal layer index of section 7.1 and `mask` the path of a layer export whose
+  alpha marks the object's pixels. At most sixteen subjects are measured, largest box first.
+
+  What the contract cannot read it reports rather than drops: phase one returns `capture` with the row
+  count declared, the count measured, and every skipped row with its id and reason. A script writing
+  `bbox` where the contract says `screen_bbox` would otherwise measure part of a frame and let the axes
+  speak for the whole of it. `lights[]` and `composed_of[].world_position` remain `[planned]` (7.1), and a
+  JSON Schema for the file is phase 6.
 
 Render profile `[planned]` (Phase 6): `{id, projection: orthographic|perspective, fov?, views:
 [front, three_quarter, side, top], fit: bbox, resolution, background, lighting: neutral3, blender_version}`.

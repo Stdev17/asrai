@@ -19,12 +19,25 @@ def _read_json(arg: str):
     return json.load(sys.stdin) if arg == "-" else json.loads(Path(arg).read_text("utf-8"))
 
 
+SUBJECT_FORM = "ID=X,Y,W,H[,depth][@mask.png]"
+
+
 def _subject(arg: str) -> dict:
-    sid, _, box = arg.partition("=")
+    """The whole subject contract of spec.md 7.1, so the CLI can say everything the MCP tool can."""
+    sid, _, rest = arg.partition("=")
+    box, _, mask = rest.partition("@")
     try:
-        return {"id": sid, "bbox": [int(v) for v in box.split(",")]}
+        nums = [int(v) for v in box.split(",")]
     except ValueError:
-        raise ValueError(f"--subject wants ID=X,Y,W,H in pixels, got {arg!r}") from None
+        nums = []
+    if len(nums) not in (4, 5):
+        raise ValueError(f"--subject wants {SUBJECT_FORM} in pixels, got {arg!r}")
+    out = {"id": sid, "bbox": nums[:4]}
+    if len(nums) == 5:
+        out["depth"] = nums[4]
+    if mask:
+        out["mask"] = mask
+    return out
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -46,7 +59,10 @@ def build_parser() -> argparse.ArgumentParser:
     m = sub.add_parser("measure", help="deterministic measurements of an image")
     m.add_argument("path"); m.add_argument("--target-width", type=int)
     lg = sub.add_parser("light-ledger", help="lighting pass: shading direction per subject against proposed emitters; overlay under out/")
-    lg.add_argument("path"); lg.add_argument("--subject", action="append", metavar="ID=X,Y,W,H", help="repeatable, pixels of the image")
+    lg.add_argument("path")
+    lg.add_argument("--subject", action="append", metavar=SUBJECT_FORM,
+                    help="repeatable; pixels of the image, an optional layer index (0 nearest), and an "
+                         "optional mask image whose alpha marks the subject's pixels (a layer export)")
     lg.add_argument("--capture", help="capture.json whose composed_of screen boxes become the subjects")
     lg.add_argument("--mirror", action="store_true", help="measure the horizontally mirrored image")
     lg.add_argument("--answers", help="the filled form (JSON file, or - for stdin): returns verdict and record")

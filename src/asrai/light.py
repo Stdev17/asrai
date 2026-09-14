@@ -283,25 +283,37 @@ def _mask(path: str, box: list[int], W: int, H: int, sid: str) -> np.ndarray:
     return m
 
 
-def _subjects(subjects, capture, W: int, H: int) -> list[dict]:
-    """Model-supplied boxes, or the capture contract's screen boxes. Clipped to the image, ids unique."""
+def _subjects(subjects, capture, W: int, H: int) -> tuple[list[dict], dict | None]:
+    """Model-supplied boxes, or the capture contract's screen boxes. Clipped to the image, ids unique.
+
+    A composed_of row the contract cannot read is skipped, and every skip is reported back: a capture
+    whose rows half parse (an engine script writing `bbox` where the contract says `screen_bbox`) would
+    otherwise measure a quarter of the frame and let the axes speak as if that quarter were the frame."""
+    read = None
     if subjects is None and capture:
         doc = json.loads(Path(capture).read_text("utf-8"))
         rows = doc.get("composed_of") if isinstance(doc, dict) else None
         if not isinstance(rows, list):
             raise ValueError("capture must be a capture.json with a composed_of list")
-        found, seen = [], {}
-        for c in rows:
+        found, seen, skipped = [], {}, []
+        for i, c in enumerate(rows):
             box = _box(c.get("screen_bbox")) if isinstance(c, dict) else None
+            sid = str((isinstance(c, dict) and (c.get("game_object") or c.get("sprite")
+                       or str(c.get("asset_sha256", ""))[:12])) or "subject")
             if box is None:
+                skipped.append({"row": i, "id": sid,
+                                "reason": "no screen_bbox [x, y, w, h] of whole pixels"})
                 continue
-            sid = str(c.get("game_object") or c.get("sprite") or str(c.get("asset_sha256", ""))[:12] or "subject")
             seen[sid] = seen.get(sid, 0) + 1
             found.append({"id": sid if seen[sid] == 1 else f"{sid}_{seen[sid]}", "bbox": box,
                           "depth": c.get("depth"), "mask": c.get("mask")})
-        subjects = sorted(found, key=lambda s: -(s["bbox"][2] * s["bbox"][3]))[:SUBJECTS_MAX]
+        found.sort(key=lambda s: -(s["bbox"][2] * s["bbox"][3]))
+        skipped += [{"row": None, "id": s["id"], "reason": f"over the {SUBJECTS_MAX}-subject limit, smallest first"}
+                    for s in found[SUBJECTS_MAX:]]
+        subjects = found[:SUBJECTS_MAX]
+        read = {"path": str(capture), "declared": len(rows), "measured": len(subjects), "skipped": skipped}
     if not subjects:
-        return []
+        return [], read
     if not isinstance(subjects, list) or len(subjects) > SUBJECTS_MAX:
         raise ValueError(f"subjects must be a list of at most {SUBJECTS_MAX} {{id, bbox, depth?}} objects")
     out, seen = [], set()
@@ -322,7 +334,7 @@ def _subjects(subjects, capture, W: int, H: int) -> list[dict]:
             raise ValueError(f"subjects[{i}] {sid!r}: mask is the path of an image whose alpha marks the subject")
         out.append({"id": sid, "bbox": [x0, y0, x1 - x0, y1 - y0], "mask": mask,
                     "depth": _depth(s.get("depth"), f"subjects[{i}]")})
-    return out
+    return out, read
 
 
 def _contour_fit(mask: np.ndarray, Y: np.ndarray) -> dict | None:
@@ -809,7 +821,7 @@ def ledger(path: Path, subjects: list[dict] | None = None, capture: str | None =
     H, W = rgba.shape[:2]
     if subjects is None and not capture and alpha:
         subjects = _silhouette_subject(rgba)
-    subs = _subjects(subjects, capture, W, H)
+    subs, read = _subjects(subjects, capture, W, H)
     masks = {s["id"]: _mask(s["mask"], s["bbox"], W, H, s["id"]) for s in subs if s.get("mask")}
     if mirror:
         rgba = np.ascontiguousarray(rgba[:, ::-1])
@@ -838,6 +850,8 @@ def ledger(path: Path, subjects: list[dict] | None = None, capture: str | None =
            "mirrored": bool(mirror), "coordinates": "image pixels, x right, y down; vectors are [dx, dy]; depth is a layer index, 0 nearest",
            "source": {"format": meta["format"], "lossy": meta["format"] in LOSSY_FORMATS},
            "emitter_floor": floor, "emitters": emitters, "subjects": rows, "agreement": agreement, "key_fit": key_fit, "overlay": None}
+    if read is not None:
+        out["capture"] = read
     if ans:
         verdict = _verdict(rows, live, held, agreement, key_fit, ans)
         out |= {"verdict": verdict, "record": _records(verdict, emitters, rows, ans, meta["sha256"], bool(capture))}

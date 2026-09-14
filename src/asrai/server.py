@@ -61,15 +61,15 @@ def measure(path: str, target_width: int | None = None) -> dict:
 @_guard
 def light_ledger(path: str, subjects: list[dict] | None = None, capture: str | None = None, mirror: bool = False,
                  answers: dict | None = None) -> dict:
-    """Lighting pass over a raster, in two phases. Without answers: proposed emitters (brightest blobs, e1 first),
-    per subject where the shading points, per (subject, emitter) the angle (0 = agrees), distance and hue difference,
-    a key-light fit (which single light explains the frame, residuals in degrees), an overlay PNG under out/ with
-    every id drawn on the image, and `form`: the typed answer sheet whose null fields are all an observer must fill.
-    With answers (the filled form): confirmed emitters leave the shading, and `verdict` (per subject: expected key,
-    agrees/disagrees, axis) and `record` (an observation record to pass to `record` after filling observer.model)
-    come back. subjects: [{"id": "pipe_left", "bbox": [x, y, w, h], "depth": 0}] in pixels, at most 16; depth is
-    an optional layer index (0 nearest). capture: a capture.json whose composed_of screen boxes become the subjects.
-    Vectors are [dx, dy] with y down. mirror=true measures the horizontally mirrored image."""
+    """Lighting pass over a raster, in two phases. Phase one (no answers): proposed emitters, where each subject's
+    shading points, a key-light fit, an overlay PNG under out/ with every id drawn on it, and `form`, the typed
+    answer sheet whose null fields are all an observer decides. Phase two: pass the filled form as `answers` for
+    `verdict` and an observation `record`; handing it back unfilled is valid and returns what the measurement alone
+    decides. subjects: [{"id": "pipe_left", "bbox": [x, y, w, h], "depth": 0, "mask": "layers/pipe.png"}], at most
+    16 — bbox in pixels; depth an optional layer index (0 nearest), never a distance; mask an optional image whose
+    alpha marks the subject's pixels, canvas- or box-sized: a layer export, never a segmentation. capture: a
+    capture.json whose composed_of boxes become the subjects. Vectors are [dx, dy], y down. mirror=true measures
+    the mirrored image. The bundled SKILL.md carries the rest; this schema is re-sent every turn."""
     cfg = config.load()
     return light.ledger(Path(path), subjects, capture, Path(cfg["_root"]) / cfg["paths"]["out"], mirror, answers)
 

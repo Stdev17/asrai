@@ -238,6 +238,23 @@ def test_capture_boxes_become_subjects(tmp_path):
     assert [(s["id"], s["depth"]) for s in subs] == [("Ball", 2), ("Ball_2", None)]
 
 
+def test_a_capture_says_what_it_could_not_read(tmp_path):
+    """A Unity script that writes `bbox` where the contract says `screen_bbox` used to cost three of four
+    subjects in silence, and the axes then spoke for a quarter of the frame as if it were the frame."""
+    p = tmp_path / "s.png"
+    disc(45, alpha=False).save(p)
+    cap = tmp_path / "capture.json"
+    cap.write_text(json.dumps({"engine": "unity", "composed_of": [
+        {"game_object": "Hero", "screen_bbox": [50, 30, 80, 80]},
+        {"game_object": "Crate", "bbox": [10, 10, 20, 20]},
+        {"game_object": "Lamp", "screen_bbox": [5, 5, -4, 9]},
+        {"game_object": "Barrel"}]}), "utf-8")
+    led = light.ledger(p, None, str(cap))
+    assert [s["id"] for s in led["subjects"]] == ["Hero"]
+    assert (led["capture"]["declared"], led["capture"]["measured"]) == (4, 1), led["capture"]
+    assert [s["id"] for s in led["capture"]["skipped"]] == ["Crate", "Lamp", "Barrel"], led["capture"]
+
+
 def test_malformed_input_raises_value_error(tmp_path):
     p = scene(tmp_path / "s.png")
     for bad in ("ball", [{"id": "b"}], [{"id": "b", "bbox": [0, 0, 0, 5]}], [{"id": "b", "bbox": [1.5, 0, 5, 5]}],

@@ -85,7 +85,8 @@ measures around `emissive`, `key`, `specular` and `light_color` and leaves the a
 honest default. Two calls, one form, no prose.
 
 1. Subjects. A sprite: pass nothing, its own silhouette becomes the subject `asset`. A capture:
-   `capture=capture.json` (its `composed_of` screen boxes). A raw image: propose up to sixteen boxes yourself, the things that
+   `capture=capture.json` (its `composed_of` screen boxes; the reply's `capture` block says how many
+   rows it declared, how many were measurable, and why any was skipped — read it before trusting an axis). A raw image: propose up to sixteen boxes yourself, the things that
    carry shading, as `subjects=[{"id": "pipe_left", "bbox": [x, y, w, h], "depth": 0}]`. Any subject may
    also carry `mask`, the path of an image whose alpha marks its pixels (canvas-sized or box-sized): a
    layer export. Without one, a box on a frame with no alpha measures whatever else is in it, which costs
