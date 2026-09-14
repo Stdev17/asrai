@@ -197,8 +197,12 @@ outputs, exit_code, stderr}` and versions recorded per run. ImageMagick only for
 --python <script>`) with **stdlib-only** scripts, because Blender bundles its own Python.
 
 **MCP / CLI** `[built]`: seven tools — `vocab_search, vocab_get, measure, light_ledger, record, lint,
-doctor`; two slots are reserved for `retrieve` and `preview`. Never more than eight: every tool schema
-costs the host tokens on every turn.
+doctor`; `retrieve` and `preview` are still to come. What a tool costs is its schema, re-sent to the model on
+every turn, so the surface is bounded in bytes rather than by a count of verbs `[decided]`: the `tools/list`
+reply as compact JSON is held under a hard cap of 1,200 tokens by a test, which also warns above a
+soft cap of 1,000 tokens, at the measured 4.25 bytes per token (o200k_base over this surface, 2026-09-14).
+Prose is cut before a cap is raised: a description is paid for on every turn and `SKILL.md` is read once,
+so the detail belongs there. A tool count was only ever a proxy for this number.
 
 ## 7. Judgment protocol
 

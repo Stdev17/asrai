@@ -2,9 +2,9 @@
 
 ```text
 phase: 1 (core and transports) — done, fixtures committed; 1b surface pass (surfaces.v1, light_ledger) — done
-last_acceptance_passed: 57 tests on 3.14 (vocab search/get/locales, lint rules, light_ledger direction/emitters/key fit/form/answers/depth/modes/noise floor/mirror/capture/malformed/a light nothing answers to/a shadow on the wrong side/production perturbations/subject masks, surfaces map onto vocabulary and skill,
+last_acceptance_passed: 58 tests on 3.14 (vocab search/get/locales, lint rules, light_ledger direction/emitters/key fit/form/answers/depth/modes/noise floor/mirror/capture/malformed/a light nothing answers to/a shadow on the wrong side/production perturbations/subject masks, surfaces map onto vocabulary and skill,
   measure determinism incl. 16-bit grey, record validation incl. layer rules, doctor lock/drift, MCP tools
-  in-process and over stdio, malformed-input refusal at both trust boundaries, six measure fixtures
+  in-process and over stdio and inside their token budget, malformed-input refusal at both trust boundaries, six measure fixtures
   byte-equal, corpus validators inside pytest); validate_stock 21,675 checks; review_locales no defects
 in_progress: nothing
 next_slice: phase 2 — recipes, tool adapters, alpha policy, recipe hashes, preview/apply/diff (spec.md 8)
@@ -17,8 +17,6 @@ pending_human:
   - review docs/spec.md and the artist brief
   - decide observer.mode default and embedding egress (spec.md 10)
   - confirm Blender/Inkscape versions on team machines (none installed on the dev machine)
-  - decide the vocab_get overload: three operations on one string parameter, capped by the eight-tool
-    budget (docs/conventions.md 1a, structural notes)
   - light_ledger proposes emitters from luminance alone: bright paint is proposed too, by design (the
     emissive question rejects it); the highlight of a subject with a bright painted band is that band
   - spill reads the neighbourhood, so a real lamp mounted on a dark wall beside a lit floor can read
@@ -58,6 +56,12 @@ audit (2026-09-14, every README and doc read against the code and the schemas):
   - English is canonical everywhere except review/, whose never-edited rule outranks it. The two
     READMEs inside the wheel were Korean, including the one asking eleven language communities for
     translations; both are English now
+mcp_surface (decided 2026-09-14): the eight-tool cap was never a host limit and had no measurement behind
+  it, so the bound is now bytes. The tools/list reply as compact JSON is 3,620 bytes — about 850 tokens at
+  4.25 bytes per token, o200k_base — under a hard cap of 1,200 tokens and warned above 1,000 by
+  tests/test_asrai.py. It measured 4,108 bytes (968 tokens) before the descriptions were cut, light_ledger's
+  alone 38.5% of it; what left the descriptions is in SKILL.md, which is read once. The vocab_get overload
+  survives on the same budget (docs/conventions.md 1a, structural notes)
 known_limits:
   - measure refuses above 12 Mpx (~4 GB peak at ~320 B/px): a 4K capture fits, 8K does not
   - 16-bit colour PNGs are measured at 8-bit precision; 16-bit grey is rescaled correctly

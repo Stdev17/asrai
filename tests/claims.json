@@ -74,7 +74,7 @@
       "claimed_in": {
         "docs/spec.md": "sixteen subjects",
         "src/asrai/data/skill/SKILL.md": "up to sixteen boxes",
-        "src/asrai/server.py": "at most\n    16"
+        "src/asrai/server.py": "at most 16"
       }
     },
     {
@@ -131,6 +131,44 @@
       "claimed_in": {
         "src/asrai/data/stock/examples/README.md": "Eight `instruction.v2` documents",
         "src/asrai/data/stock/README.md": "8"
+      }
+    },
+    {
+      "id": "mcp.surface_bytes",
+      "value": 3620,
+      "truth": "test_asrai.tool_surface_bytes(): the tools/list reply as compact JSON",
+      "claimed_in": {
+        "docs/CHECKPOINT.md": "3,620 bytes"
+      }
+    },
+    {
+      "id": "mcp.soft_cap_tokens",
+      "value": 1000,
+      "truth": "test_asrai.SOFT_CAP_TOKENS",
+      "claimed_in": {
+        "docs/spec.md": "soft cap of 1,000 tokens",
+        "CONTRIBUTING.md": "warns above 1,000 tokens",
+        "docs/CHECKPOINT.md": "warned above 1,000"
+      }
+    },
+    {
+      "id": "mcp.hard_cap_tokens",
+      "value": 1200,
+      "truth": "test_asrai.HARD_CAP_TOKENS",
+      "claimed_in": {
+        "docs/spec.md": "hard cap of 1,200 tokens",
+        "CONTRIBUTING.md": "fails above 1,200",
+        "src/asrai/README.md": "under 1,200 tokens",
+        "docs/CHECKPOINT.md": "hard cap of 1,200 tokens"
+      }
+    },
+    {
+      "id": "mcp.bytes_per_token",
+      "value": 4.25,
+      "truth": "test_asrai.BYTES_PER_TOKEN: o200k_base over the compact tools/list reply, measured 2026-09-14",
+      "claimed_in": {
+        "docs/spec.md": "4.25 bytes per token",
+        "docs/CHECKPOINT.md": "4.25 bytes per token"
       }
     }
   ]

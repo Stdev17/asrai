@@ -113,9 +113,11 @@ is a new row.
 
 **Structural notes — not naming problems, and not fixable by renaming.**
 
-- `vocab_get` runs three operations through one string parameter because spec.md §6 caps the surface at
-  eight tools and two slots are reserved for `retrieve` and `preview`. The name is honest now, but a
-  model still cannot discover `categories` from the type. Revisit when those slots are spent.
+- `vocab_get` runs three operations through one string parameter. It began as a way to stay under an
+  eight-tool cap; the cap is now a byte budget (spec.md §6) and the overload survives on it, because splitting
+  it into `vocab_get`, `vocab_category` and `vocab_categories` measured 462 more bytes of schema — about a
+  hundred tokens on every turn — for nothing the one parameter cannot say (2026-09-14). The name is honest,
+  but a model still cannot discover `categories` from the type. Revisit only if the budget is raised for it.
 - `record` and `lint` take `object` with no declared properties, so the schema offers a model no help at
   all; the shape lives only in spec.md §4 and `SKILL.md`.
 - `mode` means three unrelated things across the surface: `observer.mode`, `quantification.mode`, and

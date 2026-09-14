@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import functools
+import inspect
 from pathlib import Path
 
 from mcp.server.mcpserver import MCPServer
@@ -26,6 +27,7 @@ def _guard(fn):
             return fn(*args, **kwargs)
         except CORE_ERRORS as exc:
             raise ToolError(str(exc)) from exc
+    run.__doc__ = inspect.cleandoc(fn.__doc__ or "")   # the docstring is the description: indentation is not sent
     return run
 
 
@@ -40,9 +42,8 @@ def vocab_search(query: str, lang: str = "en", category: str | None = None, limi
 @server.tool()
 @_guard
 def vocab_get(lookup: str, lang: str = "en", full: bool = True) -> dict:
-    """Look up one term, or browse. lookup takes an exact term id ("shape.silhouette"), the literal
-    "categories" to list every category, or "category:<id>" ("category:vector") to list one category.
-    full=true returns the whole spec; false returns id, label, kind and description only."""
+    """Look up one term by exact id ("shape.silhouette"), or browse: lookup="categories" lists every category and
+    "category:<id>" ("category:vector") lists one. full=false returns id, label, kind and description only."""
     if lookup == "categories":
         return {"categories": vocab.categories()}
     if lookup.startswith("category:"):
@@ -61,15 +62,12 @@ def measure(path: str, target_width: int | None = None) -> dict:
 @_guard
 def light_ledger(path: str, subjects: list[dict] | None = None, capture: str | None = None, mirror: bool = False,
                  answers: dict | None = None) -> dict:
-    """Lighting pass over a raster, in two phases. Phase one (no answers): proposed emitters, where each subject's
-    shading points, a key-light fit, an overlay PNG under out/ with every id drawn on it, and `form`, the typed
-    answer sheet whose null fields are all an observer decides. Phase two: pass the filled form as `answers` for
-    `verdict` and an observation `record`; handing it back unfilled is valid and returns what the measurement alone
-    decides. subjects: [{"id": "pipe_left", "bbox": [x, y, w, h], "depth": 0, "mask": "layers/pipe.png"}], at most
-    16 — bbox in pixels; depth an optional layer index (0 nearest), never a distance; mask an optional image whose
-    alpha marks the subject's pixels, canvas- or box-sized: a layer export, never a segmentation. capture: a
-    capture.json whose composed_of boxes become the subjects. Vectors are [dx, dy], y down. mirror=true measures
-    the mirrored image. The bundled SKILL.md carries the rest; this schema is re-sent every turn."""
+    """Lighting pass, two phases. Without answers: proposed emitters, each subject's shading direction, a key-light
+    fit, an overlay PNG under out/ with every id drawn on it, and `form`, the typed answer sheet. With the filled
+    form as answers: `verdict` and a `record`; an unfilled form returns what the measurement alone decides.
+    subjects: at most 16 of {"id", "bbox": [x, y, w, h] px, "depth"?: layer index, "mask"?: alpha image}; or
+    capture: a capture.json; or neither, for a sprite with alpha. mirror=true measures the mirrored image.
+    SKILL.md carries the rest."""
     cfg = config.load()
     return light.ledger(Path(path), subjects, capture, Path(cfg["_root"]) / cfg["paths"]["out"], mirror, answers)
 

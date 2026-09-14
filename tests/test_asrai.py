@@ -2,6 +2,7 @@ import asyncio
 import json
 import subprocess
 import sys
+import warnings
 
 import numpy as np
 import pytest
@@ -157,6 +158,28 @@ def test_mcp_tools_in_process_and_over_stdio():
     assert "shape.silhouette" in json.dumps(replies[3]["result"])
 
 
+SOFT_CAP_TOKENS, HARD_CAP_TOKENS = 1000, 1200   # docs/spec.md 6: a warning, then a failure
+BYTES_PER_TOKEN = 4.25                          # o200k_base over this surface as compact JSON, measured 2026-09-14
+
+
+def tool_surface_bytes() -> int:
+    """The tools/list reply a host re-sends the model on every turn: name, description and input schema per
+    tool, as compact JSON. Hosts render it differently, so this is the reproducible proxy, not one host's bill."""
+    from asrai.server import server
+    return sum(len(json.dumps({"name": t.name, "description": t.description, "inputSchema": t.input_schema},
+                              separators=(",", ":"))) for t in asyncio.run(server.list_tools()))
+
+
+def test_the_tool_surface_stays_inside_its_token_budget():
+    """"Never more than eight tools" had no measurement behind it, and no host caps at eight. What a tool
+    costs is its schema on every turn, so the budget is in bytes: light_ledger alone was 38 per cent of it.
+    Trim a description before raising a cap; the detail belongs in SKILL.md, which is read once."""
+    tokens = tool_surface_bytes() / BYTES_PER_TOKEN
+    assert tokens <= HARD_CAP_TOKENS, f"tool surface at {tokens:.0f} tokens: cut description prose, do not raise the cap"
+    if tokens > SOFT_CAP_TOKENS:
+        warnings.warn(f"tool surface at {tokens:.0f} tokens, over the {SOFT_CAP_TOKENS}-token soft cap", stacklevel=1)
+
+
 def test_measure_bounds_the_work_it_accepts(tmp_path):
     path = sprite(tmp_path / "s.png")
     with pytest.raises(ValueError, match="Mpx"):          # 4x4 upscaled to 50000 wide is 800 GB of float64
@@ -231,6 +254,10 @@ def test_every_number_the_documents_claim_is_the_number_the_repository_has():
         "fixtures.images": lambda: len([p for p in (root / "tests" / "fixtures").iterdir()
                                         if p.suffix in (".png", ".jpg")]),
         "instruction.examples": lambda: len(list((data / "examples").glob("*.json"))),
+        "mcp.surface_bytes": tool_surface_bytes,
+        "mcp.soft_cap_tokens": lambda: SOFT_CAP_TOKENS,
+        "mcp.hard_cap_tokens": lambda: HARD_CAP_TOKENS,
+        "mcp.bytes_per_token": lambda: BYTES_PER_TOKEN,
     }
     claims = json.loads((root / "tests" / "claims.json").read_text("utf-8"))["claims"]
     assert {c["id"] for c in claims} == set(truth), "claims.json and this test disagree on what is registered"
@@ -244,7 +271,7 @@ def test_every_number_the_documents_claim_is_the_number_the_repository_has():
         word = NUMBER_WORDS.get(value, "")
         for path, phrase in c["claimed_in"].items():
             # the wording has to carry the number itself, or a claim could be met by unrelated prose
-            if str(value) not in phrase and (not word or word not in phrase.lower()):
+            if str(value) not in phrase and f"{value:,}" not in phrase and (not word or word not in phrase.lower()):
                 unanchored.append(f"{c['id']} -> {path}: {phrase!r} does not contain {value}")
             elif phrase not in (root / path).read_text("utf-8"):
                 absent.append(f"{c['id']} -> {path}: {phrase!r}")

@@ -47,6 +47,9 @@ flowchart TD
   behaviour, and put the reason in the docstring.
 - **module → `SKILL.md`.** No spec loss: a capability the tools have and the skill does not describe is
   shipped dead, because the agent never calls it. See [the skill README](src/asrai/data/skill/README.md).
+- **a tool description → the budget.** A description is re-sent to the model on every turn; `SKILL.md` is
+  read once. Keep the description to what picks the tool and shapes the call, and put the rest in the
+  skill: the test warns above 1,000 tokens and fails above 1,200.
 - **behaviour → contract.** A promise belongs in `spec.md`; a naming decision and its rejected
   alternatives belong in `conventions.md` §1a. Write the rejected alternative down — it is the cheapest
   thing in this repository and it stops the same argument recurring.

@@ -24,7 +24,7 @@ they do not match the number of `def test_` lines.
 
 | file | tests | what it holds |
 |---|---|---|
-| `test_asrai.py` | 11 | vocabulary search/get/locales, lint rules, `measure` determinism, record validation and layer rules, `doctor` lock and drift, the MCP tools in-process **and** over stdio, refusal of malformed input at both trust boundaries, and every number the documents claim against `claims.json` |
+| `test_asrai.py` | 12 | vocabulary search/get/locales, lint rules, `measure` determinism, record validation and layer rules, `doctor` lock and drift, the MCP tools in-process **and** over stdio, refusal of malformed input at both trust boundaries, every number the documents claim against `claims.json`, and the MCP tool surface against its token budget |
 | `test_corpus.py` | 13 | the shipped vocabulary validates, the locales carry no hard defect, the shipped `lint` and the vendored validator agree (both on acceptance and on rejection), every surface in `surfaces.v1.json` maps onto a real vocabulary term and is named in `SKILL.md`, and the skill names every `context` key the linter requires |
 | `test_fixtures.py` | 8 | `measure` reproduces the committed JSON byte for byte for each of the six images, the CLI and the core agree, and a fully transparent asset is reported as empty rather than measured |
 | `test_light.py` | 23 | the surface pass: direction, emitters, key fit, the form, the answered phase, depth, the three modes, the estimator noise floor on every direction, the mirror check, capture boxes and what a capture could not read, subject masks, holds, and the production perturbations |
