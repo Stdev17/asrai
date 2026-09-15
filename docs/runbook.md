@@ -138,9 +138,44 @@ in. An image whose origin cannot be stated does not go in.
 4. A new public name has its rejected alternative written down in `conventions.md` §1a.
 5. A new `CHECKPOINT.md` entry on top, stamped, restating the volatile lists.
 6. Commits split by meaning, each one green on its own, and each message naming every owner its diff
-   touches. A file the message cannot account for goes in its own commit or stays out.
+   touches using [conventions.md §5](conventions.md#5-commits). The checker prints the format on failure.
+   A file the message cannot account for goes in its own commit or stays out.
 7. `git commit -s`. Every commit carries a `Signed-off-by` line — the Developer Certificate of Origin,
    adopted 2026-09-15. Commits before that day carry none and are not rewritten.
+
+### Install and check commit policy
+
+After cloning, with Python available as `python3`:
+
+```bash
+git config --local core.hooksPath tools/hooks
+uv run --no-sync python tools/commit_check.py --selftest
+```
+
+Both tracked hook files must be executable. Inspect an existing `core.hooksPath` before replacing it;
+preserve any unrelated hooks. A new clone needs this explicit local installation. The hooks resolve
+the checker in the current worktree. If other worktrees have not adopted these files, enable Git's
+`extensions.worktreeConfig` and set `core.hooksPath` with `--worktree` only in the adopted worktree.
+
+Use ordinary `git commit -s` and `git commit --amend -s`. The message hook checks structure; the
+reference-transaction hook checks the completed commit against its first parent before Git moves
+the branch. Rejected transactions leave the branch unchanged; the index and message remain available
+for correction. No empty-index heuristic or special amend command is needed. Both hooks and the
+same history checks are exercised in disposable repositories by the package suite.
+
+To inspect an existing commit or the exact change under review:
+
+```bash
+uv run --no-sync python tools/commit_check.py --rev HEAD
+uv run --no-sync python tools/commit_check.py --range <base>..<head>
+```
+
+Use resolved base/head revisions for the review; unavailable revisions fail. The positional message
+file mode checks only the staged diff; use `--rev HEAD --msg <file>` to preflight a message-only
+amend. The local hooks do not activate a remote gate, and the existing DCO workflow checks DCO only.
+Review checks authority, causal `Fixes`, numeric evidence outside automatic coverage, and copy
+provenance as well as the executable range result. See the
+[adoption rationale](review/2026-09-16-commit-policy.md).
 
 ## 8. Pull request states
 

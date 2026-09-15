@@ -10,7 +10,7 @@ so a change to `vocab.v2.json` fails the same command a change to `light.py` doe
 
 ```mermaid
 flowchart TD
-    PYTEST[pytest] --> ASRAI[test_asrai] & CORPUS[test_corpus] & FIXTURES[test_fixtures] & LIGHT[test_light] & DCO[test_dco]
+    PYTEST[pytest] --> ASRAI[test_asrai] & CORPUS[test_corpus] & FIXTURES[test_fixtures] & LIGHT[test_light] & DCO[test_dco] & COMMITS[test_commit_check]
     ASRAI --> TRANSPORTS["both transports<br/>malformed input"]
     CORPUS --> STOCK["shipped data<br/>skill agreement"]
     FIXTURES --> VALUES["exact JSON values"]
@@ -24,6 +24,7 @@ Collect the current counts with `uv run pytest --collect-only -q`; parametrised 
 | `test_asrai.py` | vocabulary search/get/locales, lint rules, `measure` determinism, record validation and layer rules, `doctor` lock and drift, the MCP tools in-process **and** over stdio, refusal of malformed input at both trust boundaries, every number the documents claim against `claims.json`, and the MCP tool surface against its token budget |
 | `test_corpus.py` | the shipped vocabulary validates, the locales carry no hard defect, the shipped `lint` and the vendored validator agree (both on acceptance and on rejection), every surface in `surfaces.v1.json` maps onto a real vocabulary term and is named in `SKILL.md`, and the skill names every `context` key the linter requires |
 | `test_dco.py` | new commits need real signoff trailers; legacy history is exempt and unavailable history cannot pass |
+| `test_commit_check.py` | real Git hooks accept/reject commit trees, message-only and staged amendments, owner-crossing renames, merges and linked worktrees; unavailable evidence and malformed trailers fail |
 | `test_fixtures.py` | `measure` reproduces the committed JSON values for each of the six images, the CLI and the core agree, and a fully transparent asset is reported as empty rather than measured |
 | `test_light.py` | the surface pass: direction, emitters, key fit, the form, the answered phase, depth, the three modes, the estimator noise floor on every direction, the mirror check, capture boxes and what a capture could not read, subject masks, holds, and the production perturbations |
 

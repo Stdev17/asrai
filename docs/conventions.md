@@ -224,18 +224,65 @@ there and is addressed relative to `__file__`, never relative to the working dir
 
 ## 5. Commits
 
-Subject: imperative, capitalized, no trailing period, 50 characters (72 hard). It must complete
-*"If applied, this commit will ___"*. Blank line. Body wrapped at 72, explaining **what and why**;
-the diff already shows how.
+The responsible human adopted this format for new work. It replaces the former untyped, capitalized
+subject convention; historical commits are not rewritten to adopt it.
+
+Subject: `type(scope): why-subject`, no trailing period, 50 characters (72 hard). The scope is an
+owner below. Blank line. Body wrapped at 72, explaining **why**; the diff already shows how.
+Types: `feat`, `fix`, `docs`, `chore`, `refactor`, `test`, `perf`, `build`, `ci`, `revert`, `style`.
 
 ```
-Bound the pixel count measure will accept
+fix(runtime): prevent measurement memory exhaustion
 
 target_width reaches measure() straight from a model, and stats() peaks
 near 320 bytes per pixel, so 4x4 upscaled to 50000 wide asked for 800 GB
 and the OOM killer took the process. Refuse above 12 Mpx on both the
 decoded source and the target rescale; a 4K capture still fits.
+
+Owners: runtime, tests
+Fixes: <commit-that-introduced-the-defect>
+Values: <name> <old>-><new>
+Signed-off-by: <name> <email>
 ```
+
+The placeholders above must be replaced by actual evidence. Trailers form the final paragraph.
+
+| trailer | obligation |
+|---|---|
+| `Owners: a, b` | every owner touched, exactly; a rename touches both the old and new owners |
+| `Fixes: <sha>` | required on `fix`; identify the introducing commit, not an arbitrary nearby commit. The checker verifies that the commit exists and touches an affected file; review establishes causality |
+| `Values: name old->new; ...` | every changed number, with its stable name and actual old/new values; qualify an ambiguous name as `path:name` |
+| `Deviation: what — why — authority` | an exception needs an existing, sourced human approval. Writing a trailer never grants authority |
+| `Source: <repo> <rev>` | a copy needs its source repository and commit SHA; the body names source paths and any adaptation. Review verifies provenance and copied content |
+| `Signed-off-by: Name <email>` | the existing DCO policy in `CONTRIBUTING.md` |
+
+| owner | paths, with the more specific match taking precedence |
+|---|---|
+| `stock` | `src/asrai/data/stock/` |
+| `skill` | `src/asrai/data/skill/` |
+| `runtime` | the rest of `src/asrai/` |
+| `tests` | `tests/` |
+| `ci` | `.github/` |
+| `process` | `tools/`, `.claude/`, `.agents/`, `AGENTS.md`, `CLAUDE.md`, `.mcp.json`, `.gitignore` |
+| `docs` | `docs/`, root `README.md`, `CONTRIBUTING.md`, `CHANGELOG.md` |
+| `package` | `pyproject.toml`, `uv.lock`, `LICENSE` |
+| `root` | anything not mapped above; review whether a newly introduced area needs an owner |
+
+**Machine evidence has a boundary.** [`commit_check.py`](../tools/commit_check.py) enforces the
+closed conditions and prints the schema on failure. It compares module-level Python literal
+assignments and numeric leaves in JSON, JSONL and TOML, using decoded values and dotted/indexed
+field names. Added/deleted fields, local assignments, computed expressions, prose, versions and
+other formats still require the author and reviewer to supply the appropriate `Values` evidence.
+This coverage limit does not exempt those changes from the rule. A nearby occurrence of an old
+number in a test is not evidence that the test pins that parameter; run the tests and review the
+actual dependency. The checker validates `Source` syntax; it cannot infer external copying or
+human approval from Git. A passing hook is not a provenance or authority verdict.
+
+Install and exercise the hooks as described in [runbook.md §7](runbook.md#7-landing-a-change).
+`commit-msg` checks message structure. `reference-transaction` checks the actual new commit objects
+before local branch or detached-HEAD updates, including `amend`. Existing reachable history,
+remote-tracking refs and tags are left to the explicit range review. A merge is compared with its
+first parent. Local hooks are contributor feedback; reviewers still check the exact PR range.
 
 ---
 

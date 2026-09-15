@@ -4,6 +4,8 @@ Hand-written changes for users and contributors. An unreleased entry is not a pu
 
 ## Unreleased
 
+- Add asrai commit policy and local hooks that check the actual commit before moving the branch,
+  including amendments; use independent temporary histories for the checker tests.
 - Make the runbook's judgment hierarchy explicit: human decisions and maintained intent govern
   generated specifications, code and tests.
 - Label the existing lighting agreement cutoffs and surface selection as unverified policy; remove

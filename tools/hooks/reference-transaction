@@ -1,0 +1,5 @@
+#!/bin/sh
+# Actual commit objects distinguish a new commit from any form of amend.
+[ "$1" = prepared ] || exit 0
+root=$(git rev-parse --show-toplevel) || exit 1
+exec python3 "$root/tools/commit_check.py" --transaction

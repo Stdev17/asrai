@@ -24,6 +24,116 @@ be, on the day the policy changed. Their wording is unchanged; only the shape is
 
 ---
 
+## 2026-09-16 · verified at `ea6ae95` · Codex
+
+The revision above is the inspected hardening base; acceptance includes this entry's commit-policy
+changes in `codex/oss-hardening`. The commit containing this entry identifies those changes.
+
+**State.**
+
+- phase: 1 (core and transports) and 1b (surface pass) remain complete; phase 2 is not implemented
+- last_acceptance_passed: 61 tests on CPython 3.11.9 and 3.14.7, macOS 14.6.1 arm64. Real temporary Git
+  histories accept/reject new commits, root commits, message-only and staged amendments, owner-changing
+  renames, merges and linked worktrees; missing/shallow revisions and malformed trailers fail. Direct
+  symbolic-reference protocol cases pass. Package, corpus and fixture-byte checks pass unchanged.
+  Links: 0 broken. Translation stamps: 0 current, 3 stale, 0 broken (advisory). A fresh wheel install
+  passes CLI, actual stdio MCP, stock/locale/skill loading and input preservation on CPython 3.14.7.
+  The prior hardening entry retains the same runtime's cross-version wheel and negative-hash evidence
+- in_progress: local hardening and commit-policy work is ready for integration; remote CI execution,
+  DCO bootstrap and required-check activation remain unverified
+- next_slice: integrate the branch and local hook adoption, land the reviewed DCO workflow/checker on
+  the remote default branch, exercise signed and unsigned PR cases, then require
+  `Checks (Python 3.11)`, `Checks (Python 3.14)` and `DCO`. A release needs its successful run's exact
+  install bundle attached. Phase 2 follows separately: recipes, adapters, alpha policy, recipe hashes,
+  preview/apply/diff (`spec.md` §8)
+- next_command: the landing checks in `runbook.md` §1 and commit range validation in §7
+- working_tree: `codex/oss-hardening` contains the adopted tools. Git's worktree-specific config is
+  enabled and `core.hooksPath=tools/hooks` is set only here. Main's tracked and untracked file bytes
+  are unchanged; no merge, remote branch, release or repository setting was published
+
+**What landed.**
+
+- Asrai-native Owners and conditional trailers replace the supplied Unity policy. Failed Git lookups
+  remain errors; disposable histories replace foreign commit ids. `commit-msg` validates structure,
+  and the prepared reference transaction checks the actual first-parent diff before a branch moves.
+  Existing subject policy is propagated through conventions, runbook and contribution guidance
+- The original hardening commit `e51d61b` was reworded as `ea6ae95` through the installed hooks. Its
+  tree stayed exactly `0840ce03d81e90438158c5f5be3459502fd1b32e`. Its message now names every owner;
+  inherited history was not rewritten. The policy rationale records the supplied files' actual byte
+  provenance without inventing a source revision for untracked files
+- Runbook §1 continues to own judgment authority: explicit responsible human decisions,
+  human-maintained documents, derived specs, then executable code/tests. A conflicting implementation
+  is defective. Spec, conventions, contribution guidance and the docs index route through that rule
+- Operative spec, skill, lighting comments and shipped surfaces mark unsupported alignment and
+  suspicion claims as unverified policy. Existing cutoffs and selected surfaces are not newly approved
+  magnitudes. Numeric behavior, fixture images and expected fixture bytes remain unchanged
+- Fixture tests enforce byte equality using the generator's shared serialization. The wheel checker
+  derives an install bundle from `uv.lock`, with hashes, Python version, source and environment
+  evidence; installed CLI and MCP operate away from the editable checkout. Runbook §9 covers setup
+- CI runs locked checks on Python 3.11 and 3.14 and uploads verified install bundles. DCO remains a
+  trusted-default-branch workflow: proposed commits are data and the fixed pre-adoption history is
+  exempt. Local schema hooks are not a remote gate. The PR template and changelog remain in place
+
+**Known limits.**
+
+- Hook enforcement is installed only in the adopted hardening worktree. The main checkout still has
+  the preserved, untracked supplied checker and no active hook path. Integrating the branch must
+  reconcile those files and install the tracked hooks there; no remote setting has changed
+- Native hook tests ran on Apple Git 2.39.3. Direct protocol regression cases cover newer Git's
+  symbolic-reference rows, including detached-HEAD transitions; native execution on newer Git is
+  not yet verified. Hooks cover new local commit objects; exact range review still covers reachable
+  history. Numeric detection covers documented literal fields, while other numbers, copying,
+  causal Fixes and human exception authority remain author/reviewer obligations
+
+- Local passing results are not GitHub Actions results. Ubuntu jobs, Windows installation commands,
+  signed/unsigned remote PR behavior and required checks have not yet been exercised. The DCO workflow
+  cannot protect its own initial adoption; that needs explicit review before it becomes trusted policy
+- A bundle pins Python and dependency versions and constrains artifact hashes. It does not make
+  OS/CPU-specific wheels or native decoders identical. Both local installations used Pillow 12.3.0
+  with libjpeg-turbo 3.1.4.1; NumPy was 2.4.6 on Python 3.11 and 2.5.3 on Python 3.14, as selected by
+  the lock's markers. JPEG fixture drift must be investigated, never hidden by invented tolerances
+- Ordinary `uvx asrai==<version>` does not consume the repository lock. `doctor --lock` records drift;
+  automatic strict refusal and per-run complete environment stamps remain planned. Install bundles
+  are local/CI artifacts until attached to a release
+- Agreement bands and surface selection still need measured evidence or an explicit, sourced human
+  decision. Synthetic estimator tests do not establish art-direction validity
+- `measure` refuses above 12 Mpx; 16-bit color PNGs are measured at 8-bit precision, while 16-bit grey
+  is rescaled. A 4K capture fits; 8K does not
+- A heavy vignette can bend shaded-mass direction into the observer band; a vignette can also dim a
+  border emitter below the global proposal floor. The eight brightest blobs and at most sixteen
+  subjects are measured, not every possible source or object
+- The absolute emitter floor depends on the transfer function; its basis is reported, not corrected.
+  Bright paint is proposed as a possible emitter and a bright painted band can supply the highlight
+- Spill depends on the neighborhood: a real lamp by a lit floor and dark wall can read negative.
+  Spill and receivers are both considered, and an unmeasurable neighborhood remains unknown
+- Cast-shadow evidence needs known subject pixels (a mask or file alpha), cannot separate cast from
+  form shadow inside one box, and cannot judge a flat subject. A baked checkerboard is not alpha;
+  request the original asset instead of interpreting the preview as the asset
+- Precedent retrieval, recipes, previews/apply, ingest/promotion, pairwise bootstrap and external
+  rendering remain unbuilt. Blender and Inkscape are not installed in the verified local environment
+
+**Waiting on a human.**
+
+- Review and integrate this local branch, reconcile the main checkout's untracked checker, install
+  its hooks there, then activate and verify the remote gates and release path
+- Validate or explicitly adopt/replace the lighting policy and surface selection with a recorded basis
+- Review `docs/spec.md` and the artist brief
+- Name native industry-language owners for `ko`, `ja` and `zh-Hans` and review/restamp their README
+  translations; the shipped locale translations also remain unconfirmed
+- Decide `observer.mode` default and embedding egress (`spec.md` §10)
+- Confirm external-tool versions on team machines before implementing their adapters
+
+**Standing facts.**
+
+- Inputs are immutable; output files are new; corpus records and prior checkpoint entries are
+  append-only. Dated reviews remain historical. All prior checkpoint and review bytes are preserved
+- Spec §1 retains the three intended readers and `surfaces.v1` retains its measurement/evidence/
+  observer distinction. Tests show implementation behavior, not artistic approval
+- The runbook owns hierarchy and procedures; the docs index routes to the current sources. Scratch
+  stays outside tracked documentation, under the already permitted ignored names
+
+---
+
 ## 2026-09-16 · verified at `149656a` · Codex
 
 The revision above is the inspected base; acceptance below includes this entry's hardening changes
