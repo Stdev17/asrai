@@ -168,6 +168,23 @@
       "claimed_in": {
         "docs/spec.md": "4.25 bytes per token"
       }
+    },
+    {
+      "id": "architecture.owner_review_at",
+      "value": 10,
+      "truth": "Human scope decision, 2026-09-16: review single-skill scope at or above this count; pinned in test_asrai.py",
+      "claimed_in": {
+        "docs/conventions.md": "At **10 or more responsibility owners**",
+        ".agents/skills/asrai-development/SKILL.md": "At **10 or more responsibility owners**"
+      }
+    },
+    {
+      "id": "architecture.diagram_node_limit",
+      "value": 10,
+      "truth": "Human scope decision, 2026-09-16: exceeding this count signals a subsystem-boundary review; pinned in test_asrai.py",
+      "claimed_in": {
+        "docs/conventions.md": "More than **10 nodes**"
+      }
     }
   ]
 }

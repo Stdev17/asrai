@@ -63,6 +63,8 @@ commands; its workflow and required-check setup are described in [`.github/READM
 | how to make a change that will be accepted | [`../CONTRIBUTING.md`](../CONTRIBUTING.md) | process |
 | a translation of a document | [`i18n/`](i18n/README.md) | stamped with the source commit |
 | anything an agent needs before touching an asset | the bundled `SKILL.md` | never duplicated into `AGENTS.md` |
+| how an agent develops this repository | [development skill](../.agents/skills/asrai-development/SKILL.md) | applies this runbook and conventions; separate from the bundled asset workflow |
+| owner invariants and boundary signatures | [`architecture.md`](architecture.md) | verify against code and data flow when a boundary changes; conventions §0 governs scope |
 
 ## 3. What never to create
 
@@ -134,7 +136,8 @@ in. An image whose origin cannot be stated does not go in.
 
 1. Locked sync, `pytest`, `check_links.py`, `check_translations.py` and `check_wheel.py` all clean.
 2. Every number you added to prose is in `claims.json`.
-3. Anything an agent can now do is described in `SKILL.md`.
+3. Asset capabilities are described in the bundled `SKILL.md`; repository development procedures
+   belong in the development skill and its governing documents.
 4. A new public name has its rejected alternative written down in `conventions.md` §1a.
 5. A new `CHECKPOINT.md` entry on top, stamped, restating the volatile lists.
 6. Commits split by meaning, each one green on its own, and each message naming every owner its diff

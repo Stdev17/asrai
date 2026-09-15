@@ -259,6 +259,9 @@ def test_every_number_the_documents_claim_is_the_number_the_repository_has():
         "mcp.soft_cap_tokens": lambda: SOFT_CAP_TOKENS,
         "mcp.hard_cap_tokens": lambda: HARD_CAP_TOKENS,
         "mcp.bytes_per_token": lambda: BYTES_PER_TOKEN,
+        # Human scope decision, 2026-09-16; conventions §0 distinguishes review from diagram fit.
+        "architecture.owner_review_at": lambda: 10,
+        "architecture.diagram_node_limit": lambda: 10,
     }
     claims = json.loads((root / "tests" / "claims.json").read_text("utf-8"))["claims"]
     assert {c["id"] for c in claims} == set(truth), "claims.json and this test disagree on what is registered"

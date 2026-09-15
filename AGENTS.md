@@ -54,6 +54,9 @@ entry; why it was decided goes in a dated file under `docs/review/`.
 
 ## Contributing to this repository
 
+For repository development, read the [development skill](.agents/skills/asrai-development/SKILL.md).
+It routes code and boundary changes through the conventions and owner graph.
+
 [`docs/runbook.md`](docs/runbook.md) is the procedures — where a thing gets written, how each file may
 be written, the five changes people actually make. [`CONTRIBUTING.md`](CONTRIBUTING.md) is why, and
 [`docs/README.md`](docs/README.md) routes to the judgment hierarchy. The package gate is `uv run pytest`;

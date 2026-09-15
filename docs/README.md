@@ -20,6 +20,7 @@ flowchart LR
 |---|---|---|
 | [`spec.md`](spec.md) | what the tools promise, what a record means, what may never happen | **the implementation contract**, governed by human decisions and maintained policy. A conflicting implementation is defective |
 | [`conventions.md`](conventions.md) | how code and names are written here, and which alternatives were rejected and why | binding on new code within the hierarchy in runbook §1; no filename overrides sourced human decisions or maintained policy |
+| [`architecture.md`](architecture.md) | which invariants belong to each owner and which signatures cross their boundaries | a code-checked model governed by conventions §0; existing defects shown here are not newly authorized |
 | [`CHECKPOINT.md`](CHECKPOINT.md) | what is built, what passed, what is known to be limited, what a human still has to decide | a status log, **append-only**: a new entry on top, no entry below it edited. The newest is what is true now. Never a promise |
 | [`../CONTRIBUTING.md`](../CONTRIBUTING.md) | how to make a change that will be accepted | human-maintained contribution policy; generated specs cannot override it |
 | [`runbook.md`](runbook.md) | judgment hierarchy, operating policy and repeated procedures | the canonical location of the hierarchy; human decisions remain above it |
@@ -34,7 +35,9 @@ One more file sits at the repository root and is not a contract:
 
 - [`../AGENTS.md`](../AGENTS.md) — the asrai section Codex CLI and OpenCode read in place of a skills
   directory (`spec.md` §12). It points at the bundled `SKILL.md` rather than restating it, so the two
-  cannot drift.
+  cannot drift. Repository development also routes to
+  [the development skill](../.agents/skills/asrai-development/SKILL.md), which applies conventions
+  without expanding the shipped asset workflow.
 
 ## Language
 

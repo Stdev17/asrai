@@ -17,6 +17,30 @@ in `pairwise`; `a` would be a terrible field name in a record a model has to fil
 
 ---
 
+## 0. Owner boundaries
+
+Before changing a responsibility boundary, draw its proposed dependencies in
+[`architecture.md`](architecture.md), then verify the finished graph against code and data flow.
+Each node names an invariant owner; each edge names only the signatures or data contracts crossing
+that boundary. An owner may enforce deterministic policy without mutable state. Helpers, DTOs,
+modules and MCP tools are not automatically owners; commit `Owners:` path buckets are a different
+classification. Grouping independent invariants under a facade does not reduce the owner count.
+
+**Single-skill scope.** At **10 or more responsibility owners**, pause the proposed expansion and
+review feature creep with the responsible human, even if the diagram is readable. asrai should do
+one job well. Name the new invariant and explain whether it belongs to that job or to a separate tool.
+Community demand may justify a broader system, but only an explicit human scope decision can adopt it.
+
+**Diagram fit.** More than **10 nodes**, or crowding at an ordinary repository reading width, is a
+signal to reconsider a subsystem boundary. Do not hide dependencies, shrink text or split a drawing
+into pages to make it pass. Split along independent invariants, never to satisfy a count. For this
+single-skill product, first revisit scope; introducing another subsystem is not automatic permission
+to keep growing. A readable graph below the count is evidence of legibility, not proof of good scope.
+
+The [development skill](../.agents/skills/asrai-development/SKILL.md) applies these conventions.
+The [adaptation record](review/2026-09-16-owner-boundaries.md) identifies the source and the
+Unity-specific policies not adopted here.
+
 ## 1. Names a model reads
 
 **The test.** A stateless model sees only `name`, `type` and `description`. Can it produce a correct
@@ -53,6 +77,10 @@ and old records stay readable.
 
 **Redundant or overlapping fields are a structural problem, not a naming one.** Two fields that mean
 the same thing do not get better names; one of them gets deleted. Raise it separately.
+
+**Stable names retain meaning.** A changed input, return shape, fallback or guarantee is a contract
+change even when the identifier stays the same. Make it visible in the spec and migration or versioned
+surface; do not hide changed meaning under an old name. Old records remain readable.
 
 ## 1a. Canonical examples
 
@@ -177,11 +205,17 @@ second caller now exists — so say so in the commit body rather than doing it i
 
 **Levels of abstraction, no punching through.** `cli.py` and `server.py` are transports. They parse
 arguments, call one core function, and serialize the result; they hold no rules. Every rule lives in
-`vocab`, `measure`, `records` or `doctor`, so the two transports cannot disagree (spec.md §2, invariant
+its [core owner](architecture.md), so the two transports cannot disagree (spec.md §2, invariant
 9). A transport that reaches past the core into Pillow or a JSON file is a bug even when it works.
 
 **Do not touch unrelated code.** No drive-by comments on blocks you did not write or change. The
 smallest diff that fixes the thing, and nothing else in the same commit.
+
+**Work stops at its write-set boundary.** Name the invariant and allowed files before delegating.
+Disjoint intentions do not prevent edits to the same file from colliding. If the change needs a file
+outside that boundary, report the file and reason; never substitute a copied constant, hidden state,
+extra public member or changed return contract. A deviation needs sourced human authority and the
+commit trailer below. A task ends at reproducible evidence, not an amount of code.
 
 ## 3. Tests
 

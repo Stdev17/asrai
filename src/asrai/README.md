@@ -1,20 +1,15 @@
 # `src/asrai/` — the package
 
-Nine modules. Two of them are transports and seven are the core; **nothing in the core imports a
+Nine modules include transports, core owners and version metadata; **nothing in the core imports a
 transport**, which is what makes invariant 9 (`CLI and MCP produce the same output for the same
 fixture`) structural rather than a promise.
 
-```mermaid
-flowchart TD
-    CLI[cli] & SERVER[server] --> LIGHT[light] & MEASURE[measure] & RECORDS[records] & VOCAB[vocab] & DOCTOR[doctor] & CONFIG[config]
-    LIGHT --> MEASURE & VOCAB
-    RECORDS --> VOCAB
-    DOCTOR --> VOCAB & RECORDS
-```
+The signature-only [owner graph](../../docs/architecture.md) records the current dependencies,
+including shared data and private imports. Module count is not responsibility count.
 
 | module | owns | public surface | the rule it enforces |
 |---|---|---|---|
-| `config.py` | `asrai.toml` in the project root, overlaid on defaults | `root`, `load`, `team_dir` | no module reads a path directly; the corpus location comes from here |
+| `config.py` | `asrai.toml` in the project root, overlaid on defaults | `root`, `load`, `team_dir` | transports resolve configured project and team-corpus paths here |
 | `vocab.py` | stock vocabulary v2 — lookup, search, locales, instruction lint | `get`, `search`, `categories`, `category`, `translations`, `langs`, `locale`, `localize`, `expand`, `compact`, `pack`, `index`, `lint_instruction`, `scalar_change`, `resolve_lang`, `locale_codes` | invariant 3 — a `proxy_only \| qualitative \| relational \| structural` term never takes `set` or a delta, and `lint` blocks it |
 | `measure.py` | deterministic V0 measurement with Pillow and numpy | `load`, `measure`, `luminance`, `hsl`, `stats` | same bytes in, same JSON out. It never writes a file, and it refuses above 12 Mpx before decoding |
 | `light.py` | the surface pass: `surfaces.v1` instantiated as a two-phase ledger | `ledger`, `surfaces` | direction may be measured; magnitude may not be invented. Every number it returns is a measurement, a count or a sign |
