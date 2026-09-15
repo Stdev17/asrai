@@ -84,6 +84,11 @@ measures around `emissive`, `key`, `specular` and `light_color` and leaves the a
 `observer` means `ambient`, `rim`, `atmosphere` and `albedo` are yours alone, where `unknown` is the
 honest default. Two calls, one form, no prose.
 
+The current agreement bands and surface selection are unverified implementation policy. The measured
+angle is evidence; the cutoffs do not become validated art-direction limits because a tool used them.
+Keep a human's explicit judgment above the tool's derived verdict. The former claims about typical
+hand-drawn key variation and where suspicion begins have no recorded basis and must not be cited.
+
 1. Subjects. A sprite: pass nothing, its own silhouette becomes the subject `asset`. A capture:
    `capture=capture.json` (its `composed_of` screen boxes; the reply's `capture` block says how many
    rows it declared, how many were measurable, and why any was skipped — read it before trusting an axis). A raw image: propose up to sixteen boxes yourself, the things that

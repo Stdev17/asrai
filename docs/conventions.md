@@ -1,7 +1,9 @@
 # Conventions
 
-How code in this repository is written. The **contract** — what the tools promise, what the records
-mean — is [spec.md](spec.md); when the two disagree, spec.md wins and this file is amended.
+How code in this repository is written. [`runbook.md`](runbook.md) §1 owns the judgment hierarchy.
+Within that hierarchy, [spec.md](spec.md) defines what the tools promise and what records mean, while
+this document governs code and naming; neither filename can override sourced human decisions or
+human-maintained policy.
 
 Two audiences, and they want opposite things:
 
@@ -183,9 +185,9 @@ smallest diff that fixes the thing, and nothing else in the same commit.
 
 ## 3. Tests
 
-**One command.** `uv run pytest` checks the code *and* the shipped corpus — the vocabulary lives inside
-the wheel, so its validators are tests, not a README step. Nothing that gates a release lives outside
-that command.
+**One package command.** `uv run pytest` checks the code *and* the shipped corpus — the vocabulary lives
+inside the wheel, so its validators are tests, not a README step. Repository and distribution checks
+also gate landing; the [runbook](runbook.md) owns that procedure.
 
 **A bug fix starts with the failing test.** Write it, watch it fail for the reason you expect, then fix
 it. A test written after the fix only proves the code does what it currently does.

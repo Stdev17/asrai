@@ -1,7 +1,7 @@
 # Runbook — the operating procedures
 
-Steps, not reasons. The reasons are in [`../CONTRIBUTING.md`](../CONTRIBUTING.md) and the contract is
-[`spec.md`](spec.md); when this file disagrees with either of them, they win and this file is wrong.
+The operating procedures and the judgment hierarchy. Contribution policy is in
+[`../CONTRIBUTING.md`](../CONTRIBUTING.md); the implementation contract is [`spec.md`](spec.md).
 
 If you are an agent asked to give someone a tour of this repository, this page and
 [`README.md`](README.md) are the two to read: between them they answer where a thing goes, what may not
@@ -9,25 +9,57 @@ be created, and what has to be true before a change lands.
 
 ## 1. The gate
 
+### Judgment hierarchy — before changing anything
+
+Apply the following order within the scope of the decision:
+
+1. **The responsible human's explicit decisions and instructions.** Preserve their source and scope.
+2. **Human-maintained documents:** intent, invariants, acceptance criteria and operating policy.
+   This runbook and `CONTRIBUTING.md` carry that policy; a recorded human decision governs its subject.
+3. **Derived specifications:** AI-generated specs, schemas and agent instructions. A generated spec is
+   an implementation artifact. It ranks above executable code because changes propagate through it to
+   code, tests and callers; its filename or a `[decided]` label does not grant it human authority.
+4. **Executable implementation and tests.** They must satisfy the governing documents. If code and
+   the governing document disagree, the code is incorrectly implemented; do not rewrite the document
+   merely to make the existing code pass.
+
+Human adoption is a decision with a source, not an inference from prose style, a commit author, a file
+extension or an agent having written the file. A human can adopt a generated proposal; until then it
+cannot override human-maintained intent. When ownership or adoption is materially unclear, hold the
+affected judgment and identify the human who can settle it.
+
+For a conflict, read the exact governing source, identify the defect at the lower layer, and propagate
+the correction through spec/schema/skill, code and tests. Verify those dependants together. If the
+governing document is itself inconsistent, record the conflict and return it to its human owner.
+Measurements and test results are evidence about behavior, not authority to change the objective.
+`CHECKPOINT.md` records verified state; dated reviews record historical reasoning. Neither silently
+overrides a current human decision. The rationale is in
+[`review/2026-09-16-authority-and-release-gate.md`](review/2026-09-16-authority-and-release-gate.md).
+
+### Run the checks
+
 ```bash
-uv run pytest                          # the one gate: code, shipped corpus, fixture byte-equality
-uv run python tools/check_links.py          # before a pull request
-uv run python tools/check_translations.py   # before a pull request
+uv sync --locked
+uv run --no-sync pytest                           # behavior, corpus and fixture byte-equality
+uv run --no-sync python tools/check_links.py
+uv run --no-sync python tools/check_translations.py
+uv run --no-sync python tools/check_wheel.py       # fresh install, CLI/MCP and the install bundle
 ```
 
-The two `check_*` scripts are not inside `pytest` and are not expected to be: they check facts about
-this repository, not behaviour of the package a user installs.
+The link and translation scripts check repository facts outside `pytest`. The wheel check exercises
+the installed distribution in a fresh environment, without an editable checkout. CI runs these same
+commands; its workflow and required-check setup are described in [`.github/README.md`](../.github/README.md).
 
 ## 2. Where a thing gets written
 
 | you have | it goes | and it is |
 |---|---|---|
-| a promise about what the tools do | [`spec.md`](spec.md) | the contract. `[decided]` items need a reason recorded before they change |
+| a promise about what the tools do | [`spec.md`](spec.md) | the derived implementation contract, governed by the hierarchy above. `[decided]` items need a reason recorded before they change |
 | a name, and the alternatives you rejected | [`conventions.md`](conventions.md) §1a | binding on new code |
 | a number stated in prose | [`../tests/claims.json`](../tests/claims.json) | checked by the suite, in every file that states it |
 | what is true now, what landed, what is limited | [`CHECKPOINT.md`](CHECKPOINT.md) | a new entry on top. Never edit an entry |
 | why a hard-to-reverse decision was made | [`review/`](review/README.md) | a dated file, never edited afterwards |
-| a procedure someone will repeat | this file | steps only |
+| an operating policy or a procedure someone will repeat | this file | human-maintained policy and its steps |
 | how to make a change that will be accepted | [`../CONTRIBUTING.md`](../CONTRIBUTING.md) | process |
 | a translation of a document | [`i18n/`](i18n/README.md) | stamped with the source commit |
 | anything an agent needs before touching an asset | the bundled `SKILL.md` | never duplicated into `AGENTS.md` |
@@ -100,7 +132,7 @@ in. An image whose origin cannot be stated does not go in.
 
 ## 7. Landing a change
 
-1. `uv run pytest`, `check_links.py`, `check_translations.py` all clean.
+1. Locked sync, `pytest`, `check_links.py`, `check_translations.py` and `check_wheel.py` all clean.
 2. Every number you added to prose is in `claims.json`.
 3. Anything an agent can now do is described in `SKILL.md`.
 4. A new public name has its rejected alternative written down in `conventions.md` §1a.
@@ -117,3 +149,51 @@ in. An image whose origin cannot be stated does not go in.
   hold is not a rejection, the same way `unknown` is not a verdict.
 - **closed** — it will not land in this form. The close says where the idea *can* live: a team's own
   records, a team surfaces file, a later phase.
+
+## 9. Install the environment a release was checked with
+
+`uvx asrai==<version>` selects the package version; it does not install this repository's `uv.lock`.
+For a reproducible dependency set, distribute the successful CI job's `dist/repro/` bundle together:
+the wheel, `requirements.txt`, `python-version.txt` and `environment.json`. Attach that exact bundle
+to the corresponding release. Until a release has that attachment, use the artifact of its successful
+CI run; a locally built bundle is only local verification.
+
+With [uv installed](https://docs.astral.sh/uv/getting-started/installation/), unpack the bundle into a
+stable directory and run there. On macOS/Linux:
+
+```bash
+uv venv --python "$(cat python-version.txt)" .venv
+uv pip sync --python .venv/bin/python --require-hashes --only-binary :all: --strict requirements.txt
+.venv/bin/asrai --version
+```
+
+On Windows PowerShell:
+
+```powershell
+uv venv --python (Get-Content python-version.txt) .venv
+uv pip sync --python .venv/Scripts/python.exe --require-hashes --only-binary :all: --strict requirements.txt
+.venv/Scripts/asrai.exe --version
+```
+
+Register the absolute path of that environment's `asrai` executable with `mcp` as its argument in the
+host, so an unrelated `uvx` environment cannot be selected. Keep the host's working directory (or
+`ASRAI_ROOT`) at the user's asset project; the install directory is not the team corpus.
+Run that same executable's `doctor --lock` from the asset project to record its actual environment.
+The doctor lock reports drift; automatic strict refusal remains unimplemented.
+
+The requirements file is generated from `uv.lock` with runtime dependencies only, then extended with
+the built wheel's hash. Never maintain it by hand or separately from its wheel. Hashes constrain the
+downloaded artifacts; they do not attest a publisher's identity. Obtain the bundle through the trusted
+project release or CI run. If a compatible wheel is unavailable, installation fails instead of silently
+building native dependencies from source.
+
+The bundle fixes the package, dependency versions and the selected Python patch version. OS/CPU-specific
+wheels and system libraries can still differ. `environment.json` records the tested platform and JPEG
+decoder, the source revision and whether it was dirty. Exact fixture values remain the gate on each
+tested environment; do not claim arbitrary-machine byte identity. A decoder difference needs a
+reproducible report and a human decision about the contract, not an invented tolerance or regenerated
+expectations. A container pinned by image digest is an option if identical system libraries become a
+requirement; it is not part of this initial install path.
+
+To update, install the next verified bundle in a new directory, compare measurements, then change the
+host registration. Retain the previous directory for rollback. The bundle contains no team records.

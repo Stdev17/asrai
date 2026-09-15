@@ -1,7 +1,8 @@
 # `docs/` — the documents
 
-Four live documents and a folder of dated reviews. They answer different questions and one of them
-outranks the rest.
+The live documents answer different questions. [`runbook.md`](runbook.md) §1 owns the judgment
+hierarchy: explicit human decisions, human-maintained documents, derived specs, then implementation.
+AI-generated prose does not acquire human authority merely by living in a file named `spec.md`.
 
 ```mermaid
 flowchart LR
@@ -10,17 +11,24 @@ flowchart LR
     Q3["where is it now?"] --> CKPT[CHECKPOINT.md]
     Q4["how do I work here?"] --> CONTRIB[CONTRIBUTING.md]
     Q5["why was it decided?"] --> REVIEW[review/]
-    SPEC -. wins .-> CONV & CKPT & CONTRIB
+    HUMAN["human decisions and maintained policy"] --> SPEC
+    HUMAN --> CONTRIB
+    SPEC --> CODE["code and tests"]
 ```
 
 | document | question it answers | authority |
 |---|---|---|
-| [`spec.md`](spec.md) | what the tools promise, what a record means, what may never happen | **the contract.** When anything else disagrees with it, spec.md wins and the other file is amended |
-| [`conventions.md`](conventions.md) | how code and names are written here, and which alternatives were rejected and why | binding on new code; subordinate to spec.md |
+| [`spec.md`](spec.md) | what the tools promise, what a record means, what may never happen | **the implementation contract**, governed by human decisions and maintained policy. A conflicting implementation is defective |
+| [`conventions.md`](conventions.md) | how code and names are written here, and which alternatives were rejected and why | binding on new code within the hierarchy in runbook §1; no filename overrides sourced human decisions or maintained policy |
 | [`CHECKPOINT.md`](CHECKPOINT.md) | what is built, what passed, what is known to be limited, what a human still has to decide | a status log, **append-only**: a new entry on top, no entry below it edited. The newest is what is true now. Never a promise |
-| [`../CONTRIBUTING.md`](../CONTRIBUTING.md) | how to make a change that will be accepted | process, not contract |
-| [`runbook.md`](runbook.md) | the steps for the operations people repeat here, and what may never be created | procedure. Steps only; it holds no reasons and outranks nothing |
+| [`../CONTRIBUTING.md`](../CONTRIBUTING.md) | how to make a change that will be accepted | human-maintained contribution policy; generated specs cannot override it |
+| [`runbook.md`](runbook.md) | judgment hierarchy, operating policy and repeated procedures | the canonical location of the hierarchy; human decisions remain above it |
 | [`review/`](review/) | why a decision was made, at the time it was made | historical. Dated, never edited — see its README. The pre-implementation playbook lives here too |
+
+The current authority and release-boundary rationale is
+[`2026-09-16-authority-and-release-gate.md`](review/2026-09-16-authority-and-release-gate.md).
+It supersedes the older review index's description of CHECKPOINT as a rewritten snapshot; old reviews
+and their historical index are preserved.
 
 One more file sits at the repository root and is not a contract:
 

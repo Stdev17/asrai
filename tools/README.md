@@ -9,11 +9,16 @@ None of these ships in the wheel; each is run with `uv run python tools/<name>.p
 | `make_fixtures.py` | creates the six measure fixtures once, and regenerates their expected JSON on demand | only for a deliberate change to what `measure` reports — see [tests/fixtures/](../tests/fixtures/README.md) |
 | `check_links.py` | resolves every relative markdown link and names the ones that go nowhere | before a pull request, and after renaming anything |
 | `check_translations.py` | says how far each document under [`docs/i18n/`](../docs/i18n/README.md) has drifted from the English it was made from | before a pull request, and after editing a translated document |
+| `check_dco.py` | requires a valid signoff trailer on new commits, using `DCO_BASE_SHA` and `DCO_HEAD_SHA`; pre-adoption history is exempt | pull requests; tested with real temporary git histories inside pytest |
+| `check_wheel.py` | builds a wheel, exports hashed runtime requirements, installs them into a temporary environment, checks installed CLI/MCP/data and immutable input bytes, and writes `dist/repro/` | before landing or releasing; choose a new `--out` directory for repeat runs |
 
-`make_fixtures.py` is the only script here that writes; the other four are read-only.
+`make_fixtures.py` writes fixtures; `check_wheel.py` creates temporary environments and a generated
+install bundle, refusing an existing output directory. The other scripts are read-only.
 
 `validate_stock.py` and `review_locales.py` are also called from the test suite, so the gate stays a
 single command. Keeping them as scripts as well is deliberate: the standalone run prints the whole
 report, which is what you want when you are changing the corpus rather than checking that it still
-passes. The two `check_*` scripts are not in the suite, because what they check is a fact about this
-repository rather than behaviour of the package a user installs.
+passes. Link and translation checks run separately for repository facts. The wheel check is its own
+executable integration proof, including an actual stdio MCP call from outside the editable checkout;
+its bundle is derived from `uv.lock`, never maintained separately. See the
+[runbook](../docs/runbook.md#9-install-the-environment-a-release-was-checked-with) for installation.

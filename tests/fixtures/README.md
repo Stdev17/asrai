@@ -1,7 +1,9 @@
 # `tests/fixtures/` — the byte-equality corpus
 
-Six small images and their expected `measure` output. Together they are the promise that the same bytes
-in give the same JSON out, on any machine, for as long as the schema stands.
+Six small images and their expected `measure` output. They hold exact values on the tested toolchain.
+Python and dependency versions, platform and decoder are part of that boundary; a JPEG decoded by an
+untested library is not promised to produce identical pixels. The gate still compares every fixture
+exactly. No tolerance or automatic regeneration hides an environment difference.
 
 | image | covers |
 |---|---|
@@ -17,9 +19,9 @@ from code in this repository. None contains third-party content, and none is a l
 is nothing here to attribute. Any image a future contribution adds says its origin and its licence in
 this table; one whose origin cannot be stated does not go in.
 
-`expected/` holds one JSON per image. `test_fixtures.py` compares them byte for byte, which is stricter
-than comparing parsed values on purpose: a change in key order or float formatting is a change in what
-a downstream reader sees.
+`expected/` holds one JSON per image. `test_fixtures.py` compares the generated UTF-8 JSON bytes exactly,
+including whitespace and key order, after normalizing the machine-specific path. Installed-package
+checks and the tested decoder's version are described in [the runbook](../../docs/runbook.md) §9.
 
 ## Regenerating
 

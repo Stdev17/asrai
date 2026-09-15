@@ -33,6 +33,11 @@ uvx asrai skill-path       # where the bundled SKILL.md is
 | OpenCode | in `opencode.json`: `"mcp": {"asrai": {"type": "local", "command": ["uvx", "asrai", "mcp"], "enabled": true}}` | add a section to `AGENTS.md` |
 | Hermes Agent | in `~/.hermes/config.yaml`: `mcp_servers: {asrai: {command: uvx, args: [asrai, mcp]}}` | `~/.hermes/skills/asrai/SKILL.md` |
 
+For a locked environment, follow the [release-bundle install procedure](docs/runbook.md#9-install-the-environment-a-release-was-checked-with).
+It installs the tested wheel and hashed dependencies into a dedicated environment. Pinning only
+`uvx asrai==<version>` does not lock its dependencies; `doctor --lock` records drift but does not enforce
+the environment. [CHANGELOG.md](CHANGELOG.md) lists user-facing changes.
+
 ## Use
 
 ```bash
@@ -52,15 +57,15 @@ returns one JSON document; nothing modifies an input file.
 ## Develop
 
 ```bash
-uv sync
-uv run pytest -q
+uv sync --locked
+uv run --no-sync pytest -q
 uv run python tools/validate_stock.py   # also runs inside pytest; standalone for the full report
 uv run python tools/review_locales.py   # flags translations a human still has to confirm
 uv run python tools/make_fixtures.py    # rewrite tests/fixtures/expected/ after a deliberate change
 ```
 
-`uv run pytest` is the single gate: it covers the code, the shipped vocabulary, and byte-equality of
-`measure` against the committed fixtures. Start at [CONTRIBUTING.md](CONTRIBUTING.md); conventions for
+`uv run pytest` covers the code, the shipped vocabulary, and exact JSON values from `measure` against
+the committed fixtures. Start at [CONTRIBUTING.md](CONTRIBUTING.md) for all landing checks; conventions for
 names and code are in [docs/conventions.md](docs/conventions.md).
 
 ## Repository map
@@ -73,7 +78,7 @@ flowchart TD
     SRC --> DATA["data/<br/>ships in the wheel"]
     DATA --> SKILL["skill/<br/>SKILL.md"] & STOCK["stock/<br/>vocabulary, surfaces, locales"]
     DOCS --> REVIEW["review/<br/>dated decisions"]
-    TESTS --> FIX["fixtures/<br/>byte equality"]
+    TESTS --> FIX["fixtures/<br/>exact JSON values"]
 ```
 
 | where | what |

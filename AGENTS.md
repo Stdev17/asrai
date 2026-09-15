@@ -56,4 +56,5 @@ entry; why it was decided goes in a dated file under `docs/review/`.
 
 [`docs/runbook.md`](docs/runbook.md) is the procedures — where a thing gets written, how each file may
 be written, the five changes people actually make. [`CONTRIBUTING.md`](CONTRIBUTING.md) is why, and
-[`docs/README.md`](docs/README.md) says which document outranks which. One gate: `uv run pytest`.
+[`docs/README.md`](docs/README.md) routes to the judgment hierarchy. The package gate is `uv run pytest`;
+the runbook lists the repository and distribution checks required before landing.

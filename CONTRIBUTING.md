@@ -7,12 +7,17 @@ below is that sentence, applied somewhere specific.
 ## Setup
 
 ```bash
-uv sync
-uv run pytest -q          # the single gate: code, shipped corpus, and fixture byte-equality
+uv sync --locked
+uv run --no-sync pytest -q  # code, shipped corpus, and exact fixture values
 ```
 
-There is one gate and that is it. The corpus validators run inside pytest rather than beside it, so a
-change to the shipped vocabulary fails the same command a change to a module does.
+The corpus validators run inside pytest, so a change to the shipped vocabulary fails the same command
+a change to a module does. CI also checks repository links, translation stamps, commit signoffs and a
+fresh wheel installation; see [the runbook](docs/runbook.md) for the complete landing procedure.
+
+The runbook's judgment hierarchy governs changes: responsible human decisions and human-maintained
+intent outrank derived specifications, which outrank code and tests. A conflict with the governing
+document is an implementation defect, not permission to rewrite the document around the code.
 
 ## The five rules that will actually bite you
 
@@ -88,10 +93,12 @@ file before regenerating anything.
 
 ## Before you open a pull request
 
-- `uv run pytest -q` is green.
+- `uv sync --locked` and `uv run --no-sync pytest -q` are green.
 - `uv run python tools/check_links.py` and `uv run python tools/check_translations.py` are clean.
-  Neither runs inside pytest: a link and a translation are repository facts, not package behaviour,
-  and the gate stays one command about the code.
+  Neither runs inside pytest: a link and a translation are repository facts, not package behaviour.
+- `uv run --no-sync python tools/check_wheel.py` passes. It checks a fresh installation and writes the
+  generated release bundle under `dist/repro/`; use `--out` with a new directory for another run.
+  The bundle and its supported reproducibility boundary are described in the runbook.
 - Any new number names what measured it.
 - Any new failure mode returns `unknown` rather than a default.
 - The skill describes anything new an agent can now do.
@@ -106,7 +113,9 @@ file before regenerating anything.
 - Every commit is signed off (`git commit -s`). The `Signed-off-by` line is the
   [Developer Certificate of Origin](https://developercertificate.org/): you certify that you may submit
   the change under this repository's MIT licence, and nothing more. There is no CLA. Nothing is
-  retroactive — commits before 2026-09-15 carry no line.
+  retroactive — commits before adoption carry no line. The PR check excludes the fixed pre-adoption
+  history through `1ecfc08af7d1b9c6d009e80341638d97020ec815`; changing a commit date does not exempt it.
+  The checker runs from the trusted default branch and never executes the proposed tree.
 
 ## What not to add
 

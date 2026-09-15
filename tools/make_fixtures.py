@@ -79,6 +79,11 @@ def expectation(name: str) -> dict:
     return measure.measure(DIR / name, TARGET_WIDTH[name]) | {"path": name}
 
 
+def expectation_json(name: str) -> str:
+    """Use the committed format for both fixture generation and the byte-equality gate."""
+    return json.dumps(expectation(name), ensure_ascii=False, indent=2, allow_nan=False) + "\n"
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true", help="Report drift; write nothing.")
@@ -92,7 +97,7 @@ def main() -> int:
             build().save(path)
             created.append(name)
 
-        want = json.dumps(expectation(name), ensure_ascii=False, indent=2, allow_nan=False) + "\n"
+        want = expectation_json(name)
         target = DIR / "expected" / f"{Path(name).stem}.json"
         if target.exists() and target.read_text("utf-8") == want:
             continue

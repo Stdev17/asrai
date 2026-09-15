@@ -1,33 +1,35 @@
-# `tests/` — the single gate
+# `tests/` — package and policy checks
 
 ```bash
 uv run pytest -q
 ```
 
-There is one gate and this is it. It covers the code, the shipped corpus, and byte-equality of
+It covers the code, the shipped corpus, and exact JSON values from
 `measure` against committed fixtures — the corpus validators run *inside* pytest rather than beside it,
 so a change to `vocab.v2.json` fails the same command a change to `light.py` does.
 
 ```mermaid
 flowchart TD
-    PYTEST[pytest] --> ASRAI[test_asrai] & CORPUS[test_corpus] & FIXTURES[test_fixtures] & LIGHT[test_light]
+    PYTEST[pytest] --> ASRAI[test_asrai] & CORPUS[test_corpus] & FIXTURES[test_fixtures] & LIGHT[test_light] & DCO[test_dco]
     ASRAI --> TRANSPORTS["both transports<br/>malformed input"]
     CORPUS --> STOCK["shipped data<br/>skill agreement"]
-    FIXTURES --> BYTES["byte equality"]
+    FIXTURES --> VALUES["exact JSON values"]
     LIGHT --> SURFACE["surface pass<br/>perturbations"]
 ```
 
-| file | tests | what it holds |
-|---|---|---|
-Counts below are collected tests, which is what `pytest` reports; several functions are parametrised, so
-they do not match the number of `def test_` lines.
+Collect the current counts with `uv run pytest --collect-only -q`; parametrised tests count separately.
 
-| file | tests | what it holds |
-|---|---|---|
-| `test_asrai.py` | 12 | vocabulary search/get/locales, lint rules, `measure` determinism, record validation and layer rules, `doctor` lock and drift, the MCP tools in-process **and** over stdio, refusal of malformed input at both trust boundaries, every number the documents claim against `claims.json`, and the MCP tool surface against its token budget |
-| `test_corpus.py` | 13 | the shipped vocabulary validates, the locales carry no hard defect, the shipped `lint` and the vendored validator agree (both on acceptance and on rejection), every surface in `surfaces.v1.json` maps onto a real vocabulary term and is named in `SKILL.md`, and the skill names every `context` key the linter requires |
-| `test_fixtures.py` | 8 | `measure` reproduces the committed JSON byte for byte for each of the six images, the CLI and the core agree, and a fully transparent asset is reported as empty rather than measured |
-| `test_light.py` | 23 | the surface pass: direction, emitters, key fit, the form, the answered phase, depth, the three modes, the estimator noise floor on every direction, the mirror check, capture boxes and what a capture could not read, subject masks, holds, and the production perturbations |
+| file | what it holds |
+|---|---|
+| `test_asrai.py` | vocabulary search/get/locales, lint rules, `measure` determinism, record validation and layer rules, `doctor` lock and drift, the MCP tools in-process **and** over stdio, refusal of malformed input at both trust boundaries, every number the documents claim against `claims.json`, and the MCP tool surface against its token budget |
+| `test_corpus.py` | the shipped vocabulary validates, the locales carry no hard defect, the shipped `lint` and the vendored validator agree (both on acceptance and on rejection), every surface in `surfaces.v1.json` maps onto a real vocabulary term and is named in `SKILL.md`, and the skill names every `context` key the linter requires |
+| `test_dco.py` | new commits need real signoff trailers; legacy history is exempt and unavailable history cannot pass |
+| `test_fixtures.py` | `measure` reproduces the committed JSON values for each of the six images, the CLI and the core agree, and a fully transparent asset is reported as empty rather than measured |
+| `test_light.py` | the surface pass: direction, emitters, key fit, the form, the answered phase, depth, the three modes, the estimator noise floor on every direction, the mirror check, capture boxes and what a capture could not read, subject masks, holds, and the production perturbations |
+
+The [runbook](../docs/runbook.md) also requires repository link/stamp checks and a fresh wheel install.
+`tools/check_wheel.py` checks the installed CLI and MCP from outside the checkout; it is intentionally
+separate from the package suite, since it builds and installs a distribution.
 
 ## Conventions
 

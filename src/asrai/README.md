@@ -41,8 +41,8 @@ that improvises them is a bug, not a feature.
 
 ## Working here
 
-- `light.py` is by far the largest module and the only one carrying its reasoning in prose at the top.
-  Read that docstring before changing a threshold; every constant in it names what measured it.
+- `light.py` carries its reasoning at the top. Read it before changing a threshold. The agreement
+  cutoffs remain unverified implementation policy; do not mistake their presence for measured validity.
 - A new measurement belongs in `measure.py` only if it is deterministic and asset-wide. Anything that
   needs a subject, an emitter or an observer belongs in `light.py`.
 - A new field crossing the MCP or record boundary is a naming decision first: [docs/conventions.md](../../docs/conventions.md) §1.

@@ -1,7 +1,10 @@
 # asrai specification
 
-**Version:** 0.1 (2026-09-13). **Status:** implementation contract. Code follows this document; when they
-disagree, this document is wrong until it is amended, and the amendment is a commit, not a comment.
+**Version:** 0.1 (2026-09-13). **Status:** derived implementation contract. Code follows this document;
+when they disagree, the code is incorrectly implemented. This specification itself follows the human
+decisions and human-maintained documents in [`runbook.md`](runbook.md) §1. An AI-generated spec is an
+implementation artifact: it ranks above code for propagation, not above its human source of authority.
+Do not amend a governing document merely to match existing code or make a test pass.
 
 **Origin.** The design rationale lives in two Korean documents in the origin repository (the scenario
 review and the playbook of 2026-09-13). This file carries every decision they contain plus the second
@@ -328,8 +331,12 @@ exactly for the observer tier.
   answers to, and an unreadable neighbourhood stays `unknown`. The shaded mass is read on the same
   twenty and sixty degree bands, and only where both masses carry a direction: a subject flatter than a
   flat sprite measures, or a box whose darkest pixels lie all round it, is `unknown` and never `yes`. A hand-drawn
-  scene holds its key to about ten degrees; suspicion starts near eighteen (cosine 0.95). Team
-  precedent replaces these numbers.
+  scene's typical key variation and the former suspicion claim have no recorded empirical basis and
+  must not justify this band. The existing cutoffs are retained as **unverified implementation policy**,
+  not validated art-direction limits or newly human-approved choices. The surface selection likewise
+  has no recorded artist validation. A human must validate or replace these policies; passing the
+  synthetic estimator tests does not establish them. See the
+  [authority and release review](review/2026-09-16-authority-and-release-gate.md).
 - Modes: `physical` (lights in the frame), `fake_lighting` (one stylistic key: the directional
   hypothesis is the expectation and physical disagreement lands on `intentional_contrast`),
   `engine_lit` (sprites the engine will light through normal maps: painted directional shading is a
@@ -445,8 +452,8 @@ screenshot -> the whole frame downscaled to 1024 px.
 
 | dependency | pinned by | drift handling |
 |---|---|---|
-| Python packages | `uv.lock`, committed; `uvx asrai==<version>` for end users | uv resolves exactly |
-| the asrai package | PyPI release version, recorded in every record and run | `asrai` field in the lock |
+| Python packages | `uv.lock` in the checkout; a generated, hash-checked install bundle for end users (`runbook.md` §9) | locked sync refuses metadata drift; ordinary `uvx asrai==<version>` pins only asrai, not transitive dependencies |
+| the asrai package | the wheel hash in the install bundle; package version in the doctor report | records/runs do not yet carry all version stamps |
 | ImageMagick, Inkscape, Blender | **cannot be pinned by a package manager**. `asrai doctor --lock` records the detected version strings in `asrai.lock.json`; every run records the versions it used | `asrai doctor` reports drift; `lock.strict = true` refuses to run on drift; a container image is the only true pin and is optional |
 | Blender Python API | pin Blender `major.minor` in the render profile; adapter scripts are stdlib-only | render profile id changes with the Blender version |
 | vision model | `observer.mode = api`: pinned model id in config `[planned]`. `observer.mode = host`: the host decides; asrai records what it was told | indexes are partitioned by `(observer.model, prompt_rev)`, so mixed observers never blend |
@@ -454,6 +461,13 @@ screenshot -> the whole frame downscaled to 1024 px.
 | stock corpus | `corpus.vocab_sha256` in the lock and `schema_version` in every record | a corpus upgrade is a reindex |
 
 `asrai doctor --lock` is `[built]`; `strict` refusal and per-run version stamps are `[planned]`.
+
+Reproducibility is scoped to the tested toolchain: Python, dependency artifacts, platform and decoder.
+The exact-value fixture gate remains in place, including JPEG; an untested decoder is not promised to
+produce identical values. `tools/check_wheel.py` builds a wheel, exports the locked runtime dependencies,
+checks a hash-verified fresh installation and exercises the installed CLI/MCP and bundled data away
+from the source tree. Its generated bundle records the tested environment; the
+[runbook](runbook.md) §9 is the install and rollback procedure. CI artifacts are not published releases.
 
 ## 12. Hosts and distribution
 

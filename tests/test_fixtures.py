@@ -14,8 +14,9 @@ FIXTURES = Path(__file__).parent / "fixtures"
 
 @pytest.mark.parametrize("name", sorted(make_fixtures.BUILDERS), ids=lambda n: Path(n).stem)
 def test_measure_matches_committed_fixture(name):
-    want = json.loads((FIXTURES / "expected" / f"{Path(name).stem}.json").read_text("utf-8"))
-    assert make_fixtures.expectation(name) == want, \
+    """The documented byte-equality gate includes serialization, not just parsed numeric values."""
+    want = (FIXTURES / "expected" / f"{Path(name).stem}.json").read_bytes()
+    assert make_fixtures.expectation_json(name).encode("utf-8") == want, \
         f"measure drifted on {name}; if deliberate, rerun tools/make_fixtures.py and read the diff"
 
 

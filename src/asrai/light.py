@@ -58,9 +58,10 @@ BRIGHT_PERCENTILE = 90      # the bright side is the top decile of a subject's l
 HIGHLIGHT_PERCENTILE = 98
 MIN_PIXELS = 16             # fewer shaded pixels than this and a subject has no direction
 CONTOUR_MIN = 16            # contour samples needed for a least-squares direction
-# Agreement thresholds. Estimator noise on synthetic discs is under 3 deg (bright side) and 8 deg
-# (contour fit); hand-drawn scenes hold their key to roughly 10 deg; suspicion starts near 18 deg
-# (cosine 0.95). Between the two thresholds the measurement does not decide and the observer is asked.
+# Existing cutoffs are unverified implementation policy, not measured art-direction limits.
+# Synthetic estimator accuracy does not establish when an artist considers lighting inconsistent.
+# Retained for compatibility pending human validation; docs/review/2026-09-16-authority-and-release-gate.md.
+# Between the two cutoffs the measurement does not decide and the observer is asked.
 KEY_TOLERANCE_DEG = 20
 DISAGREE_DEG = 60
 DEPTH_STEP = 0.25           # one layer of depth adds this fraction of the long side to the falloff distance

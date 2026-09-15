@@ -24,6 +24,105 @@ be, on the day the policy changed. Their wording is unchanged; only the shape is
 
 ---
 
+## 2026-09-16 · verified at `149656a` · Codex
+
+The revision above is the inspected base; acceptance below includes this entry's hardening changes
+in `codex/oss-hardening`. The commit containing this entry identifies those changes.
+
+**State.**
+
+- phase: 1 (core and transports) and 1b (surface pass) remain complete; phase 2 is not implemented
+- last_acceptance_passed: 59 tests on CPython 3.11.9 and 3.14.7, macOS 14.6.1 arm64. The same committed
+  fixture images and expected JSON pass actual UTF-8 byte comparison on both environments. Links:
+  0 broken. Translation stamps: valid, with README translations becoming stale when this source edit
+  is committed; staleness remains advisory. Fresh wheel installs on both Python versions pass bundled
+  stock hashes, locale and skill loading, CLI measurement, real stdio MCP measurement and input-byte
+  preservation. An altered wheel hash is refused; an editable source leak and a serialized fixture-byte
+  mismatch are detected. DCO accepts signed new commits and rejects unsigned, body-only, malformed,
+  missing-history and shallow-history cases. Both workflows pass actionlint 1.7.12 locally
+- in_progress: local implementation complete; remote CI execution, DCO bootstrap and required-check
+  activation remain unverified
+- next_slice: land the reviewed DCO workflow/checker on the remote default branch, exercise signed and
+  unsigned PR cases, then require `Checks (Python 3.11)`, `Checks (Python 3.14)` and `DCO`. A release
+  needs its successful run's exact install bundle attached. Phase 2 follows separately: recipes,
+  adapters, alpha policy, recipe hashes, preview/apply/diff (`spec.md` §8)
+- next_command: `uv sync --locked`, then the landing checks in `runbook.md` §1
+- working_tree: `codex/oss-hardening` is based on `149656a`; the original `main` checkout is unchanged.
+  No remote branch, release or repository setting was changed by this slice
+
+**What landed.**
+
+- Runbook §1 owns judgment authority: explicit responsible human decisions, human-maintained
+  documents, derived specs, then executable code/tests. A conflicting implementation is defective.
+  Spec, conventions, contribution guidance and the docs index route through that rule. A filename,
+  AI authorship or a passing test does not establish human adoption
+- Operative spec, skill, lighting comments and shipped surfaces stop presenting the unsupported
+  hand-drawn alignment and suspicion claims as evidence. Existing agreement cutoffs and the selected
+  surfaces remain unverified policy, not newly approved magnitudes. Numeric behavior is unchanged;
+  the stock manifest is refreshed. Old reviews are preserved; the dated authority/release rationale
+  records this decision and supersedes the historical index's stale checkpoint-writing description
+- Fixture tests now enforce the byte-equality contract through the generator's shared serialization.
+  No fixture image or expected output changed. Documentation states the tested decoder/toolchain
+  boundary rather than promising equality on arbitrary machines
+- `tools/check_wheel.py` builds a wheel, exports hashed runtime requirements from `uv.lock`, adds the
+  wheel hash and Python version, and installs into an isolated environment for CLI/MCP/data checks.
+  The generated bundle includes platform/decoder, source revision and dirty-state evidence; it is not
+  a second maintained lockfile. Runbook §9 covers end-user installation, registration and rollback
+- CI runs locked checks on Python 3.11 and 3.14 and uploads each job's verified install bundle. DCO is
+  a separate, trusted-default-branch `pull_request_target` workflow: PR commits are fetched as data,
+  never checked out or executed there. The fixed pre-adoption history is exempt; commit dates cannot
+  grant an exemption. A PR template and hand-written `CHANGELOG.md` complete the initial gate
+
+**Known limits.**
+
+- Local passing results are not GitHub Actions results. Ubuntu jobs, Windows installation commands,
+  signed/unsigned remote PR behavior and required checks have not yet been exercised. The DCO workflow
+  cannot protect its own initial adoption; that needs explicit review before it becomes trusted policy
+- A bundle pins Python and dependency versions and constrains artifact hashes. It does not make
+  OS/CPU-specific wheels or native decoders identical. Both local installations used Pillow 12.3.0
+  with libjpeg-turbo 3.1.4.1; NumPy was 2.4.6 on Python 3.11 and 2.5.3 on Python 3.14, as selected by
+  the lock's markers. JPEG fixture drift must be investigated, never hidden by invented tolerances
+- Ordinary `uvx asrai==<version>` does not consume the repository lock. `doctor --lock` records drift;
+  automatic strict refusal and per-run complete environment stamps remain planned. Install bundles
+  are local/CI artifacts until attached to a release
+- Agreement bands and surface selection still need measured evidence or an explicit, sourced human
+  decision. Synthetic estimator tests do not establish art-direction validity
+- `measure` refuses above 12 Mpx; 16-bit color PNGs are measured at 8-bit precision, while 16-bit grey
+  is rescaled. A 4K capture fits; 8K does not
+- A heavy vignette can bend shaded-mass direction into the observer band; a vignette can also dim a
+  border emitter below the global proposal floor. The eight brightest blobs and at most sixteen
+  subjects are measured, not every possible source or object
+- The absolute emitter floor depends on the transfer function; its basis is reported, not corrected.
+  Bright paint is proposed as a possible emitter and a bright painted band can supply the highlight
+- Spill depends on the neighborhood: a real lamp by a lit floor and dark wall can read negative.
+  Spill and receivers are both considered, and an unmeasurable neighborhood remains unknown
+- Cast-shadow evidence needs known subject pixels (a mask or file alpha), cannot separate cast from
+  form shadow inside one box, and cannot judge a flat subject. A baked checkerboard is not alpha;
+  request the original asset instead of interpreting the preview as the asset
+- Precedent retrieval, recipes, previews/apply, ingest/promotion, pairwise bootstrap and external
+  rendering remain unbuilt. Blender and Inkscape are not installed in the verified local environment
+
+**Waiting on a human.**
+
+- Review and integrate this local branch, then activate and verify the remote gates and release path
+- Validate or explicitly adopt/replace the lighting policy and surface selection with a recorded basis
+- Review `docs/spec.md` and the artist brief
+- Name native industry-language owners for `ko`, `ja` and `zh-Hans` and review/restamp their README
+  translations; the shipped locale translations also remain unconfirmed
+- Decide `observer.mode` default and embedding egress (`spec.md` §10)
+- Confirm external-tool versions on team machines before implementing their adapters
+
+**Standing facts.**
+
+- Inputs are immutable; output files are new; corpus records and prior checkpoint entries are
+  append-only. Dated reviews remain historical. All prior checkpoint and review bytes are preserved
+- Spec §1 retains the three intended readers and `surfaces.v1` retains its measurement/evidence/
+  observer distinction. Tests show implementation behavior, not artistic approval
+- The runbook owns hierarchy and procedures; the docs index routes to the current sources. Scratch
+  stays outside tracked documentation, under the already permitted ignored names
+
+---
+
 ## 2026-09-15 · verified at `75ad625` · Shelby Yoon
 
 **State.**
