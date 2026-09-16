@@ -4,6 +4,10 @@ Hand-written changes for users and contributors. An unreleased entry is not a pu
 
 ## Unreleased
 
+- Issue every subject surface of the lighting answer form as `null` and read an unanswered surface as
+  `unknown`. A form handed back as issued previously reported `yes` on specular, light colour, ambient,
+  rim and albedo — five surfaces nobody had looked at. An answered surface still passes every subject it
+  does not list.
 - Partition the repository into realms — spec, feature, data, support — and record what each one owns,
   how far its errors travel, who may write it and what checks it. `architecture.md` now carries that
   ledger and each realm's interior is drawn one level down in its own README.

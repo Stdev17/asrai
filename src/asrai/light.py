@@ -536,7 +536,7 @@ def _form(subjects: list[dict], emitters: list[dict], agreement: list[dict], sha
                    "(lighting.fake_lighting), or sprites the engine will light (no shading may be painted in)."}]
     form = {"schema_version": ANSWERS, "image_sha256": sha, "style": {"mode": None}, "emitters": {e["id"]: None for e in emitters},
             "emitter_depth": {}, "pairs": pairs,
-            "subjects": {s["id"]: {"no": [], "unknown": []} for s in _subject_surfaces()},
+            "subjects": {s["id"]: None for s in _subject_surfaces()},
             "global": {"key": None, "atmosphere": None}}
     return form, questions
 
@@ -572,16 +572,17 @@ def _answers(a, emitters: list[dict], subjects: list[dict], sha: str) -> dict:
     if not isinstance(subj, dict):
         raise ValueError("subjects must map a surface id to {no: [ids], unknown: [ids]}")
     for sid, lists in subj.items():
-        if sid not in {s["id"] for s in _subject_surfaces()} or not isinstance(lists, dict) \
-                or any(not isinstance(lists.get(k, []), list) or set(lists.get(k, [])) - sids for k in ("no", "unknown")):
-            raise ValueError(f"subjects.{sid} must be {{no: [subject ids], unknown: [subject ids]}}")
+        if sid not in {s["id"] for s in _subject_surfaces()} or not (lists is None or isinstance(lists, dict)
+                and all(isinstance(lists.get(k, []), list) and not set(lists.get(k, [])) - sids for k in ("no", "unknown"))):
+            raise ValueError(f"subjects.{sid} must be null, or {{no: [subject ids], unknown: [subject ids]}}")
     glob = a.get("global") or {}
     if not isinstance(glob, dict) or any(v not in ANSWER_VALUES + (None,) for v in glob.values()):
         raise ValueError(f"global.key and global.atmosphere must be one of {ANSWER_VALUES}")
     return {"mode": mode, "kinds": {e["id"]: kinds.get(e["id"]) for e in emitters},
             "emitter_depth": {k: _depth(v, f"emitter_depth.{k}") for k, v in depth.items()},
             "pairs": {(p["subject"], p["emitter"], p["surface"]): p.get("answer") or "unknown" for p in pairs},
-            "subjects": {s["id"]: {"no": set(subj.get(s["id"], {}).get("no", [])), "unknown": set(subj.get(s["id"], {}).get("unknown", []))}
+            "subjects": {s["id"]: None if subj.get(s["id"]) is None else
+                         {"no": set(subj[s["id"]].get("no", [])), "unknown": set(subj[s["id"]].get("unknown", []))}
                          for s in _subject_surfaces()},
             "global": {"key": glob.get("key") or "unknown", "atmosphere": glob.get("atmosphere") or "unknown"}}
 
@@ -631,14 +632,18 @@ def _verdict(subjects: list[dict], emitters: list[dict], held: list[dict], agree
              "residual_deg": None, "diffuse": "unknown", "basis": "none", "specular": "unknown", "light_color": "unknown",
              "axis": None}
         for surf in _subject_surfaces():
+            # a surface nobody wrote on is unanswered, not agreed. Only a list the observer actually
+            # filled in can leave a subject at yes; null is the whole ask, so null stays unknown.
             lists = ans["subjects"][surf["id"]]
-            v[surf["id"]] = "no" if s["id"] in lists["no"] else "unknown" if s["id"] in lists["unknown"] else "yes"
+            v[surf["id"]] = ("unknown" if lists is None or s["id"] in lists["unknown"]
+                             else "no" if s["id"] in lists["no"] else "yes")
         if not s["bright_side"]:
             rows.append(v | {"axis": "unknown"})
             continue
         measured = _shadow_measured(s)
         v["shadow_opposition_deg"] = s["shadow"]["opposition_deg"] if measured else None
-        listed = s["id"] in ans["subjects"]["cast_shadow"]["no"] | ans["subjects"]["cast_shadow"]["unknown"]
+        shadow = ans["subjects"]["cast_shadow"]
+        listed = shadow is not None and s["id"] in shadow["no"] | shadow["unknown"]
         if not listed and mode != "engine_lit":
             # this surface is the one the measurement owns, so silence here is not the usual yes: a
             # subject too flat to place its shaded mass, and unlisted, is undecided rather than fine
@@ -743,7 +748,7 @@ def _records(verdict: dict, emitters: list[dict], subjects: list[dict], ans: dic
             if v[surf["id"]] == "no":
                 items.append({"term_id": surf["terms"][0], "level": levels.get(surf["id"], "estimated"), "region": box,
                               "note": named.get(surf["id"], f"{sid}: {surf['label'].lower()} missing or inconsistent")})
-            elif v[surf["id"]] == "unknown" and sid in ans["subjects"][surf["id"]]["unknown"]:
+            elif v[surf["id"]] == "unknown" and sid in (ans["subjects"][surf["id"]] or {}).get("unknown", ()):
                 items.append({"term_id": surf["terms"][0], "level": "unknown", "region": box, "note": f"{sid}: {surf['label'].lower()} undecided"})
     key = verdict["key"]
     if key["answer"] != "unknown":

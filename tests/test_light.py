@@ -70,15 +70,17 @@ def test_answers_phase_gives_verdict_and_record(tmp_path):
     form = light.ledger(p, BALL)["form"]
     form["style"]["mode"] = "physical"
     form["emitters"] = {"e1": "lamp", "e2": "paint"}
-    form["subjects"]["cast_shadow"]["no"] = ["ball"]
-    form["subjects"]["light_color"]["unknown"] = ["ball"]
+    form["subjects"]["cast_shadow"] = {"no": ["ball"]}
+    form["subjects"]["light_color"] = {"unknown": ["ball"]}
+    form["subjects"]["specular"] = {"no": [], "unknown": []}     # looked at, nothing to except
     form["global"] = {"key": "yes", "atmosphere": "unknown"}
     led = light.ledger(p, BALL, answers=form, out_dir=tmp_path / "out")
     assert [e["kind"] for e in led["emitters"]] == ["lamp", "paint"]
     assert {a["emitter"] for a in led["agreement"]} == {"e1"}       # the rejected decoy voids its pairs
     v = led["verdict"]["subjects"][0]
     assert (v["expected_key"], v["diffuse"], v["basis"], v["axis"]) == ("e1", "agrees", "measurement", "pass")
-    assert (v["specular"], v["cast_shadow"], v["ambient"], v["light_color"], v["color_basis"]) == ("yes", "no", "yes", "unknown", "observer")
+    # ambient is neither: the form came back without a word on it, so it is unanswered, not agreed
+    assert (v["specular"], v["cast_shadow"], v["ambient"], v["light_color"], v["color_basis"]) == ("yes", "no", "unknown", "unknown", "observer")
     assert led["verdict"]["emitters"] == [{"id": "e1", "kind": "lamp", "receivers": 1, "spill": None, "verdict": "lights"}]
     assert led["verdict"]["axes"]["asset_cohesion"] == "pass"
     assert led["subjects"][0]["highlight"]["hue_shift_from_body_deg"] < 30      # brighter paint, no cast
@@ -217,6 +219,26 @@ def test_a_lone_sprite_is_its_own_subject_and_an_unfilled_form_is_a_verdict(tmp_
     assert v["axes"] == {"direction_compliance": "unknown", "intentional_contrast": "unknown",
                          "asset_cohesion": "warn"}
     assert light.ledger(p, answers={})["verdict"] == v          # an empty object says the same thing
+
+
+def test_an_unanswered_surface_is_unknown_and_an_answered_one_excepts_only_what_it_lists(tmp_path):
+    """Silence is not agreement, at the answer contract itself. Every subject surface is issued null;
+    a surface the observer never wrote on cannot put a subject at `yes`, and one they did write on
+    answers for every subject it does not except. This shipped the other way round: the form came with
+    two empty exception lists per surface and the verdict fell through to `yes`, so the reviewer above
+    -- who is told to hand the form back untouched -- was handed a pass on five surfaces nobody looked
+    at. The surface the measurement owns still decides itself, filled or not."""
+    p = scene(tmp_path / "s.png")
+    led = light.ledger(p)
+    assert led["form"]["subjects"] == dict.fromkeys(
+        ("specular", "light_color", "cast_shadow", "ambient", "rim", "albedo"))
+    row = light.ledger(p, answers=led["form"])["verdict"]["subjects"][0]
+    assert [row[s] for s in ("specular", "light_color", "ambient", "rim", "albedo")] == ["unknown"] * 5
+    assert (row["cast_shadow"], row["shadow_basis"]) == ("yes", "measurement")
+
+    answered = led["form"] | {"subjects": {"rim": {"no": [], "unknown": []}, "ambient": {"no": ["asset"]}}}
+    row = light.ledger(p, answers=answered)["verdict"]["subjects"][0]
+    assert (row["rim"], row["ambient"], row["albedo"]) == ("yes", "no", "unknown")
 
 
 def test_no_alpha_and_no_subjects(tmp_path):
