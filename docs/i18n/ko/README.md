@@ -1,4 +1,4 @@
-<!-- translation-of: README.md@b9ddb03e8d9bc54d263232d61e4a35968244c04d -->
+<!-- translation-of: README.md@d688f2ca97df0a71370bc1cab6d9d5b52e17ef11 -->
 > 원문 [README.md](../../../README.md)의 번역이다. **영어가 정본이며**, 어긋나는 곳은 원문이 이긴다.
 > 번역이 원문보다 뒤처졌는지는 `uv run python tools/check_translations.py`가 알려준다.
 
@@ -32,6 +32,11 @@ uvx asrai skill-path       # 함께 담긴 SKILL.md의 경로
 | OpenCode | `opencode.json`에: `"mcp": {"asrai": {"type": "local", "command": ["uvx", "asrai", "mcp"], "enabled": true}}` | `AGENTS.md`에 섹션 추가 |
 | Hermes Agent | `~/.hermes/config.yaml`에: `mcp_servers: {asrai: {command: uvx, args: [asrai, mcp]}}` | `~/.hermes/skills/asrai/SKILL.md` |
 
+환경을 고정하려면 [릴리스 번들 설치 절차](../../runbook.md#9-install-the-environment-a-release-was-checked-with)를
+따른다. 검증된 휠과 해시가 박힌 의존성을 전용 환경에 설치한다. `uvx asrai==<version>`만 고정해서는
+의존성까지 고정되지 않으며, `doctor --lock`은 드리프트를 기록할 뿐 환경을 강제하지 않는다.
+사용자에게 영향을 주는 변경은 [CHANGELOG.md](../../../CHANGELOG.md)에 있다.
+
 ## 사용
 
 ```bash
@@ -51,15 +56,15 @@ JSON 문서 하나를 출력하거나 반환하며, 입력 파일을 고치는 �
 ## 개발
 
 ```bash
-uv sync
-uv run pytest -q
+uv sync --locked
+uv run --no-sync pytest -q
 uv run python tools/validate_stock.py   # pytest 안에서도 돈다. 전체 리포트가 필요할 때만 따로 실행
 uv run python tools/review_locales.py   # 사람이 확인해야 할 번역을 표시한다
 uv run python tools/make_fixtures.py    # 의도적으로 바꾼 뒤 tests/fixtures/expected/를 다시 쓴다
 ```
 
-`uv run pytest`가 유일한 게이트다. 코드, 함께 담긴 어휘, 그리고 커밋된 픽스처에 대한 `measure`의
-바이트 동일성까지 한 번에 본다. 시작은 [CONTRIBUTING.md](../../../CONTRIBUTING.md),
+`uv run pytest`는 코드, 함께 담긴 어휘, 그리고 커밋된 픽스처에 대한 `measure`의 정확한 JSON 값을 본다.
+랜딩에 필요한 검사 전체는 [CONTRIBUTING.md](../../../CONTRIBUTING.md)에서 시작하고,
 이름과 코드 규약은 [docs/conventions.md](../../conventions.md)에 있다.
 
 ## 저장소 지도
@@ -72,7 +77,7 @@ flowchart TD
     SRC --> DATA["data/<br/>휠에 실린다"]
     DATA --> SKILL["skill/<br/>SKILL.md"] & STOCK["stock/<br/>어휘, 서피스, 로케일"]
     DOCS --> REVIEW["review/<br/>날짜 박힌 결정"]
-    TESTS --> FIX["fixtures/<br/>바이트 동일성"]
+    TESTS --> FIX["fixtures/<br/>정확한 JSON 값"]
 ```
 
 | 어디 | 무엇 |
@@ -81,7 +86,7 @@ flowchart TD
 | [`src/asrai/data/`](../../../src/asrai/data/README.md) | 휠과 함께 설치되는 모든 것 |
 | [`src/asrai/data/skill/`](../../../src/asrai/data/skill/README.md) | 에이전트가 읽는 `SKILL.md`와 스펙 누락 금지 규칙 |
 | [`src/asrai/data/stock/`](../../../src/asrai/data/stock/README.md) | 어휘 v2, 서피스, 스키마, 무결성 매니페스트 |
-| [`src/asrai/data/stock/locales/`](../../../src/asrai/data/stock/locales/README.md) | 영어를 뺀 언어마다 하나씩, 로케일 번들 11개 |
+| [`src/asrai/data/stock/locales/`](../../../src/asrai/data/stock/locales/README.md) | 영어를 뺀 언어마다 하나씩, 로케일 번들 11개 — **기여 환영** |
 | [`src/asrai/data/stock/examples/`](../../../src/asrai/data/stock/examples/README.md) | 예시용 `instruction.v2` 문서 |
 | [`tests/`](../../../tests/README.md) | 스위트, 그 규약, 그리고 여기에 무엇을 어떻게 더하는지 |
 | [`tests/fixtures/`](../../../tests/fixtures/README.md) | 이미지 6개와 그 기대 출력, 그리고 재생성이 정당한 경우 |
@@ -89,9 +94,8 @@ flowchart TD
 | [`docs/`](../../README.md) | 어떤 문서가 무엇에 대해 권위를 갖는지 |
 | [`docs/review/`](../../review/README.md) | 날짜가 박힌 결정 기록. 절대 고치지 않는다 |
 
-구성: `src/asrai/` 코어(`vocab`, `measure`, `records`, `doctor`, `config`, `cli`, `server`),
-`src/asrai/data/stock/` 어휘와 로케일(기여 환영: `locales/README.md`),
-`src/asrai/data/skill/SKILL.md`, `tools/` 검증기, `docs/spec.md` 계약, `docs/CHECKPOINT.md`.
+위 항목이 각각 어느 realm에 속하고 그 오류가 어디까지 번지는지는
+[`docs/architecture.md`](../../architecture.md)가 말한다. 위 지도는 체크아웃을 훑기 위한 것이다.
 
 스톡 어휘는 학습 레이어를 걷어낸 원본 코퍼스에서 파생했고, 모든 항목이 `origin.entry_sha256`을 유지한다.
 번역은 LLM이 초안을 잡은 대응어이며 사람의 확인이 필요하다고 표시되어 있다.

@@ -1,4 +1,4 @@
-<!-- translation-of: README.md@b9ddb03e8d9bc54d263232d61e4a35968244c04d -->
+<!-- translation-of: README.md@d688f2ca97df0a71370bc1cab6d9d5b52e17ef11 -->
 > 本文是原文 [README.md](../../../README.md) 的翻译。**英文为正本**，如有出入以原文为准。
 > 译文是否落后于原文，由 `uv run python tools/check_translations.py` 给出。
 
@@ -32,6 +32,10 @@ uvx asrai skill-path       # 随附 SKILL.md 的位置
 | OpenCode | 在 `opencode.json` 中：`"mcp": {"asrai": {"type": "local", "command": ["uvx", "asrai", "mcp"], "enabled": true}}` | 在 `AGENTS.md` 中添加一节 |
 | Hermes Agent | 在 `~/.hermes/config.yaml` 中：`mcp_servers: {asrai: {command: uvx, args: [asrai, mcp]}}` | `~/.hermes/skills/asrai/SKILL.md` |
 
+如需锁定环境，请遵循[发布包安装流程](../../runbook.md#9-install-the-environment-a-release-was-checked-with)。
+它会把经过验证的 wheel 和带哈希的依赖装入一个专用环境。仅固定 `uvx asrai==<version>` 并不能锁定其依赖；
+`doctor --lock` 只记录漂移，并不强制环境。面向用户的变更列在 [CHANGELOG.md](../../../CHANGELOG.md)。
+
 ## 使用
 
 ```bash
@@ -51,15 +55,15 @@ MCP 工具：`vocab_search`、`vocab_get`、`measure`、`light_ledger`、`record
 ## 开发
 
 ```bash
-uv sync
-uv run pytest -q
+uv sync --locked
+uv run --no-sync pytest -q
 uv run python tools/validate_stock.py   # 也在 pytest 中运行；单独运行是为了看完整报告
 uv run python tools/review_locales.py   # 标出仍需人工确认的翻译
 uv run python tools/make_fixtures.py    # 在有意改动之后重写 tests/fixtures/expected/
 ```
 
-`uv run pytest` 是唯一的关口：它同时覆盖代码、随包发布的词表，以及 `measure` 对已提交基准文件的
-逐字节一致性。请从 [CONTRIBUTING.md](../../../CONTRIBUTING.md) 开始；命名与代码规约见
+`uv run pytest` 覆盖代码、随包发布的词表，以及 `measure` 对已提交基准文件的精确 JSON 值。落地所需的
+全部检查请从 [CONTRIBUTING.md](../../../CONTRIBUTING.md) 开始；命名与代码规约见
 [docs/conventions.md](../../conventions.md)。
 
 ## 仓库地图
@@ -72,7 +76,7 @@ flowchart TD
     SRC --> DATA["data/<br/>随 wheel 发布"]
     DATA --> SKILL["skill/<br/>SKILL.md"] & STOCK["stock/<br/>词表、表面、语言包"]
     DOCS --> REVIEW["review/<br/>带日期的决定"]
-    TESTS --> FIX["fixtures/<br/>逐字节一致"]
+    TESTS --> FIX["fixtures/<br/>精确 JSON 值"]
 ```
 
 | 位置 | 内容 |
@@ -81,7 +85,7 @@ flowchart TD
 | [`src/asrai/data/`](../../../src/asrai/data/README.md) | 随 wheel 一起安装的一切 |
 | [`src/asrai/data/skill/`](../../../src/asrai/data/skill/README.md) | 面向智能体的 `SKILL.md` 与“不丢失规格”规则 |
 | [`src/asrai/data/stock/`](../../../src/asrai/data/stock/README.md) | 词表 v2、表面、schema、完整性清单 |
-| [`src/asrai/data/stock/locales/`](../../../src/asrai/data/stock/locales/README.md) | 除英语外每种语言一个，共 11 个语言包 |
+| [`src/asrai/data/stock/locales/`](../../../src/asrai/data/stock/locales/README.md) | 除英语外每种语言一个，共 11 个语言包 — **欢迎贡献** |
 | [`src/asrai/data/stock/examples/`](../../../src/asrai/data/stock/examples/README.md) | 示例性的 `instruction.v2` 文档 |
 | [`tests/`](../../../tests/README.md) | 测试套件、它的约定，以及如何往里添加 |
 | [`tests/fixtures/`](../../../tests/fixtures/README.md) | 6 张图像、它们的期望输出，以及何时重新生成是正当的 |
@@ -89,10 +93,8 @@ flowchart TD
 | [`docs/`](../../README.md) | 哪份文档对哪件事具有权威 |
 | [`docs/review/`](../../review/README.md) | 带日期的决定记录，永不修改 |
 
-布局：`src/asrai/` 核心（`vocab`、`measure`、`records`、`doctor`、`config`、`cli`、`server`），
-`src/asrai/data/stock/` 词表与语言包（欢迎贡献：`locales/README.md`），
-`src/asrai/data/skill/SKILL.md`，`tools/` 校验脚本，作为契约的 `docs/spec.md`，以及
-`docs/CHECKPOINT.md`。
+上面每一项属于哪个 realm、它的错误会传播多远，由 [`docs/architecture.md`](../../architecture.md) 说明；
+上面的地图是用来遍历检出目录的。
 
 库存词表派生自一份去掉了学习层的原始语料，每个条目都保留 `origin.entry_sha256`。翻译是由 LLM 起草的
 对应词，并被标记为仍需人工确认。
