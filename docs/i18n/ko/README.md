@@ -36,7 +36,7 @@ uvx asrai skill-path       # 함께 담긴 SKILL.md의 경로
 
 ```bash
 asrai vocab search "silhouette" --limit 5          # 어떤 언어든: --lang ko "실루엣"
-asrai vocab get shape.silhouette --lang ja --compact  # MCP: vocab_get(lookup=, full=false)
+asrai vocab get shape.silhouette --lang ja --no-full  # MCP: vocab_get(lookup=, full=false)
 asrai measure sprites/orc_idle.png --target-width 96
 asrai light-ledger captures/frame.png --capture captures/capture.json   # 라이팅 패스: 오버레이는 out/에, 채울 폼이 나온다
 asrai light-ledger captures/frame.png --capture captures/capture.json --answers form.json   # 판정과 레코드

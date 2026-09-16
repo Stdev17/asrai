@@ -50,7 +50,8 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("text"); s.add_argument("--lang", default="en"); s.add_argument("--category")
     s.add_argument("--limit", type=int, default=12); s.add_argument("--full", action="store_true")
     g = vs.add_parser("get", help="one term by exact id")
-    g.add_argument("id"); g.add_argument("--lang", default="en"); g.add_argument("--compact", action="store_true")
+    g.add_argument("id"); g.add_argument("--lang", default="en")
+    g.add_argument("--full", action=argparse.BooleanOptionalAction, default=True)   # one word on every surface
     c = vs.add_parser("category", help="list one category")
     c.add_argument("id"); c.add_argument("--lang", default="en"); c.add_argument("--full", action="store_true")
     vs.add_parser("categories", help="list categories and counts")
@@ -84,7 +85,7 @@ def main(argv: list[str] | None = None) -> int:
             if vc == "search":
                 _emit(vocab.search(args.text, args.lang, args.category, args.limit, args.full))
             elif vc == "get":
-                _emit(vocab.get(args.id, args.lang, full=not args.compact))
+                _emit(vocab.get(args.id, args.lang, full=args.full))
             elif vc == "category":
                 _emit(vocab.category(args.id, args.lang, args.full))
             elif vc == "categories":

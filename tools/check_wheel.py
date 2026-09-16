@@ -48,7 +48,7 @@ def installed_check() -> dict:
             assert hashlib.sha256((vocab.DATA / name).read_bytes()).hexdigest() == digest, name
         for code in vocab.locale_codes():
             vocab.locale(code)
-        term = json.loads(cli("vocab", "get", "shape.silhouette", "--compact"))
+        term = json.loads(cli("vocab", "get", "shape.silhouette", "--no-full"))
         assert term["id"] == "shape.silhouette", term
 
         asset = work / "sprite.png"

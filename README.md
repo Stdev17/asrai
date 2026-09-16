@@ -41,7 +41,7 @@ the environment. [CHANGELOG.md](CHANGELOG.md) lists user-facing changes.
 
 ```bash
 asrai vocab search "silhouette" --limit 5          # any language: --lang ko "실루엣"
-asrai vocab get shape.silhouette --lang ja --compact  # MCP: vocab_get(lookup=, full=false)
+asrai vocab get shape.silhouette --lang ja --no-full  # MCP: vocab_get(lookup=, full=false)
 asrai measure sprites/orc_idle.png --target-width 96
 asrai light-ledger captures/frame.png --capture captures/capture.json   # lighting pass: overlay under out/, form to fill
 asrai light-ledger captures/frame.png --capture captures/capture.json --answers form.json   # verdict and record

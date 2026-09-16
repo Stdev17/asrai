@@ -4,6 +4,8 @@ Hand-written changes for users and contributors. An unreleased entry is not a pu
 
 ## Unreleased
 
+- Rename the CLI's `asrai vocab get --compact` to `--full / --no-full`, so one word carries the axis on the CLI,
+  the MCP tools and the library. The default is unchanged: `get` returns the whole entry, `search` does not.
 - Issue every subject surface of the lighting answer form as `null` and read an unanswered surface as
   `unknown`. A form handed back as issued previously reported `yes` on specular, light colour, ambient,
   rim and albedo — five surfaces nobody had looked at. An answered surface still passes every subject it

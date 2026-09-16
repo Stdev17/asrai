@@ -36,7 +36,7 @@ uvx asrai skill-path       # 随附 SKILL.md 的位置
 
 ```bash
 asrai vocab search "silhouette" --limit 5          # 任何语言：--lang zh-Hans "剪影"
-asrai vocab get shape.silhouette --lang ja --compact  # MCP: vocab_get(lookup=, full=false)
+asrai vocab get shape.silhouette --lang ja --no-full  # MCP: vocab_get(lookup=, full=false)
 asrai measure sprites/orc_idle.png --target-width 96
 asrai light-ledger captures/frame.png --capture captures/capture.json   # 光照通道：叠加图在 out/ 下，并给出待填写的表单
 asrai light-ledger captures/frame.png --capture captures/capture.json --answers form.json   # 判定与记录
