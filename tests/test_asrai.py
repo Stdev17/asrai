@@ -259,6 +259,8 @@ def test_every_number_the_documents_claim_is_the_number_the_repository_has():
         "mcp.soft_cap_tokens": lambda: SOFT_CAP_TOKENS,
         "mcp.hard_cap_tokens": lambda: HARD_CAP_TOKENS,
         "mcp.bytes_per_token": lambda: BYTES_PER_TOKEN,
+        # Human revision-reference request, 2026-09-17; this is a display minimum, not identity.
+        "references.abbrev_min": lambda: 7,
         # Human scope decision, 2026-09-16; conventions §0 distinguishes review from diagram fit.
         "architecture.owner_review_at": lambda: 10,
         "architecture.diagram_node_limit": lambda: 10,

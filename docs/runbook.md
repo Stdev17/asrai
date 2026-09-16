@@ -23,6 +23,13 @@ Apply the following order within the scope of the decision:
    the governing document disagree, the code is incorrectly implemented; do not rewrite the document
    merely to make the existing code pass.
 
+**Within one layer, the later revision wins.** The order above ranks layers, not two statements of the
+same rank, so a document that contradicts itself or a sibling has no resolution in it. Compare the
+revisions that introduced the two statements and apply the later one. This settles ordinary drift
+without an escalation. It does not settle a conflict where the later statement is outside its own
+scope, where both arrived in one revision, or where the earlier one is the recorded human decision;
+those still return to the human owner.
+
 Human adoption is a decision with a source, not an inference from prose style, a commit author, a file
 extension or an agent having written the file. A human can adopt a generated proposal; until then it
 cannot override human-maintained intent. When ownership or adoption is materially unclear, hold the
@@ -61,10 +68,12 @@ commands; its workflow and required-check setup are described in [`.github/READM
 | why a hard-to-reverse decision was made | [`review/`](review/README.md) | a dated file, never edited afterwards |
 | an operating policy or a procedure someone will repeat | this file | human-maintained policy and its steps |
 | how to make a change that will be accepted | [`../CONTRIBUTING.md`](../CONTRIBUTING.md) | process |
+| something that landed and changes what a user or a contributor does | [`../CHANGELOG.md`](../CHANGELOG.md) | one hand-written line under `Unreleased`, newest first. A behaviour or policy change needs one; a status entry, a dated review and an internal refactor do not |
 | a translation of a document | [`i18n/`](i18n/README.md) | stamped with the source commit |
 | anything an agent needs before touching an asset | the bundled `SKILL.md` | never duplicated into `AGENTS.md` |
-| how an agent develops this repository | [development skill](../.agents/skills/asrai-development/SKILL.md) | applies this runbook and conventions; separate from the bundled asset workflow |
-| owner invariants and boundary signatures | [`architecture.md`](architecture.md) | verify against code and data flow when a boundary changes; conventions §0 governs scope |
+| how an agent operates the documents themselves | [repository-operating skill](../.agents/skills/repository-operating/SKILL.md) | arrangement and ownership of documents, orthogonal to what they say; code policy stays in `conventions.md` |
+| which realm a path belongs to, and what propagates between them | [`architecture.md`](architecture.md) | the realm ledger, level 0. Adding a realm needs a human scope decision |
+| owner invariants and boundary signatures | the owning realm's own README — for the package core, [`../src/asrai/README.md`](../src/asrai/README.md) | verify against code and data flow when a boundary changes; conventions §0 governs scope |
 
 ## 3. What never to create
 
@@ -86,13 +95,20 @@ Where the note goes instead:
 | file or directory | write policy |
 |---|---|
 | `CHECKPOINT.md` | **append-only.** Add an entry on top; never edit or remove one below it |
-| `review/*.md` | **never edited** after the commit that adds it. A later review supersedes an earlier one |
+| `review/<date>-*.md` | **never edited** after the commit that adds it. A later review supersedes an earlier one |
 | `corpus/**/records.jsonl` | **append-only**, `supersedes` points at what a record replaces (`spec.md` invariant 6) |
 | `spec.md`, `conventions.md` | edited, but a `[decided]` item needs a recorded reason and usually a test |
-| `i18n/**` | edited freely, except line 1, which is the stamp |
+| `i18n/<lang>/**` | edited freely, except line 1, which is the stamp |
 | `tests/fixtures/expected/` | **generated.** `tools/make_fixtures.py`, never by hand, never to quiet a red test |
 | `src/asrai/data/stock/manifest.sha256.json` | **generated.** Refresh in the same commit as the data |
+| a directory's own `README.md` | edited in the ordinary way. It is that directory's index or its policy, never an instance of the policy above |
 | everything else | edited in the ordinary way |
+
+A write policy targets a prefix its directory's own `README.md` cannot match — a date, a language
+code. An unprefixed glob makes a maintained index formally unwritable, and a contributor then cannot
+tell whether correcting it is permitted. `docs/review/README.md` and `docs/i18n/README.md` are
+ordinary documents; [`check_translations.py`](../tools/check_translations.py) already scopes the
+second one that way in code.
 
 ## 5. A rationale carries a stamp
 
@@ -106,6 +122,61 @@ The date is the day it was written. The sha is the commit its facts were checked
 commit, which does not exist yet when it is written and is recoverable from `git log` afterwards. For
 reviews written before this rule, [`review/README.md`](review/README.md) carries the three values in its
 index instead.
+
+### Revision references
+
+**Choose the kind of reference.** Navigation to the current rule keeps an ordinary relative link.
+Evidence for a claim, copied text, a review or a decision pins the source actually read, using
+`path@short` and a section when useful. A pin preserves that snapshot; it does not establish freshness
+or give historical instructions authority over the current policy.
+
+**Keep identity; shorten display.** Identity is the source repository, full commit OID and
+repository-relative path at that commit. Name the repository for cross-repository citations. Retain
+the full OID once in the existing source record or a commit-permalink target; without either, record
+it once beside the document's sources. Repeated prose may use the compact display. Do not create a
+second provenance index. A Markdown snapshot link targets the full-commit permalink, never `main` or
+the current relative file; `path@short` by itself is a citation notation, not a filesystem path.
+
+Use a **minimum of 7 hex characters** for display, generated by `git rev-parse --short=7` from the
+verified commit. Keep any longer result Git needs for uniqueness; never slice the hash by hand.
+Uniqueness is local and can change as objects arrive. An ambiguous prefix is recovered from the
+retained full OID and displayed with a longer unique prefix. Missing history or a missing historical
+path requires retrieval from the recorded repository/archive; otherwise mark the reference unresolved
+and hold the dependent claim. Never substitute `HEAD`, guess a match or silently repin. Keep cited
+history available to readers in retained repository history or an archive. A hash alone does not retain
+its object.
+
+**Resolve before relying on it.** In the source repository, set `ref_rev` to the cited prefix,
+`ref_full` to the retained full OID, and `ref_path` to the path at that revision:
+
+```bash
+git rev-parse --verify --end-of-options "${ref_rev}^{commit}"
+git rev-parse --short=7 --verify --end-of-options "${ref_full}^{commit}"
+git show "${ref_full}:${ref_path}"
+git diff "$ref_full" HEAD -- "$ref_path"
+git diff --cached HEAD -- "$ref_path"
+git diff -- "$ref_path"
+```
+
+Compare the first result with the retained `ref_full` before using the cited bytes. A prefix is not
+an integrity or authorization check; security-sensitive verification uses the full expected OID from
+a trusted source and the existing approval rules. Existing full hashes in machine records, manifests,
+translation stamps and approval evidence stay full. Cited uncommitted bytes are explicitly `dirty` or
+`uncommitted`, with an exact content digest and retrievable snapshot when needed; `HEAD` cannot pin them.
+
+**Revalidate the dependent claim.** Before a pinned claim governs current work, inspect the cited
+section and compare it with the current governing source, including staged and working-tree changes.
+The diffs above are a starting point; a rename needs both historical and current paths. When editing a
+source, search for its dependent citations and update or flag affected current claims in the same
+change. Repin only after reviewing the changed content, never just to clear a stale marker. Frozen
+reviews and append-only records keep their pins; a new entry supersedes them. Apply this to new or
+substantively updated claims, without mechanically rewriting historical references.
+
+This is a contributor procedure, not an automatic freshness gate. Git owns abbreviation and object
+lookup ([`rev-parse`](https://git-scm.com/docs/git-rev-parse)); review owns whether a changed source
+invalidates a claim. Compact display reduces repeated identifier text, but raw Markdown still contains
+full link targets. Token savings and attention/quality effects need measurement on the actual context
+and tokenizer; no improvement magnitude is asserted here.
 
 ## 6. The five changes people actually make
 

@@ -4,8 +4,44 @@ Nine modules include transports, core owners and version metadata; **nothing in 
 transport**, which is what makes invariant 9 (`CLI and MCP produce the same output for the same
 fixture`) structural rather than a promise.
 
-The signature-only [owner graph](../../docs/architecture.md) records the current dependencies,
-including shared data and private imports. Module count is not responsibility count.
+This page is the **feature realm's interior**, one level below the
+[realm ledger](../../docs/architecture.md). Module count is not responsibility count: every module
+drawn in the graph below owns an invariant, while `cli`, `server` and `__init__` do not.
+
+## Owner dependencies
+
+Arrows point from consumer to provider; labels contain only the signatures or data declarations
+crossing that boundary, and a wrapped line is part of the same signature. `DATA: Path` and
+`SILHOUETTE_ALPHA: int` describe inferred constant types, not newly declared interfaces. Solid edges
+include Python references; dashed edges are data-only contracts, including values passed through
+transports. `light` constructs observation dictionaries that `records` validates when submitted; it
+does not call the validator or append records itself.
+
+```mermaid
+flowchart TB
+    CONFIG["config"]
+    LIGHT["light"]
+    DOCTOR["doctor"]
+    MEASURE["measure"]
+    RECORDS["records"]
+    VOCAB["vocab"]
+
+    LIGHT -->|"load(path: Path)<br/>→ tuple[np.ndarray, dict]<br/>luminance(rgb: np.ndarray)<br/>→ np.ndarray<br/>hsl(rgb: np.ndarray)<br/>→ tuple[np.ndarray,<br/>np.ndarray, np.ndarray]<br/>_r(x) → float<br/>SILHOUETTE_ALPHA: int"| MEASURE
+    LIGHT -->|"DATA: Path<br/>term_id: str"| VOCAB
+    DOCTOR -->|"sha256_file(path)<br/>→ str"| RECORDS
+    DOCTOR -->|"pack() → dict[str, Any]<br/>index()<br/>→ dict[str, dict[str, Any]]<br/>DATA: Path"| VOCAB
+    RECORDS -->|"index()<br/>→ dict[str, dict[str, Any]]<br/>lint_instruction(<br/>request: dict[str, Any])<br/>→ list[str]"| VOCAB
+    LIGHT -.->|"observation.v1: dict"| RECORDS
+    DOCTOR -.->|"cfg: dict"| CONFIG
+    RECORDS -..->|"scale: 'native' #124;<br/>'target' #124; 'thumbnail'"| MEASURE
+```
+
+`doctor` consumes `config.load()` output through the transports, including `observer` and `_root`. The
+scale literals accepted by `records` mirror the keys of `measure.v1.scales`. `light` uses canonical
+vocabulary term IDs from surface policy and a literal ID in its observation builder; that dependency
+remains even if the data directory moves. These are inferred data contracts, not additional typed
+Python APIs, so the graph cannot be recovered faithfully from an import count. No core owner imports
+`cli.py` or `server.py`, and the transports' fan-out is not an extra product responsibility.
 
 | module | owns | public surface | the rule it enforces |
 |---|---|---|---|
@@ -33,6 +69,22 @@ MCP tools, and the CLI verb each mirrors:
 
 Not built: `retrieve`, `preview`, `apply`, `rasterize`, `render`. The bundled skill says so; an agent
 that improvises them is a bug, not a feature.
+
+## What this boundary currently exposes
+
+- `light` imports `measure._r`, a private rounding helper, and `SILHOUETTE_ALPHA`. The private import
+  violates the intended public boundary; drawing it records the defect rather than authorizing it.
+- `light` reads its surface-policy file through `vocab.DATA`. That is a directory dependency, not a
+  vocabulary lookup interface.
+- `doctor` reaches `records` only for `sha256_file`. Environment reporting does not need the record
+  lifecycle; the edge reflects where the generic helper currently lives.
+- Observation dictionaries, configuration fields, scale keys and canonical term IDs cross owners
+  without Python imports.
+
+These are existing seams to address when their boundary is changed, not reasons to create new owners or
+to refactor runtime code in a documentation change. The graph does not demand a subsystem split, does
+not establish that the lighting policies are empirically valid, and does not pre-approve retrieval,
+rendering, recipes or publishing. Evaluate those against the single job before adding them.
 
 ## Working here
 

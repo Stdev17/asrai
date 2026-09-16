@@ -170,12 +170,19 @@
       }
     },
     {
+      "id": "references.abbrev_min",
+      "value": 7,
+      "truth": "Human request, 2026-09-17: compact revision display starts at 7; Git extends ambiguous prefixes; pinned in test_asrai.py",
+      "claimed_in": {
+        "docs/runbook.md": "minimum of 7 hex characters"
+      }
+    },
+    {
       "id": "architecture.owner_review_at",
       "value": 10,
       "truth": "Human scope decision, 2026-09-16: review single-skill scope at or above this count; pinned in test_asrai.py",
       "claimed_in": {
-        "docs/conventions.md": "At **10 or more responsibility owners**",
-        ".agents/skills/asrai-development/SKILL.md": "At **10 or more responsibility owners**"
+        "docs/conventions.md": "At **10 or more responsibility owners**"
       }
     },
     {

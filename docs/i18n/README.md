@@ -41,7 +41,11 @@ Line 1 of every translated file, exactly:
 ```
 
 The path is repository-relative; the hash is the source's commit at the moment the translation was
-made. Below it, one blockquote in the target language saying English is canonical.
+made, and it **stays a full OID**. The compact `path@short` form in
+[runbook §5](../runbook.md#revision-references) is for prose that cites a revision; a stamp is where
+the full identity is retained, so shortening it would leave the citation nothing to resolve against.
+`check_translations.py` accepts a shorter prefix, which is a tolerance for hand-written stamps, not an
+invitation. Below the stamp, one blockquote in the target language saying English is canonical.
 
 ```bash
 uv run python tools/check_translations.py

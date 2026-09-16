@@ -19,8 +19,10 @@ in `pairwise`; `a` would be a terrible field name in a record a model has to fil
 
 ## 0. Owner boundaries
 
-Before changing a responsibility boundary, draw its proposed dependencies in
-[`architecture.md`](architecture.md), then verify the finished graph against code and data flow.
+Before changing a responsibility boundary, draw its proposed dependencies in the README of the realm
+that owns it — for the package core, [`src/asrai/README.md`](../src/asrai/README.md) — then verify the
+finished graph against code and data flow. A change that adds, removes or moves a realm is drawn in the
+[realm ledger](architecture.md) instead, one level up.
 Each node names an invariant owner; each edge names only the signatures or data contracts crossing
 that boundary. An owner may enforce deterministic policy without mutable state. Helpers, DTOs,
 modules and MCP tools are not automatically owners; commit `Owners:` path buckets are a different
@@ -37,7 +39,8 @@ into pages to make it pass. Split along independent invariants, never to satisfy
 single-skill product, first revisit scope; introducing another subsystem is not automatic permission
 to keep growing. A readable graph below the count is evidence of legibility, not proof of good scope.
 
-The [development skill](../.agents/skills/asrai-development/SKILL.md) applies these conventions.
+The [repository-operating skill](../.agents/skills/repository-operating/SKILL.md) carries the general
+shape these two thresholds are an instance of, and separates the legibility question from the scope one.
 The [adaptation record](review/2026-09-16-owner-boundaries.md) identifies the source and the
 Unity-specific policies not adopted here.
 

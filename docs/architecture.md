@@ -1,75 +1,69 @@
-# Architecture — responsibility owners
+# Architecture — realms
 
-asrai's job is first-pass art direction: turn asset evidence into measurements and qualified,
-traceable observations for a human decision. [Conventions §0](conventions.md#0-owner-boundaries)
-governs decomposition; the [runbook](runbook.md#1-the-gate) governs authority.
+The repository's level 0. A **realm** is a boundary that owns a class of invariant, and this page is
+asrai's ledger of them: what each one owns, how far its errors travel, who may write it, and what
+checks it. [Conventions §0](conventions.md#0-owner-boundaries) governs decomposition, the
+[runbook](runbook.md#1-the-gate) governs authority, and the
+[repository-operating skill](../.agents/skills/repository-operating/SKILL.md) defines what a realm is
+and how this ledger is maintained.
 
-## Owner dependencies
+Nothing here draws a realm's interior. Each realm's own document does, one level down, so no drawing on
+this page grows as a realm does.
 
-Each node owns an invariant in the shipped Python core. Arrows point from consumer to provider;
-labels contain only the signatures or data declarations crossing that boundary. Wrapped lines are
-part of the same signature. `DATA: Path` and `SILHOUETTE_ALPHA: int` describe inferred constant types,
-not newly declared interfaces. Solid edges include Python references; dashed edges are data-only
-contracts, including values passed through transports. Each owner pair shares an edge, with all its
-crossing signatures listed. `light` constructs observation dictionaries
-that `records` validates when submitted; it does not call the validator or append records itself.
+## Propagation
+
+Arrows point the way an error travels: a defect in the tail reaches the head. `support` is the sink —
+it carries other realms' evidence and nothing depends on it, which is why it owns no invariant of its
+own. Labels name what actually crosses.
 
 ```mermaid
 flowchart TB
-    CONFIG["config"]
-    LIGHT["light"]
-    DOCTOR["doctor"]
-    MEASURE["measure"]
-    RECORDS["records"]
-    VOCAB["vocab"]
+    SPEC["spec<br/>docs/, AGENTS.md,<br/>CONTRIBUTING.md, SKILL.md"]
+    DATA["data<br/>src/asrai/data/stock/"]
+    FEATURE["feature<br/>src/asrai/"]
+    SUPPORT["support<br/>tests/, tools/,<br/>.github/, docs/review/"]
 
-    LIGHT -->|"load(path: Path)<br/>→ tuple[np.ndarray, dict]<br/>luminance(rgb: np.ndarray)<br/>→ np.ndarray<br/>hsl(rgb: np.ndarray)<br/>→ tuple[np.ndarray,<br/>np.ndarray, np.ndarray]<br/>_r(x) → float<br/>SILHOUETTE_ALPHA: int"| MEASURE
-    LIGHT -->|"DATA: Path<br/>term_id: str"| VOCAB
-    DOCTOR -->|"sha256_file(path)<br/>→ str"| RECORDS
-    DOCTOR -->|"pack() → dict[str, Any]<br/>index()<br/>→ dict[str, dict[str, Any]]<br/>DATA: Path"| VOCAB
-    RECORDS -->|"index()<br/>→ dict[str, dict[str, Any]]<br/>lint_instruction(<br/>request: dict[str, Any])<br/>→ list[str]"| VOCAB
-    LIGHT -.->|"observation.v1: dict"| RECORDS
-    DOCTOR -.->|"cfg: dict"| CONFIG
-    RECORDS -..->|"scale: 'native' #124;<br/>'target' #124; 'thumbnail'"| MEASURE
+    SPEC -->|"invariants 1–14<br/>owner boundaries<br/>naming and records"| FEATURE
+    SPEC -->|"vocab and instruction<br/>schemas, quantification<br/>modes"| DATA
+    SPEC -->|"landing checks<br/>write policies<br/>claims"| SUPPORT
+    DATA -->|"term ids<br/>surfaces.v1 policy<br/>the stock path"| FEATURE
+    DATA -->|"manifest digests<br/>locale coverage"| SUPPORT
+    FEATURE -->|"measure.v1 values<br/>fixture bytes"| SUPPORT
 ```
 
-`doctor` consumes `config.load()` output through the transports, including `observer` and `_root`.
-The scale literals accepted by `records` mirror the keys of `measure.v1.scales`. `light` uses
-canonical vocabulary term IDs from surface policy and a literal ID in its observation builder;
-the term-ID dependency remains even if the data directory moves. These are inferred data contracts,
-not additional typed Python APIs. The transport boundary below makes its fan-out explicit without
-counting it as extra product responsibilities. No core owner imports `cli.py` or `server.py`.
+## The ledger
 
-| owner | invariant | transport entry points |
-|---|---|---|
-| [`config`](../src/asrai/config.py) | project configuration overlays defaults and resolves the team corpus path | `load`, `team_dir` |
-| [`vocab`](../src/asrai/vocab.py) | canonical term semantics and admissible instructions survive localized labels | `search`, `get`, `category`, `categories`, `langs`, `translations`, `lint_instruction` |
-| [`measure`](../src/asrai/measure.py) | deterministic, bounded measurement preserves input bytes within the recorded decoder environment | `measure` |
-| [`light`](../src/asrai/light.py) | subject/observer-dependent surface evidence preserves holds and states the basis of its judgments | `ledger` |
-| [`records`](../src/asrai/records.py) | valid evidence records append without rewriting history | `append` |
-| [`doctor`](../src/asrai/doctor.py) | environment drift is disclosed; writing the stamp requires an explicit request | `run` |
+| realm | extent | invariant it owns | who writes it | verified by | interior drawn in |
+|---|---|---|---|---|---|
+| **spec** | `docs/`, `AGENTS.md`, `CONTRIBUTING.md`, the bundled `SKILL.md` | what the repository promises and how it is governed | maintainer | review, [`claims.json`](../tests/claims.json), `check_links.py` | [`docs/README.md`](README.md) |
+| **data** | [`src/asrai/data/stock/`](../src/asrai/data/stock/README.md) | the vocabulary means what it says in every language it ships | **the world** | `validate_stock.py`, `review_locales.py`, `manifest.sha256.json` | [`stock/README.md`](../src/asrai/data/stock/README.md) |
+| **feature** | the rest of `src/asrai/` | deterministic behaviour behind two transports | maintainer | `pytest`, committed fixtures | [`src/asrai/README.md`](../src/asrai/README.md) |
+| **support** | `tests/`, `tools/`, `.github/`, `docs/review/`, packaging | none of its own; it carries another realm's evidence | maintainer | the realm it serves | each directory's own README |
 
-[`cli.py`](../src/asrai/cli.py) and [`server.py`](../src/asrai/server.py) adapt the same owners. Their
-argument parsing, serialization and transport errors are not additional art-direction jobs.
-`__init__.py` supplies version metadata. Stock vocabulary belongs to `vocab`; the surface policy
-loaded from the stock directory belongs to `light`. Directory layout is not an ownership rule.
-Helpers and dictionaries carry their owner's work; they do not own additional invariants.
+**Derivation and repair.** spec and feature are authored. data is **projected**: the stock vocabulary
+comes from an origin corpus with the learning layer removed, and every entry keeps
+`origin.entry_sha256`, so a correction is re-taken from that canon rather than edited here. support is
+mixed, and [runbook §4](runbook.md#4-how-each-file-may-be-written) names each generated file —
+`manifest.sha256.json` and `tests/fixtures/expected/` are regenerated, never hand-edited to quiet a
+red test. When `corpus/packs/` lands (`spec.md` §5), it enters as a fifth realm whose writers this
+repository cannot ask for a fix: its exit is **supersede**, since a team canonical already outranks a
+pack by contract.
 
-## What this boundary currently exposes
+The bundled `SKILL.md` ships under `src/` and is spec: propagation decides a realm, never location.
+`docs/review/` is support for the same reason — a frozen review is evidence about a decision, not the
+decision's current statement, which lives in the realm the decision governs.
 
-- `light` imports `measure._r`, a private rounding helper, and `SILHOUETTE_ALPHA`. The private import
-  violates the intended public boundary; drawing it records the defect rather than authorizing it.
-- `light` reads its surface-policy file through `vocab.DATA`. That is a directory dependency, not a
-  vocabulary lookup interface.
-- `doctor` reaches `records` only for `sha256_file`. Environment reporting does not need the record
-  lifecycle; the edge reflects where the generic helper currently lives.
-- Observation dictionaries, configuration fields, scale keys and canonical term IDs cross owners
-  without Python imports. The graph therefore cannot be recovered faithfully from an import count.
+**data is the centre of gravity.** Every other realm is maintainable by one technical artist; the
+vocabulary is not, because its correctness in twelve languages needs contributors this repository does
+not employ. That is why the data realm is the one where duplication is permitted — the locale bundles
+restate every head term by design — and the only one where a machine, not a reviewer, is what holds the
+copies equal.
 
-These are existing seams to address when their boundary is changed, not reasons to create new owners
-or to refactor runtime code in a documentation change. The graph does not currently demand a subsystem
-split. It does not establish that the lighting policies are empirically valid, or pre-approve retrieval,
-rendering, recipes or publishing. Evaluate those proposals against the single job before adding them.
+## Where the physical layout lives
 
-The adaptation and its exact source state are recorded in
+[`README.md`](../README.md) draws the directory tree for someone traversing the checkout, and each
+directory's README says what lives there. That map is navigation; this page is responsibility. A
+directory can move without changing a realm, and two directories can share one.
+
+The adaptation this ledger's owner rules came from is recorded in
 [`review/2026-09-16-owner-boundaries.md`](review/2026-09-16-owner-boundaries.md).

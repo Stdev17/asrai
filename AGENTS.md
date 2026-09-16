@@ -54,8 +54,32 @@ entry; why it was decided goes in a dated file under `docs/review/`.
 
 ## Contributing to this repository
 
-For repository development, read the [development skill](.agents/skills/asrai-development/SKILL.md).
-It routes code and boundary changes through the conventions and owner graph.
+Three rules come before anything else, because an agent breaks them before it has read a document.
+
+1. **A governing document outranks the code.** If code and the document disagree, the code is
+   defective; do not rewrite the document to make the code pass. Within one layer the later revision
+   wins, and a contradiction the hierarchy cannot order goes back to the responsible human
+   ([runbook §1](docs/runbook.md#1-the-gate)).
+2. **Work stops at its write-set boundary.** Name the invariant and the files you may write before you
+   start. If the change needs a file outside them, report the file and the reason. Never bridge it with
+   a copied constant, hidden state, an extra public member or a changed return contract
+   ([conventions §2](docs/conventions.md#2-code-a-person-reads)).
+3. **Every commit is typed, attributed and signed.** `type(scope): why-subject`, a body saying why,
+   then `Owners:` naming every owner the diff touches, `Values:` for every number that moved, and
+   `git commit -s`. Install the hooks once per clone
+   ([conventions §5](docs/conventions.md#5-commits), [runbook §7](docs/runbook.md#7-landing-a-change)):
+
+   ```bash
+   git config --local core.hooksPath tools/hooks
+   ```
+
+For code and boundary changes, [`docs/conventions.md`](docs/conventions.md) is the policy and
+[`docs/architecture.md`](docs/architecture.md) is the owner graph. For the documents themselves — which
+one owns a rule, how a write policy is scoped, what a README's diagram may draw — read the
+[repository-operating skill](.agents/skills/repository-operating/SKILL.md).
+
+For document evidence and copied claims, follow the [revision-reference policy](docs/runbook.md#revision-references):
+pin the source revision, retain its full OID, and recheck freshness before reuse.
 
 [`docs/runbook.md`](docs/runbook.md) is the procedures — where a thing gets written, how each file may
 be written, the five changes people actually make. [`CONTRIBUTING.md`](CONTRIBUTING.md) is why, and

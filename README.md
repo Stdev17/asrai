@@ -8,8 +8,7 @@ replaces the judgment and never invents a magnitude.
 It ships as one Python package with a CLI and a stdio MCP server, plus a bundled `SKILL.md`, and works
 in Claude Code, Codex CLI, OpenCode and Hermes Agent. The full contract is in [docs/spec.md](docs/spec.md).
 
-This page in [한국어](docs/i18n/ko/README.md) · [日本語](docs/i18n/ja/README.md) ·
-[简体中文](docs/i18n/zh-Hans/README.md) — drafts, unconfirmed by a native speaker of the industry's
+This page in [한국어](docs/i18n/ko/README.md) · [日本語](docs/i18n/ja/README.md) · [简体中文](docs/i18n/zh-Hans/README.md) — drafts, unconfirmed by a native speaker of the industry's
 language. English is canonical, and [why that is](docs/i18n/README.md) is worth two minutes.
 
 ## Status (0.1)
@@ -87,7 +86,7 @@ flowchart TD
 | [`src/asrai/data/`](src/asrai/data/README.md) | everything installed with the wheel |
 | [`src/asrai/data/skill/`](src/asrai/data/skill/README.md) | the agent-facing `SKILL.md` and the no-spec-loss rule |
 | [`src/asrai/data/stock/`](src/asrai/data/stock/README.md) | vocabulary v2, surfaces, schemas, the integrity manifest |
-| [`src/asrai/data/stock/locales/`](src/asrai/data/stock/locales/README.md) | eleven locale bundles, one per language beside English |
+| [`src/asrai/data/stock/locales/`](src/asrai/data/stock/locales/README.md) | eleven locale bundles, one per language beside English — **contributions welcome** |
 | [`src/asrai/data/stock/examples/`](src/asrai/data/stock/examples/README.md) | illustrative `instruction.v2` documents |
 | [`tests/`](tests/README.md) | the suite, its conventions, and how to add to it |
 | [`tests/fixtures/`](tests/fixtures/README.md) | six images, their expected output, and when regenerating is legitimate |
@@ -95,9 +94,8 @@ flowchart TD
 | [`docs/`](docs/README.md) | which document is authoritative for what |
 | [`docs/review/`](docs/review/README.md) | dated decision records, never edited |
 
-Layout: `src/asrai/` core (`vocab`, `measure`, `records`, `doctor`, `config`, `cli`, `server`),
-`src/asrai/data/stock/` the vocabulary and locales (contributions welcome: `locales/README.md`),
-`src/asrai/data/skill/SKILL.md`, `tools/` validators, `docs/spec.md` the contract, `docs/CHECKPOINT.md`.
+[`docs/architecture.md`](docs/architecture.md) says which realm each of these belongs to and how far
+its errors travel; the map above is for traversing the checkout.
 
 The stock vocabulary is derived from an origin corpus with the learning layer removed; every entry keeps
 `origin.entry_sha256`. Translations are LLM-drafted counterparts flagged for human confirmation.
