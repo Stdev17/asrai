@@ -72,24 +72,12 @@ flowchart TD
 - **a rationale → a stamp.** Anything explaining *why* opens with `> YYYY-MM-DD · verified at <sha> ·
   <author>`, so a reader can tell how old the reasoning is without running `git log`.
 
-## The three changes people actually make
+## The changes people actually make
 
-**Adding a vocabulary term.** Edit `src/asrai/data/stock/vocab.v2.json`, add the head term to each
-`locales/*.json`, refresh the manifest, then `uv run python tools/validate_stock.py` and
-`tools/review_locales.py`. Set `quantification.mode` honestly: `proxy_only`, `qualitative`,
-`relational` and `structural` can never take `set` or a delta, and `lint` will enforce that forever.
-
-**Adding a surface to the lighting pass.** `surfaces.v1.json` first — id, `scope`, `decided_by`, one
-atomic question, the ledger fields, and the vocabulary terms it records under. `decided_by` is the
-honest part: `measurement` means a field settles it, `evidence` means the ledger measures *around* it
-and a human answers, `observer` means nothing is measured and `unknown` is the default. The corpus test
-checks that `ledger` is non-empty exactly for the non-observer tiers, and that the surface is named in
-`SKILL.md`.
-
-**Adding a measurement.** Deterministic and asset-wide goes in `measure.py`; anything needing a
-subject, an emitter or an observer goes in `light.py`. If it changes what `measure` reports, the
-fixture diff belongs in the same commit — see [tests/fixtures](tests/fixtures/README.md), and read that
-file before regenerating anything.
+The five procedures — a vocabulary term, a surface, a measurement, a translation, an image — are
+[runbook §6](docs/runbook.md#6-the-five-changes-people-actually-make). They live there because the
+runbook owns procedures someone repeats, and a second copy here would be a second source of truth for
+steps that change.
 
 ## Before you open a pull request
 
@@ -122,11 +110,9 @@ file before regenerating anything.
 
 ## What not to add
 
-No plan files, progress notes, summaries, task lists or second checkpoints. They are indistinguishable
-from a documentation contribution at review time, and a worktree does not hide them — a pull request
-shows everything. Scratch goes outside the repository or under `*.scratch.md`; status goes in a
-`CHECKPOINT.md` entry; reasoning goes in a dated `docs/review/` file. [`docs/runbook.md`](docs/runbook.md)
-§3 is the full rule.
+No plan files, progress notes, summaries, task lists or second checkpoints:
+[runbook §3](docs/runbook.md#3-what-never-to-create) is the rule and says where each note goes
+instead.
 
 ## Scope
 
