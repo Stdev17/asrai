@@ -24,6 +24,179 @@ be, on the day the policy changed. Their wording is unchanged; only the shape is
 
 ---
 
+## 2026-09-17 · verified at `f2dea6e` · Claude Opus 5
+
+The revision above is this pass's last code/documentation commit; the entry itself follows it. The
+responsible human authorized the realm split, the skill replacement, the index check and this
+commit series. The Codex entry below records the revision-reference policy, which landed inside
+`78cb8a9` rather than separately.
+
+**State.**
+
+- phase: 1 (core and transports) and 1b (surface pass) remain complete; phase 2 is not implemented
+- last_acceptance_passed: 61 tests on CPython 3.14.7. Links: 0 broken, 0 unindexed. Translation
+  stamps: 0 current, 3 stale, 0 broken (advisory, unchanged). A fresh wheel install passes CLI,
+  actual stdio MCP, bundled data and input preservation; its bundle is `dist/repro-doc-realms`.
+  Every commit in this series passed both installed hooks. Earlier entries retain Python 3.11,
+  cross-version wheel and negative-hash installation evidence
+- in_progress: the documentation architecture is local only; remote CI execution, DCO bootstrap,
+  required-check activation and release publication are untouched and still unverified
+- next_slice: when remote publication is authorized, land the reviewed DCO workflow/checker on the
+  remote default branch, exercise signed and unsigned PR cases, then require `Checks (Python 3.11)`,
+  `Checks (Python 3.14)` and `DCO`, and attach the verified install bundle to a release. Phase 2
+  remains separate: recipes, adapters, alpha policy, recipe hashes, preview/apply/diff
+- next_command: the landing checks in `runbook.md` §1 and commit range validation in §7
+- working_tree: main is the only worktree, `core.hooksPath=tools/hooks` active through
+  worktree-specific config. Nothing was pushed and no repository setting changed
+
+**What landed.**
+
+- The repository is partitioned into four realms — spec, feature, data, support — and
+  `architecture.md` is now that ledger at level 0, with propagation, authorship, verifier and the
+  document each realm states its rules in. The six-module signature graph and its seams moved to
+  `src/asrai/README.md`, so the top-level drawing no longer grows with the core. `README.md` keeps
+  the directory map as navigation; its layout line, which duplicated that map while omitting `light`
+  and calling the transports core, is gone
+- data is recorded as **projected, not authored**: stock derives from an origin corpus and each entry
+  keeps `origin.entry_sha256`, so a correction is re-taken rather than edited here. The planned
+  `corpus/packs/` is named in advance as a realm whose writers cannot be asked for a fix, with
+  supersede as its exit, which `spec.md` §5 already implies
+- The development skill, which was largely a restatement of conventions and the runbook, is replaced
+  by a repository-operating skill owning only what no other document does: which document owns a
+  fact, how a write policy is scoped, how a diagram nests one level per README, what a ledger row
+  declares, and what happens when the owner of a fact is unreachable. It binds to this repository in
+  one line. `AGENTS.md` carries the three rules an agent breaks first, each linking to its owner
+- Two additions settle a conflict the hierarchy could not reach: within one layer the later revision
+  wins, and a write policy targets a prefix a directory's own `README.md` cannot match. `review/*.md`
+  had made its own index formally unwritable while `check_translations.py` already scoped `i18n`
+  correctly in code
+- The human's revision-reference procedure is in runbook §5, and `docs/i18n/README.md` now says why a
+  translation stamp is exempt from it — the stamp is where full identity is retained
+- `check_links.py` also names a file an enumerating README has stopped listing. The review index
+  gained its three missing rows, links on every row, and a pin per post-rule review
+- `CONTRIBUTING.md` stopped restating runbook §3 and §6; its copy listed three of the five procedures,
+  so translations and images had dropped out of that path. `CHANGELOG.md` gained the five unlogged
+  changes and, in runbook §2, the rule saying when a line is required
+
+**Known limits.**
+
+- The realm ledger is a reviewed partition, not an enforced one. Nothing checks that every tracked
+  path falls in exactly one realm, that a stated verifier runs, or that a no-authority realm is never
+  cited as the reason for a rule. The skill names all three; none is written
+- The index check covers one directory through a hardcoded row, deliberately. A second index is a
+  second row, not a generalization written in advance
+- `2026-09-16-commit-policy.md` carries no stamp although it was written after the rule. A review is
+  never edited, so it cannot be repaired; its three values are in the index's provenance table instead
+- A perturbation pass over the skill proposed re-carving its four duplication archetypes as two
+  independent axes, after the responsible human rejected an unsupported correlation between
+  propagation range and authorship. That re-carving is **not applied** and remains a proposal
+- The owner graph is a reviewed model, not compiler enforcement. Private rounding, a shared stock
+  directory, a hash helper located in records and shared dictionary/literal contracts remain seams
+- Hooks are installed locally; a fresh clone still needs explicit installation, and local enforcement
+  is not a remote required check. Native hook tests ran on Apple Git 2.39.3
+- Local results are not GitHub Actions results. Ubuntu jobs, Windows installation, signed/unsigned
+  remote PR behaviour and required checks have not been exercised
+- A bundle pins Python and dependency versions and constrains artifact hashes; it does not make
+  OS/CPU wheels or native decoders identical. Ordinary `uvx asrai==<version>` does not consume the
+  repository lock, and `doctor --lock` reports drift without refusing
+- Agreement bands and surface selection still need measured evidence or a sourced human decision.
+  Synthetic estimator tests do not establish art-direction validity
+- `measure` refuses above 12 Mpx; 16-bit colour PNGs are measured at 8-bit precision. A heavy vignette
+  can bend shaded-mass direction into the observer band; the eight brightest blobs and at most sixteen
+  subjects are measured. Cast-shadow evidence needs known subject pixels and cannot separate cast from
+  form shadow inside one box
+- Precedent retrieval, recipes, previews/apply, ingest/promotion, the pairwise bootstrap and external
+  rendering remain unbuilt. Blender and Inkscape are not installed in the verified environment
+
+**Waiting on a human.**
+
+- Authorize remote publication, then activate and verify the remote gates and release path
+- Decide whether the skill's duplication archetypes are re-carved as two axes, as proposed above
+- Validate or explicitly adopt the lighting policy and surface selection with a recorded basis
+- Review `docs/spec.md` and the artist brief
+- Name native industry-language owners for `ko`, `ja` and `zh-Hans` and restamp their translations
+- Decide `observer.mode` default and embedding egress (`spec.md` §10)
+- Confirm external-tool versions on team machines before implementing their adapters
+
+**Standing facts.**
+
+- Inputs are immutable; outputs are new files; corpus records and prior checkpoint entries are
+  append-only; dated reviews remain historical and unedited
+- The runbook owns the judgment hierarchy and procedures. A conflicting implementation is defective
+- Documents are code that generates code: a wrong line in an operating document is executed by every
+  agent that reads it and fails nothing, which is why their arrangement is gated rather than trusted
+
+---
+
+## 2026-09-17 · verified at `ba31bc3` · Codex
+
+Source repository: `https://github.com/Stdev17/asrai.git`; full baseline OID:
+`ba31bc3676db359a1b8d96678b0beedffbf8ba14`. Verification includes the uncommitted policy
+changes below; that commit names the baseline, not these pending edits.
+
+**State.**
+
+- phase: 1 (core and transports) and 1b (surface pass) remain complete; phase 2 is not implemented
+- last_acceptance_passed: locked offline sync and the package suite pass on CPython 3.14.7.
+  Links: 0 broken. Translation stamps: 0 current, 3 stale, 0 broken (existing advisory warnings).
+  A fresh wheel install passes CLI, actual stdio MCP, bundled data and input preservation;
+  its local bundle is `/private/tmp/revision-ref-policy-20260917/wheel`. Executed document commands
+  resolve actual commits in both repositories. A disposable Git history verifies a real prefix
+  collision, missing-source refusal, frozen snapshot reads and committed/index/worktree drift,
+  including staged and unstaged edits that cancel in the combined working-tree diff
+- in_progress: revision-reference policy is applied locally; commit/integration and remote CI,
+  DCO bootstrap, required-check activation and release publication remain outside this change
+- next_slice: when remote publication is authorized, land the reviewed DCO workflow/checker on the
+  remote default branch, exercise signed and unsigned PR cases, require the documented CI checks,
+  and attach the verified install bundle to a release. Phase 2 remains separate
+- next_command: the landing checks in `runbook.md` §1 and exact commit range validation in §7
+- working_tree: policy edits remain uncommitted; no branch, hook, remote setting or push was changed.
+  The companion DeliveryKnight policy preserves its existing dirty/untracked documents and all
+  other captured files byte-for-byte. This task does not commit that repository's pending work
+
+**What changed.**
+
+- The responsible human requested evaluation and adoption of compact revision references, then
+  replaced the supporting attachment with `ref_hash_v2.md`. Runbook §5 owns the asrai procedure;
+  AGENTS.md routes to it. DeliveryKnight conventions §8 owns its locally adopted equivalent,
+  with AGENTS.md/CLAUDE.md routing and an appended insight-log decision
+- Evidence citations retain repository/path/full-OID identity and use a Git-generated display
+  with a minimum of 7 hex characters. Current-policy navigation remains live. Reuse reviews source
+  changes; unresolved evidence holds the dependent claim. Existing machine hashes and historical
+  records are not shortened or rewritten. The existing numeric-claim gate pins the display minimum
+- No resolver, alias registry, automatic freshness gate, runtime behavior or asset changed.
+  A missing policy phrase failed the numeric-claim check before the policy was added. The completed
+  package suite passes. Token savings and model-quality effects were not measured
+
+**Known limits.**
+
+- Citation freshness remains a contributor/reviewer procedure. Full OIDs do not retain Git objects;
+  cited history must remain available. Raw Markdown can still expose full permalink targets
+- The owner graph remains a reviewed model; private rounding, stock-directory coupling, a hash
+  helper in records and shared dictionary/literal contracts remain existing seams
+- Local hooks and local passing checks are not remote enforcement. Native hooks on newer Git,
+  Ubuntu CI, Windows installation, remote signed/unsigned PR cases and required checks remain
+  unverified. Numeric detection still has the coverage limits documented in conventions §5
+- Install bundles constrain packages, not arbitrary OS/CPU/decoder identity. Ordinary `uvx` does
+  not consume the repository lock; doctor drift refusal and complete per-run stamps remain planned
+- Lighting bands and surface selection still need measured evidence or sourced human adoption.
+  Image bounds, reduced precision for 16-bit color, vignette/transfer-function sensitivity, bounded
+  emitter/subject proposals, bright-paint ambiguity and neighborhood-dependent spill remain
+- Shadow evidence still needs known subject pixels; one box cannot separate cast from form shadow
+  or judge a flat subject. A baked checkerboard remains insufficient alpha evidence
+- Precedent retrieval, recipes, previews/apply, ingest/promotion, pairwise bootstrap and external
+  rendering remain unbuilt. Blender/Inkscape installation was not rechecked in this documentation task
+
+**Waiting on a human.**
+
+- Authorize remote publication, then activate and verify the remote gates and release path
+- Validate or explicitly adopt/replace lighting policy and surface selection with a recorded basis
+- Review `docs/spec.md` and the artist brief
+- Name native industry-language owners for `ko`, `ja` and `zh-Hans` and review/restamp the README
+  translations; shipped locale translations also remain unconfirmed
+
+---
+
 ## 2026-09-16 · verified at `efe9802` · Codex
 
 The revision above is the fast-forwarded main tree verified before this status-only entry.
