@@ -4,6 +4,9 @@ Hand-written changes for users and contributors. An unreleased entry is not a pu
 
 ## Unreleased
 
+- Scope translation to the path a vocabulary contribution walks, and presume a contributor who works in
+  English everywhere else. `CONTRIBUTING.md` and the locale bundles' README become candidates; a directory
+  README elsewhere does not.
 - Rename the CLI's `asrai vocab get --compact` to `--full / --no-full`, so one word carries the axis on the CLI,
   the MCP tools and the library. The default is unchanged: `get` returns the whole entry, `search` does not.
 - Issue every subject surface of the lighting answer form as `null` and read an unanswered surface as

@@ -24,6 +24,132 @@ be, on the day the policy changed. Their wording is unchanged; only the shape is
 
 ---
 
+## 2026-09-17 · verified at `e30bea9` · Claude Opus 5
+
+A dogfooding pass: three personas — a developer with no art training, a technical artist, and a
+non-English-speaking TA arriving to contribute vocabulary — landed cold and ran an end-to-end asset
+diagnosis, with perturbation on each path. Intended gaps were excluded from the tour by the
+responsible human: stock unimplemented, onboarding unreviewed, only the light family built, the CLI
+tools unreviewed, and host registration for Claude Code, Codex, OpenCode and Hermes unreviewed. This
+entry supersedes the state, limits and waiting list of the entry below; that entry's account of the
+realm split stands unchanged.
+
+**State.**
+
+- phase: 1 (core and transports) and 1b (surface pass) remain complete; phase 2 is not implemented
+- last_acceptance_passed: 62 tests on CPython 3.14.7. Links: 0 broken, 0 unindexed. Translation
+  stamps: 3 current, 0 stale, 0 broken. A fresh wheel install passes CLI, actual stdio MCP, bundled
+  data and input preservation; its bundle is `dist/repro-answer-default`, and it is the check that
+  exercised the renamed CLI flag from outside the checkout. Every commit in this series passed both
+  installed hooks. Earlier entries retain Python 3.11, cross-version wheel and negative-hash
+  installation evidence
+- in_progress: everything landed here is local only; remote CI execution, DCO bootstrap,
+  required-check activation and release publication are untouched and still unverified
+- next_slice: when remote publication is authorized, land the reviewed DCO workflow/checker on the
+  remote default branch, exercise signed and unsigned PR cases, then require `Checks (Python 3.11)`,
+  `Checks (Python 3.14)` and `DCO`, and attach the verified install bundle to a release. Phase 2
+  remains separate: recipes, adapters, alpha policy, recipe hashes, preview/apply/diff
+- next_command: the landing checks in `runbook.md` §1 and commit range validation in §7
+- working_tree: main is the only worktree, `core.hooksPath=tools/hooks` active through
+  worktree-specific config. Nothing was pushed and no repository setting changed
+
+**What landed.**
+
+- **Silence stopped reading as agreement at the answer contract.** The lighting form issued every
+  subject surface pre-filled as `{no: [], unknown: []}` and the verdict fell through to `yes`, so a
+  form handed back exactly as issued — the path `spec.md` §7.1 tells the first reviewer to take —
+  reported `yes` on `specular`, `light_color`, `ambient`, `rim` and `albedo`. Perturbation showed the
+  default was unconditional: deleting the `subjects` key entirely still produced `yes`, while an
+  explicit `unknown` list produced `unknown`, so the mechanism existed and was simply never the
+  default. The form now issues `null`, an unanswered surface returns `unknown` and records nothing,
+  an answered one still passes every subject it does not list, and `cast_shadow` still falls through
+  to the measurement that owns it. Third occurrence of this defect class in the repository's history,
+  first at the answer contract. No schema bump: no answer sheet is persisted anywhere
+- The covering test walked that path and asserted nothing about the five surfaces, which is how the
+  default survived a suite that ran over it every time. It asserts them now
+- `asrai vocab get --compact` became `--full / --no-full`. `91a4bc7` had written the conventions §1a
+  row choosing `full` *and* shipped `--compact` on the CLI beside it, so the table read as though the
+  decision were carried out while the surface a human types kept the rejected word, printed on the
+  front page in four languages
+- The Korean, Japanese and Chinese READMEs were two commits behind and asserting deleted English:
+  the removed layout paragraph naming `cli` and `server` as core while omitting `light`, `uv sync`
+  without `--locked`, pytest as "the single gate", and byte equality against fixtures. All three are
+  current and restamped. No check was added — semantic staleness is what a stamp and a named owner
+  exist for, which the repository-operating skill already records
+- `docs/i18n/README.md` now scopes translation to the vocabulary contribution path and says why:
+  an industry's vocabulary map is polymorphic across language communities, so the term a studio in
+  that language actually says is the one thing only a contributor working in it can supply.
+  Everywhere else presumes a contributor who can work in English. `CONTRIBUTING.md` and the locale
+  bundles' README become candidates; a directory README elsewhere does not
+
+**Known limits.**
+
+- **The untrained reader still gets no sentence.** `spec.md` §1 owes reader one "an id, a box, a
+  direction, in a sentence they can hand to whoever fixes it". Phase one returns eight
+  artist-vocabulary questions and phase two a verdict object; no sentence is produced anywhere. The
+  `subjects.<surface>` questions render a literal `<subject>` placeholder, which is deliberate — the
+  question asks which subjects the statement is false for — but reads as an unsubstituted template
+- The repair for it is **decided in shape, not built**: align terms and phrasing per user profile
+  across the CLI and the MCP tools, and let a caller switch that alignment on and off. Nothing is
+  designed yet — not where a profile is declared, not whether it is a flag, a config key or a
+  parameter on every verb, and not what a profile may rename without becoming a second vocabulary.
+  It touches the tool descriptions, which are re-sent every turn and are on the byte budget
+- The realm ledger is a reviewed partition, not an enforced one. Nothing checks that every tracked
+  path falls in exactly one realm, that a stated verifier runs, or that a no-authority realm is never
+  cited as the reason for a rule. The skill names all three; none is written
+- The index check covers one directory through a hardcoded row, deliberately. A second index is a
+  second row, not a generalization written in advance
+- `2026-09-16-commit-policy.md` carries no stamp although it was written after the rule. A review is
+  never edited, so it cannot be repaired; its three values are in the index's provenance table instead
+- A perturbation pass over the skill proposed re-carving its four duplication archetypes as two
+  independent axes, after the responsible human rejected an unsupported correlation between
+  propagation range and authorship. That re-carving is **not applied** and remains a proposal
+- The owner graph is a reviewed model, not compiler enforcement. Private rounding, a shared stock
+  directory, a hash helper located in records and shared dictionary/literal contracts remain seams
+- Hooks are installed locally; a fresh clone still needs explicit installation, and local enforcement
+  is not a remote required check. Native hook tests ran on Apple Git 2.39.3
+- Local results are not GitHub Actions results. Ubuntu jobs, Windows installation, signed/unsigned
+  remote PR behaviour and required checks have not been exercised
+- A bundle pins Python and dependency versions and constrains artifact hashes; it does not make
+  OS/CPU wheels or native decoders identical. Ordinary `uvx asrai==<version>` does not consume the
+  repository lock, and `doctor --lock` reports drift without refusing
+- Agreement bands and surface selection still need measured evidence or a sourced human decision.
+  Synthetic estimator tests do not establish art-direction validity
+- `measure` refuses above 12 Mpx; 16-bit colour PNGs are measured at 8-bit precision. A heavy vignette
+  can bend shaded-mass direction into the observer band; the eight brightest blobs and at most sixteen
+  subjects are measured. Cast-shadow evidence needs known subject pixels and cannot separate cast from
+  form shadow inside one box
+- Precedent retrieval, recipes, previews/apply, ingest/promotion, the pairwise bootstrap and external
+  rendering remain unbuilt. Blender and Inkscape are not installed in the verified environment
+
+**Waiting on a human.**
+
+- Design the per-profile term alignment named above, or rule it out; the sentence spec.md §1 promises
+  reader one is blocked behind whichever answer that gets
+- Authorize remote publication, then activate and verify the remote gates and release path
+- Decide whether the skill's duplication archetypes are re-carved as two axes, as proposed above
+- Validate or explicitly adopt the lighting policy and surface selection with a recorded basis
+- Review `docs/spec.md` and the artist brief
+- Name native industry-language owners for `ko`, `ja` and `zh-Hans`; their translations are current
+  as of this entry, so what is missing is the name, not the text
+- Decide whether `CONTRIBUTING.md` and the locale bundles' README are translated now that they are
+  candidates, and into which of the three languages
+- Decide `observer.mode` default and embedding egress (`spec.md` §10)
+- Confirm external-tool versions on team machines before implementing their adapters
+
+**Standing facts.**
+
+- Inputs are immutable; outputs are new files; corpus records and prior checkpoint entries are
+  append-only; dated reviews remain historical and unedited
+- The runbook owns the judgment hierarchy and procedures. A conflicting implementation is defective
+- Documents are code that generates code: a wrong line in an operating document is executed by every
+  agent that reads it and fails nothing, which is why their arrangement is gated rather than trusted
+- An answer that was never given is not an answer. The three occurrences of this defect were at an
+  axis, at a measurement, and at the answer contract; each time the shape that carried it was a
+  default that looked like a value
+
+---
+
 ## 2026-09-17 · verified at `f2dea6e` · Claude Opus 5
 
 The revision above is this pass's last code/documentation commit; the entry itself follows it. The

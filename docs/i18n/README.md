@@ -10,21 +10,39 @@ worse than no translation at all.
 | document | translated? | why |
 |---|---|---|
 | [`README.md`](../../README.md) | yes | the entry point; a reader decides here whether the project is for them |
-| [`CONTRIBUTING.md`](../../CONTRIBUTING.md) | on demand | process, not contract |
-| a directory `README.md` | on demand | same |
+| [`CONTRIBUTING.md`](../../CONTRIBUTING.md) | reviewed | process, not contract, and on the vocabulary path |
+| [`locales/README.md`](../../src/asrai/data/stock/locales/README.md) | reviewed | how a locale bundle is written; the vocabulary path runs through it |
+| a directory `README.md` elsewhere | no | its reader has already crossed into English |
 | [`spec.md`](../spec.md), [`conventions.md`](../conventions.md), `SKILL.md` | **never** | a translated contract is a second source of truth. When two say different things, work stops to find out which one the code obeys |
 | [`review/`](../review/) | never | dated records, never edited at all |
 
 `docs/README.md` carries the same rule in one paragraph. This file is the mechanics.
+
+## Who a translation is for
+
+> 2026-09-17 · verified at e30bea9 · Shelby Yoon
+
+Translation is reviewed for the whole path a **vocabulary** contribution walks, and nowhere else.
+That path is the entry point, the contribution steps, and the locale bundle's own README. It gets
+the exception because it is the one realm this repository cannot maintain for itself: an industry's
+vocabulary map is polymorphic across language communities, so the term a studio in that language
+actually says is the single thing only a contributor who works in it can supply. Asking for it in
+English asks the wrong person.
+
+Everywhere else presumes a contributor who can work in English. Code, tests, tools, the contracts
+and the operating documents stay English-only, and a reader who has reached them has already
+crossed a boundary where English is the working language. This says which documents are candidates,
+not that each one is translated today; every translation still arrives with a named owner below,
+and a missing owner is why a candidate stays a candidate.
 
 ## Layout
 
 One directory per language, mirroring the repository path of the source:
 
 ```text
-docs/i18n/ko/README.md          <- README.md
-docs/i18n/ja/CONTRIBUTING.md    <- CONTRIBUTING.md        (when someone needs it)
-docs/i18n/zh-Hans/tests/README.md  <- tests/README.md     (when someone needs it)
+docs/i18n/ko/README.md        <- README.md
+docs/i18n/ja/CONTRIBUTING.md  <- CONTRIBUTING.md
+docs/i18n/zh-Hans/src/asrai/data/stock/locales/README.md  <- the locale bundles' README
 ```
 
 Nothing needs to be added to the tooling to extend this: `tools/check_translations.py` reads the path
