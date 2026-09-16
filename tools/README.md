@@ -7,7 +7,7 @@ None of these ships in the wheel; each is run with `uv run python tools/<name>.p
 | `validate_stock.py` | validates vocabulary v2 and the illustrative instructions — roughly 21,700 checks | runs inside `pytest`; standalone when you want the full report rather than pass/fail |
 | `review_locales.py` | mechanically reviews the eleven locale bundles and flags what a human still has to confirm | after touching any `locales/*.json` |
 | `make_fixtures.py` | creates the six measure fixtures once, and regenerates their expected JSON on demand | only for a deliberate change to what `measure` reports — see [tests/fixtures/](../tests/fixtures/README.md) |
-| `check_links.py` | resolves every relative markdown link and names the ones that go nowhere | before a pull request, and after renaming anything |
+| `check_links.py` | resolves every relative markdown link and names the ones that go nowhere, then names any file an enumerating README has stopped listing | before a pull request, and after renaming or adding anything |
 | `check_translations.py` | says how far each document under [`docs/i18n/`](../docs/i18n/README.md) has drifted from the English it was made from | before a pull request, and after editing a translated document |
 | `check_dco.py` | requires a valid signoff trailer on new commits, using `DCO_BASE_SHA` and `DCO_HEAD_SHA`; pre-adoption history is exempt | pull requests; tested with real temporary git histories inside pytest |
 | `commit_check.py` | checks commit structure, asrai owners, changed numeric literals and conditional trailers; missing Git evidence fails | installed hooks, `--rev`, `--range`, or `--selftest`; see [runbook §7](../docs/runbook.md#7-landing-a-change) |
