@@ -412,7 +412,9 @@ def test_malformed_input_raises_value_error(tmp_path):
     for bad in ("yes", {"emitters": {"zz": "lamp"}}, {"emitters": {"e1": "sun"}}, {"style": {"mode": "magic"}},
                 {"style": ["physical"]},   # a wrong type, not a wrong value: the check precedes the read
                 {"pairs": [{"subject": "ball", "emitter": "e1", "surface": "diffuse", "answer": "maybe"}]},
-                {"subjects": {"cast_shadow": {"no": ["ghost"]}}}, {"global": {"key": "yes!"}}, {"emitter_depth": {"e1": 1.5}}):
+                {"subjects": {"cast_shadow": {"no": ["ghost"]}}}, {"global": {"key": "yes!"}}, {"emitter_depth": {"e1": 1.5}},
+                {"pairs": 5}):             # the last sibling read before its type: enumerate raised TypeError,
+                                           # which both transports pass on as Python's words, not the contract's
         with pytest.raises(ValueError):
             run.ledger(p, BALL, answers=bad)
 

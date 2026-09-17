@@ -455,7 +455,10 @@ def _answers(a, emitters: list[dict], subjects: list[dict], run: str) -> dict:
         raise ValueError("emitter_depth must map proposed emitter ids to layer indexes")
     pairs = a.get("pairs") or []
     sids = {s["id"] for s in subjects}
-    for i, p in enumerate(pairs):
+    if not isinstance(pairs, list):    # the type before the value, as every sibling above does it:
+        raise ValueError("pairs must be a list of "                 # enumerate(5) raises in Python's
+                         f"{{subject, emitter, surface \u2208 {PAIR_SURFACES}, answer \u2208 {ANSWER_VALUES}}}")
+    for i, p in enumerate(pairs):                                   # words, not the contract's
         if not isinstance(p, dict) or p.get("subject") not in sids or p.get("emitter") not in eids \
                 or p.get("surface") not in PAIR_SURFACES or p.get("answer") not in ANSWER_VALUES + (None,):
             raise ValueError(f"pairs[{i}] must be {{subject, emitter, surface ∈ {PAIR_SURFACES}, answer ∈ {ANSWER_VALUES}}}")
