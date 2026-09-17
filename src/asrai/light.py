@@ -811,7 +811,10 @@ def _overlay(rgba: np.ndarray, emitters: list[dict], subjects: list[dict], agree
     d = ImageDraw.Draw(img)
     long = max(img.size)
     lw = max(1, round(long / 600))
-    font = ImageFont.load_default(size=max(10, long // 70))
+    # the size asked for, not the one read back: without FreeType `load_default` answers a bitmap
+    # font that carries no `size`, and the overlay is the one surface a reviewer actually looks at
+    pt = max(10, long // 70)
+    font = ImageFont.load_default(size=pt)
 
     def label(xy, text, color):
         d.text(xy, text, fill=color, font=font, stroke_width=lw, stroke_fill=(0, 0, 0))
@@ -820,14 +823,14 @@ def _overlay(rgba: np.ndarray, emitters: list[dict], subjects: list[dict], agree
         x, y, w, h = e["bbox"]
         color = REJECTED_COLOR if e["kind"] in REJECTED_KINDS else EMITTER_COLOR   # a hold stays proposed
         d.rectangle([x, y, x + w - 1, y + h - 1], outline=color, width=lw)
-        label((x, max(0, y - font.size - 2)), e["id"], color)
+        label((x, max(0, y - pt - 2)), e["id"], color)
     for s in subjects:
         x, y, w, h = s["bbox"]
         d.rectangle([x, y, x + w - 1, y + h - 1], outline=SUBJECT_COLOR, width=lw)
         label((x + lw + 1, y + lw + 1), s["id"], SUBJECT_COLOR)
         if not s["bright_side"]:
             continue
-        length = max(3 * font.size, 0.6 * np.sqrt(s["pixels"] / np.pi))
+        length = max(3 * pt, 0.6 * np.sqrt(s["pixels"] / np.pi))
         tip = _arrow(d, s["centroid"], s["bright_side"]["vector"], length, BRIGHT_COLOR, lw)
         if _shadow_measured(s):            # where the shaded mass sits: it belongs opposite the yellow arrow
             _arrow(d, s["centroid"], s["shadow"]["vector"], 0.7 * length, SHADOW_COLOR, lw)
