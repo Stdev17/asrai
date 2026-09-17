@@ -192,6 +192,7 @@ written for one hypothetical case is the speculative scaffolding these documents
 | a write-policy glob agrees with the tool that applies it | glob against tool scope | two |
 | a cross-boundary signature appears in two READMEs | string equality | none; wait for the second level |
 | a README names a node two hops away | name reachability | none |
+| a naming decision cites a name that resolves to more than one surface | the name against the surfaces carrying it | one; the other rows already write the call form |
 | a no-authority realm cited as the reason for a rule | string, path against citation | cheap to run and to keep |
 | a realm's stated command verifier does not run | execution | cheap |
 | a rule stated in two documents | — | not mechanisable; review obligation |
