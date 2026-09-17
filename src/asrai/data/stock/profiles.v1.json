@@ -1,0 +1,71 @@
+{
+  "schema_version": "profiles.v1",
+  "title": "Reader profiles",
+  "description": "Which rendering of a finished verdict a reader is handed. A profile is a view, never a truth: it selects how a result is said and is not an input to what the result says. The three readers themselves are owned by docs/spec.md section 1, which is where a reader is defined and argued; this file holds only the operational consequence of the column headed 'what asrai owes them'. The reasoning, and the measured cost of confusing this with a persona the model adopts, are in docs/review/2026-09-17-profile-alignment.md.",
+  "invariants": [
+    "No profile is the default. A result is complete before any profile is applied, and applying none is a supported reading.",
+    "Judgment outranks expression. One asset and one set of answers produce a byte-identical verdict and record under every profile; only the rendering differs, and the test that pins this is test_light.py.",
+    "`unknown` is said as a hold under every profile. That is docs/spec.md section 1 and applies to all readers, so it is not an axis here: an axis with one value across every row costs a field and buys nothing.",
+    "A profile never names a person. Its rows are readers, not contributors."
+  ],
+  "axes": {
+    "vocabulary": {
+      "values": [
+        "avoid",
+        "assume"
+      ],
+      "means": "whether a rendered line may carry a term id. `avoid` is for a reader who does not have the vocabulary, so a line naming one would be unusable rather than merely verbose."
+    },
+    "basis": {
+      "values": [
+        "omit",
+        "show"
+      ],
+      "means": "whether each line says what decided it, measured or observed."
+    },
+    "settled": {
+      "values": [
+        "say",
+        "silence"
+      ],
+      "means": "what the measurement decided on its own. `silence` is what docs/spec.md section 1 owes an art director, whose attention is the contested band; the finding still reaches the observation record either way."
+    },
+    "contested": {
+      "values": [
+        "name",
+        "hand_over"
+      ],
+      "means": "what the measurement could not decide. `name` says that it is undecided and stops; `hand_over` attaches the evidence, which is the residual or opposition angle the band was judged on. Both name it: an undecided surface is never omitted, under any profile."
+    }
+  },
+  "profiles": [
+    {
+      "id": "untrained",
+      "owes": "docs/spec.md#1-purpose-and-non-goals",
+      "vocabulary": "avoid",
+      "basis": "omit",
+      "settled": "say",
+      "contested": "name",
+      "note": "The measurement carries this reader, so what it settled is exactly what they are told, and a surface nobody answered is said out loud rather than omitted. An omitted line reads as a clean one."
+    },
+    {
+      "id": "artist",
+      "owes": "docs/spec.md#1-purpose-and-non-goals",
+      "vocabulary": "assume",
+      "basis": "show",
+      "settled": "say",
+      "contested": "name",
+      "note": "Owed the basis of every claim, so every line says whether a measurement or an observer decided it. The record is what survives into the next review; these lines are the same findings in one pass."
+    },
+    {
+      "id": "art_director",
+      "owes": "docs/spec.md#1-purpose-and-non-goals",
+      "vocabulary": "assume",
+      "basis": "omit",
+      "settled": "silence",
+      "contested": "hand_over",
+      "note": "Owed silence on what the measurement can settle and the contested band with its evidence attached. `basis` is omitted because nothing that survives the silence was decided by a measurement, so saying so on every line would carry no information."
+    }
+  ],
+  "open": "`settled` and `contested` currently co-vary: only art_director differs on either. They are kept separate because they answer different questions — what to suppress and what to enrich — and a profile that suppresses without enriching is the obvious fourth row. Collapse them if that row never arrives."
+}

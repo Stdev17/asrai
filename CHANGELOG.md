@@ -4,6 +4,9 @@ Hand-written changes for users and contributors. An unreleased entry is not a pu
 
 ## Unreleased
 
+- Ship reader profiles (`profiles.v1.json`) as stock data: four axes over the three readers `spec.md` §1
+  already names, selecting how a finished verdict is said. A profile is a view, not a truth — the same
+  asset and answers produce an identical verdict and record under every one, and none is the default.
 - Say the lighting verdict as sentences for a reader with no art vocabulary: an id, a box and a direction
   per finding, with a surface nobody answered said out loud rather than omitted. It is a projection of a
   finished verdict and is not yet reachable from the CLI or the MCP tools.

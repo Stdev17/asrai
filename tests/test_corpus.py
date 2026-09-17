@@ -1,6 +1,7 @@
 """The vocabulary ships inside the wheel, so its validators belong in the suite, not in a README step."""
 import json
 from copy import deepcopy
+from pathlib import Path
 
 import pytest
 import review_locales
@@ -64,6 +65,30 @@ def test_surfaces_map_onto_the_vocabulary_and_the_skill():
         # a surface that claims a ledger field must be one the measurement reaches, and the reverse
         assert bool(s["ledger"]) == (s["decided_by"] != "observer"), s["id"]
     assert doc["style_exemption"]["term"] in vocab.index()
+
+
+def test_every_profile_answers_every_axis_and_no_axis_answers_itself():
+    """A profile is a view over a verdict, so the file that defines one has to be as strict as the
+    verdict is. Two rules, and both are this repository's own defects turned into checks.
+
+    A profile declares every axis. An absent field would default silently, which is the failure this
+    codebase has now fixed at an axis, a measurement, an answer contract and a rendered line.
+
+    No axis holds one value across every profile. A constant is not a choice; it is an invariant
+    wearing a field, and every field a persona carries is paid for in how few readers it describes
+    (Chapman, Love, Milham, ElRif and Alford 2008, cited in the 2026-09-17 review). `unknown` reads as
+    a hold for all three readers, which is why it is prose in this file and not a column."""
+    doc = json.loads((vocab.DATA / "profiles.v1.json").read_text("utf-8"))
+    spec = (Path(__file__).resolve().parent.parent / "docs" / "spec.md").read_text("utf-8")
+    ids = [p["id"] for p in doc["profiles"]]
+    assert len(ids) == len(set(ids)) and ids
+    for row in doc["profiles"]:
+        for axis, meta in doc["axes"].items():
+            assert row.get(axis) in meta["values"], f"{row['id']}.{axis}"
+        assert row["owes"].startswith("docs/spec.md#")
+        assert "## 1. Purpose and non-goals" in spec          # the anchor the row points at
+    for axis in doc["axes"]:
+        assert len({row[axis] for row in doc["profiles"]}) > 1, f"{axis} is constant: an invariant, not an axis"
 
 
 def test_the_skill_names_every_context_key_lint_requires():

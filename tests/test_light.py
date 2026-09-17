@@ -274,6 +274,42 @@ def test_the_reader_with_no_training_gets_a_sentence_and_the_verdict_does_not_mo
     assert any("too faint to measure" in s for s in flat) and any("no one has looked" in s for s in flat)
 
     assert light.sentences(lone) == []                               # phase one has no verdict to project
+    with pytest.raises(ValueError, match="unknown profile"):
+        light.sentences(out, "art director")
+
+
+def test_three_profiles_say_one_verdict_three_ways_and_none_of_them_moves_it(tmp_path):
+    """The gate the 2026-09-17 review specifies: a profile is a view, so one asset and one set of
+    answers must produce the same verdict under every profile. What differs is the saying. The scene is
+    in the contested band deliberately, because that is where all four axes have something to do."""
+    disc(180).save(tmp_path / "a.png")                    # 37.9 degrees off: too far to pass, too close to fail
+    form = light.ledger(tmp_path / "a.png", BALL)["form"]
+    form["emitters"] = {"e1": "lamp", "e2": "paint"}
+    form["subjects"] = {"ambient": {"no": ["ball"]}}
+    out = light.ledger(tmp_path / "a.png", BALL, answers=form, out_dir=tmp_path / "o")
+
+    frozen = json.dumps(out["verdict"], sort_keys=True), json.dumps(out["record"], sort_keys=True)
+    said = {p["id"]: light.sentences(out, p["id"]) for p in light.profiles()["profiles"]}
+    assert (json.dumps(out["verdict"], sort_keys=True), json.dumps(out["record"], sort_keys=True)) == frozen
+    assert len({tuple(v) for v in said.values()}) == 3          # three readings, and they are not the same
+
+    band = {k: next(s for s in v if "lit side" in s) for k, v in said.items()}
+    assert "(observer)" in band["artist"] and "37.875 degrees" in band["art_director"]
+    assert "(" not in band["untrained"].removeprefix("The lit side of ball (box 50,30 to 80,80)")
+    assert all("nobody has ruled" in s for s in band.values())  # the band is named to every reader
+
+    # `assume` lets a line carry the term id; `avoid` may not, because that reader cannot use one
+    wrong = {k: next(s for s in v if "missing or inconsistent" in s) for k, v in said.items()}
+    assert "lighting.ambient" in wrong["artist"] and "lighting.ambient" not in wrong["untrained"]
+
+    # silence on what the measurement settled, for the one reader spec section 1 owes it to
+    disc(225).save(tmp_path / "b.png")                    # dead on: the measurement decides alone
+    f2 = light.ledger(tmp_path / "b.png", BALL)["form"]
+    f2["emitters"] = {"e1": "lamp", "e2": "paint"}
+    settled = light.ledger(tmp_path / "b.png", BALL, answers=f2, out_dir=tmp_path / "o2")
+    assert any("agrees with e1" in s for s in light.sentences(settled, "untrained"))
+    assert not any("agrees with e1" in s for s in light.sentences(settled, "art_director"))
+    assert any("no one has looked" in s for s in light.sentences(settled, "art_director"))
 
 
 def test_no_alpha_and_no_subjects(tmp_path):

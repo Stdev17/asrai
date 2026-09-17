@@ -1,6 +1,6 @@
 {
   "algorithm": "sha256",
-  "file_count": 27,
+  "file_count": 28,
   "generated_by": {
     "trim_vocab.py": "a40fc93f513c88358895176e4f4ad4bb31df83e93ce8d2dc3fcb57bb414662bd",
     "review_locales.py": "cf0acc7a9a9a75dd8bee2b47058ebd2829f4dea9eca1e759151acd646a9c4e3d",
@@ -38,6 +38,7 @@
     "surfaces.v1.json": "45178e59dd106da7b6a5901d9fd015477b3a062c79194833b2203ae0a1dac1bc",
     "validation_report.json": "292ab4d876178f143b5c13d742cef7859209e8d0d2151d52d9439235b8386a79",
     "vocab.v2.json": "9a8e8cc54202d241f952abfc248ab0a9e87d4ce2937f8c32ca7319217c28f17c",
-    "vocab.v2.schema.json": "f24d002752913f93757ff64c162014650b57b1fc53d0832c21b3915ad6afeac6"
+    "vocab.v2.schema.json": "f24d002752913f93757ff64c162014650b57b1fc53d0832c21b3915ad6afeac6",
+    "profiles.v1.json": "c6624a9c9f1d116c635ac229034204bba98f91aaddef4e637d3d8480ca593f3c"
   }
 }
