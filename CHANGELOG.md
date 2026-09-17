@@ -4,6 +4,11 @@ Hand-written changes for users and contributors. An unreleased entry is not a pu
 
 ## Unreleased
 
+- Add the reader overlay: what a team's records demonstrate about the vocabulary they work in, projected
+  from `records.jsonl` and cached beside it. It is derived, so deleting it loses only time, and it says
+  what a corpus demonstrates rather than anything about a person. Nothing consumes it yet.
+- Add a `cache` realm to the architecture ledger for derived views that own no invariant. It is a row and
+  not a node: nothing propagates from a projection that may be deleted at any time.
 - Add `--profile` to `asrai light-ledger` and `profile` to the `light_ledger` MCP tool: with one, the
   result carries `sentences`, the same findings said for that reader; without one, the result is
   unchanged. The profile never reaches the measurement — both transports apply it to a finished result.

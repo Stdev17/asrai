@@ -51,11 +51,11 @@
     },
     {
       "id": "package.modules",
-      "value": 9,
+      "value": 10,
       "truth": "*.py under src/asrai",
       "claimed_in": {
-        "README.md": "nine modules",
-        "src/asrai/README.md": "Nine modules"
+        "README.md": "ten modules",
+        "src/asrai/README.md": "Ten modules"
       }
     },
     {

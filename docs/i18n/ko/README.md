@@ -73,7 +73,7 @@ uv run python tools/make_fixtures.py    # 의도적으로 바꾼 뒤 tests/fixtu
 
 ```mermaid
 flowchart TD
-    ROOT["asrai/"] --> SRC["src/asrai/<br/>모듈 9개"] & DOCS["docs/<br/>계약, 규약, 상태"] & TESTS["tests/<br/>유일한 게이트"] & TOOLS["tools/<br/>코퍼스 스크립트"]
+    ROOT["asrai/"] --> SRC["src/asrai/<br/>모듈 10개"] & DOCS["docs/<br/>계약, 규약, 상태"] & TESTS["tests/<br/>유일한 게이트"] & TOOLS["tools/<br/>코퍼스 스크립트"]
     SRC --> DATA["data/<br/>휠에 실린다"]
     DATA --> SKILL["skill/<br/>SKILL.md"] & STOCK["stock/<br/>어휘, 서피스, 로케일"]
     DOCS --> REVIEW["review/<br/>날짜 박힌 결정"]

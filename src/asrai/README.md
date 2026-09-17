@@ -1,12 +1,14 @@
 # `src/asrai/` — the package
 
-Nine modules include transports, core owners and version metadata; **nothing in the core imports a
+Ten modules include transports, core owners and version metadata; **nothing in the core imports a
 transport**, which is what makes invariant 9 (`CLI and MCP produce the same output for the same
 fixture`) structural rather than a promise.
 
 This page is the **feature realm's interior**, one level below the
 [realm ledger](../../docs/architecture.md). Module count is not responsibility count: every module
-drawn in the graph below owns an invariant, while `cli`, `server` and `__init__` do not.
+drawn in the graph below owns an invariant, while `cli`, `server`, `profile` and `__init__` do not.
+`profile` is the exception worth naming: it projects a cache, and the `cache` realm owns nothing by
+construction, so a module that only writes one cannot own an invariant either.
 
 ## Owner dependencies
 
@@ -51,6 +53,7 @@ Python APIs, so the graph cannot be recovered faithfully from an import count. N
 | `light.py` | the surface pass: `surfaces.v1` instantiated as a two-phase ledger | `ledger`, `surfaces` | direction may be measured; magnitude may not be invented. Every number it returns is a measurement, a count or a sign |
 | `records.py` | append-only JSONL — `observation.v1`, `pairwise.v1`, `instruction.v2` | `validate`, `append`, `read`, `canonical_json`, `sha256_file`, `new_id` | invariants 6 and 12 — nothing is edited or deleted, and `L2_ONLY` terms stay `unknown` at L1 |
 | `doctor.py` | the environment report and `asrai.lock.json` | `run`, `snapshot`, `tool_version`, `pinned_view` | invariant 14 — every run can say what it ran with, and drift is reported |
+| `profile.py` | the overlay: what a team's records demonstrate about the vocabulary, cached beside them | `project`, `overlay`, `digest` | none. It is a projection of `records.jsonl`, and the [`cache` realm](../../docs/architecture.md) owns no invariant: a wrong row is deleted, never repaired |
 | `cli.py` | the CLI transport | `main`, `build_parser` | one JSON document per command, printed, never written into an input |
 | `server.py` | the stdio MCP transport | the seven tools below, `main` | the byte budget of spec.md §6: the tool surface measures 3,810 bytes and is held under 1,200 tokens by a test, and detail goes to `SKILL.md`; `retrieve` and `preview` are still to come |
 | `__init__.py` | the version string | — | — |
