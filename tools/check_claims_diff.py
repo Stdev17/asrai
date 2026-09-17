@@ -97,6 +97,17 @@ def prose_only(path: str, rows: list[tuple[int, str]]) -> list[tuple[int, str]]:
     return [(n, " ".join(said[n])) for n, _ in rows if n in said]
 
 
+def numerals(value) -> tuple[str, ...]:
+    """Every way prose writes this magnitude as a numeral: bare, and with a thousands separator.
+
+    The writing direction. `NUMERAL` above is the reading one, and the two have to agree: a spelling one
+    of them knows and the other does not is a number that passes whichever tier happens to be asked.
+    They are one definition here, in the module both tiers already import `NUMBER_WORDS` from, because
+    three answers to one question is how a number gets around all of them."""
+    plain = str(value)
+    return (plain,) if not isinstance(value, int) or abs(value) < 1000 else (plain, f"{value:,}")
+
+
 def numbers(text: str):
     """Every magnitude a sentence carries, after the shapes that are never claims are removed."""
     for pattern in DROP:

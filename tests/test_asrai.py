@@ -10,7 +10,7 @@ from PIL import Image, ImageDraw
 
 # The words a document may spell a number with live with the scanner that looks for them, so the
 # anchor check below and the net around it cannot come to know different words.
-from check_claims_diff import NUMBER_WORDS
+from check_claims_diff import NUMBER_WORDS, numerals
 
 from asrai import config, doctor, measure, records, vocab
 
@@ -253,6 +253,11 @@ def test_the_claims_scanner_finds_a_magnitude_and_not_a_reference():
     assert found("the emitter it points at when that one is at least a quarter as strong") == {0.25}
     assert found("measures 0.37 of shaded strength on a box") == {0.37}
     assert found("the surface measures 3,843 bytes and is held under 1,200 tokens") == {3843, 1200}
+    # the two directions are one definition: every spelling the claims test looks for is a spelling the
+    # scanner reads back as that number, so neither tier has a form the other cannot see
+    assert scanner.numerals(1200) == ("1200", "1,200") and scanner.numerals(7) == ("7",)
+    for value in (7, 475, 1200, 3843, 0.25):
+        assert all(found(spelling) == {value} for spelling in scanner.numerals(value)), value
     assert found("`measure.v1` on 2026-09-17, Python 3.14, runbook §1, tier 2, tiers 1 and 2, e2 at L1") == set()
     src = (Path(__file__).resolve().parent.parent / "tools" / "check_claims_diff.py").read_text("utf-8")
     lines = src.splitlines()
@@ -324,7 +329,7 @@ def test_every_number_the_documents_claim_is_the_number_the_repository_has():
         word = NUMBER_WORDS.get(value, "")
         for path, phrase in c["claimed_in"].items():
             # the wording has to carry the number itself, or a claim could be met by unrelated prose
-            if str(value) not in phrase and f"{value:,}" not in phrase and (not word or word not in phrase.lower()):
+            if not any(n in phrase for n in numerals(value)) and (not word or word not in phrase.lower()):
                 unanchored.append(f"{c['id']} -> {path}: {phrase!r} does not contain {value}")
             elif phrase not in (root / path).read_text("utf-8"):
                 absent.append(f"{c['id']} -> {path}: {phrase!r}")
@@ -334,7 +339,7 @@ def test_every_number_the_documents_claim_is_the_number_the_repository_has():
             # For a one-digit value this net is weak -- a stray 6 passes it -- and the strong check
             # stays on the English source above.
             for mirror in sorted((root / "docs" / "i18n").glob(f"*/{path}")):
-                if str(value) not in mirror.read_text("utf-8"):
+                if not any(n in mirror.read_text("utf-8") for n in numerals(value)):
                     untranslated.append(f"{c['id']} -> {mirror.relative_to(root)}: no {value}")
     assert not wrong, wrong
     assert not unanchored, unanchored
