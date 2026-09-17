@@ -1,4 +1,4 @@
-<!-- translation-of: README.md@769d7f72d58cc923e50084982437edc01ba63395 -->
+<!-- translation-of: README.md@250a3358d33036001aa1cf25f6d0b9de4214bbb4 -->
 > 本文是原文 [README.md](../../../README.md) 的翻译。**英文为正本**，如有出入以原文为准。
 > 译文是否落后于原文，由 `uv run python tools/check_translations.py` 给出。
 
