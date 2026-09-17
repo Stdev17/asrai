@@ -108,11 +108,18 @@ def test_records_validation_and_append(tmp_path):
         records.append(base | {"asset_kind": "screenshot"}, log)
     with pytest.raises(ValueError, match="render_profile_id"):
         records.append(base | {"asset_kind": "svg"}, log)
+    # a required field is a string, and a null is not a shorter one: `str(None)` is the string `None`,
+    # so the check that catches an empty model used to pass the value the ledger actually builds
+    for model in (None, "", "  ", 7):
+        with pytest.raises(ValueError, match="observer.model required"):
+            records.append(base | {"observer": OBSERVER | {"model": model}}, log)
     pair = {"kind": "pairwise", "evidence_layer": "L1", "term_id": "color.saturation", "a": SHA, "b": "b" * 64,
             "verdict": "prefer_a", "by": "model"}
     with pytest.raises(ValueError, match="order_checked"):
         records.append(pair, log)
     records.append(pair | {"by": "human"}, log)
+    with pytest.raises(ValueError, match="a must reference"):
+        records.append(pair | {"by": "human", "a": None}, log)      # the same hole, on the other side
     assert len(records.read(log)) == 3
 
 

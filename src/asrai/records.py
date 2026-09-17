@@ -53,6 +53,13 @@ def validate(record: dict) -> list[str]:
     return errors
 
 
+def _missing(value) -> bool:
+    """A required field is a non-empty string, and this is the test for one. It used to be
+    `str(value).strip()`, and `str(None)` is the string `None`: an empty value was caught and a null
+    was not, so a null passed every check that calls its field required and reached the corpus."""
+    return not isinstance(value, str) or not value.strip()
+
+
 def _validate_observation(r: dict) -> list[str]:
     e = []
     if not HEX64.match(str(r.get("asset_sha256", ""))):
@@ -75,7 +82,7 @@ def _validate_observation(r: dict) -> list[str]:
     if obs.get("mode") not in ("host", "api"):
         e.append("observer.mode must be host or api")
     for key in ("model", "prompt_rev"):
-        if not str(obs.get(key, "")).strip():
+        if _missing(obs.get(key)):
             e.append(f"observer.{key} required")
     items = r.get("observations")
     if not isinstance(items, list) or not items:
@@ -107,7 +114,7 @@ def _validate_pairwise(r: dict) -> list[str]:
     if r.get("term_id") not in vocab.index():
         e.append(f"unknown term_id {r.get('term_id')!r}")
     for side in ("a", "b"):
-        if not str(r.get(side, "")).strip():
+        if _missing(r.get(side)):
             e.append(f"{side} must reference an asset sha256, a record id or a case id")
     if r.get("verdict") not in VERDICTS:
         e.append(f"verdict must be one of {VERDICTS}")
