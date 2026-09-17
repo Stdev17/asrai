@@ -24,6 +24,137 @@ be, on the day the policy changed. Their wording is unchanged; only the shape is
 
 ---
 
+## 2026-09-17 · verified at `b83a0ae` · Claude Opus 5
+
+The three schemas the profile review specified are built, and the overlay is consumed. The entry below
+lists schemas B and C as not built and the profiles as stereotypes with nothing behind them; this entry
+supersedes those limits and the waiting list around them. Its account of the answer-contract repair and
+the translation work stands unchanged.
+
+**State.**
+
+- phase: 1 (core and transports) and 1b (surface pass) remain complete; phase 2 is not implemented
+- last_acceptance_passed: 69 tests on CPython 3.14.7. Links: 0 broken, 0 unindexed. Translation
+  stamps: 3 current, 0 stale, 0 broken. A fresh wheel install passes CLI, actual stdio MCP, bundled
+  data and input preservation; its bundle is `dist/repro-overlay`, the first to cover the overlay read
+  on the installed CLI. The MCP tool surface measures 3,810 bytes, 896 tokens, against an unchanged
+  1,000-token soft and 1,200-token hard cap. Ten modules under `src/asrai`. Every commit passed both
+  installed hooks. Earlier entries retain Python 3.11, cross-version wheel and negative-hash
+  installation evidence
+- in_progress: everything is local. Remote CI execution, DCO bootstrap, required-check activation and
+  release publication are untouched and still unverified
+- next_slice: when remote publication is authorized, the DCO workflow, signed and unsigned PR cases,
+  the three required checks and a release with the verified bundle attached. Phase 2 remains separate:
+  recipes, adapters, alpha policy, recipe hashes, preview/apply/diff
+- next_command: the landing checks in `runbook.md` §1 and commit range validation in §7
+- working_tree: main is the only worktree, `core.hooksPath=tools/hooks` active. Nothing pushed and no
+  repository setting changed. An untracked `.codex/config.toml` written by another tool is left alone;
+  the commit hook caught it as an unnamed `root` owner and kept it out of every commit
+
+**What landed.**
+
+- **Schema B, the overlay, is a cache and needed no write path.** It projects `records.jsonl` into what
+  a corpus demonstrates about the vocabulary, keyed by term and category. The review sketched a write
+  verb for an agent to call; it was dropped when the evidence turned out to be in the corpus already,
+  since an observation names the terms it was recorded under and a superseding record names the scope
+  somebody overruled. A cache that accepts writes is a source wearing a cache's name. The sketch's
+  weakest state, that a term had been shown to a reader, went with it because nothing observes it
+- It says what a **corpus** demonstrates, never anything about a person: records name an observer's
+  mode and model and no human, so there is nobody there to profile, and the review forbids putting one
+  there. Absence means no evidence and never a finding, which the file states in its own `unobserved`
+  field rather than leaving a reader to infer
+- **The overlay overrides the reader profile on vocabulary, and on nothing else.** A term this corpus
+  has written about is named even for the reader with no art training, because it is what that team
+  says out loud; the hundreds nobody has used stay plain, and a reader who needs the canonical term
+  asks an artist. The other three axes do not move: the evidence is which terms a corpus wrote, and
+  reading what to suppress or enrich out of that would be an inference the evidence never made
+- **A `cache` realm entered the ledger as a row and not a node.** Nothing propagates from a projection
+  that may be deleted at any time, and its repair is deletion rather than correction, which is what
+  lets it own no invariant. `profile.py` therefore joins `cli`, `server` and `__init__` as a module
+  with no invariant — a consequence of the realm, not an exception to the owner graph
+- **Schema C shipped as `.agents/skills/persona-build/`.** End-user personas as spec-perturbation
+  mode 2 over an artifact that already exists: fix the sample, vary one dimension of who arrives, walk
+  each path, record what only that path exposed. Six fields, of which `not_licensed` names what the
+  projection may never claim and `varied` is what makes the set cheap to re-run. It is written against
+  the field's two objections rather than around them, and `spec-perturbation` now names two worked
+  instances of mode 2 rather than one
+- **The ten-node diagram threshold binds the feature realm only.** A realm is not a subsystem, and the
+  data realm's interior is a vocabulary whose size is the point rather than a symptom. The general rule
+  in the repository-operating skill stays per-level fan-out, which survives any repository's scale
+  because it is not one number
+
+**Known limits.**
+
+- Nothing reads the overlay except `sentences`. Whether it should reach anything else — a tool
+  description, a question the form asks, what `SKILL.md` puts in front of an agent — is undecided, and
+  each would be a different claim about what the evidence supports
+- The overlay is per corpus, not per person, by design and by the absence of any person in a record.
+  A team whose records are written by several people cannot be told apart, and nothing here will change
+  that without a contract change to `observation.v1` that the review's privacy rule would have to
+  authorize first
+- `settled` and `contested` co-vary in `profiles.v1.json`: only `art_director` differs on either. The
+  file says so in `open` rather than hiding it; a profile that suppresses without enriching decides it
+- The prevalence figures behind the review's second failure mode were not obtained. The direction is
+  established and the magnitude is not
+- Four subject surfaces — `specular`, `ambient`, `rim`, `albedo` — carry no `basis` field in the
+  verdict, so when an observer answers them nothing says the observer decided them
+- The realm ledger is a reviewed partition, not an enforced one. Nothing checks that every tracked path
+  falls in exactly one realm, that a stated verifier runs, or that a no-authority realm is never cited
+  as the reason for a rule
+- The index check covers one directory through a hardcoded row, deliberately
+- `2026-09-16-commit-policy.md` carries no stamp although it was written after the rule; its three
+  values are in the review index's provenance table instead
+- The proposed re-carving of the skill's four duplication archetypes as two axes is **not applied**
+- The owner graph is a reviewed model, not compiler enforcement. Private rounding, a shared stock
+  directory, a hash helper located in records and shared dictionary/literal contracts remain seams
+- Hooks are installed locally; a fresh clone still needs explicit installation, and local enforcement
+  is not a remote required check. Native hook tests ran on Apple Git 2.39.3
+- Local results are not GitHub Actions results. Ubuntu jobs, Windows installation, signed and unsigned
+  remote PR behaviour and required checks have not been exercised
+- A bundle pins Python and dependency versions and constrains artifact hashes; it does not make OS/CPU
+  wheels or native decoders identical. Ordinary `uvx asrai==<version>` does not consume the repository
+  lock, and `doctor --lock` reports drift without refusing
+- Agreement bands and surface selection still need measured evidence or a sourced human decision
+- `measure` refuses above 12 Mpx; 16-bit colour PNGs are measured at 8-bit precision. A heavy vignette
+  can bend shaded-mass direction into the observer band; the eight brightest blobs and at most sixteen
+  subjects are measured. Cast-shadow evidence needs known subject pixels and cannot separate cast from
+  form shadow inside one box
+- Precedent retrieval, recipes, previews and apply, ingest and promotion, the pairwise bootstrap and
+  external rendering remain unbuilt. Blender and Inkscape are not installed in the verified environment
+
+**Waiting on a human.**
+
+- Decide whether the overlay reaches anything beyond `sentences`, and on what evidence
+- Decide whether `CONTRIBUTING.md` and the locale bundles' README are translated now that they are
+  candidates, and into which of the three languages
+- Authorize remote publication, then activate and verify the remote gates and release path
+- Decide whether the skill's duplication archetypes are re-carved as two axes
+- Validate or explicitly adopt the lighting policy and surface selection with a recorded basis
+- Review `docs/spec.md` and the artist brief
+- Name native industry-language owners for `ko`, `ja` and `zh-Hans`; their translations are current as
+  of this entry, so what is missing is the name, not the text
+- Decide `observer.mode` default and embedding egress (`spec.md` §10)
+- Confirm external-tool versions on team machines before implementing their adapters
+
+**Standing facts.**
+
+- Inputs are immutable; outputs are new files; corpus records and prior checkpoint entries are
+  append-only; dated reviews remain historical and unedited
+- The runbook owns the judgment hierarchy and procedures. A conflicting implementation is defective
+- Documents are code that generates code: a wrong line in an operating document is executed by every
+  agent that reads it and fails nothing, which is why their arrangement is gated rather than trusted
+- A profile is the audience, never a voice the model adopts. Judgment outranks expression, one verdict
+  reads three ways, and a `sentences` line is never a finding and is never recorded
+- A cache owns nothing and is repaired by deletion. Nothing may be written to one that cannot be
+  derived again, and no document may cite one
+- **An answer that was never given is not an answer, and this repository gets it wrong at every new
+  layer it builds.** Fixed at an axis, at a measurement, at the answer contract, and four times in one
+  afternoon in the rendering layer added to fix it. Every one of those four was caught by running the
+  code and reading its output, and none by a test that already existed. That is the method: read what
+  the thing actually says to a reader, and look for the state that is expressed by absence
+
+---
+
 ## 2026-09-17 · verified at `5c5e3e6` · Claude Opus 5
 
 The repairs the persona tour found, and the profile work the tour's fourth finding opened. The entry
