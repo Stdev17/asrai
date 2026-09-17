@@ -281,6 +281,7 @@ def test_the_claims_scanner_finds_a_magnitude_and_not_a_reference():
     for value in (7, 475, 1200, 3843, 0.25):
         assert all(found(spelling) == {value} for spelling in scanner.numerals(value)), value
     assert found("`measure.v1` on 2026-09-17, Python 3.14, runbook §1, tier 2, tiers 1 and 2, e2 at L1") == set()
+    assert found("spec.md section 7.1 and §7.1 both point at the surface pass") == set()
     src = (Path(__file__).resolve().parent.parent / "tools" / "check_claims_diff.py").read_text("utf-8")
     lines = src.splitlines()
     code = next(i for i, line in enumerate(lines, 1) if line.startswith("NUMBER_WORDS = {"))

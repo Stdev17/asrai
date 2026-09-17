@@ -45,9 +45,10 @@ DROP = (re.compile(r"`[^`]*`"),                       # an id in code voice is a
         re.compile(r"\b\d{4}-\d{2}-\d{2}\b"),         # dates
         re.compile(r"\bv?\d+(?:\.\d+){2,}\b|\bv\d+(?:\.\d+)+\b|\bPython \d+(?:\.\d+)*"),
         re.compile(r"\.v\d+\b|\b[A-Za-z]+\d+\b|\b[0-9a-f]{7,}\b|#\d+|\b\d+-bit\b"),
-        re.compile(r"§\s*\d+|\b(?:tiers?|sections?|steps?|phases?|rounds?|invariants?|items?|figures?"
-                   r"|tables?)\s+(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten)"
-                   r"(?:\s*(?:,|and)\s*(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten))*\b", re.I),
+        re.compile(r"§\s*\d+(?:\.\d+)*|\b(?:tiers?|sections?|steps?|phases?|rounds?|invariants?|items?"
+                   r"|figures?|tables?)\s+(?:\d+(?:\.\d+)*|one|two|three|four|five|six|seven|eight|nine|ten)"
+                   r"(?:\s*(?:,|and)\s*(?:\d+(?:\.\d+)*|one|two|three|four|five|six|seven|eight|nine|ten))*\b",
+                   re.I),
         re.compile(r"^\s*(?:[-*+]|\d+[.)]|#{1,6})\s+"))
 NUMERAL = re.compile(r"\b\d{1,3}(?:,\d{3})+\b|\b\d+(?:\.\d+)?\b")   # a separator is punctuation
 
