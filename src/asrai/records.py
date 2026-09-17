@@ -35,7 +35,10 @@ def new_id(prefix: str) -> str:
     return f"{prefix}_{datetime.now(timezone.utc):%Y%m%dT%H%M%SZ}_{secrets.token_hex(3)}"
 
 
-def validate(record: dict) -> list[str]:
+def validate(record: object) -> list[str]:
+    """`object` and not `dict`: answering for whatever arrived is the whole job, and a signature that
+    says otherwise makes the first line below unreachable in theory while `append` depends on it in
+    practice."""
     if not isinstance(record, dict):
         return ["record must be a JSON object"]
     kind = record.get("kind")
@@ -127,7 +130,7 @@ def _validate_pairwise(r: dict) -> list[str]:
     return e
 
 
-def append(record: dict, path: Path) -> dict:
+def append(record: object, path: Path) -> dict:
     if not isinstance(record, dict):
         # `dict(record)` below raises first and says `'NoneType' object is not iterable`, which reaches
         # a model as the tool's error. The module already has the readable sentence for this case.

@@ -187,7 +187,7 @@ def _obj(value: Any, label: str, errors: list[str]) -> dict:
     return {}
 
 
-def lint_instruction(request: dict[str, Any]) -> list[str]:
+def lint_instruction(request: object) -> list[str]:
     """Representative semantic checks on an instruction.v2 document. Passing is not permission to execute."""
     if not isinstance(request, dict):
         return ["instruction must be a JSON object"]

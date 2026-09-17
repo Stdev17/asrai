@@ -38,6 +38,15 @@ addopts = "-q --strict-markers --strict-config"
 mypy_path = ["src", "tools"]
 files = ["src/asrai", "tools"]
 explicit_package_bases = true
+# Beyond the defaults: an unreachable statement is a guard that cannot fire, which is the opposite
+# failure to the one this check is here for and just as quiet. It found two validators annotated as
+# if their input were already valid, one of them a guard `append` depends on at runtime.
+warn_unreachable = true
+strict_equality = true
+warn_redundant_casts = true
+# `warn_return_any` is left off. Eleven of its twelve hits are loaders returning what `json.loads`
+# gave them, and the fix at each is a cast asserting something the stock manifest and validate_stock
+# already hold. A check whose remedy is an unverified assertion buys nothing here.
 # `tests/` is out on purpose: the suite feeds wrong types deliberately -- `records.append(7, log)`
 # is a test that the boundary rejects an int -- so a checker there would object to the thing the
 # test exists to prove.
