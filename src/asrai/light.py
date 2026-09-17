@@ -185,26 +185,6 @@ def _spill(mask: np.ndarray, bright: np.ndarray, opaque: np.ndarray, Y: np.ndarr
             "ring_px": [int(near.sum()), int(far.sum())]}
 
 
-def _label(mask: np.ndarray) -> np.ndarray:
-    """4-connected labels, 0 is background. Pure python: callers keep the mask small."""
-    labels = np.zeros(mask.shape, dtype=np.int32)
-    h, w = mask.shape
-    n = 0
-    for y0, x0 in zip(*np.nonzero(mask)):
-        if labels[y0, x0]:
-            continue
-        n += 1
-        labels[y0, x0] = n
-        stack = [(int(y0), int(x0))]
-        while stack:
-            y, x = stack.pop()
-            for ny, nx in ((y - 1, x), (y + 1, x), (y, x - 1), (y, x + 1)):
-                if 0 <= ny < h and 0 <= nx < w and mask[ny, nx] and not labels[ny, nx]:
-                    labels[ny, nx] = n
-                    stack.append((ny, nx))
-    return labels
-
-
 def _emitters(rgb: np.ndarray, Y: np.ndarray, opaque: np.ndarray) -> tuple[list[dict], np.ndarray, dict]:
     """The brightest blobs, brightest first, a label plane (pixel value i belongs to emitter e<i>), and
     which of the two floors bound. The relative floor is a percentile and so survives any transfer
@@ -223,7 +203,7 @@ def _emitters(rgb: np.ndarray, Y: np.ndarray, opaque: np.ndarray) -> tuple[list[
     if scale < 1:
         size = (max(1, round(W * scale)), max(1, round(H * scale)))
         small = np.asarray(Image.fromarray(emit.astype(np.uint8) * 255, "L").resize(size, Image.Resampling.BOX)) >= 128
-    labels = _label(small)
+    labels = measure.label(small)
     sh, sw = small.shape
     up = labels[np.minimum(np.arange(H) * sh // H, sh - 1)][:, np.minimum(np.arange(W) * sw // W, sw - 1)]
     blobs = []

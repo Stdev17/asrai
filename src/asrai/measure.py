@@ -98,23 +98,32 @@ def _edge_density(Yf: np.ndarray, opaque: np.ndarray) -> float | None:
     return _r((gx[ox].sum() + gy[oy].sum()) / k) if k else None
 
 
-def _components(mask: np.ndarray) -> int:
-    seen = np.zeros_like(mask, dtype=bool)
+def label(mask: np.ndarray) -> np.ndarray:
+    """4-connected labels, 0 is background, components numbered 1..n in raster order.
+
+    Pure python, so a caller keeps the mask small: COMPONENT_MAX bounds the one call here, and the
+    surface pass labels a downscaled copy. Public because it is the only traversal of a mask in this
+    package and a second private copy is how the two drifted apart before."""
+    labels = np.zeros(mask.shape, dtype=np.int32)
     h, w = mask.shape
-    count = 0
+    n = 0
     for y0, x0 in zip(*np.nonzero(mask)):
-        if seen[y0, x0]:
+        if labels[y0, x0]:
             continue
-        count += 1
-        seen[y0, x0] = True
+        n += 1
+        labels[y0, x0] = n
         stack = [(int(y0), int(x0))]
         while stack:
             y, x = stack.pop()
             for ny, nx in ((y - 1, x), (y + 1, x), (y, x - 1), (y, x + 1)):
-                if 0 <= ny < h and 0 <= nx < w and mask[ny, nx] and not seen[ny, nx]:
-                    seen[ny, nx] = True
+                if 0 <= ny < h and 0 <= nx < w and mask[ny, nx] and not labels[ny, nx]:
+                    labels[ny, nx] = n
                     stack.append((ny, nx))
-    return count
+    return labels
+
+
+def _components(mask: np.ndarray) -> int:
+    return int(label(mask).max())          # the count is the labelling's own maximum
 
 
 def _silhouette(a: np.ndarray) -> dict:
