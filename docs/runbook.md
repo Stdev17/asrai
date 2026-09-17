@@ -59,7 +59,7 @@ commands; its workflow and required-check setup are described in [`.github/READM
 
 ### Which document rule each check covers
 
-The [repository-operating skill](../.agents/skills/repository-operating/SKILL.md) lists the rules about
+The `repository-operating` skill lists the rules about
 operating documents that a machine could enforce, and deliberately keeps no count: how many instances
 this repository has, and which of them are written, are facts about this repository. They are here.
 The threshold for writing one is a **second real instance**; a check written for a single hypothetical
@@ -96,7 +96,7 @@ that look useless while they are one.
 | something that landed and changes what a user or a contributor does | [`../CHANGELOG.md`](../CHANGELOG.md) | one hand-written line under `Unreleased`, newest first. A behaviour or policy change needs one; a status entry, a dated review and an internal refactor do not |
 | a translation of a document | [`i18n/`](i18n/README.md) | stamped with the source commit |
 | anything an agent needs before touching an asset | the bundled `SKILL.md` | never duplicated into `AGENTS.md` |
-| how an agent operates the documents themselves | [repository-operating skill](../.agents/skills/repository-operating/SKILL.md) | arrangement and ownership of documents, orthogonal to what they say; code policy stays in `conventions.md` |
+| how an agent operates the documents themselves | the `repository-operating` skill, named here and **not carried in this repository** | arrangement and ownership of documents, orthogonal to what they say; code policy stays in `conventions.md`. It is a convention this repository follows, held once per machine rather than copied per repository, because a copy per repository is how three of them drifted apart. A contributor without it is not blocked: what a contribution has to satisfy is in [`../CONTRIBUTING.md`](../CONTRIBUTING.md), this file and [`conventions.md`](conventions.md) |
 | which realm a path belongs to, and what propagates between them | [`architecture.md`](architecture.md) | the realm ledger, level 0. Adding a realm needs a human scope decision |
 | owner invariants and boundary signatures | the owning realm's own README — for the package core, [`../src/asrai/README.md`](../src/asrai/README.md) | verify against code and data flow when a boundary changes; conventions §0 governs scope |
 

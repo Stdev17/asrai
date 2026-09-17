@@ -37,8 +37,8 @@ One more file sits at the repository root and is not a contract:
   directory (`spec.md` §12). It points at the bundled `SKILL.md` rather than restating it, so the two
   cannot drift. It also carries the three rules an agent breaks first — the hierarchy, the write-set
   boundary and the commit format — each linking to the document that owns it, and routes the documents
-  themselves to [the repository-operating skill](../.agents/skills/repository-operating/SKILL.md),
-  which governs their arrangement without saying what any of them contain.
+  themselves to the `repository-operating` skill, which governs their arrangement without saying
+  what any of them contain.
 
 ## Language
 

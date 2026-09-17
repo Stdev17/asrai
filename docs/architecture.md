@@ -3,9 +3,9 @@
 The repository's level 0. A **realm** is a boundary that owns a class of invariant, and this page is
 asrai's ledger of them: what each one owns, how far its errors travel, who may write it, and what
 checks it. [Conventions §0](conventions.md#0-owner-boundaries) governs decomposition, the
-[runbook](runbook.md#1-the-gate) governs authority, and the
-[repository-operating skill](../.agents/skills/repository-operating/SKILL.md) defines what a realm is
-and how this ledger is maintained.
+[runbook](runbook.md#1-the-gate) governs authority, and the `repository-operating` skill — which
+this repository follows and does not carry — defines what a realm is and how this ledger is
+maintained.
 
 Nothing here draws a realm's interior. Each realm's own document does, one level down, so no drawing on
 this page grows as a realm does.

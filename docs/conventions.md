@@ -43,12 +43,12 @@ proof of good scope.
 The count binds the feature realm's own graph and nothing else. A realm is not a subsystem: the ledger
 one level up draws boundaries that own a class of invariant, and the data realm's interior is a
 vocabulary whose size is the point rather than a symptom. A threshold that fires on those would be
-measuring the wrong thing, and the general rule the
-[repository-operating skill](../.agents/skills/repository-operating/SKILL.md) carries is per-level
+measuring the wrong thing, and the general rule the `repository-operating` skill carries is
+per-level
 fan-out, which stays true at any repository's scale precisely because it is not one number. This is
 that rule instantiated for the one realm here whose growth is a scope question.
 
-The [repository-operating skill](../.agents/skills/repository-operating/SKILL.md) carries the general
+The `repository-operating` skill carries the general
 shape these two thresholds are an instance of, and separates the legibility question from the scope one.
 The [adaptation record](review/2026-09-16-owner-boundaries.md) identifies the source and the
 Unity-specific policies not adopted here.

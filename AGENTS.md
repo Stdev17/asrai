@@ -76,7 +76,8 @@ Three rules come before anything else, because an agent breaks them before it ha
 For code and boundary changes, [`docs/conventions.md`](docs/conventions.md) is the policy and
 [`docs/architecture.md`](docs/architecture.md) is the owner graph. For the documents themselves — which
 one owns a rule, how a write policy is scoped, what a README's diagram may draw — read the
-[repository-operating skill](.agents/skills/repository-operating/SKILL.md).
+`repository-operating` skill, which this repository follows and does not carry
+([runbook](docs/runbook.md#2-where-a-thing-gets-written) says why).
 
 For document evidence and copied claims, follow the [revision-reference policy](docs/runbook.md#revision-references):
 pin the source revision, retain its full OID, and recheck freshness before reuse.
