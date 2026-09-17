@@ -128,6 +128,10 @@ def _validate_pairwise(r: dict) -> list[str]:
 
 
 def append(record: dict, path: Path) -> dict:
+    if not isinstance(record, dict):
+        # `dict(record)` below raises first and says `'NoneType' object is not iterable`, which reaches
+        # a model as the tool's error. The module already has the readable sentence for this case.
+        raise ValueError("; ".join(validate(record)))
     rec = dict(record)
     rec.setdefault("id", new_id(str(rec.get("kind", "rec"))))
     rec.setdefault("created_at", datetime.now(timezone.utc).isoformat(timespec="seconds"))

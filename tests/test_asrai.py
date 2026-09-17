@@ -120,6 +120,9 @@ def test_records_validation_and_append(tmp_path):
     records.append(pair | {"by": "human"}, log)
     with pytest.raises(ValueError, match="a must reference"):
         records.append(pair | {"by": "human", "a": None}, log)      # the same hole, on the other side
+    for bad in (None, "x", 7):      # what a model sends when a run had nothing to record
+        with pytest.raises(ValueError, match="must be a JSON object"):
+            records.append(bad, log)
     assert len(records.read(log)) == 3
 
 
