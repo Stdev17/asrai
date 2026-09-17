@@ -480,16 +480,21 @@ def test_a_hold_is_not_a_rejection(tmp_path):
     assert seen["unknown"][0] == "warn", seen                                   # and it never reaches pass
 
 
-def test_a_form_belongs_to_the_image_it_was_filled_for(tmp_path):
-    """Emitter ids are ordinal by brightness, so they rebind when the pixels change: under a vignette the
-    lamp stopped being e1 and a sheet answered for one export silently re-bound to other blobs."""
+def test_a_form_belongs_to_the_run_it_was_filled_for(tmp_path):
+    """Every answer is addressed to an id, and an id belongs to the run that assigned it. Emitter ids are
+    ordinal by brightness, so under a vignette the lamp stopped being e1 and a sheet answered for one
+    export silently re-bound to other blobs. The file's digest alone did not cover the other ways a
+    run rebinds them: the same bytes measured with other boxes answered about pixels nobody had looked
+    at, and `mirror` -- the one operation here that reorders emitters on purpose -- was invisible to it."""
     p, q = scene(tmp_path / "s.png"), _write(tmp_path / "v.png", _vignette, alpha=False)
     form = light.ledger(p, BALL)["form"]
-    assert form["image_sha256"] == light.ledger(p, BALL)["sha256"]
+    assert form["run_sha256"] == light.ledger(p, BALL)["form"]["run_sha256"]   # same arguments, same run
     assert light.ledger(p, BALL, answers=form)["verdict"]["mode"] == "physical"
-    with pytest.raises(ValueError, match="different image"):
-        light.ledger(q, BALL, answers=form)
-    form.pop("image_sha256")                      # a hand-written sheet may omit it
+    elsewhere = [{"id": "ball", "bbox": [0, 0, 30, 30]}]                       # the id stays, the pixels move
+    for path, subjects, mirror in ((q, BALL, False), (p, elsewhere, False), (p, BALL, True)):
+        with pytest.raises(ValueError, match="different run"):
+            light.ledger(path, subjects, mirror=mirror, answers=form)
+    form.pop("run_sha256")                        # a hand-written sheet may omit it
     assert light.ledger(q, BALL, answers=form)["verdict"]["mode"] == "physical"
 
 
