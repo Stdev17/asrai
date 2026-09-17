@@ -4,6 +4,7 @@ from __future__ import annotations
 import hashlib
 import io
 from pathlib import Path
+from typing import cast
 
 import numpy as np
 from PIL import Image
@@ -96,8 +97,10 @@ def _palette(rgb_u8: np.ndarray) -> list[dict]:
         rgb_u8 = rgb_u8[:: -(-n // PALETTE_SAMPLE)]
     strip = Image.fromarray(np.ascontiguousarray(rgb_u8).reshape(1, -1, 3), "RGB")
     q = strip.quantize(colors=PALETTE_K, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE)
-    pal = q.getpalette()
-    counts = q.getcolors(256) or []
+    # `quantize` answers a P-mode image, so each count pairs with a palette index and not a colour
+    pal, counts = q.getpalette(), cast(list[tuple[int, int]], q.getcolors(256) or [])
+    if not pal:                      # a quantized image always carries one; without it there is
+        return []                    # no colour to name, and pal[i] below would have no answer
     total = sum(c for c, _ in counts) or 1
     rows = sorted(((c / total, tuple(pal[3 * i:3 * i + 3])) for c, i in counts), key=lambda t: (-t[0], t[1]))
     return [{"rgb": "#%02x%02x%02x" % rgb, "share": _r(s)} for s, rgb in rows]
