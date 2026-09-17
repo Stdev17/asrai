@@ -10,7 +10,7 @@ distance to a light on another layer, which decides which light a subject should
 Two direction estimates per subject:
 
 - bright side: centroid of the subject's top-decile luminance minus the subject centroid. Reads flat
-  and cel shading, where a Lambertian fit does not. Under 3 degrees of error on synthetic discs.
+  and cel shading, where a Lambertian fit does not. Under 4 degrees of error on synthetic discs.
 - contour fit: Johnson & Farid (2005). Along the occluding contour the surface normal lies in the
   image plane, so luminance against the contour normal is a linear least squares for the light
   direction, and r2 says whether the surface shades like a Lambertian form at all. Alpha masks only:
@@ -394,11 +394,12 @@ def _subject(sub: dict, rgba: np.ndarray, Y: np.ndarray, alpha: bool, emit_ids: 
     # the shaded mass must sit opposite the lit side, whatever lights the subject: no emitter is needed,
     # so a lone sprite is judged on this alone. Form shadow and cast shadow are not separable inside one box.
     # Only where the file carries alpha: without it the bottom decile of a box is the ground behind the
-    # subject, and any frame-wide gradient turns that ground into a confident direction. A vignette of a
-    # tenth -- under the default post-process volume of a URP project, and below what anyone would call a
-    # defect -- measures 0.40 of shaded strength on a ball whose shading it never touched, and lands it
-    # 10 deg from its lit side: an asserted yes about the background. Alpha says which pixels are the
-    # subject, or, on a box wholly inside a silhouette, that none of them are ground.
+    # subject, and any frame-wide gradient turns that ground into a confident direction. A vignette under
+    # the default post-process volume of a URP project, below what anyone would call a defect, put a
+    # confident shaded mass on a ball whose shading it never touched and pointed it near the lit side: an
+    # asserted yes about the background. Alpha says which pixels are the subject, or, on a box wholly
+    # inside a silhouette, that none of them are ground. What that gradient measured is a frozen
+    # observation and is in docs/CHECKPOINT.md; a number here would be one nothing recomputes.
     bright = np.array(row["bright_side"]["vector"])
     lo = shade & (Ys <= np.percentile(v, SHADOW_PERCENTILE))
     ly, lx = np.nonzero(lo)
@@ -496,7 +497,7 @@ def _key_fit(subjects: list[dict], emitters: list[dict], agreement: list[dict]) 
     return {"tolerance_deg": KEY_TOLERANCE_DEG, "best": best["hypothesis"], "hypotheses": hyps}
 
 
-def _form(subjects: list[dict], emitters: list[dict], agreement: list[dict], sha: str) -> tuple[dict, list[dict]]:
+def _form(subjects: list[dict], emitters: list[dict], agreement: list[dict], run: str) -> tuple[dict, list[dict]]:
     """The typed answer sheet: null is what the observer fills; everything the measurement decided is
     absent. Pair questions exist only for the emitter a subject should answer to and the one it points
     at, and only in the band where the angle or hue does not decide."""
@@ -533,26 +534,31 @@ def _form(subjects: list[dict], emitters: list[dict], agreement: list[dict], sha
                   {"path": "global.atmosphere", "question": q["atmosphere"]},
                   {"path": "style.mode", "question": f"One of {MODES}: physical lights, a fixed stylistic key "
                    "(lighting.fake_lighting), or sprites the engine will light (no shading may be painted in)."}]
-    form = {"schema_version": ANSWERS, "image_sha256": sha, "style": {"mode": None}, "emitters": {e["id"]: None for e in emitters},
+    form = {"schema_version": ANSWERS, "run_sha256": run, "style": {"mode": None}, "emitters": {e["id"]: None for e in emitters},
             "emitter_depth": {}, "pairs": pairs,
             "subjects": {s["id"]: None for s in _subject_surfaces()},
             "global": {"key": None, "atmosphere": None}}
     return form, questions
 
 
-def _answers(a, emitters: list[dict], subjects: list[dict], sha: str) -> dict:
+def _answers(a, emitters: list[dict], subjects: list[dict], run: str) -> dict:
     """The filled form, checked at the trust boundary. Unfilled fields count as unknown."""
     if not isinstance(a, dict):
         raise ValueError("answers must be the form returned by light_ledger, filled in")
-    # emitter ids are ordinal by brightness, so they rebind when the pixels change: a re-export, a
-    # colour-grade pass or a different crop can make e2 a different blob than the one answered about.
-    # A form carries the image it was filled for; a hand-written one may omit it.
-    if a.get("image_sha256") not in (None, sha):
-        raise ValueError("answers were filled for a different image: emitter ids are ordinal by "
-                         "brightness and rebind when the pixels change, so run phase one on this file again")
+    # every answer is addressed to an id, and an id belongs to the run that assigned it: emitter ids are
+    # ordinal over the pixels this run measured, and a subject id is whatever named the box. So the sheet
+    # is stamped with the run rather than the file. The same bytes with other boxes, or mirrored, are
+    # other ids -- and mirroring is the one operation here that reorders emitters on purpose, which a
+    # file digest cannot see. A hand-written sheet may omit the stamp.
+    if a.get("run_sha256") not in (None, run):
+        raise ValueError("answers were filled for a different run: the sheet's ids were assigned over "
+                         "this file's pixels, with that run's subjects and mirror, so run phase one "
+                         "again with the arguments you mean to answer for")
     style = a.get("style") or {}
+    if not isinstance(style, dict):     # the type is checked before the value is read: `or {}` keeps a
+        raise ValueError(f"style must be an object; style.mode is one of {MODES}")   # truthy list intact
     mode = style.get("mode") or "physical"
-    if not isinstance(style, dict) or mode not in MODES:
+    if mode not in MODES:
         raise ValueError(f"style.mode must be one of {MODES}")
     kinds = a.get("emitters") or {}
     eids = {e["id"] for e in emitters}
@@ -965,6 +971,9 @@ def ledger(path: Path, subjects: list[dict] | None = None, capture: str | None =
     if subjects is None and not capture and alpha:
         subjects = _silhouette_subject(rgba)
     subs, read = _subjects(subjects, capture, W, H)
+    # what assigned the ids a sheet answers to: these bytes, these subjects, this mirror. Taken before
+    # the flip, so a box that mirrors onto itself still tells the runs apart.
+    run = hashlib.sha256(json.dumps([meta["sha256"], bool(mirror), subs], sort_keys=True).encode()).hexdigest()
     masks = {s["id"]: _mask(s["mask"], s["bbox"], W, H, s["id"]) for s in subs if s.get("mask")}
     if mirror:
         rgba = np.ascontiguousarray(rgba[:, ::-1])
@@ -974,7 +983,7 @@ def ledger(path: Path, subjects: list[dict] | None = None, capture: str | None =
     rgb = rgba[..., :3].astype(np.float64) / 255.0
     Y = measure.luminance(rgb)
     emitters, emit_ids, floor = _emitters(rgb, Y, opaque)
-    ans = _answers(answers, emitters, subs, meta["sha256"]) if answers is not None else None
+    ans = _answers(answers, emitters, subs, run) if answers is not None else None
     confirmed = None
     if ans:
         for e in emitters:
@@ -999,10 +1008,9 @@ def ledger(path: Path, subjects: list[dict] | None = None, capture: str | None =
         verdict = _verdict(rows, live, held, agreement, key_fit, ans)
         out |= {"verdict": verdict, "record": _records(verdict, emitters, rows, ans, meta["sha256"], bool(capture))}
     else:
-        out["form"], out["questions"] = _form(rows, live, agreement, meta["sha256"])
+        out["form"], out["questions"] = _form(rows, live, agreement, run)
     if out_dir is not None:
-        tag = hashlib.sha256(json.dumps([s["bbox"] for s in subs]).encode()).hexdigest()[:6]
-        file = Path(out_dir) / meta["sha256"][:12] / f"light_ledger.{tag}{'.answered' if ans else ''}{'.mirror' if mirror else ''}.png"
+        file = Path(out_dir) / meta["sha256"][:12] / f"light_ledger.{run[:6]}{'.answered' if ans else ''}{'.mirror' if mirror else ''}.png"
         _overlay(rgba, emitters, rows, agreement, key_fit, file)
         out["overlay"] = str(file)
     return out

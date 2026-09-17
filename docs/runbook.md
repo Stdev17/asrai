@@ -53,9 +53,79 @@ uv run --no-sync python tools/check_translations.py
 uv run --no-sync python tools/check_wheel.py       # fresh install, CLI/MCP and the install bundle
 ```
 
+One more is advisory and deliberately outside that list, because it reports rather than decides:
+
+```bash
+uv run --no-sync python tools/check_claims_diff.py   # numbers added to prose that no claims row covers
+```
+
 The link and translation scripts check repository facts outside `pytest`. The wheel check exercises
 the installed distribution in a fresh environment, without an editable checkout. CI runs these same
 commands; its workflow and required-check setup are described in [`.github/README.md`](../.github/README.md).
+
+### What the gate can check, and what it cannot
+
+Every check above is deterministic: the same commit gives the same verdict on any machine. That is what
+lets a check be *required* — one that sometimes blocks and sometimes does not is not a gate. Three
+tiers, and a finding moves between them in one direction only, toward the first.
+
+**Tier 1 — bound to a symbol. Blocking, and in place.** A number that lives in code and is restated
+anywhere else is registered in [`../tests/claims.json`](../tests/claims.json). The suite evaluates the
+live symbol, compares it to the row, and requires the row's exact wording in every file the row lists.
+This is the only tier that is proof: it fails on the pull request that moves either side.
+
+The rule this repository had covered a number that starts in prose. It also covers the other direction:
+**a number baked into Python — a source constant, a test tolerance, a tool literal — that any document
+or JSON canon also states is registered in the same change that writes the prose.** A test's own
+tolerance is the easy one to miss, because nobody reads it as prose until a document quotes it. So is
+anything under `src/asrai/data/stock/`, which sits in the **data** realm, whose writer the
+[realm ledger](architecture.md) names as "the world".
+
+**Tier 2 — found in a diff. Advisory, and built.** `claims.json` is a whitelist: nothing else looks
+for a number no row claims, including the case where a row covers a value for some files and not for
+the one it was just written into. [`../tools/check_claims_diff.py`](../tools/check_claims_diff.py) is
+the net around it. It reads a diff's added lines, keeps the ones that are prose — markdown outside a
+code fence, a Python comment or docstring, the stock files that carry prose — and reports a
+numeral or a number-word no row covers for that file.
+
+```bash
+uv run --no-sync python tools/check_claims_diff.py                     # before committing
+uv run --no-sync python tools/check_claims_diff.py origin/main...HEAD  # a pull request
+```
+
+It exits non-zero on a finding, which is what makes it worth running locally, and it is **not** in the
+required set: the answer to a finding is to register the number or to say it is not a claim. It drops
+the shapes that carry a numeral without claiming anything — an id in code voice, a date, a version, a
+section or tier reference — and it is still the noisy tier, because a small number-word is ordinary
+English. That is the trade a reporting check is allowed to make and a blocking one is not. In CI it
+belongs in its own job, outside the names [`../.github/README.md`](../.github/README.md) lists as
+required.
+
+**Tier 3 — judged by a model. Advisory, and never required.** Whether a sentence still means what the
+code does is semantic, and no pattern reaches it: a document stating a bound and a test admitting a
+looser one are consistent as text and contradictory as a claim. A model reviewer reads that difference,
+which is real value on the one pass where a claim is written. Two properties keep it out of the
+required set, and neither is a matter of prompt quality.
+
+- **It is not reproducible.** The same diff can return a different verdict on a rerun; model version,
+  sampling and context all move it. A required check that goes red on an unchanged commit teaches the
+  one habit a gate exists to prevent, which is re-running until green.
+- **Its input is the contribution.** The DCO workflow's care — check out the trusted branch, fetch the
+  pull request's objects without checking them out, never import, install or execute its files — exists
+  because a pull request's contents are untrusted. A model reviewer must *read* those contents, so a
+  pull request can address the reviewer directly. That is the same boundary in a softer form, and it is
+  why the reviewer's output is a comment a human weighs rather than a check a merge waits on.
+
+What narrows that second one is tier 2. `check_claims_diff.py --json` emits the flagged lines and
+nothing else of the diff, so the text a model is shown is selected by a deterministic script rather
+than by the contribution: a pull request cannot put a sentence in front of the reviewer by writing it
+somewhere the scanner never looked. A reviewer adopted here runs on the pull request, is fed that
+output and nothing else, and comments.
+
+A model reviewer may therefore say what it suspects; a human registers what it found; the registration
+is what the gate enforces on every later commit. Its value is the one pass, not standing between a
+branch and `main`. If one is adopted here it enters as a non-required workflow with read-only
+permission and no secret, like every other check, and this subsection is what it is held to.
 
 ### Which document rule each check covers
 
@@ -69,7 +139,7 @@ case is scaffolding.
 |---|---|---|
 | every file in an enumerated directory appears in its index | `check_links.py` | one drift, in `docs/review/` |
 | a write-policy glob agrees with the tool that applies it | `check_translations.py`, which scopes `i18n/<lang>/**` in code | two |
-| a number stated in prose matches what computes it | `pytest`, against [`../tests/claims.json`](../tests/claims.json) | every registered claim |
+| a number stated in prose matches what computes it | tiers 1 and 2 above, which own this row | — |
 | a naming decision cites a name resolving to more than one surface | not written | one: `ledger` in `conventions.md` §1a, fixed in place |
 | a cross-boundary signature appears in two READMEs | not written | none; there is one level |
 | a README names a node two hops away | not written | none |
@@ -231,7 +301,8 @@ in. An image whose origin cannot be stated does not go in.
 ## 7. Landing a change
 
 1. Locked sync, `pytest`, `check_links.py`, `check_translations.py` and `check_wheel.py` all clean.
-2. Every number you added to prose is in `claims.json`.
+2. Every number you added to prose is in `claims.json` — and so is every number you baked into
+   Python that a document or a JSON canon also states (§1, tier 1).
 3. Asset capabilities are described in the bundled `SKILL.md`; repository development procedures
    belong in the development skill and its governing documents.
 4. A new public name has its rejected alternative written down in `conventions.md` §1a.

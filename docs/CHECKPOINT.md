@@ -24,6 +24,167 @@ be, on the day the policy changed. Their wording is unchanged; only the shape is
 
 ---
 
+## 2026-09-17 · verified at `6685b71` · Claude Opus 5
+
+A boundary review of the `light` family: does it own its invariants, or do they fall between owners.
+Four were fixed, one is named below and not fixed, and the gate rule that follows from both halves is
+written down and its second tier built. Nothing in the entry below is superseded; this adds to it.
+
+**State.**
+
+- phase: 1 (core and transports) and 1b (surface pass) remain complete; phase 2 is not implemented
+- last_acceptance_passed: 70 tests on CPython 3.14.7. Links: 0 broken, 0 unindexed. Translation
+  stamps: 3 current, 0 stale, 0 broken. Not re-run in this session: the wheel build, the stdio MCP
+  smoke test, the reproducibility bundle and Python 3.11. Nothing here touches packaging, and the
+  entry below carries their last evidence
+- in_progress: everything is local. Remote CI execution, DCO bootstrap, required-check activation and
+  release publication are untouched and still unverified
+- next_slice: unchanged — remote publication when authorized, then phase 2 (recipes, adapters, alpha
+  policy, recipe hashes, preview/apply/diff). Added by this entry: the finding below, and a look at
+  whether the repository-operating work in the origin repository yields a domain-agnostic form of
+  `check_claims_diff.py` this gate should take instead of its own
+- next_command: the landing checks in `runbook.md` §1
+- working_tree: main, `core.hooksPath=tools/hooks` active, everything below uncommitted on `6685b71`.
+  A second session wrote this same checkout while this entry was being written, and the two overlapped
+  on three files. That session finished first and landed five commits (`233bde1`..`6685b71`), the tree
+  was restored to them, and this entry's work was held in a stash and put back on top: the eleven files
+  those commits never touched came straight back, `docs/spec.md` and `docs/conventions.md` had this
+  entry's one edit each replayed onto the committed version, and `docs/runbook.md` was merged by the
+  human — both §1 additions are in it, the gate subsection from here and the table of which document
+  rule each check covers from there, and that table's row for a number stated in prose now points at
+  the two tiers instead of restating them. Nothing of either session was lost. This entry's own changes
+  are `src/asrai/light.py`, `docs/spec.md`, `docs/conventions.md`, `docs/runbook.md` (the gate
+  subsection), `src/asrai/data/skill/SKILL.md`, `src/asrai/data/stock/surfaces.v1.json`, its
+  `manifest.sha256.json`, `tests/claims.json`, `tests/test_light.py`, `tests/test_asrai.py`, this file,
+  the `tools/`, `tests/` and `.github/` README rows, and one new file, `tools/check_claims_diff.py`.
+
+  Two things from how that went are worth keeping, because neither was reasoned about in advance. The
+  suite failed once on a read taken mid-write and passed on the next run with nothing changed, so **a
+  green gate means nothing while two writers share a checkout**: the reproducibility tier 1 is built on
+  is a property of the tree and not only of the checks. And the recovery was cheap only because the
+  overlap was three files out of fifteen and both sides were additive. The tool for that is a worktree
+  per session, which §7 already contemplates for hooks, not a stash and a careful replay. Nothing
+  pushed, no repository setting changed, the untracked `.codex/` left alone
+
+**What landed.**
+
+- **The answer contract checks a type before it reads a value through it.** `style = a.get("style")
+  or {}` keeps a non-empty list intact, and `style.get("mode")` on the next line then raised
+  `AttributeError` — which is in neither transport's error set, so the CLI printed a traceback and
+  exited 1 and the MCP server would have raised past `_guard`. The `isinstance` test that was supposed
+  to catch it sat in the same expression, one line too late to run. A trust boundary that reads a
+  model-supplied value before checking its shape is not a trust boundary. The malformed-answers sweep
+  in `test_light.py` had eight cases and every one was a wrong *value*; the wrong *type* is the ninth
+- **Four rows entered `claims.json` for three magnitudes prose had been restating with nothing to hold
+  them**: `POINTED_MIN_PROXY` (0.25, written "a quarter as strong" in `spec.md`, `SKILL.md` and
+  `surfaces.v1.json`) and both ends of the spill rings, `SPILL_NEAR` (2) and `SPILL_FAR` (4 and 8,
+  written "two core radii" and "four to eight" in `spec.md` and `surfaces.v1.json`). `NUMBER_WORDS`
+  now carries the word a fraction is spelled with, because prose writes "a quarter" and never 0.25.
+  Checked by moving `SPILL_NEAR` and watching the suite fail with the symbol's name and both values.
+  `BRIGHT_PERCENTILE` and `SHADOW_PERCENTILE` could not follow: they reach prose as "top decile" and
+  "bottom decile", wording that carries no numeral for the check to anchor on
+- **The estimator claim moved to the measured reality, and the check moved with it.** Three documents
+  claimed the bright-side estimator stays under three degrees on synthetic discs; swept as they
+  describe it — eight directions by four mask/shading variants — the worst is 3.21 degrees, on the
+  rectangle-mask cel disc at 135 degrees, and under alpha it is 1.00. The human decision was to correct
+  the number rather than tighten the estimator, so `spec.md`, `surfaces.v1.json` and `light.py`'s
+  docstring now say four, and the digest of the data file moved in the same change. The conformance
+  sweep no longer carries its own looser literal: `BRIGHT_SIDE_NOISE_DEG` and `CONTOUR_FIT_NOISE_DEG`
+  are what it asserts against, they are registered, and the contour-fit bound tightened from 10 to the
+  claimed 8 in the process (worst measured 7.25). Four copies — constant, row, three documents — and
+  moving any one of them fails the suite, which is what a bound being *synced to the canon* means here
+- **The gate's three tiers are written down, and the second one is built.** `runbook.md` §1 now says
+  what a required check may be: bound to a symbol and blocking, found in a diff and advisory, or
+  judged by a model and never required. §7's landing check gained the other direction of the
+  registration rule
+- **`tools/check_claims_diff.py` turns the whitelist into a net.** It reads a diff's added lines, keeps
+  the prose — markdown outside a code fence, a Python comment or docstring, the stock files that carry
+  prose — and reports a number no row covers *for that file*, which closes the second gap as well as
+  the first: a row that lists three documents says nothing about a fourth. Two things were learned
+  building it and both are in the code. A Python line is not prose because it holds a string, so only
+  comment and docstring tokens are read — the map of number-words is a dict of number-words, and a
+  scanner that read its own values reported every one of them. And a numeral is usually not a claim:
+  ids, dates, versions and section or tier references are dropped. On the change that introduced it,
+  which is unusually documentation-heavy, the findings went 43 before those filters, 19 after the
+  first, 2 after the second — one real and one that is ordinary English. Four more were this entry's
+  own prose, and the three answers a finding has were all exercised on its author: one was a filter
+  gap and the filter was extended (a spelled-out ordinal, `phase two`, where `phase 2` was already
+  dropped), two were incidental counts and were reworded, one is not a claim and was left. The noisy
+  half is the small number-word; the upgrade, if it is ever ignored, is a unit cue and not a stricter
+  gate
+- **A sheet is stamped with the run that assigned its ids, not with the file.** `answers.image_sha256`
+  became `answers.run_sha256`, a digest over the image's bytes, the subjects as measured and the mirror
+  flag, taken before the flip so a box that mirrors onto itself still tells two runs apart. The old
+  stamp existed for exactly this — emitter ids are ordinal by brightness and rebind when the pixels
+  change — and covered one of the three ways they rebind. A sheet filled for one set of boxes was
+  accepted against another set carrying the same ids, and judged pixels nobody had answered about; and
+  `mirror`, the one operation the tool offers that reorders emitters on purpose, was invisible to a file
+  digest. Both are now cases in `test_light.py`. The run digest replaces the ad-hoc one the overlay
+  filename used, so there is one notion of a run in the file rather than two.
+
+  **This is a stopgap, and it is shaped to migrate.** `review/2026-09-17-family-and-run.md` §5 lists the
+  form/answers protocol and its stamp among the five things the run owner takes over — it names the
+  stamp by its old field, which is right: a review is never edited, and what it assigned does not move
+  because the field was renamed under it. When the run owner arrives, the digest moves with the
+  protocol and `light` stops computing it: the field is already named for the run
+  rather than for the image, so the migration is a change of who computes it and not of what a sheet
+  carries. `conventions.md` §1a records the rejected name and why it under-bound
+- **The scanner's one real finding moved out of shipped prose into this file, and could not be
+  reproduced on the way.** `surfaces.v1.json` stated that a vignette "measures 0.40 of shaded strength
+  on a box over a ground it never touched", and `test_light.py`'s docstring restated it with "10 deg
+  from the lit side". No row claimed either number, nothing recomputed them, and the alpha gate that
+  fixed the defect had since put the measurement out of reach of the public path. Forcing the pre-gate
+  path on today's code — `_subject` with `alpha=True` on the same vignetted box, which is what `known`
+  used to be — the light vignette reads a shaded strength of 0.67 at an opposition of 29 degrees, the
+  heavy one 0.73 at 31, and with no vignette at all 0.03 at 179. That is **not** the same measurement
+  re-run: `strength` and `opposition_deg` have both moved since the sentence was written. What is
+  recorded, then, is that the published number is no longer reproducible and that the direction of the
+  finding is — a frame-wide gradient turns the ground under a box into a confident shaded mass, which
+  is why the gate exists. The behaviour stays stated in `surfaces.v1.json`; the numbers are here, where
+  an entry is a frozen observation and no claim may anchor. A number in shipped data that nothing
+  recomputes drifts, and the only reason anyone noticed is that a scanner asked who claimed it
+- **It is also what bounds a model reviewer.** `--json` emits the flagged lines and nothing else of the
+  diff, so what a reviewer is shown is selected by a deterministic script rather than by the
+  contribution. The reviewer stays a comment and never a check; the reasoning is `runbook.md` §1 tier
+  3, and nothing of it is wired into CI here
+
+**The gate rule this leaves**, now recorded in `runbook.md` §1 rather than only here.
+
+`claims.json` is a whitelist, not a net. For a registered number the binding is real dependency
+injection: the suite evaluates the live symbol, so the constant is the ground truth and every other
+copy is checked against it on every pull request. For an unregistered one there is nothing — no check
+scans the tree for a number no row claims, `claimed_in` is a hand-written file list, and the wording
+test asks only that the phrase be present, so a stale second copy in the same file passes. Before this
+entry, four of the twenty-two numeric constants in `light.py` were registered while three more were
+already restated in three documents.
+
+From here: **a number baked into Python — a source constant, a test tolerance, a tool literal — that
+any JSON canon or document also states is registered in `claims.json` in the same change.**
+`runbook.md` §1 already asks this of a number added to prose; what is added here is the other
+direction, the number that was in code first and reached a document later. Two places make that easy
+to miss. `surfaces.v1.json` and `profiles.v1.json` sit in the **data** realm, whose writer the ledger
+names as "the world", and they carry more of the lighting pass's magnitudes than `spec.md` does. And a
+test's own tolerance is not prose to anyone until a document quotes it, which is exactly how the first
+finding below survived.
+
+A symbol server in one agent's environment does not close this. It catches drift while that agent
+writes, on that machine; the gate is the surface every contributor crosses, and it is the one that was
+open.
+
+**One finding named and not fixed.**
+
+- **`light` builds an `observation.v1` that nothing validates where it is built.** Three ways it comes
+  back invalid: an unfilled form — a documented phase two — yields an empty `observations` list; a
+  capture whose `game_object` starts with a digit puts a bare numeral in a note; and
+  `observer.model: null` passes `records.validate`, because that check is `str(obs.get(key, ""))` and
+  `str(None)` is truthy. Invariant 11 says every observation carries `observer.model`, `spec.md` says
+  the record is ready "once `observer.model` is filled", `config.DEFAULTS` holds the value and
+  `doctor.py` is its only reader: no owner fills it. The family-spanning owner is being designed in a
+  separate session as a facade, and this belongs to it — including at zero families, where today
+  nothing would assemble a record at all
+
+---
+
 ## 2026-09-17 · verified at `b83a0ae` · Claude Opus 5
 
 The three schemas the profile review specified are built, and the overlay is consumed. The entry below

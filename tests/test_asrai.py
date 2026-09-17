@@ -8,6 +8,10 @@ import numpy as np
 import pytest
 from PIL import Image, ImageDraw
 
+# The words a document may spell a number with live with the scanner that looks for them, so the
+# anchor check below and the net around it cannot come to know different words.
+from check_claims_diff import NUMBER_WORDS
+
 from asrai import config, doctor, measure, records, vocab
 
 SHA = "a" * 64
@@ -221,8 +225,30 @@ def test_malformed_record_validates_instead_of_raising():
         assert isinstance(errors, list) and errors, bad
 
 
-NUMBER_WORDS = {6: "six", 7: "seven", 8: "eight", 9: "nine", 10: "ten", 11: "eleven", 12: "twelve",
-                16: "sixteen", 20: "twenty", 22: "twenty-two", 60: "sixty"}
+
+def test_the_claims_scanner_finds_a_magnitude_and_not_a_reference():
+    """`tools/check_claims_diff.py` is the net around `claims.json` (runbook §1, tier 2). It has to read
+    the magnitude a sentence states and leave the shapes that carry a numeral without claiming anything:
+    an id, a date, a version, a section reference. And a number-word inside an ordinary string literal is
+    data — the map of number-words is itself a dict of number-words, and a scanner that read its own
+    values as prose would report every one of them."""
+    from pathlib import Path
+
+    import check_claims_diff as scanner
+
+    def found(text):
+        return {value for value, _ in scanner.numbers(text)}
+
+    assert found("stays under four degrees (bright side)") == {4}
+    assert found("the emitter it points at when that one is at least a quarter as strong") == {0.25}
+    assert found("measures 0.37 of shaded strength on a box") == {0.37}
+    assert found("`measure.v1` on 2026-09-17, Python 3.14, runbook §1, tier 2, tiers 1 and 2, e2 at L1") == set()
+    src = (Path(__file__).resolve().parent.parent / "tools" / "check_claims_diff.py").read_text("utf-8")
+    lines = src.splitlines()
+    code = next(i for i, line in enumerate(lines, 1) if line.startswith("NUMBER_WORDS = {"))
+    prose = next(i for i, line in enumerate(lines, 1) if "Tier 2 of the gate" in line)
+    kept = {n for n, _ in scanner.prose_only("tools/check_claims_diff.py", [(code, ""), (prose, "")])}
+    assert kept == {prose}, kept
 
 
 def test_every_number_the_documents_claim_is_the_number_the_repository_has():
@@ -234,6 +260,7 @@ def test_every_number_the_documents_claim_is_the_number_the_repository_has():
     import asyncio
     import json
     from pathlib import Path
+    import test_light
     from asrai import light, measure, vocab
     from asrai.server import server
 
@@ -251,6 +278,13 @@ def test_every_number_the_documents_claim_is_the_number_the_repository_has():
         "light.emitters_max": lambda: light.EMITTERS_MAX,
         "light.key_tolerance_deg": lambda: light.KEY_TOLERANCE_DEG,
         "light.disagree_deg": lambda: light.DISAGREE_DEG,
+        "light.pointed_min_proxy": lambda: light.POINTED_MIN_PROXY,
+        "light.spill_near_radii": lambda: light.SPILL_NEAR,
+        "light.spill_far_inner_radii": lambda: light.SPILL_FAR[0],
+        "light.spill_far_outer_radii": lambda: light.SPILL_FAR[1],
+        # a conformance bound is a decision, so its truth is the constant the sweep is held to
+        "light.bright_side_noise_deg": lambda: test_light.BRIGHT_SIDE_NOISE_DEG,
+        "light.contour_fit_noise_deg": lambda: test_light.CONTOUR_FIT_NOISE_DEG,
         "measure.max_megapixels": lambda: measure.MAX_PIXELS // 1_000_000,
         "fixtures.images": lambda: len([p for p in (root / "tests" / "fixtures").iterdir()
                                         if p.suffix in (".png", ".jpg")]),

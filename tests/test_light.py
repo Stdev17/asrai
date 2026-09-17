@@ -8,6 +8,10 @@ from PIL import Image
 
 from asrai import light, records
 
+# The bound the estimators are held to. Registered in claims.json and stated in docs/spec.md,
+# surfaces.v1.json and light.py's own docstring: moving any one of them fails the suite.
+BRIGHT_SIDE_NOISE_DEG = 4
+CONTOUR_FIT_NOISE_DEG = 8
 BALL = [{"id": "ball", "bbox": [50, 30, 80, 80]}]
 UPPER_LEFT = np.array([-1.0, -1.0]) / np.sqrt(2)
 
@@ -184,12 +188,12 @@ def test_estimator_noise_floor_on_every_direction(tmp_path, alpha, cel):
         disc(ang, alpha=alpha, cel=cel).save(tmp_path / "d.png")
         s = light.ledger(tmp_path / "d.png", [{"id": "d", "bbox": [54, 34, 72, 72]}])["subjects"][0]
         truth = np.array([np.cos(np.radians(ang)), np.sin(np.radians(ang))])
-        assert light._angle(s["bright_side"]["vector"], truth) < 5, (ang, s["bright_side"])
+        assert light._angle(s["bright_side"]["vector"], truth) < BRIGHT_SIDE_NOISE_DEG, (ang, s["bright_side"])
         assert light._shadow_measured(s) == alpha, (ang, s["shadow"])   # a box on a uniform ground has no
         if alpha:                                                       # shaded mass of its own to place
             assert s["shadow"]["opposition_deg"] < 10, (ang, s["shadow"])
         if alpha:
-            assert s["contour_fit"]["r2"] > 0.5 and light._angle(s["contour_fit"]["vector"], truth) < 10, (ang, s["contour_fit"])
+            assert s["contour_fit"]["r2"] > 0.5 and light._angle(s["contour_fit"]["vector"], truth) < CONTOUR_FIT_NOISE_DEG, (ang, s["contour_fit"])
 
 
 def test_mirror_flips_x_only(tmp_path):
@@ -392,6 +396,7 @@ def test_malformed_input_raises_value_error(tmp_path):
         with pytest.raises(ValueError):
             light.ledger(p, bad)
     for bad in ("yes", {"emitters": {"zz": "lamp"}}, {"emitters": {"e1": "sun"}}, {"style": {"mode": "magic"}},
+                {"style": ["physical"]},   # a wrong type, not a wrong value: the check precedes the read
                 {"pairs": [{"subject": "ball", "emitter": "e1", "surface": "diffuse", "answer": "maybe"}]},
                 {"subjects": {"cast_shadow": {"no": ["ghost"]}}}, {"global": {"key": "yes!"}}, {"emitter_depth": {"e1": 1.5}}):
         with pytest.raises(ValueError):
@@ -431,9 +436,10 @@ def _write(path, fn, alpha=True):
 
 def test_a_vignette_is_not_a_shaded_mass(tmp_path):
     """The bottom decile of a box in a file without alpha is the ground behind the subject, and any
-    frame-wide gradient turns that ground into a confident direction. A vignette of a tenth used to
-    measure 0.40 of shaded strength on a ball it never touched, and land it 10 deg from the lit side:
-    an asserted yes about the background. Alpha says which pixels are the subject; nothing else does."""
+    frame-wide gradient turns that ground into a confident direction. A vignette nobody would call a
+    defect used to put a confident shaded mass on a ball it never touched, pointing near its lit side:
+    an asserted yes about the background. Alpha says which pixels are the subject; nothing else does.
+    What it measured is in docs/CHECKPOINT.md; no number here is asserted by anything below."""
     for k in (0.0, 0.15, 0.55):
         flat = light.ledger(_write(tmp_path / f"r{k}.png", lambda a: _vignette(a, k), alpha=False), BALL)["subjects"][0]
         assert flat["mask"] == "bbox" and flat["shadow"] is None, (k, flat["shadow"])
@@ -475,16 +481,21 @@ def test_a_hold_is_not_a_rejection(tmp_path):
     assert seen["unknown"][0] == "warn", seen                                   # and it never reaches pass
 
 
-def test_a_form_belongs_to_the_image_it_was_filled_for(tmp_path):
-    """Emitter ids are ordinal by brightness, so they rebind when the pixels change: under a vignette the
-    lamp stopped being e1 and a sheet answered for one export silently re-bound to other blobs."""
+def test_a_form_belongs_to_the_run_it_was_filled_for(tmp_path):
+    """Every answer is addressed to an id, and an id belongs to the run that assigned it. Emitter ids are
+    ordinal by brightness, so under a vignette the lamp stopped being e1 and a sheet answered for one
+    export silently re-bound to other blobs. The file's digest alone did not cover the other ways a
+    run rebinds them: the same bytes measured with other boxes answered about pixels nobody had looked
+    at, and `mirror` -- the one operation here that reorders emitters on purpose -- was invisible to it."""
     p, q = scene(tmp_path / "s.png"), _write(tmp_path / "v.png", _vignette, alpha=False)
     form = light.ledger(p, BALL)["form"]
-    assert form["image_sha256"] == light.ledger(p, BALL)["sha256"]
+    assert form["run_sha256"] == light.ledger(p, BALL)["form"]["run_sha256"]   # same arguments, same run
     assert light.ledger(p, BALL, answers=form)["verdict"]["mode"] == "physical"
-    with pytest.raises(ValueError, match="different image"):
-        light.ledger(q, BALL, answers=form)
-    form.pop("image_sha256")                      # a hand-written sheet may omit it
+    elsewhere = [{"id": "ball", "bbox": [0, 0, 30, 30]}]                       # the id stays, the pixels move
+    for path, subjects, mirror in ((q, BALL, False), (p, elsewhere, False), (p, BALL, True)):
+        with pytest.raises(ValueError, match="different run"):
+            light.ledger(path, subjects, mirror=mirror, answers=form)
+    form.pop("run_sha256")                        # a hand-written sheet may omit it
     assert light.ledger(q, BALL, answers=form)["verdict"]["mode"] == "physical"
 
 

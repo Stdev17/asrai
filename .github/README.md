@@ -12,6 +12,11 @@ out, and never imports, installs, or executes pull-request files. Commits at or 
 grandfather commit are excluded. The workflow has read-only repository permission, persists no
 checkout credential, and does not reference or pass repository secrets.
 
+What a required check may be, and why a model reviewer is not one, is
+[`runbook.md` §1](../docs/runbook.md#1-the-gate). `tools/check_claims_diff.py` is advisory by that rule:
+if it is wired here it gets its own job, outside the required names below, and a model reviewer reading
+its `--json` output is a comment and never a check.
+
 The stable required-check names are:
 
 - `Checks (Python 3.11)`

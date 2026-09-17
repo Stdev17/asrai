@@ -132,8 +132,8 @@ hand-drawn key variation and where suspicion begins have no recorded basis and m
    the one surface that judges a lone sprite, and `unknown` there means too flat to place, never fine.
    It is read only on a file with alpha, which is what says which pixels are the subject: on a screenshot
    the bottom decile of a box is the ground, and a vignette or a sky gradient would make that ground a
-   confident direction. A form carries `image_sha256`; phase two refuses one filled for another image,
-   since emitter ids are ordinal and rebind when the pixels change.
+   confident direction. A form carries `run_sha256`; phase two refuses one filled for another run,
+   since its ids were assigned over the pixels that run measured, with its subjects and mirror.
    `verdict` gives per subject the expected key (lamp, sky and screen outrank neon and glow, then strength over distance), the
    `verdict_emitter` it was judged against (the emitter it points at counts when at least a quarter as
    strong), the residual in degrees, `agrees | disagrees | unknown` with its basis (`measurement` or

@@ -334,7 +334,7 @@ exactly for the observer tier.
   quarter as strong, because the proxy under-reads clipped lamp heads. Light colour stays with the
   observer: a box that holds a painted band has a highlight in the band's hue, which no body/highlight
   comparison can tell from a cast until subjects carry material masks (L0 slices) `[planned]`. Estimator noise on synthetic Lambertian and cel discs, alpha or rectangle
-  masks, stays under three degrees (bright side) and eight (contour fit): conformance 16. Spill and
+  masks, stays under four degrees (bright side) and eight (contour fit): conformance 16. Spill and
   receivers carry no threshold: a sign and a count decide whether a confirmed light is one the frame
   answers to, and an unreadable neighbourhood stays `unknown`. The shaded mass is read on the same
   twenty and sixty degree bands, and only where both masses carry a direction: a subject flatter than a
