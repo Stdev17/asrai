@@ -15,6 +15,11 @@ LEVELS = ("asserted", "estimated", "unknown")
 SCALES = ("native", "target", "thumbnail")   # the keys of measure.v1 `scales`
 VERDICTS = ("prefer_a", "prefer_b", "equal", "unknown")
 ASSET_KINDS = ("raster", "screenshot", "svg", "mesh")
+# spec.md section 7 names these and says they are never summed, so they are stored the way they are
+# decided: three of them, each on its own, and no total. Optional, because an observation written by
+# hand has no run behind it to have judged one -- but all three or none, never a subset.
+AXES = ("direction_compliance", "asset_cohesion", "intentional_contrast")
+AXIS_VALUES = ("pass", "warn", "fail", "unknown")
 SCHEMAS = {"observation": "observation.v1", "pairwise": "pairwise.v1", "instruction": "instruction.v2"}
 # Reading order and coherence exist only between elements of one frame: never asserted on a lone asset.
 L2_ONLY = frozenset(t for t in ("perception.visual_hierarchy", "perception.attention", "perception.style_coherence")
@@ -87,6 +92,12 @@ def _validate_observation(r: dict) -> list[str]:
     for key in ("model", "prompt_rev"):
         if _missing(obs.get(key)):
             e.append(f"observer.{key} required")
+    axes = r.get("axes")
+    if axes is not None:
+        if not isinstance(axes, dict) or set(axes) != set(AXES):
+            e.append(f"axes, when present, carries exactly {AXES}")
+        elif any(v not in AXIS_VALUES for v in axes.values()):
+            e.append(f"each axis must be one of {AXIS_VALUES}")
     items = r.get("observations")
     if not isinstance(items, list) or not items:
         e.append("observations must be a non-empty list")

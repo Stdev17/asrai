@@ -175,7 +175,8 @@ def open_run(path: Path, subjects: list[dict] | None = None, capture: str | None
                                     "lossy": meta["format"] in LOSSY_FORMATS}}}
 
 
-def _record(ctx: dict, observations: list[dict], context: dict, observer: dict | None) -> dict | None:
+def _record(ctx: dict, observations: list[dict], context: dict, observer: dict | None,
+            axes: dict) -> dict | None:
     """One record of what this run's families observed, or nothing when they observed nothing.
 
     Which asset, at which evidence layer and scale, and who observed, are the run's to answer and not a
@@ -183,6 +184,12 @@ def _record(ctx: dict, observations: list[dict], context: dict, observer: dict |
     `asserted` then means two things. The observer is the configured one: `spec.md` section 4 requires
     it, `config` is the only thing that holds it, and a family inventing one is how a null reached the
     corpus under a field the schema calls required.
+
+    The three axes travel with it. They are the judgment the run reached, `spec.md` section 7.1 draws
+    an arrow from them into the record, and until now they were computed, read aloud to whoever asked
+    for a profile, and dropped -- so the corpus held what was observed and never what was concluded from
+    it. The copy here and the one under `verdict` are the same values by construction; this is the one
+    that survives the reply.
 
     Nothing observed is `None`, never a record with an empty list. A corpus that may not be edited is
     worse off holding a row that observed nothing, and what nobody decided is said to the reader
@@ -197,6 +204,7 @@ def _record(ctx: dict, observations: list[dict], context: dict, observer: dict |
     record = {"kind": "observation", "asset_kind": "screenshot" if capture else "raster",
               "evidence_layer": "L2" if capture else "L1", "scale": "native",
               "asset_sha256": ctx["meta"]["sha256"], "context": context, "observations": observations,
+              "axes": axes,
               "observer": dict(observer or config.DEFAULTS["observer"])}
     errors = records.validate(record)
     if errors:
@@ -237,6 +245,7 @@ def ledger(path: Path, subjects: list[dict] | None = None, capture: str | None =
     ctx = open_run(path, subjects, capture, mirror)
     out = light.pass_(ctx, out_dir, answers)
     if "observations" in out:
-        out["record"] = _record(ctx, out.pop("observations"), out.pop("context"), observer)
-        _backed(out["verdict"]["axes"], out["record"])
+        axes = out["verdict"]["axes"]
+        out["record"] = _record(ctx, out.pop("observations"), out.pop("context"), observer, axes)
+        _backed(axes, out["record"])
     return out

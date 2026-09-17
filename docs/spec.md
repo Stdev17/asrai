@@ -121,7 +121,7 @@ All records are JSON objects appended to `corpus/team/records.jsonl` (`[built]` 
 
 | kind | schema | required fields |
 |---|---|---|
-| `observation` | `observation.v1` | `asset_sha256`, `asset_kind`, `evidence_layer`, `scale ∈ {native,target,thumbnail}`, `observer{mode,model,prompt_rev}`, `observations[]{term_id, level ∈ asserted/estimated/unknown, region: whole_image or [x,y,w,h], note without digits}`; `render_profile_id` for svg/mesh; optional `context{asset_group, scene, state, generator}`, `measurement_sha256`, `composed_of` |
+| `observation` | `observation.v1` | `asset_sha256`, `asset_kind`, `evidence_layer`, `scale ∈ {native,target,thumbnail}`, `observer{mode,model,prompt_rev}`, `observations[]{term_id, level ∈ asserted/estimated/unknown, region: whole_image or [x,y,w,h], note without digits}`; `render_profile_id` for svg/mesh; optional `context{asset_group, scene, state, generator}`, `measurement_sha256`, `composed_of`, `axes{direction_compliance, asset_cohesion, intentional_contrast}` each ∈ pass/warn/fail/unknown, all three or none |
 | `pairwise` | `pairwise.v1` | `term_id`, `a`, `b`, `verdict ∈ prefer_a/prefer_b/equal/unknown`, `by ∈ human/model`, `evidence_layer`; `order_checked: true` when `by: model`; optional `reason` (no digits), `region`, `scale` |
 | `instruction` | `instruction.v2` | the vendored schema: `intent`, `target`, `context`, `changes[]{term_id, operation, quantity?, property_binding, magnitude_basis ∈ none/example/precedent/measurement/human/llm, precedent_refs?}`, `constraints`, `acceptance`, `execution{adapter, binding_resolved, authorized, run_ref}`, `status`, `axis` |
 | `case` | `case.v2` `[planned]` | `tier ∈ stock/pack/team`, `evidence_kind`, `overridable`, `scope{inputs, layers, context_tags}`, `situation{observations, measurements}`, `judgment{axis, stance, terms, rationale}`, `instruction{changes}`, `acceptance[]`, `do_not[]`, `supersedes?` |
@@ -318,8 +318,10 @@ exactly for the observer tier.
   mass contradicts its own lit side both fail `asset_cohesion`, which is the only axis a lone sprite with
   no emitters can speak on, while a confirmed light whose neighbourhood could not be read, or a blob
   nobody classified, holds it at `warn`, never `pass`) and `record`, an
-  observation record whose measured items are `asserted` and observer items `estimated`, ready for
-  `record` once `observer.model` is filled.
+  observation record whose measured items are `asserted` and observer items `estimated`, carrying the
+  axes the run was judged on, and ready for `record` once `observer.model` is filled. The record is the
+  run's rather than the family's: it is valid before the ledger returns it, it is null when the run
+  observed nothing, and an axis at `warn` or `fail` is backed by an item inside it.
 - Depth is an ordinal layer index (nearest first), never a distance. The image-plane direction from a
   subject to an emitter is exact without it (a line in space projects to the line through the two
   projected points); depth only decides which light a subject should answer to (falloff) and, later,

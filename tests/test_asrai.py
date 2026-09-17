@@ -113,6 +113,13 @@ def test_records_validation_and_append(tmp_path):
     for model in (None, "", "  ", 7):
         with pytest.raises(ValueError, match="observer.model required"):
             records.append(base | {"observer": OBSERVER | {"model": model}}, log)
+    # the run's judgment travels with what it observed: all three axes or none, since a subset would
+    # let a reader take a missing axis for one that passed
+    records.append(base | {"axes": {a: "pass" for a in records.AXES}}, log)
+    for axes in ({}, {"direction_compliance": "pass"}, dict.fromkeys(records.AXES, "pass") | {"extra": "pass"},
+                 dict.fromkeys(records.AXES, "maybe"), "pass"):
+        with pytest.raises(ValueError, match="axes|axis"):
+            records.append(base | {"axes": axes}, log)
     pair = {"kind": "pairwise", "evidence_layer": "L1", "term_id": "color.saturation", "a": SHA, "b": "b" * 64,
             "verdict": "prefer_a", "by": "model"}
     with pytest.raises(ValueError, match="order_checked"):
@@ -123,7 +130,7 @@ def test_records_validation_and_append(tmp_path):
     for bad in (None, "x", 7):      # what a model sends when a run had nothing to record
         with pytest.raises(ValueError, match="must be a JSON object"):
             records.append(bad, log)
-    assert len(records.read(log)) == 3
+    assert len(records.read(log)) == 4
 
 
 def test_doctor_counts_the_records_that_name_no_observer(tmp_path):

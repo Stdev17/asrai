@@ -546,7 +546,8 @@ def test_the_run_owns_the_record_and_backs_what_it_warns_about(tmp_path):
     p = scene(tmp_path / "s.png", flat=True)
     out = run.ledger(p, BALL, answers=run.ledger(p, BALL)["form"])
     assert out["verdict"]["axes"]["asset_cohesion"] == "warn"
-    said = [o for o in out["record"]["observations"] if o["level"] == "unknown"]
+    assert out["record"]["axes"] == out["verdict"]["axes"]   # one judgment, and this is the copy that
+    said = [o for o in out["record"]["observations"] if o["level"] == "unknown"]   # outlives the reply
     assert [o["note"] for o in said] == [f"{e['id']} was left unclassified, so nothing is judged against it"
                                          for e in out["emitters"]]
 
@@ -579,7 +580,7 @@ def test_a_record_the_ledger_builds_is_one_the_record_tool_stores(tmp_path):
         stored += 1
         row = records.append(record, log)
         assert row["schema_version"] == "observation.v1" and row["id"].startswith("observation_")
-        assert row["observations"] == record["observations"]
+        assert row["observations"] == record["observations"] and row["axes"] == record["axes"]
     assert stored and records.read(log) == records.read(log)[:stored]
 
     dull_run = run.ledger(dull(tmp_path / "d.png"))
