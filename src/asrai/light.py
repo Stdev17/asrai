@@ -571,8 +571,10 @@ def _answers(a, emitters: list[dict], subjects: list[dict], sha: str) -> dict:
         raise ValueError("answers were filled for a different image: emitter ids are ordinal by "
                          "brightness and rebind when the pixels change, so run phase one on this file again")
     style = a.get("style") or {}
+    if not isinstance(style, dict):     # the type is checked before the value is read: `or {}` keeps a
+        raise ValueError(f"style must be an object; style.mode is one of {MODES}")   # truthy list intact
     mode = style.get("mode") or "physical"
-    if not isinstance(style, dict) or mode not in MODES:
+    if mode not in MODES:
         raise ValueError(f"style.mode must be one of {MODES}")
     kinds = a.get("emitters") or {}
     eids = {e["id"] for e in emitters}

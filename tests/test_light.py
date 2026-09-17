@@ -396,6 +396,7 @@ def test_malformed_input_raises_value_error(tmp_path):
         with pytest.raises(ValueError):
             light.ledger(p, bad)
     for bad in ("yes", {"emitters": {"zz": "lamp"}}, {"emitters": {"e1": "sun"}}, {"style": {"mode": "magic"}},
+                {"style": ["physical"]},   # a wrong type, not a wrong value: the check precedes the read
                 {"pairs": [{"subject": "ball", "emitter": "e1", "surface": "diffuse", "answer": "maybe"}]},
                 {"subjects": {"cast_shadow": {"no": ["ghost"]}}}, {"global": {"key": "yes!"}}, {"emitter_depth": {"e1": 1.5}}):
         with pytest.raises(ValueError):
