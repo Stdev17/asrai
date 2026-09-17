@@ -135,7 +135,7 @@ def append(record: dict, path: Path) -> dict:
     rec = dict(record)
     rec.setdefault("id", new_id(str(rec.get("kind", "rec"))))
     rec.setdefault("created_at", datetime.now(timezone.utc).isoformat(timespec="seconds"))
-    rec.setdefault("schema_version", SCHEMAS.get(rec.get("kind"), ""))
+    rec.setdefault("schema_version", SCHEMAS.get(str(rec.get("kind", "")), ""))
     errors = validate(rec)
     if errors:
         raise ValueError("; ".join(errors))

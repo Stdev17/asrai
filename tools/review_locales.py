@@ -31,7 +31,8 @@ def has_script(text: str, prefixes: tuple[str,...]) -> bool:
     return False
 
 def review_locale(code: str, terms: dict[str,Any], base: dict[str,Any]) -> tuple[Counter,list[str]]:
-    counts,errors=Counter(),[]
+    counts: Counter[str]=Counter()
+    errors: list[str]=[]
     by_label=defaultdict(list)
     for tid,row in terms.items():by_label[row['label'].casefold()].append(tid)
     collisions={label:ids for label,ids in by_label.items() if len(ids)>1}

@@ -31,6 +31,8 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install locked dependencies
         run: uv sync --locked
+      - name: Check types
+        run: uv run --no-sync mypy
       - name: Run tests
         run: uv run --no-sync pytest
       - name: Check links

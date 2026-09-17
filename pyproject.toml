@@ -15,7 +15,7 @@ dependencies = [
 asrai = "asrai.cli:main"
 
 [dependency-groups]
-dev = ["pytest>=8"]
+dev = ["pytest>=8", "mypy>=1.18", "types-jsonschema"]
 
 [build-system]
 requires = ["hatchling"]
@@ -30,3 +30,14 @@ testpaths = ["tests"]
 # `uv run pytest` the single command that checks code and shipped data together.
 pythonpath = ["tools"]
 addopts = "-q --strict-markers --strict-config"
+
+[tool.mypy]
+# The rule this enforces: a value that can be absent is guarded before it is used. It is checked
+# rather than written out at each access, because a guard repeated at every site is one rule with
+# many definitions, and the one that goes missing is the one nobody notices.
+mypy_path = ["src", "tools"]
+files = ["src/asrai", "tools"]
+explicit_package_bases = true
+# `tests/` is out on purpose: the suite feeds wrong types deliberately -- `records.append(7, log)`
+# is a test that the boundary rejects an int -- so a checker there would object to the thing the
+# test exists to prove.

@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from typing import Any
 from pathlib import Path
 
 from . import __version__, config, doctor, light, measure, profile, records, run as run_mod, vocab
@@ -32,7 +33,7 @@ def _subject(arg: str) -> dict:
         nums = []
     if len(nums) not in (4, 5):
         raise ValueError(f"--subject wants {SUBJECT_FORM} in pixels, got {arg!r}")
-    out = {"id": sid, "bbox": nums[:4]}
+    out: dict[str, Any] = {"id": sid, "bbox": nums[:4]}
     if len(nums) == 5:
         out["depth"] = nums[4]
     if mask:

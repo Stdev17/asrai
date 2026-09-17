@@ -4,6 +4,7 @@ from __future__ import annotations
 import os
 import tomllib
 from pathlib import Path
+from typing import Any
 
 DEFAULTS: dict[str, dict] = {
     "paths": {"team": "corpus/team", "out": "out", "inbox": "in"},
@@ -19,7 +20,7 @@ def root() -> Path:
 
 def load(project_root: Path | None = None) -> dict:
     base = project_root or root()
-    cfg = {section: dict(values) for section, values in DEFAULTS.items()}
+    cfg: dict[str, Any] = {section: dict(values) for section, values in DEFAULTS.items()}
     path = base / "asrai.toml"
     if path.exists():
         for section, values in tomllib.loads(path.read_text("utf-8")).items():

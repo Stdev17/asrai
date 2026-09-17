@@ -104,7 +104,8 @@ def _subjects(subjects, capture, W: int, H: int) -> tuple[list[dict], dict | Non
         rows = doc.get("composed_of") if isinstance(doc, dict) else None
         if not isinstance(rows, list):
             raise ValueError("capture must be a capture.json with a composed_of list")
-        found, seen, skipped = [], {}, []
+        found, skipped = [], []
+        times: dict[str, int] = {}
         for i, c in enumerate(rows):
             box = _box(c.get("screen_bbox")) if isinstance(c, dict) else None
             sid = str((isinstance(c, dict) and (c.get("game_object") or c.get("sprite")
@@ -113,8 +114,8 @@ def _subjects(subjects, capture, W: int, H: int) -> tuple[list[dict], dict | Non
                 skipped.append({"row": i, "id": sid,
                                 "reason": "no screen_bbox [x, y, w, h] of whole pixels"})
                 continue
-            seen[sid] = seen.get(sid, 0) + 1
-            found.append({"id": sid if seen[sid] == 1 else f"{sid}_{seen[sid]}", "bbox": box,
+            times[sid] = times.get(sid, 0) + 1
+            found.append({"id": sid if times[sid] == 1 else f"{sid}_{times[sid]}", "bbox": box,
                           "depth": c.get("depth"), "mask": c.get("mask")})
         found.sort(key=lambda s: -(s["bbox"][2] * s["bbox"][3]))
         skipped += [{"row": None, "id": s["id"], "reason": f"over the {SUBJECTS_MAX}-subject limit, smallest first"}

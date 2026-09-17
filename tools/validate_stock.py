@@ -185,7 +185,7 @@ def validate(root: Path) -> dict[str,Any]:
                 f'{path.name}: locale code must match the filename and spec_language must be "en"')
         require(set(doc['terms'])<=kept,f'{path.name}: term ids outside v2')
         require(len(doc['terms'])==len(ids),f'{path.name}: covers {len(doc["terms"])}/{len(ids)} terms')
-        seen={}
+        seen: dict[str,str]={}
         flagged=0
         for tid,row in doc['terms'].items():
             require(not set(row)-{'label','aliases','description','review'},

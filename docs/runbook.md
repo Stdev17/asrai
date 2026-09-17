@@ -47,6 +47,7 @@ overrides a current human decision. The rationale is in
 
 ```bash
 uv sync --locked
+uv run --no-sync mypy                             # a value that can be absent is guarded before use
 uv run --no-sync pytest                           # behavior, corpus and fixture byte-equality
 uv run --no-sync python tools/check_links.py
 uv run --no-sync python tools/check_translations.py

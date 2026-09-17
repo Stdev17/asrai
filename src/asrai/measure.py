@@ -66,7 +66,7 @@ def _check_size(w: int, h: int, what: str) -> None:
 def load(path: Path) -> tuple[np.ndarray, dict]:
     data = path.read_bytes()
     try:
-        img = Image.open(io.BytesIO(data))
+        img: Image.Image = Image.open(io.BytesIO(data))
     except Image.DecompressionBombError as exc:  # Pillow raises this off Exception, not OSError
         raise ValueError(str(exc)) from exc
     _check_size(img.width, img.height, "source image")  # header only: refuse before load() decodes
