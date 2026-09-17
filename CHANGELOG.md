@@ -4,6 +4,9 @@ Hand-written changes for users and contributors. An unreleased entry is not a pu
 
 ## Unreleased
 
+- Add `--profile` to `asrai light-ledger` and `profile` to the `light_ledger` MCP tool: with one, the
+  result carries `sentences`, the same findings said for that reader; without one, the result is
+  unchanged. The profile never reaches the measurement — both transports apply it to a finished result.
 - Ship reader profiles (`profiles.v1.json`) as stock data: four axes over the three readers `spec.md` §1
   already names, selecting how a finished verdict is said. A profile is a view, not a truth — the same
   asset and answers produce an identical verdict and record under every one, and none is the default.

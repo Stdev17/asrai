@@ -56,6 +56,10 @@ def installed_check() -> dict:
         before = asset.read_bytes()
         measured = json.loads(cli("measure", str(asset)))
         assert measured["sha256"] == hashlib.sha256(before).hexdigest(), measured
+        # the reader profiles are bundled data a flag reads at parse time, so the installed CLI is the
+        # only place that proves both ship and agree
+        said = json.loads(cli("light-ledger", str(asset), "--profile", "untrained"))
+        assert said["sentences"] and "sentences" not in json.loads(cli("light-ledger", str(asset)))
 
         async def mcp_check() -> None:
             params = StdioServerParameters(command=str(executable), args=["mcp"], cwd=work,

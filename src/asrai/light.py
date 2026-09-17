@@ -793,6 +793,15 @@ def _facing(vec) -> str:
     return FACINGS[int((math.degrees(math.atan2(vec[1], vec[0])) % 360 + 22.5) % 360 // 45)]
 
 
+def for_reader(result: dict, profile: str | None) -> dict:
+    """The result with one reader's reading of it attached, under `sentences`.
+
+    `None` attaches nothing. That is not an empty reading but the absence of one: a result is complete
+    before any profile is applied, so no profile is the default and both transports say so the same
+    way. The verdict this wraps is untouched, which is the whole contract -- see profiles.v1.json."""
+    return result if profile is None else result | {"sentences": sentences(result, profile)}
+
+
 def sentences(result: dict, profile: str | None = None) -> list[str]:
     """Say a finished verdict to one reader, one line per finding. What spec.md section 1 owes the
     reader with no art training is an id, a box, a direction, in a sentence they can hand to whoever
@@ -808,10 +817,11 @@ def sentences(result: dict, profile: str | None = None) -> list[str]:
     loud under every profile. An omitted line reads as a clean one, which is the defect this repository
     has now fixed three times. The art director's `settled: silence` is not that: it drops findings a
     measurement decided, which stay in the observation record and are read there."""
+    p = _profile(profile)
     verdict = result.get("verdict")
     if not verdict:
-        return []
-    p = _profile(profile)
+        return ["Nothing has been judged yet. This is the measurement half; the form it returned has "
+                "to be answered before anything here can pass or fail."]
     boxes = {s["id"]: s["bbox"] for s in result["subjects"]}
     out = []
     for v in verdict["subjects"]:

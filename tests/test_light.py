@@ -273,7 +273,11 @@ def test_the_reader_with_no_training_gets_a_sentence_and_the_verdict_does_not_mo
     flat = light.sentences(light.ledger(tmp_path / "s.png", answers=lone["form"]))
     assert any("too faint to measure" in s for s in flat) and any("no one has looked" in s for s in flat)
 
-    assert light.sentences(lone) == []                               # phase one has no verdict to project
+    # phase one has no verdict to project, and an empty reading would read as a clean one
+    assert light.sentences(lone) == ["Nothing has been judged yet. This is the measurement half; the "
+                                     "form it returned has to be answered before anything here can pass or fail."]
+    assert "sentences" not in light.for_reader(lone, None)           # no profile is the default
+    assert light.for_reader(out, "artist")["verdict"] is out["verdict"]   # the same object, unwrapped
     with pytest.raises(ValueError, match="unknown profile"):
         light.sentences(out, "art director")
 

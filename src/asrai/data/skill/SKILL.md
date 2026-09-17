@@ -155,6 +155,12 @@ hand-drawn key variation and where suspicion begins have no recorded basis and m
    bright side that does not mirror with the image is noise, and its subject is `unknown`.
 6. Record: fill `record.observer.model` with your model id and pass `record` to `record`. Measured
    items are `asserted`, observer items `estimated`; notes name ids and carry no magnitude.
+7. Handing it to a person: `profile` on `light_ledger` adds `sentences`, the same findings said for one
+   reader, from `profiles.v1.json`. `untrained` gives an id, a box and a direction per finding and no
+   vocabulary at all, which is the one to use when you do not know who is reading; `artist` adds the
+   term id and what decided each line; `art_director` drops what the measurement settled and attaches
+   the angle the contested band turned on. Omit `profile` when you are working, not reporting: it costs
+   output and changes nothing you reason over.
 
 The ledger's `highlight` is the subject's brightest region: on a pipe with a bright painted band it
 is the band, not a specular. The ledger cannot tell whether a proposed emitter emits — only what its
@@ -217,3 +223,6 @@ term's quantification profile does not admit, is refused whatever the context sa
 - Do not judge a screenshot as if it were one asset, or a lone asset for hierarchy.
 - Do not modify input files; outputs are new files under `out/`.
 - Do not paste the whole vocabulary or every record into context.
+- Do not cite a `sentences` line as a finding, or record one. A profile is a view over a verdict:
+  the verdict and the record are identical under every profile and are what you reason and write
+  from. If a sentence and the verdict ever disagree, the verdict is right and the sentence is a bug.

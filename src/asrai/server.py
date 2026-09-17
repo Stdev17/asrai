@@ -61,15 +61,17 @@ def measure(path: str, target_width: int | None = None) -> dict:
 @server.tool()
 @_guard
 def light_ledger(path: str, subjects: list[dict] | None = None, capture: str | None = None, mirror: bool = False,
-                 answers: dict | None = None) -> dict:
+                 answers: dict | None = None, profile: str | None = None) -> dict:
     """Lighting pass, two phases. Without answers: proposed emitters, each subject's shading direction, a key-light
     fit, an overlay PNG under out/ with every id drawn on it, and `form`, the typed answer sheet. With the filled
     form as answers: `verdict` and a `record`; an unfilled form returns what the measurement alone decides.
     subjects: at most 16 of {"id", "bbox": [x, y, w, h] px, "depth"?: layer index, "mask"?: alpha image}; or
     capture: a capture.json; or neither, for a sprite with alpha. mirror=true measures the mirrored image.
+    profile: untrained | artist | art_director also says the verdict for that reader under `sentences`.
     SKILL.md carries the rest."""
     cfg = config.load()
-    return light.ledger(Path(path), subjects, capture, Path(cfg["_root"]) / cfg["paths"]["out"], mirror, answers)
+    return light.for_reader(light.ledger(Path(path), subjects, capture, Path(cfg["_root"]) / cfg["paths"]["out"],
+                                         mirror, answers), profile)
 
 
 @server.tool()
