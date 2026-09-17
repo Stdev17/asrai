@@ -260,6 +260,7 @@ def test_every_number_the_documents_claim_is_the_number_the_repository_has():
     import asyncio
     import json
     from pathlib import Path
+    import test_light
     from asrai import light, measure, vocab
     from asrai.server import server
 
@@ -281,6 +282,9 @@ def test_every_number_the_documents_claim_is_the_number_the_repository_has():
         "light.spill_near_radii": lambda: light.SPILL_NEAR,
         "light.spill_far_inner_radii": lambda: light.SPILL_FAR[0],
         "light.spill_far_outer_radii": lambda: light.SPILL_FAR[1],
+        # a conformance bound is a decision, so its truth is the constant the sweep is held to
+        "light.bright_side_noise_deg": lambda: test_light.BRIGHT_SIDE_NOISE_DEG,
+        "light.contour_fit_noise_deg": lambda: test_light.CONTOUR_FIT_NOISE_DEG,
         "measure.max_megapixels": lambda: measure.MAX_PIXELS // 1_000_000,
         "fixtures.images": lambda: len([p for p in (root / "tests" / "fixtures").iterdir()
                                         if p.suffix in (".png", ".jpg")]),

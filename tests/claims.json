@@ -229,6 +229,26 @@
         "docs/spec.md": "in a ring at two core radii against a ring at four to eight",
         "src/asrai/data/stock/surfaces.v1.json": "surfaces within two core radii against surfaces four to eight out"
       }
+    },
+    {
+      "id": "light.bright_side_noise_deg",
+      "value": 4,
+      "truth": "test_light.BRIGHT_SIDE_NOISE_DEG",
+      "claimed_in": {
+        "docs/spec.md": "stays under four degrees (bright side)",
+        "src/asrai/data/stock/surfaces.v1.json": "stays under 4 degrees (bright side)",
+        "src/asrai/light.py": "Under 4 degrees of error on synthetic discs"
+      }
+    },
+    {
+      "id": "light.contour_fit_noise_deg",
+      "value": 8,
+      "truth": "test_light.CONTOUR_FIT_NOISE_DEG",
+      "claimed_in": {
+        "docs/spec.md": "(bright side) and eight (contour fit)",
+        "src/asrai/data/stock/surfaces.v1.json": "and 8 degrees (contour fit)",
+        "src/asrai/light.py": "Under 8 degrees of error on synthetic discs"
+      }
     }
   ]
 }

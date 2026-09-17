@@ -8,6 +8,10 @@ from PIL import Image
 
 from asrai import light, records
 
+# The bound the estimators are held to. Registered in claims.json and stated in docs/spec.md,
+# surfaces.v1.json and light.py's own docstring: moving any one of them fails the suite.
+BRIGHT_SIDE_NOISE_DEG = 4
+CONTOUR_FIT_NOISE_DEG = 8
 BALL = [{"id": "ball", "bbox": [50, 30, 80, 80]}]
 UPPER_LEFT = np.array([-1.0, -1.0]) / np.sqrt(2)
 
@@ -184,12 +188,12 @@ def test_estimator_noise_floor_on_every_direction(tmp_path, alpha, cel):
         disc(ang, alpha=alpha, cel=cel).save(tmp_path / "d.png")
         s = light.ledger(tmp_path / "d.png", [{"id": "d", "bbox": [54, 34, 72, 72]}])["subjects"][0]
         truth = np.array([np.cos(np.radians(ang)), np.sin(np.radians(ang))])
-        assert light._angle(s["bright_side"]["vector"], truth) < 5, (ang, s["bright_side"])
+        assert light._angle(s["bright_side"]["vector"], truth) < BRIGHT_SIDE_NOISE_DEG, (ang, s["bright_side"])
         assert light._shadow_measured(s) == alpha, (ang, s["shadow"])   # a box on a uniform ground has no
         if alpha:                                                       # shaded mass of its own to place
             assert s["shadow"]["opposition_deg"] < 10, (ang, s["shadow"])
         if alpha:
-            assert s["contour_fit"]["r2"] > 0.5 and light._angle(s["contour_fit"]["vector"], truth) < 10, (ang, s["contour_fit"])
+            assert s["contour_fit"]["r2"] > 0.5 and light._angle(s["contour_fit"]["vector"], truth) < CONTOUR_FIT_NOISE_DEG, (ang, s["contour_fit"])
 
 
 def test_mirror_flips_x_only(tmp_path):

@@ -10,7 +10,7 @@ distance to a light on another layer, which decides which light a subject should
 Two direction estimates per subject:
 
 - bright side: centroid of the subject's top-decile luminance minus the subject centroid. Reads flat
-  and cel shading, where a Lambertian fit does not. Under 3 degrees of error on synthetic discs.
+  and cel shading, where a Lambertian fit does not. Under 4 degrees of error on synthetic discs.
 - contour fit: Johnson & Farid (2005). Along the occluding contour the surface normal lies in the
   image plane, so luminance against the contour normal is a linear least squares for the light
   direction, and r2 says whether the surface shades like a Lambertian form at all. Alpha masks only:
