@@ -20,7 +20,9 @@ Both read the same three layers below. They differ only in where the reading com
 | needs | a harness that can accept or reject, and a worker to spend | a sample already carrying evidence about the question |
 
 `commit-forensics` is mode 2 worked out for one kind of evidence: the history is the sample, and the
-message-against-diff reading is the projection.
+message-against-diff reading is the projection. `persona-build` is mode 2 worked out for another: the
+artifact is the sample, and the projection is what one path through it affords, given a face so a human
+can reason with it.
 
 **Choose by availability, not by price.** Mode 1 is unavailable before a worker is dispatched, against
 a past incident, and against any artifact with no harness to run — a policy, a contract, a design.

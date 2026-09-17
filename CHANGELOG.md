@@ -4,6 +4,9 @@ Hand-written changes for users and contributors. An unreleased entry is not a pu
 
 ## Unreleased
 
+- Add a `persona-build` skill: end-user personas as spec-perturbation mode 2 over an artifact that already
+  exists, recorded as projections with what they may and may not claim, rather than as descriptions of
+  people.
 - Let the overlay override the reader profile on vocabulary, and on nothing else: a term a team's records
   have used is named even for the reader with no art training, because it is what that team says.
 - Scope the ten-node diagram threshold to the feature realm. A realm is not a subsystem, and the data
