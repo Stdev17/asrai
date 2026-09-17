@@ -252,6 +252,7 @@ def test_the_claims_scanner_finds_a_magnitude_and_not_a_reference():
     assert found("stays under four degrees (bright side)") == {4}
     assert found("the emitter it points at when that one is at least a quarter as strong") == {0.25}
     assert found("measures 0.37 of shaded strength on a box") == {0.37}
+    assert found("the surface measures 3,843 bytes and is held under 1,200 tokens") == {3843, 1200}
     assert found("`measure.v1` on 2026-09-17, Python 3.14, runbook §1, tier 2, tiers 1 and 2, e2 at L1") == set()
     src = (Path(__file__).resolve().parent.parent / "tools" / "check_claims_diff.py").read_text("utf-8")
     lines = src.splitlines()

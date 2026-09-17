@@ -49,7 +49,7 @@ DROP = (re.compile(r"`[^`]*`"),                       # an id in code voice is a
                    r"|tables?)\s+(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten)"
                    r"(?:\s*(?:,|and)\s*(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten))*\b", re.I),
         re.compile(r"^\s*(?:[-*+]|\d+[.)]|#{1,6})\s+"))
-NUMERAL = re.compile(r"\b\d+(?:\.\d+)?\b")
+NUMERAL = re.compile(r"\b\d{1,3}(?:,\d{3})+\b|\b\d+(?:\.\d+)?\b")   # a separator is punctuation
 
 
 def scanned(path: str) -> bool:
@@ -103,7 +103,8 @@ def numbers(text: str):
         text = pattern.sub(" ", text)
     for hit in NUMERAL.finditer(text):
         raw = hit.group(0)
-        yield (float(raw) if "." in raw else int(raw)), raw
+        plain = raw.replace(",", "")        # a thousands separator is punctuation, not a second magnitude
+        yield (float(plain) if "." in plain else int(plain)), raw
     for word, value in WORD_VALUE.items():
         if re.search(rf"\b{re.escape(word)}\b", text, re.I):
             yield value, word
