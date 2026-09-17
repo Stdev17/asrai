@@ -24,6 +24,143 @@ be, on the day the policy changed. Their wording is unchanged; only the shape is
 
 ---
 
+## 2026-09-17 · verified at `5c5e3e6` · Claude Opus 5
+
+The repairs the persona tour found, and the profile work the tour's fourth finding opened. The entry
+below recorded per-profile term alignment as decided in shape and not designed; it is now built and
+shipped on both transports, so this entry supersedes that limit and the state, limits and waiting list
+around it. Everything that entry says about the tour itself stands.
+
+**State.**
+
+- phase: 1 (core and transports) and 1b (surface pass) remain complete; phase 2 is not implemented
+- last_acceptance_passed: 65 tests on CPython 3.14.7. Links: 0 broken, 0 unindexed. Translation
+  stamps: 3 current, 0 stale, 0 broken. A fresh wheel install passes CLI, actual stdio MCP, bundled
+  data and input preservation; its bundle is `dist/repro-switch`, and it is the only place the new
+  bundled profiles and the flag that reads them are proven to ship together. The MCP tool surface
+  measures 3,810 bytes, 896 tokens, against an unchanged 1,000-token soft and 1,200-token hard cap.
+  All nine commits in this series passed both installed hooks. Earlier entries retain Python 3.11,
+  cross-version wheel and negative-hash installation evidence
+- in_progress: everything is local. Remote CI execution, DCO bootstrap, required-check activation
+  and release publication are untouched and still unverified
+- next_slice: schemas B and C of the 2026-09-17 review — the overlay ledger and the persona-build
+  projection record. Both reopen a realm question before any code: B is a materialised view over the
+  record corpus and belongs wherever that corpus is owned, C is a skill. Then, when remote
+  publication is authorized, the DCO workflow, signed and unsigned PR cases, the three required
+  checks and a release with the verified bundle attached. Phase 2 remains separate
+- next_command: the landing checks in `runbook.md` §1 and commit range validation in §7
+- working_tree: main is the only worktree, `core.hooksPath=tools/hooks` active. Nothing pushed and
+  no repository setting changed. An untracked `.codex/config.toml` written by another tool is left
+  alone; the commit hook caught it as an unnamed `root` owner and it was kept out of every commit
+
+**What landed.**
+
+- **Silence stopped reading as agreement at the answer contract.** The lighting form issued every
+  subject surface pre-filled as `{no: [], unknown: []}` and the verdict fell through to `yes`, so the
+  path `spec.md` §7.1 tells the first reviewer to take returned `yes` on `specular`, `light_color`,
+  `ambient`, `rim` and `albedo`. Perturbation showed the default was unconditional: deleting the
+  `subjects` key entirely still produced `yes`. The form now issues `null`, an unanswered surface
+  returns `unknown` and records nothing, an answered one still passes every subject it does not list,
+  and `cast_shadow` still falls through to the measurement. No schema bump: no answer sheet is
+  persisted. The covering test walked that path and asserted nothing about the five surfaces, which
+  is how it survived a suite that ran over it every time
+- `asrai vocab get --compact` became `--full / --no-full`. `91a4bc7` had written the conventions §1a
+  row choosing `full` **and** shipped `--compact` beside it, so the table read as settled while the
+  surface a human types kept the rejected word, printed on the front page in four languages
+- The three translations were two commits behind and asserting deleted English — the removed layout
+  paragraph naming `cli` and `server` as core while omitting `light`, `uv sync` without `--locked`,
+  pytest as the single gate, byte equality against fixtures. All three are current and restamped, and
+  no check was added: semantic staleness is what a stamp and a named owner exist for
+- Translation scope is now a rule. The vocabulary contribution path is translated because an
+  industry's vocabulary map is polymorphic across language communities; everywhere else presumes a
+  contributor who works in English
+- **A profile is the reader, not a voice the model adopts.** `docs/review/2026-09-17-profile-alignment.md`
+  settles that, decomposes thirty years of persona practice into what it buys, what it costs, what
+  fails late and what is free, and records why the evidence-perturbation framing survives the field's
+  own falsifiability critique: a projection claims that a path through an artifact reaches something,
+  and a path can be walked
+- **The three readers of `spec.md` §1 are now a shipped view.** `profiles.v1.json` holds four axes over
+  them and nothing else; `light.sentences` says a finished verdict one line per finding, with the
+  direction as the eight-point label of the measured bright-side vector; `light.for_reader` attaches
+  it. `--profile` and the `light_ledger` `profile` parameter reach it from both transports. Neither
+  passes a profile to `ledger`: the audience cannot be an input to the measurement, which is
+  structural rather than remembered, and the test renders one contested-band verdict three ways and
+  compares the verdict and record before and after
+
+**Known limits.**
+
+- Schemas B and C of the review are **not built**. Nothing adapts: the three profiles are stereotypes
+  with no overlay behind them, so a reader who has demonstrated a vocabulary is served exactly as one
+  who has not. `note()`, the record-corpus projection and the session-boundary injection the review
+  specifies all remain design
+- `settled` and `contested` co-vary in `profiles.v1.json`: only `art_director` differs on either. They
+  are kept apart because they answer different questions, and the file says so in `open` rather than
+  hiding it. A profile that suppresses without enriching decides it
+- The prevalence figures behind the review's second failure mode were not obtained; the paper holds
+  them. The direction is established and the magnitude is not, which matters to anyone proposing a
+  profile with more than a handful of axes
+- Four subject surfaces — `specular`, `ambient`, `rim`, `albedo` — carry no `basis` field in the
+  verdict. After the answer-contract fix they read `unknown` unless answered, and when answered
+  nothing says the observer decided them. The artist profile exposed this and does not fix it
+- The realm ledger is a reviewed partition, not an enforced one. Nothing checks that every tracked
+  path falls in exactly one realm, that a stated verifier runs, or that a no-authority realm is never
+  cited as the reason for a rule
+- The index check covers one directory through a hardcoded row, deliberately
+- `2026-09-16-commit-policy.md` carries no stamp although it was written after the rule. A review is
+  never edited, so its three values are in the index's provenance table instead
+- The proposed re-carving of the skill's four duplication archetypes as two axes is **not applied**
+- The owner graph is a reviewed model, not compiler enforcement. Private rounding, a shared stock
+  directory, a hash helper located in records and shared dictionary/literal contracts remain seams
+- Hooks are installed locally; a fresh clone still needs explicit installation, and local enforcement
+  is not a remote required check. Native hook tests ran on Apple Git 2.39.3
+- Local results are not GitHub Actions results. Ubuntu jobs, Windows installation, signed and
+  unsigned remote PR behaviour and required checks have not been exercised
+- A bundle pins Python and dependency versions and constrains artifact hashes; it does not make
+  OS/CPU wheels or native decoders identical. Ordinary `uvx asrai==<version>` does not consume the
+  repository lock, and `doctor --lock` reports drift without refusing
+- Agreement bands and surface selection still need measured evidence or a sourced human decision
+- `measure` refuses above 12 Mpx; 16-bit colour PNGs are measured at 8-bit precision. A heavy vignette
+  can bend shaded-mass direction into the observer band; the eight brightest blobs and at most sixteen
+  subjects are measured. Cast-shadow evidence needs known subject pixels and cannot separate cast from
+  form shadow inside one box
+- Precedent retrieval, recipes, previews and apply, ingest and promotion, the pairwise bootstrap and
+  external rendering remain unbuilt. Blender and Inkscape are not installed in the verified environment
+
+**Waiting on a human.**
+
+- Decide where the overlay ledger of schema B is owned before it is written; it is a projection of the
+  record corpus and does not obviously belong to any realm the ledger currently names
+- Decide whether `CONTRIBUTING.md` and the locale bundles' README are translated now that they are
+  candidates, and into which of the three languages
+- Authorize remote publication, then activate and verify the remote gates and release path
+- Decide whether the skill's duplication archetypes are re-carved as two axes, as proposed above
+- Validate or explicitly adopt the lighting policy and surface selection with a recorded basis
+- Review `docs/spec.md` and the artist brief
+- Name native industry-language owners for `ko`, `ja` and `zh-Hans`; their translations are current as
+  of this entry, so what is missing is the name, not the text
+- Decide `observer.mode` default and embedding egress (`spec.md` §10)
+- Confirm external-tool versions on team machines before implementing their adapters
+
+**Standing facts.**
+
+- Inputs are immutable; outputs are new files; corpus records and prior checkpoint entries are
+  append-only; dated reviews remain historical and unedited
+- The runbook owns the judgment hierarchy and procedures. A conflicting implementation is defective
+- Documents are code that generates code: a wrong line in an operating document is executed by every
+  agent that reads it and fails nothing, which is why their arrangement is gated rather than trusted
+- A profile is a view. Judgment outranks expression, one verdict reads three ways, and a `sentences`
+  line is never a finding and is never recorded
+- **An answer that was never given is not an answer, and this repository gets it wrong at every new
+  layer it builds.** Before today it had been fixed at an axis and at a measurement. Today it was
+  found shipped at the answer contract, and then written four more times inside one afternoon in the
+  rendering layer: an unmeasurable shaded mass said as nobody having looked, a confirmed light with an
+  unreadable neighbourhood said as an unclassified blob, a subject in the contested band given no line
+  at all, and a phase-one result given an empty list. Every one of the four was caught by running the
+  code and reading its output, and none by a test that already existed. That is the method: read what
+  the thing actually says to a reader, and look for the state that is expressed by absence
+
+---
+
 ## 2026-09-17 · verified at `e30bea9` · Claude Opus 5
 
 A dogfooding pass: three personas — a developer with no art training, a technical artist, and a
