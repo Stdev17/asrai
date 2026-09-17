@@ -277,6 +277,10 @@ def test_every_number_the_documents_claim_is_the_number_the_repository_has():
         "light.emitters_max": lambda: light.EMITTERS_MAX,
         "light.key_tolerance_deg": lambda: light.KEY_TOLERANCE_DEG,
         "light.disagree_deg": lambda: light.DISAGREE_DEG,
+        "light.pointed_min_proxy": lambda: light.POINTED_MIN_PROXY,
+        "light.spill_near_radii": lambda: light.SPILL_NEAR,
+        "light.spill_far_inner_radii": lambda: light.SPILL_FAR[0],
+        "light.spill_far_outer_radii": lambda: light.SPILL_FAR[1],
         "measure.max_megapixels": lambda: measure.MAX_PIXELS // 1_000_000,
         "fixtures.images": lambda: len([p for p in (root / "tests" / "fixtures").iterdir()
                                         if p.suffix in (".png", ".jpg")]),

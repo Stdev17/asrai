@@ -192,6 +192,43 @@
       "claimed_in": {
         "docs/conventions.md": "More than **10 nodes**"
       }
+    },
+    {
+      "id": "light.pointed_min_proxy",
+      "value": 0.25,
+      "truth": "light.POINTED_MIN_PROXY",
+      "claimed_in": {
+        "docs/spec.md": "quarter as strong, because the proxy under-reads clipped lamp heads",
+        "src/asrai/data/skill/SKILL.md": "the emitter it points at counts when at least a quarter as",
+        "src/asrai/data/stock/surfaces.v1.json": "the emitter it points at when that one is at least a quarter as strong"
+      }
+    },
+    {
+      "id": "light.spill_near_radii",
+      "value": 2,
+      "truth": "light.SPILL_NEAR",
+      "claimed_in": {
+        "docs/spec.md": "in a ring at two core radii against a ring at four to eight",
+        "src/asrai/data/stock/surfaces.v1.json": "surfaces within two core radii against surfaces four to eight out"
+      }
+    },
+    {
+      "id": "light.spill_far_inner_radii",
+      "value": 4,
+      "truth": "light.SPILL_FAR[0]",
+      "claimed_in": {
+        "docs/spec.md": "in a ring at two core radii against a ring at four to eight",
+        "src/asrai/data/stock/surfaces.v1.json": "surfaces within two core radii against surfaces four to eight out"
+      }
+    },
+    {
+      "id": "light.spill_far_outer_radii",
+      "value": 8,
+      "truth": "light.SPILL_FAR[1]",
+      "claimed_in": {
+        "docs/spec.md": "in a ring at two core radii against a ring at four to eight",
+        "src/asrai/data/stock/surfaces.v1.json": "surfaces within two core radii against surfaces four to eight out"
+      }
     }
   ]
 }
