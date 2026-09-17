@@ -21,6 +21,11 @@ LANG_ALIASES = {
 # Numeric ops whose magnitude is meaningless without a fixed reference state.
 DELTA_OPS = ("relative_delta", "multiply", "add_delta", "percentage_point_delta")
 DIRECT_OPS = ("set",) + DELTA_OPS
+# the three operations whose unit the operation itself fixes, and the unit each one fixes it to.
+# Keyed on `object` because the operation is read from a model-supplied document: a lookup with
+# whatever arrived there answers nothing, which is the answer, rather than raising here.
+UNIT_FOR_OP: dict[object, str] = {"relative_delta": "percent_relative", "multiply": "factor",
+                                  "percentage_point_delta": "percentage_point"}
 # Material scalars whose number only means something inside a declared shader model.
 MATERIAL_SCALARS = ("material.roughness", "material.smoothness", "material.metallic")
 
@@ -228,10 +233,9 @@ def lint_instruction(request: dict[str, Any]) -> list[str]:
             unit = quantity.get("unit")
             if unit not in p["unit_registry"]:
                 errors.append(f"{prefix}: unknown or ambiguous unit {unit!r}")
-            elif op not in ("relative_delta", "multiply", "percentage_point_delta") and unit not in q["allowed_units"]:
+            elif op not in UNIT_FOR_OP and unit not in q["allowed_units"]:
                 errors.append(f"{prefix}: unit {unit!r} is not admitted by profile {q['profile_id']}")
-            expected = {"relative_delta": "percent_relative", "multiply": "factor",
-                        "percentage_point_delta": "percentage_point"}.get(op)
+            expected = UNIT_FOR_OP.get(op)
             if expected and unit != expected:
                 errors.append(f"{prefix}: {op} requires {expected}")
             if unit in ("px", "px2", "texel"):
