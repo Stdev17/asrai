@@ -33,6 +33,7 @@ from __future__ import annotations
 import functools
 import hashlib
 import json
+import math
 import re
 from pathlib import Path
 
@@ -762,6 +763,88 @@ def _records(verdict: dict, emitters: list[dict], subjects: list[dict], ans: dic
     return {"kind": "observation", "asset_kind": "screenshot" if capture else "raster", "evidence_layer": "L2" if capture else "L1",
             "scale": "native", "asset_sha256": sha, "observer": {"mode": "host", "model": None, "prompt_rev": "v1"},
             "context": {"lighting_mode": ans["mode"]}, "observations": items}
+
+
+# Eight points, clockwise from +x. Image coordinates, so +y is down and `[-0.7, -0.7]` is upper left,
+# exactly as surfaces.v1.json states it. The label is a coarser projection of a measured unit vector,
+# the same move `_direction` makes on an angle; it introduces no magnitude the measurement did not have.
+FACINGS = ("right", "lower right", "down", "lower left", "left", "upper left", "up", "upper right")
+
+
+def _facing(vec) -> str:
+    return FACINGS[int((math.degrees(math.atan2(vec[1], vec[0])) % 360 + 22.5) % 360 // 45)]
+
+
+def sentences(result: dict) -> list[str]:
+    """What spec.md section 1 owes the reader with no art training: an id, a box, a direction, in a
+    sentence they can hand to whoever fixes it.
+
+    This is a projection of a finished verdict. It takes the verdict and returns text, so it can never
+    be the thing that decides one -- expression yields to judgment by construction here, not by a rule
+    someone has to remember. Nothing it returns is new information; what is new is that a reader who
+    has no vocabulary can act on it, because no term id and no evidence level appears in the output.
+
+    Silence is the failure mode this section exists to prevent, so a surface nobody answered is said
+    out loud rather than omitted. An omitted line reads as a clean one, which is the defect this
+    repository has now fixed three times."""
+    verdict = result.get("verdict")
+    if not verdict:
+        return []
+    boxes = {s["id"]: s["bbox"] for s in result["subjects"]}
+    out = []
+    for v in verdict["subjects"]:
+        sid = v["id"]
+        where = "%s (box %d,%d to %d,%d)" % (sid, *boxes[sid])
+        lit = next((s["bright_side"] for s in result["subjects"] if s["id"] == sid), None)
+        facing = _facing(lit["vector"]) if lit else None
+        if v["diffuse"] == "disagrees":
+            out.append(f"The lit side of {where} faces {facing}, which is not where the light it should "
+                       f"answer to ({v['expected_key']}) is.")
+        elif v["diffuse"] == "agrees" and facing:
+            out.append(f"The lit side of {where} faces {facing}, and that agrees with {v['verdict_emitter']}.")
+        if v.get("cast_shadow") == "no":
+            out.append(f"The shaded part of {where} is not opposite its lit side, so its shadow and its "
+                       f"light disagree.")
+        # several surface labels contain their own "and", so these lists are joined on semicolons;
+        # `_join` is for ids, which do not
+        wrong = _labels(v, "no", skip="cast_shadow")
+        if wrong:
+            out.append(f"On {where}, these are missing or inconsistent with the rest of the frame: {wrong}.")
+        # two different kinds of not-knowing, and collapsing them is the defect this file has had three
+        # times: the measurement failing to read a shaded mass is not the observer declining to look
+        if v.get("cast_shadow") == "unknown" and v.get("shadow_basis") == "none":
+            out.append(f"The shaded part of {where} was too faint to measure, so nothing here can say "
+                       f"which way its shadow falls.")
+        unseen = _labels(v, "unknown", skip="cast_shadow" if v.get("shadow_basis") == "none" else None)
+        if unseen:
+            out.append(f"Nobody has decided these on {where}, which is not the same as fine — it means "
+                       f"no one has looked: {unseen}.")
+    # `unclassified` and `unreadable` are not the same hold and must not be said as one: the first is
+    # nobody having judged the blob, the second a confirmed light whose surroundings could not be read
+    held = [e["id"] for e in verdict["emitters"] if e["verdict"] == "unclassified"]
+    if held:
+        out.append(f"{_join(held)} {'is a bright area' if len(held) == 1 else 'are bright areas'} nobody "
+                   f"has said is a light or not, so nothing in the frame was judged against "
+                   f"{'it' if len(held) == 1 else 'them'}.")
+    blind = [e["id"] for e in verdict["emitters"] if e["verdict"] == "unreadable"]
+    if blind:
+        out.append(f"{_join(blind)} {'is a light' if len(blind) == 1 else 'are lights'}, but the area "
+                   f"around {'it' if len(blind) == 1 else 'them'} is too bright to read, so nothing could "
+                   f"be checked against {'it' if len(blind) == 1 else 'them'}.")
+    dark = [e["id"] for e in verdict["emitters"] if e["verdict"] == "lights_nothing"]
+    if dark:
+        out.append(f"{_join(dark)} {'is a light' if len(dark) == 1 else 'are lights'} that nothing in the "
+                   f"frame takes {'its' if len(dark) == 1 else 'their'} light from.")
+    return out
+
+
+def _join(items: list[str]) -> str:
+    return items[0] if len(items) == 1 else ", ".join(items[:-1]) + " and " + items[-1]
+
+
+def _labels(v: dict, value: str, skip: str | None = None) -> str:
+    return "; ".join(_surface(k["id"])["label"].lower() for k in _subject_surfaces()
+                     if v[k["id"]] == value and k["id"] != skip)
 
 
 def _arrow(d: ImageDraw.ImageDraw, start, vec, length: float, color, lw: int) -> tuple[float, float]:

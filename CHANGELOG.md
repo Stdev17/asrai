@@ -4,6 +4,9 @@ Hand-written changes for users and contributors. An unreleased entry is not a pu
 
 ## Unreleased
 
+- Say the lighting verdict as sentences for a reader with no art vocabulary: an id, a box and a direction
+  per finding, with a surface nobody answered said out loud rather than omitted. It is a projection of a
+  finished verdict and is not yet reachable from the CLI or the MCP tools.
 - Scope translation to the path a vocabulary contribution walks, and presume a contributor who works in
   English everywhere else. `CONTRIBUTING.md` and the locale bundles' README become candidates; a directory
   README elsewhere does not.

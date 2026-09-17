@@ -241,6 +241,41 @@ def test_an_unanswered_surface_is_unknown_and_an_answered_one_excepts_only_what_
     assert (row["rim"], row["ambient"], row["albedo"]) == ("yes", "no", "unknown")
 
 
+def test_the_reader_with_no_training_gets_a_sentence_and_the_verdict_does_not_move(tmp_path):
+    """spec.md section 1 owes reader one an id, a box, a direction, in a sentence, and requires that
+    `unknown` never read as fine. It also fixes the direction of authority: expression is a projection
+    of a verdict, so producing it may not change one. That is structural here — `sentences` takes the
+    finished result and returns strings — and this pins it, because the cheap way to add a profile
+    later is to thread it into `ledger`, which is exactly what must not happen."""
+    disc(45).save(tmp_path / "u.png")                     # lit from the lower right, lamp at the upper left
+    form = light.ledger(tmp_path / "u.png", BALL)["form"]
+    form["emitters"] = {"e1": "lamp", "e2": "paint"}
+    out = light.ledger(tmp_path / "u.png", BALL, answers=form, out_dir=tmp_path / "o")
+    before = json.dumps(out["verdict"], sort_keys=True)
+    said = light.sentences(out)
+    assert json.dumps(out["verdict"], sort_keys=True) == before      # expression yields: it reads, never writes
+
+    disagreement = next(s for s in said if "lit side" in s)
+    assert "ball" in disagreement and "50,30 to 80,80" in disagreement and "lower right" in disagreement
+    hold = next(s for s in said if "Nobody has decided" in s)
+    assert "not the same as fine" in hold                            # silence is not agreement, said out loud
+
+    # no vocabulary and no evidence word reaches this reader: they have neither
+    text = " ".join(said)
+    assert not any(i["term_id"] in text for i in out["record"]["observations"])
+    assert not any(w in text for w in ("asserted", "estimated", "unknown", "observer", "measurement"))
+
+    # a confirmed light whose surroundings could not be read is not an unclassified blob, and an
+    # unfilled form is not a measurement that failed. Collapsing either pair is the defect this file
+    # has now carried three times
+    assert next(s for s in said if s.startswith("e1")).endswith("too bright to read, so nothing could be checked against it.")
+    lone = light.ledger(scene(tmp_path / "s.png", flat=True))   # no shading to place a shaded mass by
+    flat = light.sentences(light.ledger(tmp_path / "s.png", answers=lone["form"]))
+    assert any("too faint to measure" in s for s in flat) and any("no one has looked" in s for s in flat)
+
+    assert light.sentences(lone) == []                               # phase one has no verdict to project
+
+
 def test_no_alpha_and_no_subjects(tmp_path):
     img = np.full((60, 90, 3), 40, np.uint8)
     img[10:20, 60:75] = 255
