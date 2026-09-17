@@ -21,7 +21,7 @@ Collect the current counts with `uv run pytest --collect-only -q`; parametrised 
 
 | file | what it holds |
 |---|---|
-| `test_asrai.py` | vocabulary search/get/locales, lint rules, `measure` determinism, record validation and layer rules, `doctor` lock and drift, the MCP tools in-process **and** over stdio, refusal of malformed input at both trust boundaries, every number the documents claim against `claims.json`, and the MCP tool surface against its token budget |
+| `test_asrai.py` | vocabulary search/get/locales, lint rules, `measure` determinism, record validation and layer rules, `doctor` lock and drift, the MCP tools in-process **and** over stdio, refusal of malformed input at both trust boundaries, every number the documents claim against `claims.json`, the scanner that looks for the ones no row claims, and the MCP tool surface against its token budget |
 | `test_corpus.py` | the shipped vocabulary validates, the locales carry no hard defect, the shipped `lint` and the vendored validator agree (both on acceptance and on rejection), every surface in `surfaces.v1.json` maps onto a real vocabulary term and is named in `SKILL.md`, and the skill names every `context` key the linter requires |
 | `test_dco.py` | new commits need real signoff trailers; legacy history is exempt and unavailable history cannot pass |
 | `test_commit_check.py` | real Git hooks accept/reject commit trees, message-only and staged amendments, owner-crossing renames, merges and linked worktrees; unavailable evidence and malformed trailers fail |
