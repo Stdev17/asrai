@@ -24,6 +24,100 @@ be, on the day the policy changed. Their wording is unchanged; only the shape is
 
 ---
 
+## 2026-09-18 · verified at `53f7b87` · Claude Opus 5
+
+The run owner was given a judgment. `250a335` had given it the asset — one decode, one set of subjects,
+one identity — and `run.ledger` was still a single line handing all of it to `light` and returning
+whatever came back, so everything a run *said* belonged to the lighting family and was checked by
+nobody. `2026-09-18-the-run-answers-once.md` is the design; sixteen commits carry it and the hardening
+pass that followed. Nothing in the entry below is superseded; this adds to it.
+
+**State.**
+
+- phase: 1 (core and transports) and 1b (surface pass) remain complete; phase 2 is not implemented
+- last_acceptance_passed: 74 tests on CPython 3.14.7, mypy clean over the package and `tools/`. Links:
+  0 broken, 0 unindexed. Translation stamps: 3 current, 0 stale, 0 broken. The wheel build and its
+  install smoke test ran once this session and passed, with the new `py.typed` in the wheel. Not
+  re-run: the stdio MCP smoke test on its own, the reproducibility bundle beyond that build, and
+  Python 3.11
+- in_progress: everything is local. Remote CI execution, DCO bootstrap, required-check activation and
+  release publication are untouched and still unverified. The type check is wired into `ci.yml` and has
+  never run on a runner
+- next_slice: unchanged — remote publication when authorized, then phase 2 (recipes, adapters, alpha
+  policy, recipe hashes, preview/apply/diff). Carried forward from the entry below: whether the
+  repository-operating work in the origin repository yields a domain-agnostic form of
+  `check_claims_diff.py`. Added by this entry: the three questions
+  `2026-09-18-the-run-answers-once.md` §6 leaves to the author, and the readability family, which is
+  what makes the axes reduction and the gate order testable
+- next_command: the landing checks in `runbook.md` §1, which now begin with `uv run --no-sync mypy`
+- working_tree: main, `core.hooksPath=tools/hooks` active, clean but for the untracked `.codex/`.
+  Nothing pushed, no repository setting changed. One writer this session, unlike the last
+
+**What landed.**
+
+- **A run answers once**, the third invariant of the run owner beside *the input is read once* and
+  *subjects are derived once*. It is about what happens between a family's answer and the world, so no
+  family can hold it: a family validating its own record validates its own opinion, and two families
+  validate two. It decomposes into three checked sentences — a record is valid before the run returns
+  it, a record exists exactly when the run observed something, and an axis at `warn` or `fail` is
+  backed by an observation. `light._records` became `_observations` and returns its half; the run
+  assembles the envelope from what `open_run` already holds and signs it with the configured observer
+- **Three defects were measured before any of it was written**, all on the flow `spec.md` §7.1 calls
+  valid — the form handed back unfilled. Every fixture returned a record `records.append` refuses, and
+  nothing in the production path had ever called `records.validate`. `flat.jpg` warned on cohesion and
+  filed nothing about why. And the required `observer.model` check let a null through where it caught
+  an empty string, because `str(None)` is the string `None`
+- **The backing rule found the verdict overstating, not only the record understating.** Swept over
+  every image, subject source, mirror, mode and set of emitter answers, it caught
+  `intentional_contrast` warning under a declared stylistic key with no hypothesis to fit and no
+  finding — a frame nothing had been measured in. That is `unknown`. Both halves are one rule: whatever
+  a run says out loud, something measured stands behind it
+- **A type checker now holds the rule that a value which can be absent is guarded before use.** The
+  bill was fifteen errors in eight of the package's eleven modules, `--check-untyped-defs` adding
+  none. Two were live: the overlay read `font.size` off a union whose other arm has no such attribute,
+  and `_palette` indexed a palette that can be absent. A later rung added `warn_unreachable`, which
+  found both validators annotated as if their input were already valid — `append` depends at runtime on
+  the guard the annotation called impossible. `warn_return_any` was measured and left off: its remedy
+  is a cast asserting what the stock manifest already holds
+- **The seam between the two tools `SKILL.md` puts in sequence had never been run.** Nothing put a
+  ledger's record into `record`. It is now held over the answer shapes a run can be given, and the run
+  that observes nothing is held with it
+- **The gate's own instruments were repaired twice.** `check_claims_diff` read a thousands separator as
+  two numbers, so editing a fully registered line reported four findings. Repairing one consumer was
+  the wrong shape of fix: *does this text carry this number* was written three times and answered three
+  ways, and the claims test's translation half accepted only the bare numeral. The spellings are one
+  function now, in the module both tiers already import `NUMBER_WORDS` from, and narrowing it fails
+  both tiers together. Separately, `Values` was asked of `uv.lock`: adding one development tool rewrote
+  a hundred and fifty-six of its numbers, none of them chosen by anyone. Generated lockfiles are exempt
+  by a named tuple, decided by the responsible human against the alternative of a `Deviation` on every
+  lock change
+
+**Two measurements worth keeping.**
+
+- **A record cannot interleave with another, and the reason is a cap taken for a different purpose.**
+  `records.append` writes one line inside one buffered write. The longest line a run can build is
+  bounded by `SUBJECTS_MAX` and `EMITTERS_MAX` — on the order of a hundred and twenty observation items
+  — which is far inside Python's write buffer, so eight concurrent appenders writing sixty records each
+  produced four hundred and eighty lines and not one unparseable. `SUBJECTS_MAX` exists so a reviewer
+  is not shown more than they can read; it is also what keeps the corpus safe to append to, and raising
+  it far enough would need a lock. Measured on APFS: a network filesystem promises none of this
+- **`observer.model` is honest and uninformative, and only counting makes that visible.** `mode: host`
+  means the hosting agent observed, which asrai cannot identify, so the run signs with the configured
+  default and `SKILL.md` asks the model to replace it. `doctor` now reports how much of the corpus
+  nobody attributed. It is a report and not a gate: refusing the record would lose an observation to
+  save an attribution, and the observation is the half that cannot be recovered later
+
+**What is still open.** The axes do not reduce across families, families are not ordered, and a run
+with no family is unreachable — all three designed in §5 of the review and deliberately unbuilt,
+because with one family each is an identity function with no enforcer or a branch no call can enter.
+The presentation layer still lives in `light` and both transports import it from there. And §6 leaves
+three questions to the author: whether the presentation layer moves, whether the three axes belong in
+`observation.v1` — `spec.md` §7.1 draws an arrow into the record that the schema has no field for — and
+whether `record: null` or an absent key is the right shape for a run that observed nothing. Null was
+taken, on the argument that an omitted field reads as a clean one.
+
+---
+
 ## 2026-09-17 · verified at `6685b71` · Claude Opus 5
 
 A boundary review of the `light` family: does it own its invariants, or do they fall between owners.
