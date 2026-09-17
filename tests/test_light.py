@@ -38,6 +38,17 @@ def disc(ang_deg, alpha=True, cel=False, flat=False):
     return Image.fromarray(np.dstack([rgb, np.where(inside | lamp | decoy, 255, 0).astype(np.uint8)]), "RGBA")
 
 
+def dull(path):
+    """A grey disc under no light at all: nothing in it is bright enough to propose as an emitter, so
+    nothing can be judged against one. The run that observes nothing."""
+    W, H = 160, 120
+    yy, xx = np.mgrid[:H, :W]
+    inside = (xx - 80) ** 2 + (yy - 60) ** 2 <= 36 ** 2
+    rgba = np.dstack([np.full((H, W, 3), 90, np.uint8), np.where(inside, 255, 0).astype(np.uint8)])
+    Image.fromarray(rgba, "RGBA").save(path)
+    return path
+
+
 def scene(path, **kw):
     disc(225, **kw).save(path)
     return path
@@ -502,24 +513,40 @@ def test_a_form_belongs_to_the_run_it_was_filled_for(tmp_path):
     assert run.ledger(q, BALL, answers=form)["verdict"]["mode"] == "physical"
 
 
-def test_the_run_owns_the_record_and_writes_none_when_nothing_was_observed(tmp_path):
+def test_the_run_owns_the_record_and_backs_what_it_warns_about(tmp_path):
     """A record says which asset, at which evidence layer and scale, and who observed. All four are
     facts about the run, so the run assembles it and validates it before it leaves -- the tool told to
     store a record is not the first thing to look at one.
 
     A run that observed nothing writes no record. An append-only corpus is worse off holding a row that
-    observed nothing, and `None` says so where an absent key would read as a clean one. An unfilled form
-    is that run today: nothing is confirmed as a light, so there is nothing for a subject to be right or
-    wrong about, and the axes say `unknown`.
+    observed nothing, and `None` says so where an absent key would read as a clean one.
 
-    `asset_cohesion` is `warn` here and nothing backs it in the record, because nobody classified the
-    lamp. That is the finding the next slice closes; this one only stops an invalid record leaving."""
+    And a run may not warn a reader and leave the corpus silent. A proposed emitter nobody answered for
+    warns on cohesion, and the record said nothing about it, because the family recorded an emitter
+    answered `unknown` and not one left unanswered -- which is the same fact, arriving by a different
+    route. The rule is the run's and the observation is the family's, so a second family inherits the
+    rule without being named in it."""
     import asrai
     from pathlib import Path as P
-    p = scene(tmp_path / "s.png", flat=True)
-    out = run.ledger(p, BALL, answers=run.ledger(p, BALL)["form"])
+
+    p = dull(tmp_path / "dull.png")
+    form = run.ledger(p)["form"]
+    out = run.ledger(p, answers=form)
     assert out["record"] is None                      # the key is there; what is absent is the record
     assert "observations" not in out and "context" not in out    # the family's half, consumed by the run
+    assert set(out["verdict"]["axes"].values()) == {"unknown"}    # nothing judged, so nothing to back
+
+    # the rule found the verdict saying more than the measurement did, not only the record saying less:
+    # a declared stylistic key with no hypothesis to fit and no finding is unmeasured, not failing
+    out = run.ledger(p, answers=form | {"style": {"mode": "fake_lighting"}})
+    assert out["verdict"]["axes"]["intentional_contrast"] == "unknown" and out["record"] is None
+
+    p = scene(tmp_path / "s.png", flat=True)
+    out = run.ledger(p, BALL, answers=run.ledger(p, BALL)["form"])
+    assert out["verdict"]["axes"]["asset_cohesion"] == "warn"
+    said = [o for o in out["record"]["observations"] if o["level"] == "unknown"]
+    assert [o["note"] for o in said] == [f"{e['id']} was left unclassified, so nothing is judged against it"
+                                         for e in out["emitters"]]
 
     # nothing but config and records knows what an observer is made of, so no family can write one:
     # a null under a required field reached the corpus the last time one did

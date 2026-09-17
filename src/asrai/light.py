@@ -582,11 +582,16 @@ def _verdict(subjects: list[dict], emitters: list[dict], held: list[dict], agree
         cohesion = ("fail" if dark or crossed else
                     "warn" if unchecked else
                     "pass" if shadows or any(e["verdict"] == "lights" for e in emits) else "unknown")
+    # a declared stylistic key that nothing could be fitted to is unmeasured, not failing: without a
+    # directional hypothesis and without a dark or crossed finding, the frame gave nothing to judge,
+    # and warning there is the verdict saying more than the measurement did
+    contrast = "unknown"
+    if fake:
+        contrast = ("pass" if directional["within_tolerance"] >= 0.5 and not dark and not crossed else "warn") \
+            if directional else "warn" if dark or crossed else "unknown"
     frame = {"direction_compliance": "fail" if "fail" in axes else "warn" if "warn" in axes
              else "pass" if "pass" in axes else "unknown",
-             "intentional_contrast": ("pass" if directional and directional["within_tolerance"] >= 0.5
-                                      and not dark and not crossed else "warn") if fake else "unknown",
-             "asset_cohesion": cohesion}
+             "intentional_contrast": contrast, "asset_cohesion": cohesion}
     return {"mode": mode, "key": {"answer": ans["global"]["key"], "best": (key_fit or {}).get("best")},
             "atmosphere": ans["global"]["atmosphere"], "emitters": emits, "subjects": rows, "axes": frame}
 
@@ -603,15 +608,16 @@ def _observations(verdict: dict, emitters: list[dict], subjects: list[dict], ans
     boxes = {s["id"]: s["bbox"] for s in subjects}
     dark = {e["id"] for e in verdict["emitters"] if e["verdict"] == "lights_nothing"}
     for e in emitters:
-        kind = ans["kinds"].get(e["id"])
-        if kind:
-            held = kind in HELD_KINDS
-            items.append({"term_id": term["emissive"], "level": "unknown" if held else "estimated",
-                          "region": e["bbox"],
-                          "note": f"{e['id']} was left unclassified, so nothing is judged against it" if held
-                          else f"{e['id']} is bright paint, not a source" if kind in REJECTED_KINDS
-                          else f"{e['id']} reads as {kind} and nothing in the frame takes its light" if e["id"] in dark
-                          else f"{e['id']} confirmed as {kind}"})
+        # the kind the pass settled, not the raw answer: a blob nobody answered for and one answered
+        # `unknown` are the same fact -- nobody decided -- and the verdict already warns on both. It
+        # recorded only the second, so a run could warn a reader and leave the corpus silent
+        kind, held = e["kind"], e["kind"] in HELD_KINDS
+        items.append({"term_id": term["emissive"], "level": "unknown" if held else "estimated",
+                      "region": e["bbox"],
+                      "note": f"{e['id']} was left unclassified, so nothing is judged against it" if held
+                      else f"{e['id']} is bright paint, not a source" if kind in REJECTED_KINDS
+                      else f"{e['id']} reads as {kind} and nothing in the frame takes its light" if e["id"] in dark
+                      else f"{e['id']} confirmed as {kind}"})
     for v in verdict["subjects"]:
         sid, box = v["id"], boxes[v["id"]]
         level = {"measurement": "asserted", "observer": "estimated"}.get(v["basis"], "unknown")

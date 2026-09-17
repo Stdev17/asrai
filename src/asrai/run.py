@@ -205,6 +205,26 @@ def _record(ctx: dict, observations: list[dict], context: dict, observer: dict |
     return record
 
 
+LOUD = ("warn", "fail")
+
+
+def _backed(axes: dict, record: dict | None) -> None:
+    """An axis that warns or fails is backed by something in the record.
+
+    A `pass` needs no backing -- a pass is the absence of a finding -- but a run may not tell a reader
+    that something is wrong and leave the corpus silent about it. Silence is the failure mode this
+    repository has now fixed three times in the reader layer, and the record is where it costs most: a
+    reading is read once, and the corpus is what everything after it is built on.
+
+    The family supplies the observation and the run holds the rule, so a second family inherits it
+    without being named in it. A violation is a defect in asrai and not in what was answered, which is
+    why it raises rather than being reported as a finding about the asset."""
+    loud = sorted(axis for axis, value in axes.items() if value in LOUD)
+    if loud and not (record and record["observations"]):
+        raise ValueError(f"this run says {', '.join(loud)} and records nothing, which is a defect in asrai: "
+                         "the family that judged it owes an observation for what it found")
+
+
 def ledger(path: Path, subjects: list[dict] | None = None, capture: str | None = None,
            out_dir: Path | None = None, mirror: bool = False, answers: dict | None = None,
            observer: dict | None = None) -> dict:
@@ -218,4 +238,5 @@ def ledger(path: Path, subjects: list[dict] | None = None, capture: str | None =
     out = light.pass_(ctx, out_dir, answers)
     if "observations" in out:
         out["record"] = _record(ctx, out.pop("observations"), out.pop("context"), observer)
+        _backed(out["verdict"]["axes"], out["record"])
     return out
