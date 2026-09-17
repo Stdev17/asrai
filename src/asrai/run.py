@@ -32,7 +32,7 @@ from pathlib import Path
 
 import numpy as np
 
-from . import light, measure
+from . import config, light, measure, records
 from .measure import SILHOUETTE_ALPHA
 
 SUBJECTS_MAX = 16            # the most a reviewer is shown at once, largest box first
@@ -175,9 +175,47 @@ def open_run(path: Path, subjects: list[dict] | None = None, capture: str | None
                                     "lossy": meta["format"] in LOSSY_FORMATS}}}
 
 
+def _record(ctx: dict, observations: list[dict], context: dict, observer: dict | None) -> dict | None:
+    """One record of what this run's families observed, or nothing when they observed nothing.
+
+    Which asset, at which evidence layer and scale, and who observed, are the run's to answer and not a
+    family's. Two families answering them apart is two records disagreeing about one asset, and
+    `asserted` then means two things. The observer is the configured one: `spec.md` section 4 requires
+    it, `config` is the only thing that holds it, and a family inventing one is how a null reached the
+    corpus under a field the schema calls required.
+
+    Nothing observed is `None`, never a record with an empty list. A corpus that may not be edited is
+    worse off holding a row that observed nothing, and what nobody decided is said to the reader
+    instead. `None` rather than no key at all, because an omitted field reads as a clean one.
+
+    The validation is this run's trust boundary in the outgoing direction. Everything guarded so far
+    guards what a model sends in; nothing guarded what the package hands out, so the tool told to store
+    a record was the first thing to look at one."""
+    if not observations:
+        return None
+    capture = ctx["capture"] is not None
+    record = {"kind": "observation", "asset_kind": "screenshot" if capture else "raster",
+              "evidence_layer": "L2" if capture else "L1", "scale": "native",
+              "asset_sha256": ctx["meta"]["sha256"], "context": context, "observations": observations,
+              "observer": dict(observer or config.DEFAULTS["observer"])}
+    errors = records.validate(record)
+    if errors:
+        raise ValueError("this run built a record its own schema rejects, which is a defect in asrai and "
+                         "not in what was answered: " + "; ".join(errors))
+    return record
+
+
 def ledger(path: Path, subjects: list[dict] | None = None, capture: str | None = None,
-           out_dir: Path | None = None, mirror: bool = False, answers: dict | None = None) -> dict:
-    """One run, judged by the families it asks. Today it asks one, and the ordering rule it will need
-    is already written down: families run in the gate order of `spec.md` section 7 and never read each
-    other's verdicts. A second family arrives as a row here, not as a second tool."""
-    return light.pass_(open_run(path, subjects, capture, mirror), out_dir, answers)
+           out_dir: Path | None = None, mirror: bool = False, answers: dict | None = None,
+           observer: dict | None = None) -> dict:
+    """One run, judged by the families it asks, and recorded once. Today it asks one, and the ordering
+    rule it will need is already written down: families run in the gate order of `spec.md` section 7 and
+    never read each other's verdicts. A second family arrives as a row here, not as a second tool.
+
+    A family returns the observations it made; the record they go in is assembled here, so that what a
+    run says and what it stores cannot be two different things."""
+    ctx = open_run(path, subjects, capture, mirror)
+    out = light.pass_(ctx, out_dir, answers)
+    if "observations" in out:
+        out["record"] = _record(ctx, out.pop("observations"), out.pop("context"), observer)
+    return out

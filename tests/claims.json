@@ -136,10 +136,10 @@
     },
     {
       "id": "mcp.surface_bytes",
-      "value": 3810,
+      "value": 3843,
       "truth": "test_asrai.tool_surface_bytes(): the tools/list reply as compact JSON",
       "claimed_in": {
-        "src/asrai/README.md": "3,810 bytes"
+        "src/asrai/README.md": "3,843 bytes"
       }
     },
     {

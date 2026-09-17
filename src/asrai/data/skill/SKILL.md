@@ -153,7 +153,9 @@ hand-drawn key variation and where suspicion begins have no recorded basis and m
    on `intentional_contrast`, because the style declared them.
 5. Mirror check before recording a direction as `asserted`: phase one again with `mirror=true`; a
    bright side that does not mirror with the image is noise, and its subject is `unknown`.
-6. Record: fill `record.observer.model` with your model id and pass `record` to `record`. Measured
+6. Record: `record` is null when the run observed nothing, and there is then nothing to store —
+   read `verdict` and `sentences` for what nobody decided. Otherwise fill `record.observer.model`
+   with your model id, replacing what the run signed it with, and pass `record` to `record`. Measured
    items are `asserted`, observer items `estimated`; notes name ids and carry no magnitude.
 7. Handing it to a person: `profile` on `light_ledger` adds `sentences`, the same findings said for one
    reader, from `profiles.v1.json`. `untrained` gives an id, a box and a direction per finding and no

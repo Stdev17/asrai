@@ -108,7 +108,7 @@ def main(argv: list[str] | None = None) -> int:
             # overlay is read here rather than there so `light` stays free of team directories
             seen = profile.overlay(config.team_dir(cfg))["scopes"] if args.profile else None
             _emit(light.for_reader(run_mod.ledger(Path(args.path), subjects, args.capture, out,
-                                                args.mirror, answers), args.profile, seen))
+                                                args.mirror, answers, cfg["observer"]), args.profile, seen))
         elif args.command == "record":
             cfg = config.load()
             _emit(records.append(_read_json(args.file), config.team_dir(cfg) / "records.jsonl"))

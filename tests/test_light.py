@@ -6,7 +6,7 @@ import numpy as np
 import pytest
 from PIL import Image
 
-from asrai import light, records, run
+from asrai import config, light, records, run
 
 # The bound the estimators are held to. Registered in claims.json and stated in docs/spec.md,
 # surfaces.v1.json and light.py's own docstring: moving any one of them fails the suite.
@@ -90,9 +90,12 @@ def test_answers_phase_gives_verdict_and_record(tmp_path):
     assert led["subjects"][0]["highlight"]["hue_shift_from_body_deg"] < 30      # brighter paint, no cast
     assert led["verdict"]["axes"]["direction_compliance"] == "pass" and led["overlay"].endswith(".answered.png")
     rec = led["record"]
-    assert rec["observer"]["model"] is None and rec["evidence_layer"] == "L1"
-    rec["observer"]["model"] = "test-model"
+    # the run signs what it hands out, with the configured observer and not one a family invented, and
+    # it is valid before it leaves: the tool told to store it is never the first thing to look at it
+    assert rec["observer"] == config.DEFAULTS["observer"] and rec["evidence_layer"] == "L1"
     assert records.validate(rec) == []
+    mine = {"mode": "api", "model": "test-model", "prompt_rev": "v2"}
+    assert run.ledger(p, BALL, answers=form, observer=mine)["record"]["observer"] == mine
     by_term = {}
     for item in rec["observations"]:
         by_term.setdefault(item["term_id"], []).append(item)
@@ -497,6 +500,32 @@ def test_a_form_belongs_to_the_run_it_was_filled_for(tmp_path):
             run.ledger(path, subjects, mirror=mirror, answers=form)
     form.pop("run_sha256")                        # a hand-written sheet may omit it
     assert run.ledger(q, BALL, answers=form)["verdict"]["mode"] == "physical"
+
+
+def test_the_run_owns_the_record_and_writes_none_when_nothing_was_observed(tmp_path):
+    """A record says which asset, at which evidence layer and scale, and who observed. All four are
+    facts about the run, so the run assembles it and validates it before it leaves -- the tool told to
+    store a record is not the first thing to look at one.
+
+    A run that observed nothing writes no record. An append-only corpus is worse off holding a row that
+    observed nothing, and `None` says so where an absent key would read as a clean one. An unfilled form
+    is that run today: nothing is confirmed as a light, so there is nothing for a subject to be right or
+    wrong about, and the axes say `unknown`.
+
+    `asset_cohesion` is `warn` here and nothing backs it in the record, because nobody classified the
+    lamp. That is the finding the next slice closes; this one only stops an invalid record leaving."""
+    import asrai
+    from pathlib import Path as P
+    p = scene(tmp_path / "s.png", flat=True)
+    out = run.ledger(p, BALL, answers=run.ledger(p, BALL)["form"])
+    assert out["record"] is None                      # the key is there; what is absent is the record
+    assert "observations" not in out and "context" not in out    # the family's half, consumed by the run
+
+    # nothing but config and records knows what an observer is made of, so no family can write one:
+    # a null under a required field reached the corpus the last time one did
+    pkg = P(asrai.__file__).parent
+    named = sorted(m.name for m in pkg.glob("*.py") if "prompt_rev" in m.read_text("utf-8"))
+    assert named == ["config.py", "records.py"], named
 
 
 def test_only_the_run_owner_opens_the_asset_and_only_one_source_names_the_subjects(tmp_path):

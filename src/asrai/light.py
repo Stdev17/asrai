@@ -591,9 +591,13 @@ def _verdict(subjects: list[dict], emitters: list[dict], held: list[dict], agree
             "atmosphere": ans["global"]["atmosphere"], "emitters": emits, "subjects": rows, "axes": frame}
 
 
-def _records(verdict: dict, emitters: list[dict], subjects: list[dict], ans: dict, sha: str, capture: bool) -> dict:
-    """One observation record from the verdict: measured items are asserted, observer items estimated.
-    Notes cite ids (e2, pipe_left) and never a magnitude."""
+def _observations(verdict: dict, emitters: list[dict], subjects: list[dict], ans: dict) -> list[dict]:
+    """What this family observed, as `observation.v1` items: measured ones asserted, observer ones
+    estimated. Notes cite ids (e2, pipe_left) and never a magnitude.
+
+    The items and not the record. Which asset they are about, which layer the evidence is, and who
+    observed are facts about the run, and a second family answering them again is two records that
+    disagree about one asset -- so the run assembles the record and this returns its own half."""
     items = []
     term = {s["id"]: s["terms"][0] for s in surfaces()["surfaces"]}
     boxes = {s["id"]: s["bbox"] for s in subjects}
@@ -650,9 +654,7 @@ def _records(verdict: dict, emitters: list[dict], subjects: list[dict], ans: dic
         items.append({"term_id": term["atmosphere"], "level": "estimated", "region": "whole_image",
                       "note": "farther subjects lose contrast and saturation" if verdict["atmosphere"] == "yes"
                       else "depth does not soften contrast or saturation"})
-    return {"kind": "observation", "asset_kind": "screenshot" if capture else "raster", "evidence_layer": "L2" if capture else "L1",
-            "scale": "native", "asset_sha256": sha, "observer": {"mode": "host", "model": None, "prompt_rev": "v1"},
-            "context": {"lighting_mode": ans["mode"]}, "observations": items}
+    return items
 
 
 # Eight points, clockwise from +x. Image coordinates, so +y is down and `[-0.7, -0.7]` is upper left,
@@ -887,7 +889,8 @@ def pass_(ctx: dict, out_dir: Path | None = None, answers: dict | None = None) -
         out["capture"] = read
     if ans:
         verdict = _verdict(rows, live, held, agreement, key_fit, ans)
-        out |= {"verdict": verdict, "record": _records(verdict, emitters, rows, ans, meta["sha256"], read is not None)}
+        out |= {"verdict": verdict, "observations": _observations(verdict, emitters, rows, ans),
+                "context": {"lighting_mode": ans["mode"]}}
     else:
         out["form"], out["questions"] = _form(rows, live, agreement, run)
     if out_dir is not None:
