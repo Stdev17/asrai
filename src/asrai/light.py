@@ -414,11 +414,12 @@ def _subject(sub: dict, rgba: np.ndarray, Y: np.ndarray, alpha: bool, emit_ids: 
     # the shaded mass must sit opposite the lit side, whatever lights the subject: no emitter is needed,
     # so a lone sprite is judged on this alone. Form shadow and cast shadow are not separable inside one box.
     # Only where the file carries alpha: without it the bottom decile of a box is the ground behind the
-    # subject, and any frame-wide gradient turns that ground into a confident direction. A vignette of a
-    # tenth -- under the default post-process volume of a URP project, and below what anyone would call a
-    # defect -- measures 0.40 of shaded strength on a ball whose shading it never touched, and lands it
-    # 10 deg from its lit side: an asserted yes about the background. Alpha says which pixels are the
-    # subject, or, on a box wholly inside a silhouette, that none of them are ground.
+    # subject, and any frame-wide gradient turns that ground into a confident direction. A vignette under
+    # the default post-process volume of a URP project, below what anyone would call a defect, put a
+    # confident shaded mass on a ball whose shading it never touched and pointed it near the lit side: an
+    # asserted yes about the background. Alpha says which pixels are the subject, or, on a box wholly
+    # inside a silhouette, that none of them are ground. What that gradient measured is a frozen
+    # observation and is in docs/CHECKPOINT.md; a number here would be one nothing recomputes.
     bright = np.array(row["bright_side"]["vector"])
     lo = shade & (Ys <= np.percentile(v, SHADOW_PERCENTILE))
     ly, lx = np.nonzero(lo)

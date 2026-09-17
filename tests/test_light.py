@@ -436,9 +436,10 @@ def _write(path, fn, alpha=True):
 
 def test_a_vignette_is_not_a_shaded_mass(tmp_path):
     """The bottom decile of a box in a file without alpha is the ground behind the subject, and any
-    frame-wide gradient turns that ground into a confident direction. A vignette of a tenth used to
-    measure 0.40 of shaded strength on a ball it never touched, and land it 10 deg from the lit side:
-    an asserted yes about the background. Alpha says which pixels are the subject; nothing else does."""
+    frame-wide gradient turns that ground into a confident direction. A vignette nobody would call a
+    defect used to put a confident shaded mass on a ball it never touched, pointing near its lit side:
+    an asserted yes about the background. Alpha says which pixels are the subject; nothing else does.
+    What it measured is in docs/CHECKPOINT.md; no number here is asserted by anything below."""
     for k in (0.0, 0.15, 0.55):
         flat = light.ledger(_write(tmp_path / f"r{k}.png", lambda a: _vignette(a, k), alpha=False), BALL)["subjects"][0]
         assert flat["mask"] == "bbox" and flat["shadow"] is None, (k, flat["shadow"])
