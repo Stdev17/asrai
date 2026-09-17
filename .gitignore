@@ -228,6 +228,8 @@ corpus/team/
 # Per-developer agent state, not the project's
 .serena/
 .claude/settings.local.json
+# An agent's own checkout of this repo, which carries its own .git and is not content
+.claude/worktrees/
 # Where an agent is pointed at a skill, never where one is kept. The asrai skill's source is
 # src/asrai/data/skill/; the operating skills are held once per machine under ~/.agents/skills.
 # Narrower than this misses a symlink, which is the shape both are now.
