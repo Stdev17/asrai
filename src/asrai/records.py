@@ -144,6 +144,10 @@ def append(record: object, path: Path) -> dict:
         raise ValueError("; ".join(errors))
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
+    # One record, one line, one write. What a run can record is bounded by the run's own subject and
+    # emitter caps, which keeps the longest line well inside Python's write buffer, so concurrent
+    # appenders do not interleave on a local filesystem -- measured, see docs/CHECKPOINT.md. The cap is
+    # the condition: raise it far enough and the line needs more than one write, and this needs a lock.
     with path.open("a", encoding="utf-8") as handle:
         handle.write(canonical_json(rec) + "\n")
     return rec
