@@ -555,6 +555,35 @@ def test_the_run_owns_the_record_and_backs_what_it_warns_about(tmp_path):
     assert named == ["config.py", "records.py"], named
 
 
+def test_a_record_the_ledger_builds_is_one_the_record_tool_stores(tmp_path):
+    """The two tools SKILL.md puts in sequence: `light_ledger`, then `record`. Nothing had ever put the
+    output of the first into the second, and for the life of the package the first returned a record the
+    second refused -- an empty observation list under a schema that requires one, on the flow spec.md
+    section 7.1 calls valid.
+
+    `validate` is not the whole of `append`. It fills the id, the timestamp and the schema version and
+    validates what it filled, and the file it writes to may never be edited afterwards, so the seam is
+    worth holding over every answer shape a run can be given rather than one."""
+    log = tmp_path / "records.jsonl"
+    p = scene(tmp_path / "s.png")
+    form = run.ledger(p, BALL)["form"]
+    stored = 0
+    for answers in (form, form | {"emitters": {"e1": "lamp", "e2": "paint"}},
+                    form | {"emitters": {"e1": "unknown"}},
+                    form | {"style": {"mode": "engine_lit"}, "emitters": {"e1": "lamp"}}):
+        record = run.ledger(p, BALL, answers=answers)["record"]
+        if record is None:
+            continue                       # nothing observed is nothing to store, and the model is told so
+        stored += 1
+        row = records.append(record, log)
+        assert row["schema_version"] == "observation.v1" and row["id"].startswith("observation_")
+        assert row["observations"] == record["observations"]
+    assert stored and records.read(log) == records.read(log)[:stored]
+
+    dull_run = run.ledger(dull(tmp_path / "d.png"))
+    assert run.ledger(dull(tmp_path / "d.png"), answers=dull_run["form"])["record"] is None
+
+
 def test_only_the_run_owner_opens_the_asset_and_only_one_source_names_the_subjects(tmp_path):
     """The run owns the asset so that two families cannot disagree about it, and neither half of that
     holds by itself. A family that opened the file would measure its own pixels under this run's subject
