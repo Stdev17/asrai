@@ -228,9 +228,10 @@ corpus/team/
 # Per-developer agent state, not the project's
 .serena/
 .claude/settings.local.json
-# A copy of the packaged skill; the source is src/asrai/data/skill/SKILL.md. Only the copy — the
-# directory glob also swallowed hand-written skills, which now live tracked under .agents/skills/.
-.claude/skills/asrai/
+# Where an agent is pointed at a skill, never where one is kept. The asrai skill's source is
+# src/asrai/data/skill/; the operating skills are held once per machine under ~/.agents/skills.
+# Narrower than this misses a symlink, which is the shape both are now.
+.claude/skills/
 
 # Agent scratch, never tracked
 *.scratch.md
