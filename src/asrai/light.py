@@ -793,16 +793,20 @@ def _facing(vec) -> str:
     return FACINGS[int((math.degrees(math.atan2(vec[1], vec[0])) % 360 + 22.5) % 360 // 45)]
 
 
-def for_reader(result: dict, profile: str | None) -> dict:
+def for_reader(result: dict, profile: str | None, overlay: dict | None = None) -> dict:
     """The result with one reader's reading of it attached, under `sentences`.
 
     `None` attaches nothing. That is not an empty reading but the absence of one: a result is complete
     before any profile is applied, so no profile is the default and both transports say so the same
-    way. The verdict this wraps is untouched, which is the whole contract -- see profiles.v1.json."""
-    return result if profile is None else result | {"sentences": sentences(result, profile)}
+    way. The verdict this wraps is untouched, which is the whole contract -- see profiles.v1.json.
+
+    `overlay` is the `scopes` map of `profile.overlay`, or nothing. This module never reads a corpus:
+    a caller that has one passes what it found, so the renderer stays a pure function of what it is
+    given and the feature that knows about team directories stays where it belongs."""
+    return result if profile is None else result | {"sentences": sentences(result, profile, overlay)}
 
 
-def sentences(result: dict, profile: str | None = None) -> list[str]:
+def sentences(result: dict, profile: str | None = None, overlay: dict | None = None) -> list[str]:
     """Say a finished verdict to one reader, one line per finding. What spec.md section 1 owes the
     reader with no art training is an id, a box, a direction, in a sentence they can hand to whoever
     fixes it; the other two readers are owed the same findings shaped differently, and profiles.v1.json
@@ -818,6 +822,7 @@ def sentences(result: dict, profile: str | None = None) -> list[str]:
     has now fixed three times. The art director's `settled: silence` is not that: it drops findings a
     measurement decided, which stay in the observation record and are read there."""
     p = _profile(profile)
+    seen = set(overlay or ())
     verdict = result.get("verdict")
     if not verdict:
         return ["Nothing has been judged yet. This is the measurement half; the form it returned has "
@@ -847,7 +852,7 @@ def sentences(result: dict, profile: str | None = None) -> list[str]:
                        f"light disagree." + _said(p, v.get("shadow_basis"), v.get("shadow_opposition_deg")))
         # several surface labels contain their own "and", so these lists are joined on semicolons;
         # `_join` is for ids, which do not
-        wrong = _labels(v, "no", p, skip="cast_shadow")
+        wrong = _labels(v, "no", p, seen, skip="cast_shadow")
         if wrong:
             out.append(f"On {where}, these are missing or inconsistent with the rest of the frame: {wrong}."
                        + _said(p, "observer", None))
@@ -856,7 +861,7 @@ def sentences(result: dict, profile: str | None = None) -> list[str]:
         if v.get("cast_shadow") == "unknown" and v.get("shadow_basis") == "none":
             out.append(f"The shaded part of {where} was too faint to measure, so nothing here can say "
                        f"which way its shadow falls.")
-        unseen = _labels(v, "unknown", p, skip="cast_shadow" if v.get("shadow_basis") == "none" else None)
+        unseen = _labels(v, "unknown", p, seen, skip="cast_shadow" if v.get("shadow_basis") == "none" else None)
         if unseen:
             out.append(f"Nobody has decided these on {where}, which is not the same as fine — it means "
                        f"no one has looked: {unseen}.")
@@ -883,11 +888,27 @@ def _join(items: list[str]) -> str:
     return items[0] if len(items) == 1 else ", ".join(items[:-1]) + " and " + items[-1]
 
 
-def _labels(v: dict, value: str, p: dict, skip: str | None = None) -> str:
-    named = [k["id"] for k in _subject_surfaces() if v[k["id"]] == value and k["id"] != skip]
-    plain = p["vocabulary"] == "avoid"
-    return "; ".join(_surface(k)["label"].lower() if plain else f"{_surface(k)['label'].lower()} "
-                     f"({_surface(k)['terms'][0]})" for k in named)
+def _labels(v: dict, value: str, p: dict, seen: set, skip: str | None = None) -> str:
+    """The surface labels at one verdict value, each carrying its term id when this reader may read one.
+
+    The overlay overrides `vocabulary: avoid`, and only that axis. A term this corpus has written about
+    is what this team says out loud, so naming it is the local idiom rather than jargon, and the
+    hundreds of terms nobody here has ever used stay out of a sentence meant to be acted on. A reader
+    who needs the canonical term goes and asks an artist, which is a cheaper escape than a renderer
+    guessing which words are safe.
+
+    The other three axes are untouched. The overlay is evidence about vocabulary and about nothing
+    else; deriving what to suppress or what to enrich from which terms a team happens to write would
+    be an inference the evidence does not carry."""
+    out = []
+    for k in _subject_surfaces():
+        if v[k["id"]] != value or k["id"] == skip:
+            continue
+        surf = _surface(k["id"])
+        tid = surf["terms"][0]
+        named = p["vocabulary"] != "avoid" or f"term:{tid}" in seen
+        out.append(f"{surf['label'].lower()} ({tid})" if named else surf["label"].lower())
+    return "; ".join(out)
 
 
 def _said(p: dict, basis: str | None, evidence: float | None) -> str:

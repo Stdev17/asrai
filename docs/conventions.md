@@ -33,11 +33,20 @@ review feature creep with the responsible human, even if the diagram is readable
 one job well. Name the new invariant and explain whether it belongs to that job or to a separate tool.
 Community demand may justify a broader system, but only an explicit human scope decision can adopt it.
 
-**Diagram fit.** More than **10 nodes**, or crowding at an ordinary repository reading width, is a
-signal to reconsider a subsystem boundary. Do not hide dependencies, shrink text or split a drawing
-into pages to make it pass. Split along independent invariants, never to satisfy a count. For this
-single-skill product, first revisit scope; introducing another subsystem is not automatic permission
-to keep growing. A readable graph below the count is evidence of legibility, not proof of good scope.
+**Diagram fit, in the feature realm.** More than **10 nodes**, or crowding at an ordinary repository
+reading width, is a signal to reconsider a subsystem boundary. Do not hide dependencies, shrink text or
+split a drawing into pages to make it pass. Split along independent invariants, never to satisfy a
+count. For this single-skill product, first revisit scope; introducing another subsystem is not
+automatic permission to keep growing. A readable graph below the count is evidence of legibility, not
+proof of good scope.
+
+The count binds the feature realm's own graph and nothing else. A realm is not a subsystem: the ledger
+one level up draws boundaries that own a class of invariant, and the data realm's interior is a
+vocabulary whose size is the point rather than a symptom. A threshold that fires on those would be
+measuring the wrong thing, and the general rule the
+[repository-operating skill](../.agents/skills/repository-operating/SKILL.md) carries is per-level
+fan-out, which stays true at any repository's scale precisely because it is not one number. This is
+that rule instantiated for the one realm here whose growth is a scope question.
 
 The [repository-operating skill](../.agents/skills/repository-operating/SKILL.md) carries the general
 shape these two thresholds are an instance of, and separates the legibility question from the scope one.

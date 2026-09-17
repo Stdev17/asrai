@@ -8,7 +8,7 @@ from pathlib import Path
 from mcp.server.mcpserver import MCPServer
 from mcp.server.mcpserver.exceptions import ToolError
 
-from . import config, doctor as doctor_mod, light, measure as measure_mod, records, vocab
+from . import config, doctor as doctor_mod, light, measure as measure_mod, profile as profile_mod, records, vocab
 
 INSTRUCTIONS = (
     "First-pass art direction for game assets. Order of work: vocab_search then vocab_get for exact term ids; "
@@ -70,8 +70,11 @@ def light_ledger(path: str, subjects: list[dict] | None = None, capture: str | N
     profile: untrained | artist | art_director also says the verdict for that reader under `sentences`.
     SKILL.md carries the rest."""
     cfg = config.load()
+    # the overlay is read here, not in `light`: a renderer that knew about team directories would
+    # be a renderer that could be asked to decide something
+    seen = profile_mod.overlay(config.team_dir(cfg))["scopes"] if profile else None
     return light.for_reader(light.ledger(Path(path), subjects, capture, Path(cfg["_root"]) / cfg["paths"]["out"],
-                                         mirror, answers), profile)
+                                         mirror, answers), profile, seen)
 
 
 @server.tool()

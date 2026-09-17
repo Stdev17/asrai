@@ -4,6 +4,10 @@ Hand-written changes for users and contributors. An unreleased entry is not a pu
 
 ## Unreleased
 
+- Let the overlay override the reader profile on vocabulary, and on nothing else: a term a team's records
+  have used is named even for the reader with no art training, because it is what that team says.
+- Scope the ten-node diagram threshold to the feature realm. A realm is not a subsystem, and the data
+  realm's size is the point rather than a symptom.
 - Add the reader overlay: what a team's records demonstrate about the vocabulary they work in, projected
   from `records.jsonl` and cached beside it. It is derived, so deleting it loses only time, and it says
   what a corpus demonstrates rather than anything about a person. Nothing consumes it yet.

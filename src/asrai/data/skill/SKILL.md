@@ -159,8 +159,9 @@ hand-drawn key variation and where suspicion begins have no recorded basis and m
    reader, from `profiles.v1.json`. `untrained` gives an id, a box and a direction per finding and no
    vocabulary at all, which is the one to use when you do not know who is reading; `artist` adds the
    term id and what decided each line; `art_director` drops what the measurement settled and attaches
-   the angle the contested band turned on. Omit `profile` when you are working, not reporting: it costs
-   output and changes nothing you reason over.
+   the angle the contested band turned on. A term your team's records have already used is named even
+   under `untrained`, because that is what they say out loud; the rest stay plain. Omit `profile` when
+   you are working, not reporting: it costs output and changes nothing you reason over.
 
 The ledger's `highlight` is the subject's brightest region: on a pipe with a bright painted band it
 is the band, not a specular. The ledger cannot tell whether a proposed emitter emits — only what its

@@ -316,6 +316,38 @@ def test_three_profiles_say_one_verdict_three_ways_and_none_of_them_moves_it(tmp
     assert any("no one has looked" in s for s in light.sentences(settled, "art_director"))
 
 
+def test_the_corpus_overrides_the_profile_on_vocabulary_and_on_nothing_else(tmp_path):
+    """The overlay is the adaptive half: a term this corpus has written about is what this team says
+    out loud, so it reaches even the reader the profile tells us has no vocabulary. The hundreds nobody
+    here has used stay out, and a reader who needs the canonical term asks an artist.
+
+    It overrides that one axis. The evidence is which terms a corpus wrote; what to suppress and what
+    to enrich are not in it, and reading them out of it would be an inference the evidence never made."""
+    disc(180).save(tmp_path / "a.png")
+    form = light.ledger(tmp_path / "a.png", BALL)["form"]
+    form["emitters"] = {"e1": "lamp", "e2": "paint"}
+    form["subjects"] = {"ambient": {"no": ["ball"]}}
+    out = light.ledger(tmp_path / "a.png", BALL, answers=form, out_dir=tmp_path / "o")
+
+    plain = next(s for s in light.sentences(out, "untrained") if "missing or inconsistent" in s)
+    assert "lighting.ambient" not in plain                     # nobody here has used it
+
+    seen = {"term:lighting.ambient": {"state": "used", "evidence": ["observation_x"], "at": None}}
+    named = light.sentences(out, "untrained", seen)
+    assert "lighting.ambient" in next(s for s in named if "missing or inconsistent" in s)
+    # a term the corpus has not written about is still plain, in the same sentence-set
+    assert "value.highlight" not in " ".join(named)
+
+    # the other three axes do not move: the art director still loses what the measurement settled and
+    # still receives the angle, whatever the corpus happens to have written about
+    band = next(s for s in light.sentences(out, "art_director", seen) if "lit side" in s)
+    assert "37.875 degrees" in band and "(observer)" not in band
+    assert light.sentences(out, "artist", seen) == light.sentences(out, "artist")   # already `assume`
+
+    assert json.dumps(out["verdict"], sort_keys=True) == json.dumps(
+        light.for_reader(out, "untrained", seen)["verdict"], sort_keys=True)
+
+
 def test_no_alpha_and_no_subjects(tmp_path):
     img = np.full((60, 90, 3), 40, np.uint8)
     img[10:20, 60:75] = 255
