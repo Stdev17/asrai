@@ -31,6 +31,20 @@ def _r(x) -> float:
     return round(float(x), 4)
 
 
+def layer_index(value, where: str) -> int | None:
+    """A depth, validated at whichever trust boundary accepts one.
+
+    Depth in this package is an ordinal layer index, never a distance (`spec.md` 7.1): a subject carries
+    one and so does an emitter a caller answers for. Two owners take it from a caller -- the run, for its
+    subjects, and the lighting pass, for the emitters an answer sheet places -- so the predicate lives
+    below both rather than once in each, where the two would drift into accepting different things."""
+    if value is None:
+        return None
+    if isinstance(value, bool) or not isinstance(value, (int, float)) or value < 0 or float(value) != int(value):
+        raise ValueError(f"{where}: depth is a layer index, a whole number with 0 nearest the camera")
+    return int(value)
+
+
 def _pct(v: np.ndarray) -> dict:
     return {"p10": _r(np.percentile(v, 10)), "p50": _r(np.percentile(v, 50)),
             "p90": _r(np.percentile(v, 90)), "mean": _r(v.mean())}

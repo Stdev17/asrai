@@ -72,7 +72,7 @@ uv run python tools/make_fixtures.py    # 在有意改动之后重写 tests/fixt
 
 ```mermaid
 flowchart TD
-    ROOT["asrai/"] --> SRC["src/asrai/<br/>10 个模块"] & DOCS["docs/<br/>契约、规约、状态"] & TESTS["tests/<br/>唯一的关口"] & TOOLS["tools/<br/>语料脚本"]
+    ROOT["asrai/"] --> SRC["src/asrai/<br/>11 个模块"] & DOCS["docs/<br/>契约、规约、状态"] & TESTS["tests/<br/>唯一的关口"] & TOOLS["tools/<br/>语料脚本"]
     SRC --> DATA["data/<br/>随 wheel 发布"]
     DATA --> SKILL["skill/<br/>SKILL.md"] & STOCK["stock/<br/>词表、表面、语言包"]
     DOCS --> REVIEW["review/<br/>带日期的决定"]
@@ -81,7 +81,7 @@ flowchart TD
 
 | 位置 | 内容 |
 |---|---|
-| [`src/asrai/`](../../../src/asrai/README.md) | 包本体：8 个核心模块之上的两种传输方式 |
+| [`src/asrai/`](../../../src/asrai/README.md) | 包本体：9 个核心模块之上的两种传输方式 |
 | [`src/asrai/data/`](../../../src/asrai/data/README.md) | 随 wheel 一起安装的一切 |
 | [`src/asrai/data/skill/`](../../../src/asrai/data/skill/README.md) | 面向智能体的 `SKILL.md` 与“不丢失规格”规则 |
 | [`src/asrai/data/stock/`](../../../src/asrai/data/stock/README.md) | 词表 v2、表面、schema、完整性清单 |

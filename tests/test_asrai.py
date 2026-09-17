@@ -261,7 +261,7 @@ def test_every_number_the_documents_claim_is_the_number_the_repository_has():
     import json
     from pathlib import Path
     import test_light
-    from asrai import light, measure, vocab
+    from asrai import light, measure, run, vocab
     from asrai.server import server
 
     root = Path(__file__).resolve().parent.parent
@@ -273,8 +273,10 @@ def test_every_number_the_documents_claim_is_the_number_the_repository_has():
         "locales.bundles": lambda: len(list((data / "locales").glob("*.json"))),
         "mcp.tools": lambda: len(asyncio.run(server.list_tools())),
         "package.modules": lambda: len(list((root / "src" / "asrai").glob("*.py"))),
+        "package.core_modules": lambda: len([f for f in (root / "src" / "asrai").glob("*.py")
+                                            if f.name not in ("cli.py", "server.py")]),
         "surfaces.count": lambda: len(light.surfaces()["surfaces"]),
-        "light.subjects_max": lambda: light.SUBJECTS_MAX,
+        "light.subjects_max": lambda: run.SUBJECTS_MAX,
         "light.emitters_max": lambda: light.EMITTERS_MAX,
         "light.key_tolerance_deg": lambda: light.KEY_TOLERANCE_DEG,
         "light.disagree_deg": lambda: light.DISAGREE_DEG,

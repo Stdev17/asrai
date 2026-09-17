@@ -75,7 +75,7 @@ uv run python tools/make_fixtures.py    # 意図的な変更のあと tests/fixt
 
 ```mermaid
 flowchart TD
-    ROOT["asrai/"] --> SRC["src/asrai/<br/>モジュール10件"] & DOCS["docs/<br/>契約・規約・状態"] & TESTS["tests/<br/>唯一のゲート"] & TOOLS["tools/<br/>コーパス用スクリプト"]
+    ROOT["asrai/"] --> SRC["src/asrai/<br/>モジュール11件"] & DOCS["docs/<br/>契約・規約・状態"] & TESTS["tests/<br/>唯一のゲート"] & TOOLS["tools/<br/>コーパス用スクリプト"]
     SRC --> DATA["data/<br/>ホイールに同梱"]
     DATA --> SKILL["skill/<br/>SKILL.md"] & STOCK["stock/<br/>語彙・サーフェス・ロケール"]
     DOCS --> REVIEW["review/<br/>日付つきの決定"]
@@ -84,7 +84,7 @@ flowchart TD
 
 | どこ | なに |
 |---|---|
-| [`src/asrai/`](../../../src/asrai/README.md) | パッケージ本体。コアモジュール 8 つの上にトランスポート 2 つ |
+| [`src/asrai/`](../../../src/asrai/README.md) | パッケージ本体。コアモジュール 9 つの上にトランスポート 2 つ |
 | [`src/asrai/data/`](../../../src/asrai/data/README.md) | ホイールと一緒に入るものすべて |
 | [`src/asrai/data/skill/`](../../../src/asrai/data/skill/README.md) | エージェントが読む `SKILL.md` と、仕様を落とさない規則 |
 | [`src/asrai/data/stock/`](../../../src/asrai/data/stock/README.md) | 語彙 v2、サーフェス、スキーマ、整合性マニフェスト |

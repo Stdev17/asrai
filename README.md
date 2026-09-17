@@ -73,7 +73,7 @@ Every directory carries a README saying what lives there and the one rule not to
 
 ```mermaid
 flowchart TD
-    ROOT["asrai/"] --> SRC["src/asrai/<br/>ten modules"] & DOCS["docs/<br/>contract, conventions, status"] & TESTS["tests/<br/>the single gate"] & TOOLS["tools/<br/>corpus scripts"]
+    ROOT["asrai/"] --> SRC["src/asrai/<br/>eleven modules"] & DOCS["docs/<br/>contract, conventions, status"] & TESTS["tests/<br/>the single gate"] & TOOLS["tools/<br/>corpus scripts"]
     SRC --> DATA["data/<br/>ships in the wheel"]
     DATA --> SKILL["skill/<br/>SKILL.md"] & STOCK["stock/<br/>vocabulary, surfaces, locales"]
     DOCS --> REVIEW["review/<br/>dated decisions"]
@@ -82,7 +82,7 @@ flowchart TD
 
 | where | what |
 |---|---|
-| [`src/asrai/`](src/asrai/README.md) | the package: two transports over eight core modules |
+| [`src/asrai/`](src/asrai/README.md) | the package: two transports over nine core modules |
 | [`src/asrai/data/`](src/asrai/data/README.md) | everything installed with the wheel |
 | [`src/asrai/data/skill/`](src/asrai/data/skill/README.md) | the agent-facing `SKILL.md` and the no-spec-loss rule |
 | [`src/asrai/data/stock/`](src/asrai/data/stock/README.md) | vocabulary v2, surfaces, schemas, the integrity manifest |

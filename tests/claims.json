@@ -51,11 +51,11 @@
     },
     {
       "id": "package.modules",
-      "value": 10,
+      "value": 11,
       "truth": "*.py under src/asrai",
       "claimed_in": {
-        "README.md": "ten modules",
-        "src/asrai/README.md": "Ten modules"
+        "README.md": "eleven modules",
+        "src/asrai/README.md": "Eleven modules"
       }
     },
     {
@@ -70,7 +70,7 @@
     {
       "id": "light.subjects_max",
       "value": 16,
-      "truth": "light.SUBJECTS_MAX",
+      "truth": "run.SUBJECTS_MAX",
       "claimed_in": {
         "docs/spec.md": "sixteen subjects",
         "src/asrai/data/skill/SKILL.md": "up to sixteen boxes",
@@ -248,6 +248,14 @@
         "docs/spec.md": "(bright side) and eight (contour fit)",
         "src/asrai/data/stock/surfaces.v1.json": "and 8 degrees (contour fit)",
         "src/asrai/light.py": "Under 8 degrees of error on synthetic discs"
+      }
+    },
+    {
+      "id": "package.core_modules",
+      "value": 9,
+      "truth": "*.py under src/asrai that is not a transport (cli.py, server.py)",
+      "claimed_in": {
+        "README.md": "nine core modules"
       }
     }
   ]

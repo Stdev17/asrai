@@ -55,7 +55,6 @@ EMITTER_MIN_AREA = 4        # labelled pixels; smaller is a stray highlight
 EMITTER_MAX_SHARE = 0.25    # a proposed emitter covering more of a subject than this is the subject's own
                             # lit surface (a lone sprite has no lamp), so it stays in the shading
 EMITTERS_MAX = 8            # brightest first, ids e1..e8
-SUBJECTS_MAX = 16
 BRIGHT_PERCENTILE = 90      # the bright side is the top decile of a subject's luminance
 HIGHLIGHT_PERCENTILE = 98
 MIN_PIXELS = 16             # fewer shaded pixels than this and a subject has no direction
@@ -87,14 +86,12 @@ POINTED_MIN_PROXY = 0.25    # a subject may answer to the emitter it points at w
 REJECTED_KINDS = ("paint",)   # a judgment: the blob does not emit, so its pairs are void
 HELD_KINDS = ("unknown",)     # not a judgment: the observer could not say. Held, never rejected,
 UNCONFIRMED = REJECTED_KINDS + HELD_KINDS   # because an axis does not pass on evidence nobody gave
-LOSSY_FORMATS = ("JPEG", "JPEG2000", "WEBP")   # reported, never corrected: ringing around a bright blob
                             # moves a spill ring further than a light does, and undoing it would need the
                             # encoder's tables. The answer to a lossy source is to ask for the original
 MODES = ("physical", "fake_lighting", "engine_lit")
 ANSWER_VALUES = ("yes", "no", "unknown")
 EMITTER_COLOR, REJECTED_COLOR, SUBJECT_COLOR = (255, 0, 255), (120, 120, 120), (255, 255, 255)
 BRIGHT_COLOR, FIT_COLOR, SHADOW_COLOR = (255, 220, 0), (0, 255, 255), (170, 90, 255)
-SPACE = re.compile(r"\s+")
 
 
 @functools.cache
@@ -224,117 +221,6 @@ def _emitters(rgb: np.ndarray, Y: np.ndarray, opaque: np.ndarray) -> tuple[list[
                      "rgb": _hex(rgb[native].mean(0)), "luminance": _r(Y[native].mean()), "depth": None,
                      "spill": _spill(native, emit, opaque, Y, rgb), "receivers": None})
     return rows, ids, used
-
-
-def _box(value) -> list[int] | None:
-    if not isinstance(value, list) or len(value) != 4:
-        return None
-    out = []
-    for v in value:
-        if isinstance(v, bool) or not isinstance(v, (int, float)) or v < 0 or float(v) != int(v):
-            return None
-        out.append(int(v))
-    return out
-
-
-def _depth(value, where: str) -> int | None:
-    if value is None:
-        return None
-    if isinstance(value, bool) or not isinstance(value, (int, float)) or value < 0 or float(value) != int(value):
-        raise ValueError(f"{where}: depth is a layer index, a whole number with 0 nearest the camera")
-    return int(value)
-
-
-def _silhouette_subject(rgba: np.ndarray) -> list[dict] | None:
-    """A lone sprite is its own subject. Without this a file handed over with no boxes and no capture
-    measures nothing at all, which is the one case a first reviewer reaches for first."""
-    ys, xs = np.nonzero(rgba[..., 3] >= SILHOUETTE_ALPHA)
-    if not len(xs):
-        return None
-    return [{"id": "asset", "mask": None, "bbox": [int(xs.min()), int(ys.min()),
-                                                   int(xs.max() - xs.min() + 1), int(ys.max() - ys.min() + 1)]}]
-
-
-def _mask(path: str, box: list[int], W: int, H: int, sid: str) -> np.ndarray:
-    """Which pixels of the image are this subject, as the alpha of a layer export.
-
-    A box is the cheapest way to point at a thing and the most expensive to measure: whatever else sits
-    in it is measured as if it were the subject. That is what stops albedo and ambient from separating a
-    dark strap inside a shirt, and what stops the shaded mass from being read on a screenshot at all. A
-    mask ends both, and it costs an artist nothing they do not already have: hand-drawn work is layered,
-    and "export layers" writes exactly this file. The game still ships one flattened sprite; only the
-    package carries the layers.
-
-    Canvas-sized (what a layer export gives) or box-sized, so neither side has to crop."""
-    rgba, meta = measure.load(Path(path))
-    if not meta["alpha_present"]:
-        raise ValueError(f"subjects {sid!r}: mask {path} has no alpha channel, and the mask is its alpha")
-    x, y, w, h = box
-    if (meta["width"], meta["height"]) == (W, H):
-        a = rgba[y:y + h, x:x + w, 3]
-    elif (meta["width"], meta["height"]) == (w, h):
-        a = rgba[..., 3]
-    else:
-        raise ValueError(f"subjects {sid!r}: mask {path} is {meta['width']}x{meta['height']}; expected the "
-                         f"image ({W}x{H}) or the subject's box ({w}x{h})")
-    m = a >= SILHOUETTE_ALPHA
-    if not m.any():
-        raise ValueError(f"subjects {sid!r}: mask {path} is empty inside the subject's box")
-    return m
-
-
-def _subjects(subjects, capture, W: int, H: int) -> tuple[list[dict], dict | None]:
-    """Model-supplied boxes, or the capture contract's screen boxes. Clipped to the image, ids unique.
-
-    A composed_of row the contract cannot read is skipped, and every skip is reported back: a capture
-    whose rows half parse (an engine script writing `bbox` where the contract says `screen_bbox`) would
-    otherwise measure a quarter of the frame and let the axes speak as if that quarter were the frame."""
-    read = None
-    if subjects is None and capture:
-        doc = json.loads(Path(capture).read_text("utf-8"))
-        rows = doc.get("composed_of") if isinstance(doc, dict) else None
-        if not isinstance(rows, list):
-            raise ValueError("capture must be a capture.json with a composed_of list")
-        found, seen, skipped = [], {}, []
-        for i, c in enumerate(rows):
-            box = _box(c.get("screen_bbox")) if isinstance(c, dict) else None
-            sid = str((isinstance(c, dict) and (c.get("game_object") or c.get("sprite")
-                       or str(c.get("asset_sha256", ""))[:12])) or "subject")
-            if box is None:
-                skipped.append({"row": i, "id": sid,
-                                "reason": "no screen_bbox [x, y, w, h] of whole pixels"})
-                continue
-            seen[sid] = seen.get(sid, 0) + 1
-            found.append({"id": sid if seen[sid] == 1 else f"{sid}_{seen[sid]}", "bbox": box,
-                          "depth": c.get("depth"), "mask": c.get("mask")})
-        found.sort(key=lambda s: -(s["bbox"][2] * s["bbox"][3]))
-        skipped += [{"row": None, "id": s["id"], "reason": f"over the {SUBJECTS_MAX}-subject limit, smallest first"}
-                    for s in found[SUBJECTS_MAX:]]
-        subjects = found[:SUBJECTS_MAX]
-        read = {"path": str(capture), "declared": len(rows), "measured": len(subjects), "skipped": skipped}
-    if not subjects:
-        return [], read
-    if not isinstance(subjects, list) or len(subjects) > SUBJECTS_MAX:
-        raise ValueError(f"subjects must be a list of at most {SUBJECTS_MAX} {{id, bbox, depth?}} objects")
-    out, seen = [], set()
-    for i, s in enumerate(subjects):
-        box = _box(s.get("bbox")) if isinstance(s, dict) else None
-        if box is None:
-            raise ValueError(f"subjects[{i}] must be {{id, bbox: [x, y, w, h]}} with whole pixels of the image")
-        sid = SPACE.sub("_", str(s.get("id") or f"s{i + 1}").strip())
-        if sid in seen:
-            raise ValueError(f"duplicate subject id {sid!r}")
-        seen.add(sid)
-        x, y, w, h = box
-        x0, y0, x1, y1 = min(x, W), min(y, H), min(x + w, W), min(y + h, H)
-        if x1 - x0 < 1 or y1 - y0 < 1:
-            raise ValueError(f"subjects[{i}] {sid!r} lies outside the {W}x{H} image")
-        mask = s.get("mask")
-        if mask is not None and not isinstance(mask, str):
-            raise ValueError(f"subjects[{i}] {sid!r}: mask is the path of an image whose alpha marks the subject")
-        out.append({"id": sid, "bbox": [x0, y0, x1 - x0, y1 - y0], "mask": mask,
-                    "depth": _depth(s.get("depth"), f"subjects[{i}]")})
-    return out, read
 
 
 def _contour_fit(mask: np.ndarray, Y: np.ndarray) -> dict | None:
@@ -584,7 +470,7 @@ def _answers(a, emitters: list[dict], subjects: list[dict], run: str) -> dict:
     if not isinstance(glob, dict) or any(v not in ANSWER_VALUES + (None,) for v in glob.values()):
         raise ValueError(f"global.key and global.atmosphere must be one of {ANSWER_VALUES}")
     return {"mode": mode, "kinds": {e["id"]: kinds.get(e["id"]) for e in emitters},
-            "emitter_depth": {k: _depth(v, f"emitter_depth.{k}") for k, v in depth.items()},
+            "emitter_depth": {k: measure.layer_index(v, f"emitter_depth.{k}") for k, v in depth.items()},
             "pairs": {(p["subject"], p["emitter"], p["surface"]): p.get("answer") or "unknown" for p in pairs},
             "subjects": {s["id"]: None if subj.get(s["id"]) is None else
                          {"no": set(subj[s["id"]].get("no", [])), "unknown": set(subj[s["id"]].get("unknown", []))}
@@ -958,27 +844,21 @@ def _overlay(rgba: np.ndarray, emitters: list[dict], subjects: list[dict], agree
     img.save(path)
 
 
-def ledger(path: Path, subjects: list[dict] | None = None, capture: str | None = None,
-           out_dir: Path | None = None, mirror: bool = False, answers: dict | None = None) -> dict:
-    """Phase one (no answers): emitters, per-subject direction, agreement, key fit, form, questions, overlay.
+def pass_(ctx: dict, out_dir: Path | None = None, answers: dict | None = None) -> dict:
+    """The lighting family's half of one run. `run.open_run` owns the asset, the subjects and the run
+    identity; everything here is a question about light.
+
+    Phase one (no answers): emitters, per-subject direction, agreement, key fit, form, questions, overlay.
     Phase two (answers): the same over confirmed emitters, plus verdict and an observation record.
-    With no subjects and no capture, a file with alpha is its own subject. Handing the form back
-    unfilled is a valid phase two: it returns everything the measurement decides and nothing else."""
-    path = Path(path)
-    rgba, meta = measure.load(path)
-    alpha = meta["alpha_present"]
-    H, W = rgba.shape[:2]
-    if subjects is None and not capture and alpha:
-        subjects = _silhouette_subject(rgba)
-    subs, read = _subjects(subjects, capture, W, H)
-    # what assigned the ids a sheet answers to: these bytes, these subjects, this mirror. Taken before
-    # the flip, so a box that mirrors onto itself still tells the runs apart.
-    run = hashlib.sha256(json.dumps([meta["sha256"], bool(mirror), subs], sort_keys=True).encode()).hexdigest()
-    masks = {s["id"]: _mask(s["mask"], s["bbox"], W, H, s["id"]) for s in subs if s.get("mask")}
-    if mirror:
-        rgba = np.ascontiguousarray(rgba[:, ::-1])
-        subs = [s | {"bbox": [W - s["bbox"][0] - s["bbox"][2], *s["bbox"][1:]]} for s in subs]
-        masks = {k: np.ascontiguousarray(v[:, ::-1]) for k, v in masks.items()}
+    Handing the form back unfilled is a valid phase two: it returns everything the measurement decides
+    and nothing else.
+
+    It takes a run and never a path, which is the whole of the dependency rule: a family cannot read the
+    file, choose the subjects or decide what run it is in, so two families in one run cannot disagree
+    about any of the three."""
+    rgba, meta, subs = ctx["rgba"], ctx["meta"], ctx["subjects"]
+    alpha, W, H = ctx["alpha"], ctx["width"], ctx["height"]
+    masks, run, read = ctx["masks"], ctx["run"], ctx["capture"]
     opaque = rgba[..., 3] > 0 if alpha else np.ones((H, W), dtype=bool)
     rgb = rgba[..., :3].astype(np.float64) / 255.0
     Y = measure.luminance(rgb)
@@ -998,19 +878,17 @@ def ledger(path: Path, subjects: list[dict] | None = None, capture: str | None =
         e["receivers"] = sum(1 for a in agreement if a["emitter"] == e["id"]
                              and a["angle_deg"] is not None and a["angle_deg"] <= KEY_TOLERANCE_DEG)
     key_fit = _key_fit(rows, live, agreement)
-    out = {"schema_version": SCHEMA, "path": str(path), "sha256": meta["sha256"], "width": W, "height": H,
-           "mirrored": bool(mirror), "coordinates": "image pixels, x right, y down; vectors are [dx, dy]; depth is a layer index, 0 nearest",
-           "source": {"format": meta["format"], "lossy": meta["format"] in LOSSY_FORMATS},
+    out = {"schema_version": SCHEMA} | ctx["envelope"] | {
            "emitter_floor": floor, "emitters": emitters, "subjects": rows, "agreement": agreement, "key_fit": key_fit, "overlay": None}
     if read is not None:
         out["capture"] = read
     if ans:
         verdict = _verdict(rows, live, held, agreement, key_fit, ans)
-        out |= {"verdict": verdict, "record": _records(verdict, emitters, rows, ans, meta["sha256"], bool(capture))}
+        out |= {"verdict": verdict, "record": _records(verdict, emitters, rows, ans, meta["sha256"], read is not None)}
     else:
         out["form"], out["questions"] = _form(rows, live, agreement, run)
     if out_dir is not None:
-        file = Path(out_dir) / meta["sha256"][:12] / f"light_ledger.{run[:6]}{'.answered' if ans else ''}{'.mirror' if mirror else ''}.png"
+        file = Path(out_dir) / meta["sha256"][:12] / f"light_ledger.{run[:6]}{'.answered' if ans else ''}{'.mirror' if ctx['mirrored'] else ''}.png"
         _overlay(rgba, emitters, rows, agreement, key_fit, file)
         out["overlay"] = str(file)
     return out

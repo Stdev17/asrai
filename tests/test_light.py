@@ -6,7 +6,7 @@ import numpy as np
 import pytest
 from PIL import Image
 
-from asrai import light, records
+from asrai import light, records, run
 
 # The bound the estimators are held to. Registered in claims.json and stated in docs/spec.md,
 # surfaces.v1.json and light.py's own docstring: moving any one of them fails the suite.
@@ -44,8 +44,8 @@ def scene(path, **kw):
 
 
 def test_direction_emitters_fit_key_and_form(tmp_path):
-    led = light.ledger(scene(tmp_path / "s.png"), BALL, out_dir=tmp_path / "out")
-    assert led == light.ledger(tmp_path / "s.png", BALL, out_dir=tmp_path / "out")
+    led = run.ledger(scene(tmp_path / "s.png"), BALL, out_dir=tmp_path / "out")
+    assert led == run.ledger(tmp_path / "s.png", BALL, out_dir=tmp_path / "out")
     ball = led["subjects"][0]
     assert ball["mask"] == "alpha" and np.dot(ball["bright_side"]["vector"], UPPER_LEFT) > 0.99
     assert ball["contour_fit"]["r2"] > 0.5 and np.dot(ball["contour_fit"]["vector"], UPPER_LEFT) > 0.99
@@ -71,14 +71,14 @@ def test_direction_emitters_fit_key_and_form(tmp_path):
 
 def test_answers_phase_gives_verdict_and_record(tmp_path):
     p = scene(tmp_path / "s.png")
-    form = light.ledger(p, BALL)["form"]
+    form = run.ledger(p, BALL)["form"]
     form["style"]["mode"] = "physical"
     form["emitters"] = {"e1": "lamp", "e2": "paint"}
     form["subjects"]["cast_shadow"] = {"no": ["ball"]}
     form["subjects"]["light_color"] = {"unknown": ["ball"]}
     form["subjects"]["specular"] = {"no": [], "unknown": []}     # looked at, nothing to except
     form["global"] = {"key": "yes", "atmosphere": "unknown"}
-    led = light.ledger(p, BALL, answers=form, out_dir=tmp_path / "out")
+    led = run.ledger(p, BALL, answers=form, out_dir=tmp_path / "out")
     assert [e["kind"] for e in led["emitters"]] == ["lamp", "paint"]
     assert {a["emitter"] for a in led["agreement"]} == {"e1"}       # the rejected decoy voids its pairs
     v = led["verdict"]["subjects"][0]
@@ -108,19 +108,19 @@ def test_a_confirmed_light_the_frame_does_not_answer_to(tmp_path):
     the lamp is brighter for it: a source the frame does not respond to, whatever its genre."""
     p = tmp_path / "s.png"
     disc(45, alpha=False).save(p)
-    led = light.ledger(p, BALL)
+    led = run.ledger(p, BALL)
     by_id = {e["id"]: e for e in led["emitters"]}
     assert by_id["e1"]["receivers"] == 0 and by_id["e1"]["spill"]["luminance_gain"] <= 0
     assert by_id["e2"]["receivers"] == 1                       # the decoy, and e3 is the ball's own lit cap
     assert "no brighter" in next(q["question"] for q in led["questions"] if q["path"] == "emitters.e1")
     form = led["form"] | {"emitters": {"e1": "lamp", "e2": "neon", "e3": "paint"}}
-    led = light.ledger(p, BALL, answers=form)
+    led = run.ledger(p, BALL, answers=form)
     assert [(e["id"], e["verdict"]) for e in led["verdict"]["emitters"]] == [("e1", "lights_nothing"), ("e2", "lights")]
     assert led["verdict"]["axes"] == {"direction_compliance": "fail", "intentional_contrast": "unknown", "asset_cohesion": "fail"}
     notes = [i["note"] for i in led["record"]["observations"] if i["term_id"] == "material.emission"]
     assert notes == ["e1 reads as lamp and nothing in the frame takes its light", "e2 confirmed as neon",
                      "e3 is bright paint, not a source"]
-    fake = light.ledger(p, BALL, answers=form | {"style": {"mode": "fake_lighting"}})["verdict"]["axes"]
+    fake = run.ledger(p, BALL, answers=form | {"style": {"mode": "fake_lighting"}})["verdict"]["axes"]
     assert (fake["asset_cohesion"], fake["intentional_contrast"]) == ("unknown", "warn")   # the style owns it
 
 
@@ -133,50 +133,50 @@ def test_a_shadow_painted_on_the_wrong_side(tmp_path):
     img[((xx - 108) ** 2 + (yy - 52) ** 2 <= 144) & (img[..., 3] > 0), :3] = 10
     p = tmp_path / "s.png"
     Image.fromarray(img, "RGBA").save(p)
-    led = light.ledger(p, BALL)
+    led = run.ledger(p, BALL)
     sub = led["subjects"][0]
     assert np.dot(sub["bright_side"]["vector"], UPPER_LEFT) > 0.9
     assert 60 < sub["shadow"]["opposition_deg"] < 130
     assert "ball" not in next(q["question"] for q in led["questions"] if q["path"] == "subjects.cast_shadow")
     form = led["form"] | {"emitters": {e["id"]: "paint" for e in led["emitters"]}}
-    v = light.ledger(p, BALL, answers=form)
+    v = run.ledger(p, BALL, answers=form)
     row = v["verdict"]["subjects"][0]
     assert (row["cast_shadow"], row["shadow_basis"]) == ("no", "measurement")
     assert v["verdict"]["axes"] == {"direction_compliance": "unknown", "intentional_contrast": "unknown",
                                    "asset_cohesion": "fail"}          # nothing else in the frame can speak
     shadow = [i for i in v["record"]["observations"] if i["term_id"] == "lighting.cast_shadow"]
     assert [(i["level"], i["note"]) for i in shadow] == [("asserted", "the shaded mass of ball does not sit opposite its lit side")]
-    listed = light.ledger(p, BALL, answers=form | {"subjects": {"cast_shadow": {"unknown": ["ball"]}}})
+    listed = run.ledger(p, BALL, answers=form | {"subjects": {"cast_shadow": {"unknown": ["ball"]}}})
     assert listed["verdict"]["subjects"][0]["cast_shadow"] == "unknown"       # the observer overrides
 
 
 def test_depth_layers_change_the_expected_key(tmp_path):
     """Pushing the lamp three layers back makes the nearer decoy the light to answer to."""
     p = scene(tmp_path / "s.png")
-    form = light.ledger(p, [BALL[0] | {"depth": 0}])["form"]
+    form = run.ledger(p, [BALL[0] | {"depth": 0}])["form"]
     form["emitters"], form["emitter_depth"] = {"e1": "lamp", "e2": "lamp"}, {"e1": 3}
-    v = light.ledger(p, [BALL[0] | {"depth": 0}], answers=form)["verdict"]["subjects"][0]
+    v = run.ledger(p, [BALL[0] | {"depth": 0}], answers=form)["verdict"]["subjects"][0]
     assert (v["expected_key"], v["pointed_at"], v["verdict_emitter"], v["diffuse"]) == ("e2", "e1", "e1", "agrees")   # still strong enough
     form["emitter_depth"] = {"e1": 6}
-    v = light.ledger(p, [BALL[0] | {"depth": 0}], answers=form)["verdict"]["subjects"][0]
+    v = run.ledger(p, [BALL[0] | {"depth": 0}], answers=form)["verdict"]["subjects"][0]
     assert (v["expected_key"], v["verdict_emitter"], v["diffuse"], v["axis"]) == ("e2", "e2", "disagrees", "fail")
     form["emitters"] = {"e1": "lamp", "e2": "neon"}                  # a designed source outranks a decorative one
-    v = light.ledger(p, [BALL[0] | {"depth": 0}], answers=form)["verdict"]["subjects"][0]
+    v = run.ledger(p, [BALL[0] | {"depth": 0}], answers=form)["verdict"]["subjects"][0]
     assert (v["expected_key"], v["diffuse"]) == ("e1", "agrees")
 
 
 def test_fake_and_engine_lit_modes(tmp_path):
     p = scene(tmp_path / "s.png")
-    base = light.ledger(p, BALL)["form"]
-    fake = light.ledger(p, BALL, answers=base | {"style": {"mode": "fake_lighting"}})["verdict"]
+    base = run.ledger(p, BALL)["form"]
+    fake = run.ledger(p, BALL, answers=base | {"style": {"mode": "fake_lighting"}})["verdict"]
     assert (fake["subjects"][0]["expected_key"], fake["subjects"][0]["diffuse"]) == ("directional", "agrees")
     assert fake["axes"]["intentional_contrast"] == "pass"
-    engine = light.ledger(p, BALL, answers=base | {"style": {"mode": "engine_lit"}})["verdict"]["subjects"][0]
+    engine = run.ledger(p, BALL, answers=base | {"style": {"mode": "engine_lit"}})["verdict"]["subjects"][0]
     assert (engine["diffuse"], engine["axis"]) == ("baked", "warn")
     scene(tmp_path / "flat.png", flat=True)
     # its own form: a flat disc proposes a different emitter set, and a form is filled for one image
-    flat_form = light.ledger(tmp_path / "flat.png", BALL)["form"]
-    flat = light.ledger(tmp_path / "flat.png", BALL, answers=flat_form | {"style": {"mode": "engine_lit"}})
+    flat_form = run.ledger(tmp_path / "flat.png", BALL)["form"]
+    flat = run.ledger(tmp_path / "flat.png", BALL, answers=flat_form | {"style": {"mode": "engine_lit"}})
     assert (flat["verdict"]["subjects"][0]["diffuse"], flat["verdict"]["axes"]["direction_compliance"]) == ("flat", "pass")
 
 
@@ -186,7 +186,7 @@ def test_estimator_noise_floor_on_every_direction(tmp_path, alpha, cel):
     """Both estimators stay well inside the thresholds the ledger reasons with (surfaces.v1 thresholds)."""
     for ang in range(0, 360, 45):
         disc(ang, alpha=alpha, cel=cel).save(tmp_path / "d.png")
-        s = light.ledger(tmp_path / "d.png", [{"id": "d", "bbox": [54, 34, 72, 72]}])["subjects"][0]
+        s = run.ledger(tmp_path / "d.png", [{"id": "d", "bbox": [54, 34, 72, 72]}])["subjects"][0]
         truth = np.array([np.cos(np.radians(ang)), np.sin(np.radians(ang))])
         assert light._angle(s["bright_side"]["vector"], truth) < BRIGHT_SIDE_NOISE_DEG, (ang, s["bright_side"])
         assert light._shadow_measured(s) == alpha, (ang, s["shadow"])   # a box on a uniform ground has no
@@ -198,8 +198,8 @@ def test_estimator_noise_floor_on_every_direction(tmp_path, alpha, cel):
 
 def test_mirror_flips_x_only(tmp_path):
     p = scene(tmp_path / "s.png")
-    a = light.ledger(p, BALL)["subjects"][0]["bright_side"]["vector"]
-    m = light.ledger(p, BALL, mirror=True)
+    a = run.ledger(p, BALL)["subjects"][0]["bright_side"]["vector"]
+    m = run.ledger(p, BALL, mirror=True)
     b = m["subjects"][0]["bright_side"]["vector"]
     assert m["mirrored"] and abs(a[0] + b[0]) < 0.05 and abs(a[1] - b[1]) < 0.05
     assert m["subjects"][0]["bbox"] == [30, 30, 80, 80]
@@ -209,11 +209,11 @@ def test_a_lone_sprite_is_its_own_subject_and_an_unfilled_form_is_a_verdict(tmp_
     """The first reviewer's path: hand over one file, hand the form back untouched, read what the
     measurement alone decided. No boxes, no emitter kinds, no vocabulary."""
     p = scene(tmp_path / "s.png")
-    led = light.ledger(p)
+    led = run.ledger(p)
     asset = led["subjects"][0]
     assert [s["id"] for s in led["subjects"]] == ["asset"] and asset["mask"] == "alpha"
     assert asset["bbox"] == [12, 8, 143, 107]                  # the whole silhouette: disc, lamp and decoy
-    v = light.ledger(p, answers=led["form"])["verdict"]        # returned unfilled
+    v = run.ledger(p, answers=led["form"])["verdict"]        # returned unfilled
     # nobody said what the two bright blobs are, so they are held, not dropped: the measurement still
     # answers on its own, and the axis says which half of the frame nobody looked at
     assert v["mode"] == "physical"
@@ -222,7 +222,7 @@ def test_a_lone_sprite_is_its_own_subject_and_an_unfilled_form_is_a_verdict(tmp_
     assert (row["diffuse"], row["cast_shadow"], row["shadow_basis"]) == ("unknown", "yes", "measurement")
     assert v["axes"] == {"direction_compliance": "unknown", "intentional_contrast": "unknown",
                          "asset_cohesion": "warn"}
-    assert light.ledger(p, answers={})["verdict"] == v          # an empty object says the same thing
+    assert run.ledger(p, answers={})["verdict"] == v          # an empty object says the same thing
 
 
 def test_an_unanswered_surface_is_unknown_and_an_answered_one_excepts_only_what_it_lists(tmp_path):
@@ -233,15 +233,15 @@ def test_an_unanswered_surface_is_unknown_and_an_answered_one_excepts_only_what_
     -- who is told to hand the form back untouched -- was handed a pass on five surfaces nobody looked
     at. The surface the measurement owns still decides itself, filled or not."""
     p = scene(tmp_path / "s.png")
-    led = light.ledger(p)
+    led = run.ledger(p)
     assert led["form"]["subjects"] == dict.fromkeys(
         ("specular", "light_color", "cast_shadow", "ambient", "rim", "albedo"))
-    row = light.ledger(p, answers=led["form"])["verdict"]["subjects"][0]
+    row = run.ledger(p, answers=led["form"])["verdict"]["subjects"][0]
     assert [row[s] for s in ("specular", "light_color", "ambient", "rim", "albedo")] == ["unknown"] * 5
     assert (row["cast_shadow"], row["shadow_basis"]) == ("yes", "measurement")
 
     answered = led["form"] | {"subjects": {"rim": {"no": [], "unknown": []}, "ambient": {"no": ["asset"]}}}
-    row = light.ledger(p, answers=answered)["verdict"]["subjects"][0]
+    row = run.ledger(p, answers=answered)["verdict"]["subjects"][0]
     assert (row["rim"], row["ambient"], row["albedo"]) == ("yes", "no", "unknown")
 
 
@@ -252,9 +252,9 @@ def test_the_reader_with_no_training_gets_a_sentence_and_the_verdict_does_not_mo
     finished result and returns strings — and this pins it, because the cheap way to add a profile
     later is to thread it into `ledger`, which is exactly what must not happen."""
     disc(45).save(tmp_path / "u.png")                     # lit from the lower right, lamp at the upper left
-    form = light.ledger(tmp_path / "u.png", BALL)["form"]
+    form = run.ledger(tmp_path / "u.png", BALL)["form"]
     form["emitters"] = {"e1": "lamp", "e2": "paint"}
-    out = light.ledger(tmp_path / "u.png", BALL, answers=form, out_dir=tmp_path / "o")
+    out = run.ledger(tmp_path / "u.png", BALL, answers=form, out_dir=tmp_path / "o")
     before = json.dumps(out["verdict"], sort_keys=True)
     said = light.sentences(out)
     assert json.dumps(out["verdict"], sort_keys=True) == before      # expression yields: it reads, never writes
@@ -273,8 +273,8 @@ def test_the_reader_with_no_training_gets_a_sentence_and_the_verdict_does_not_mo
     # unfilled form is not a measurement that failed. Collapsing either pair is the defect this file
     # has now carried three times
     assert next(s for s in said if s.startswith("e1")).endswith("too bright to read, so nothing could be checked against it.")
-    lone = light.ledger(scene(tmp_path / "s.png", flat=True))   # no shading to place a shaded mass by
-    flat = light.sentences(light.ledger(tmp_path / "s.png", answers=lone["form"]))
+    lone = run.ledger(scene(tmp_path / "s.png", flat=True))   # no shading to place a shaded mass by
+    flat = light.sentences(run.ledger(tmp_path / "s.png", answers=lone["form"]))
     assert any("too faint to measure" in s for s in flat) and any("no one has looked" in s for s in flat)
 
     # phase one has no verdict to project, and an empty reading would read as a clean one
@@ -291,10 +291,10 @@ def test_three_profiles_say_one_verdict_three_ways_and_none_of_them_moves_it(tmp
     answers must produce the same verdict under every profile. What differs is the saying. The scene is
     in the contested band deliberately, because that is where all four axes have something to do."""
     disc(180).save(tmp_path / "a.png")                    # 37.9 degrees off: too far to pass, too close to fail
-    form = light.ledger(tmp_path / "a.png", BALL)["form"]
+    form = run.ledger(tmp_path / "a.png", BALL)["form"]
     form["emitters"] = {"e1": "lamp", "e2": "paint"}
     form["subjects"] = {"ambient": {"no": ["ball"]}}
-    out = light.ledger(tmp_path / "a.png", BALL, answers=form, out_dir=tmp_path / "o")
+    out = run.ledger(tmp_path / "a.png", BALL, answers=form, out_dir=tmp_path / "o")
 
     frozen = json.dumps(out["verdict"], sort_keys=True), json.dumps(out["record"], sort_keys=True)
     said = {p["id"]: light.sentences(out, p["id"]) for p in light.profiles()["profiles"]}
@@ -312,9 +312,9 @@ def test_three_profiles_say_one_verdict_three_ways_and_none_of_them_moves_it(tmp
 
     # silence on what the measurement settled, for the one reader spec section 1 owes it to
     disc(225).save(tmp_path / "b.png")                    # dead on: the measurement decides alone
-    f2 = light.ledger(tmp_path / "b.png", BALL)["form"]
+    f2 = run.ledger(tmp_path / "b.png", BALL)["form"]
     f2["emitters"] = {"e1": "lamp", "e2": "paint"}
-    settled = light.ledger(tmp_path / "b.png", BALL, answers=f2, out_dir=tmp_path / "o2")
+    settled = run.ledger(tmp_path / "b.png", BALL, answers=f2, out_dir=tmp_path / "o2")
     assert any("agrees with e1" in s for s in light.sentences(settled, "untrained"))
     assert not any("agrees with e1" in s for s in light.sentences(settled, "art_director"))
     assert any("no one has looked" in s for s in light.sentences(settled, "art_director"))
@@ -328,10 +328,10 @@ def test_the_corpus_overrides_the_profile_on_vocabulary_and_on_nothing_else(tmp_
     It overrides that one axis. The evidence is which terms a corpus wrote; what to suppress and what
     to enrich are not in it, and reading them out of it would be an inference the evidence never made."""
     disc(180).save(tmp_path / "a.png")
-    form = light.ledger(tmp_path / "a.png", BALL)["form"]
+    form = run.ledger(tmp_path / "a.png", BALL)["form"]
     form["emitters"] = {"e1": "lamp", "e2": "paint"}
     form["subjects"] = {"ambient": {"no": ["ball"]}}
-    out = light.ledger(tmp_path / "a.png", BALL, answers=form, out_dir=tmp_path / "o")
+    out = run.ledger(tmp_path / "a.png", BALL, answers=form, out_dir=tmp_path / "o")
 
     plain = next(s for s in light.sentences(out, "untrained") if "missing or inconsistent" in s)
     assert "lighting.ambient" not in plain                     # nobody here has used it
@@ -356,7 +356,7 @@ def test_no_alpha_and_no_subjects(tmp_path):
     img = np.full((60, 90, 3), 40, np.uint8)
     img[10:20, 60:75] = 255
     Image.fromarray(img, "RGB").save(tmp_path / "f.png")
-    led = light.ledger(tmp_path / "f.png")
+    led = run.ledger(tmp_path / "f.png")
     assert led["subjects"] == [] and led["key_fit"] is None and led["overlay"] is None
     assert [e["kind"] for e in led["emitters"]] == ["proposed"] and led["form"]["pairs"] == []
 
@@ -367,7 +367,7 @@ def test_capture_boxes_become_subjects(tmp_path):
     cap.write_text(json.dumps({"composed_of": [{"game_object": "Ball", "screen_bbox": [50, 30, 80, 80], "depth": 2},
                                                {"game_object": "Ball", "screen_bbox": [0, 0, 8, 8]},
                                                {"game_object": "Ghost"}]}), "utf-8")
-    subs = light.ledger(p, capture=str(cap))["subjects"]
+    subs = run.ledger(p, capture=str(cap))["subjects"]
     assert [(s["id"], s["depth"]) for s in subs] == [("Ball", 2), ("Ball_2", None)]
 
 
@@ -382,7 +382,7 @@ def test_a_capture_says_what_it_could_not_read(tmp_path):
         {"game_object": "Crate", "bbox": [10, 10, 20, 20]},
         {"game_object": "Lamp", "screen_bbox": [5, 5, -4, 9]},
         {"game_object": "Barrel"}]}), "utf-8")
-    led = light.ledger(p, None, str(cap))
+    led = run.ledger(p, None, str(cap))
     assert [s["id"] for s in led["subjects"]] == ["Hero"]
     assert (led["capture"]["declared"], led["capture"]["measured"]) == (4, 1), led["capture"]
     assert [s["id"] for s in led["capture"]["skipped"]] == ["Crate", "Lamp", "Barrel"], led["capture"]
@@ -394,13 +394,13 @@ def test_malformed_input_raises_value_error(tmp_path):
                 [{"id": "b", "bbox": [500, 500, 5, 5]}], [{"id": "b", "bbox": [0, 0, 5, 5]}] * 2, [7],
                 [{"id": "b", "bbox": [0, 0, 5, 5], "depth": -1}]):
         with pytest.raises(ValueError):
-            light.ledger(p, bad)
+            run.ledger(p, bad)
     for bad in ("yes", {"emitters": {"zz": "lamp"}}, {"emitters": {"e1": "sun"}}, {"style": {"mode": "magic"}},
                 {"style": ["physical"]},   # a wrong type, not a wrong value: the check precedes the read
                 {"pairs": [{"subject": "ball", "emitter": "e1", "surface": "diffuse", "answer": "maybe"}]},
                 {"subjects": {"cast_shadow": {"no": ["ghost"]}}}, {"global": {"key": "yes!"}}, {"emitter_depth": {"e1": 1.5}}):
         with pytest.raises(ValueError):
-            light.ledger(p, BALL, answers=bad)
+            run.ledger(p, BALL, answers=bad)
 
 
 # --- perturbations reported from production pipelines -------------------------------------------
@@ -441,11 +441,11 @@ def test_a_vignette_is_not_a_shaded_mass(tmp_path):
     an asserted yes about the background. Alpha says which pixels are the subject; nothing else does.
     What it measured is in docs/CHECKPOINT.md; no number here is asserted by anything below."""
     for k in (0.0, 0.15, 0.55):
-        flat = light.ledger(_write(tmp_path / f"r{k}.png", lambda a: _vignette(a, k), alpha=False), BALL)["subjects"][0]
+        flat = run.ledger(_write(tmp_path / f"r{k}.png", lambda a: _vignette(a, k), alpha=False), BALL)["subjects"][0]
         assert flat["mask"] == "bbox" and flat["shadow"] is None, (k, flat["shadow"])
         # under alpha the same gradient only bends the shaded mass: a heavy vignette costs 19 deg, which
         # leaves the band the measurement settles and hands the subject to the observer, never to a no
-        sprite = light.ledger(_write(tmp_path / f"a{k}.png", lambda a: _vignette(a, k)))["subjects"][0]
+        sprite = run.ledger(_write(tmp_path / f"a{k}.png", lambda a: _vignette(a, k)))["subjects"][0]
         opp = sprite["shadow"]["opposition_deg"]
         assert light._shadow_measured(sprite) and opp < light.DISAGREE_DEG, (k, sprite["shadow"])
         assert (opp <= light.KEY_TOLERANCE_DEG) == (k < 0.5), (k, opp)
@@ -457,10 +457,10 @@ def test_a_light_nobody_could_check_never_passes_for_cohesion(tmp_path):
     frame reports no dark emitter because it measured none, which is warn and never pass."""
     for name, fn, alpha, subs in (("crushed", _crushed, False, BALL), ("sprite", lambda a: a, True, None)):
         p = _write(tmp_path / f"{name}.png", fn, alpha=alpha)
-        form = light.ledger(p, subs)["form"]
+        form = run.ledger(p, subs)["form"]
         form["style"]["mode"] = "physical"
-        form["emitters"] = {e["id"]: "neon" for e in light.ledger(p, subs)["emitters"]}
-        v = light.ledger(p, subs, answers=form)["verdict"]
+        form["emitters"] = {e["id"]: "neon" for e in run.ledger(p, subs)["emitters"]}
+        v = run.ledger(p, subs, answers=form)["verdict"]
         assert any(e["verdict"] == "unreadable" and not e["spill"] for e in v["emitters"]), (name, v["emitters"])
         assert v["axes"]["asset_cohesion"] == "warn", (name, v["axes"])
 
@@ -473,8 +473,8 @@ def test_a_hold_is_not_a_rejection(tmp_path):
     disc(45, alpha=False).save(p)
     seen = {}
     for kind in ("lamp", "unknown"):
-        form = light.ledger(p, BALL)["form"] | {"emitters": {"e1": kind, "e2": "neon", "e3": "paint"}}
-        v = light.ledger(p, BALL, answers=form)["verdict"]
+        form = run.ledger(p, BALL)["form"] | {"emitters": {"e1": kind, "e2": "neon", "e3": "paint"}}
+        v = run.ledger(p, BALL, answers=form)["verdict"]
         seen[kind] = (v["axes"]["asset_cohesion"], {e["id"]: e["verdict"] for e in v["emitters"]})
     assert seen["lamp"] == ("fail", {"e1": "lights_nothing", "e2": "lights"}), seen
     assert seen["unknown"][1] == {"e2": "lights", "e1": "unclassified"}, seen   # held, not dropped
@@ -488,15 +488,15 @@ def test_a_form_belongs_to_the_run_it_was_filled_for(tmp_path):
     run rebinds them: the same bytes measured with other boxes answered about pixels nobody had looked
     at, and `mirror` -- the one operation here that reorders emitters on purpose -- was invisible to it."""
     p, q = scene(tmp_path / "s.png"), _write(tmp_path / "v.png", _vignette, alpha=False)
-    form = light.ledger(p, BALL)["form"]
-    assert form["run_sha256"] == light.ledger(p, BALL)["form"]["run_sha256"]   # same arguments, same run
-    assert light.ledger(p, BALL, answers=form)["verdict"]["mode"] == "physical"
+    form = run.ledger(p, BALL)["form"]
+    assert form["run_sha256"] == run.ledger(p, BALL)["form"]["run_sha256"]   # same arguments, same run
+    assert run.ledger(p, BALL, answers=form)["verdict"]["mode"] == "physical"
     elsewhere = [{"id": "ball", "bbox": [0, 0, 30, 30]}]                       # the id stays, the pixels move
     for path, subjects, mirror in ((q, BALL, False), (p, elsewhere, False), (p, BALL, True)):
         with pytest.raises(ValueError, match="different run"):
-            light.ledger(path, subjects, mirror=mirror, answers=form)
+            run.ledger(path, subjects, mirror=mirror, answers=form)
     form.pop("run_sha256")                        # a hand-written sheet may omit it
-    assert light.ledger(q, BALL, answers=form)["verdict"]["mode"] == "physical"
+    assert run.ledger(q, BALL, answers=form)["verdict"]["mode"] == "physical"
 
 
 def _disc_mask(path, size, origin=(0, 0)):
@@ -517,12 +517,12 @@ def test_a_subject_mask_gives_a_box_the_pixels_it_is_made_of(tmp_path):
     fit entirely. A layer export -- which a hand-drawn package already has, and which no segmentation can
     recover, since a rock and the sand under one warm light share their chroma -- gives them back."""
     p = scene(tmp_path / "s.png", alpha=False)
-    bare = light.ledger(p, BALL)["subjects"][0]
+    bare = run.ledger(p, BALL)["subjects"][0]
     assert (bare["mask"], bare["shadow"], bare["contour_fit"]) == ("bbox", None, None)
 
     for tag, size, origin in (("canvas", (160, 120), (0, 0)), ("box", (80, 80), (50, 30))):
         m = _disc_mask(tmp_path / f"{tag}.png", size, origin)
-        s = light.ledger(p, [{"id": "ball", "bbox": [50, 30, 80, 80], "mask": m}])["subjects"][0]
+        s = run.ledger(p, [{"id": "ball", "bbox": [50, 30, 80, 80], "mask": m}])["subjects"][0]
         assert s["mask"] == "given" and s["pixels"] < bare["pixels"], (tag, s["pixels"])
         assert np.dot(s["bright_side"]["vector"], UPPER_LEFT) > 0.99, (tag, s["bright_side"])
         assert light._shadow_measured(s) and s["shadow"]["opposition_deg"] < 10, (tag, s["shadow"])
@@ -532,7 +532,7 @@ def test_a_subject_mask_gives_a_box_the_pixels_it_is_made_of(tmp_path):
 def test_a_mask_is_checked_at_the_boundary(tmp_path):
     p = scene(tmp_path / "s.png", alpha=False)
     def box(**kw):
-        return light.ledger(p, [{"id": "ball", "bbox": [50, 30, 80, 80]} | kw])
+        return run.ledger(p, [{"id": "ball", "bbox": [50, 30, 80, 80]} | kw])
     Image.fromarray(np.zeros((120, 160, 3), np.uint8), "RGB").save(tmp_path / "opaque.png")
     with pytest.raises(ValueError, match="no alpha"):
         box(mask=str(tmp_path / "opaque.png"))
@@ -548,9 +548,9 @@ def test_the_ledger_says_which_floor_bound_and_whether_the_source_is_lossy(tmp_p
     """The relative floor is a percentile and survives any transfer function; the absolute one does not,
     and in a night scene it is the one that decides. Both are reported rather than asked for."""
     p = scene(tmp_path / "s.png")
-    led = light.ledger(p, BALL)
+    led = run.ledger(p, BALL)
     assert led["source"] == {"format": "PNG", "lossy": False}
     f = led["emitter_floor"]
     assert f["basis"] in ("absolute", "relative") and f["value"] == max(f["absolute"], f["relative"])
     Image.open(p).convert("RGB").save(tmp_path / "s.jpg", quality=90)
-    assert light.ledger(tmp_path / "s.jpg", BALL)["source"] == {"format": "JPEG", "lossy": True}
+    assert run.ledger(tmp_path / "s.jpg", BALL)["source"] == {"format": "JPEG", "lossy": True}

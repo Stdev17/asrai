@@ -6,7 +6,7 @@ import json
 import sys
 from pathlib import Path
 
-from . import __version__, config, doctor, light, measure, profile, records, vocab
+from . import __version__, config, doctor, light, measure, profile, records, run as run_mod, vocab
 
 SKILL = Path(__file__).resolve().parent / "data" / "skill" / "SKILL.md"
 
@@ -106,7 +106,7 @@ def main(argv: list[str] | None = None) -> int:
             # the profile never reaches `ledger`: it selects a reading of a finished result, and the
             # overlay is read here rather than there so `light` stays free of team directories
             seen = profile.overlay(config.team_dir(cfg))["scopes"] if args.profile else None
-            _emit(light.for_reader(light.ledger(Path(args.path), subjects, args.capture, out,
+            _emit(light.for_reader(run_mod.ledger(Path(args.path), subjects, args.capture, out,
                                                 args.mirror, answers), args.profile, seen))
         elif args.command == "record":
             cfg = config.load()
