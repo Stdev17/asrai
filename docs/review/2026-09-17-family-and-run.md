@@ -218,3 +218,36 @@ rather than a surprise.
 - **The third family.** §7 says when that conversation happens, not how it goes.
 - Nothing here validates the lighting thresholds, which remain unverified implementation policy
   (`2026-09-16-authority-and-release-gate.md`).
+
+## 9. The ownership review of the slice that followed
+
+Run with `domain-ownership-review` after the code was written and before it merged, against the two
+rules §5 gives the run: *the input is read once*, and *subjects are derived once*. Three findings, all
+closed in the same commit.
+
+**A rule with no enforcer.** Both rules held only by the text of the code. No check would have gone red
+if a family had called `measure.load` itself, and the mutation test confirmed it: adding one such call
+to `light.py` left the suite green. The enforcer is now a source scan asserting that only `measure` and
+`run` open an asset — a per-package test, so the second family inherits it without being named in it.
+
+**A meaning changed under a mechanical move.** Extracting the run turned `_records(..., bool(capture))`
+into `_records(..., read is not None)`. They differ when a caller passes `subjects` *and* `capture`,
+which both transports accept: the observation record's `asset_kind` flips `screenshot` → `raster` and
+its `evidence_layer` `L2` → `L1`. The new value was the correct one — `_subjects` never reads a capture
+when subjects are given, so the old record claimed an evidence layer from a file nothing had opened —
+but it arrived as an unannounced side effect of a rename, in a persisted record, with no test. The fix
+is at the owner rather than at either expression: `_subjects` now refuses two sources of subjects, which
+is what the MCP tool description had always published (`subjects: … or capture: … or neither`) and what
+the code alone did not hold. The two expressions are then equal by construction.
+
+**A second definition, in the commit that existed to end them.** `_depth` travelled into `run.py` with
+the rest of the move and stayed there, dead, after the predicate was promoted to `measure.layer_index`
+for the two owners that need it. §1's line — duplication waits for a primitive with no owner, not for a
+second family — survives its own remedy being applied carelessly.
+
+The review reached rung 2 for the run identity rule, which is what an `object` boundary needs: the
+refusal of a sheet stamped with another run is observed after a real run, not from a call count.
+
+What this says about the process: none of the three was visible from the diff of the slice, and all
+three were visible from the rules the slice had written down one file earlier. The review is cheap only
+when the invariants are already prose in the module that owns them.

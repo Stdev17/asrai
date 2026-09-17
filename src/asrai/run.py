@@ -52,13 +52,6 @@ def _box(value) -> list[int] | None:
         out.append(int(v))
     return out
 
-def _depth(value, where: str) -> int | None:
-    if value is None:
-        return None
-    if isinstance(value, bool) or not isinstance(value, (int, float)) or value < 0 or float(value) != int(value):
-        raise ValueError(f"{where}: depth is a layer index, a whole number with 0 nearest the camera")
-    return int(value)
-
 def _silhouette_subject(rgba: np.ndarray) -> list[dict] | None:
     """A lone sprite is its own subject. Without this a file handed over with no boxes and no capture
     measures nothing at all, which is the one case a first reviewer reaches for first."""
@@ -101,6 +94,10 @@ def _subjects(subjects, capture, W: int, H: int) -> tuple[list[dict], dict | Non
     A composed_of row the contract cannot read is skipped, and every skip is reported back: a capture
     whose rows half parse (an engine script writing `bbox` where the contract says `screen_bbox`) would
     otherwise measure a quarter of the frame and let the axes speak as if that quarter were the frame."""
+    if subjects is not None and capture:
+        raise ValueError("subjects and capture both say what the subjects are: pass one. A capture's "
+                         "composed_of rows are read only when no subjects are given, so passing both "
+                         "measures the boxes and files the evidence as if the capture had been read")
     read = None
     if subjects is None and capture:
         doc = json.loads(Path(capture).read_text("utf-8"))

@@ -499,6 +499,26 @@ def test_a_form_belongs_to_the_run_it_was_filled_for(tmp_path):
     assert run.ledger(q, BALL, answers=form)["verdict"]["mode"] == "physical"
 
 
+def test_only_the_run_owner_opens_the_asset_and_only_one_source_names_the_subjects(tmp_path):
+    """The run owns the asset so that two families cannot disagree about it, and neither half of that
+    holds by itself. A family that opened the file would measure its own pixels under this run's subject
+    ids; a caller who named the subjects twice would have one source measured and the other filed as the
+    evidence layer. Both were held only by the text of the code until this ran."""
+    import asrai
+    from pathlib import Path
+    pkg = Path(asrai.__file__).parent
+    opens = sorted(m.name for m in pkg.glob("*.py")
+                   if "measure.load(" in m.read_text("utf-8") or "Image.open(" in m.read_text("utf-8"))
+    assert opens == ["measure.py", "run.py"], opens   # measure decodes, run decides when; no family does
+
+    p = scene(tmp_path / "s.png")
+    cap = tmp_path / "capture.json"
+    cap.write_text(json.dumps({"composed_of": [{"game_object": "ball", "screen_bbox": [40, 40, 40, 40]}]}), "utf-8")
+    assert run.ledger(p, capture=str(cap))["subjects"][0]["id"] == "ball"     # one source: read
+    with pytest.raises(ValueError, match="both say what the subjects are"):
+        run.ledger(p, BALL, capture=str(cap))
+
+
 def _disc_mask(path, size, origin=(0, 0)):
     """A layer export: the disc's own pixels, alpha 255, everything else transparent."""
     W, H = size
