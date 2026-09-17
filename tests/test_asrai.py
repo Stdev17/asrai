@@ -126,6 +126,28 @@ def test_records_validation_and_append(tmp_path):
     assert len(records.read(log)) == 3
 
 
+def test_doctor_counts_the_records_that_name_no_observer(tmp_path):
+    """`observer.mode: host` means the agent hosting the server observed, and asrai cannot know which
+    model that is. The run signs a record with the configured default and SKILL.md asks the model to
+    put its own id there; a model that skips that step says so nowhere, and a corpus nobody attributed
+    reads like a corpus nobody looked at.
+
+    Counting is all asrai can do, and it is a report and not a gate -- `unknown` is honest, only
+    uninformative, and refusing the record would lose an observation to save an attribution. It is out
+    of the lock on purpose: a corpus grows, and a pinned view that moved with it would report drift
+    every time somebody recorded something."""
+    cfg = config.load(tmp_path)
+    log = config.team_dir(cfg) / "records.jsonl"
+    base = {"kind": "observation", "asset_kind": "raster", "evidence_layer": "L1", "scale": "native",
+            "asset_sha256": SHA, "observer": config.DEFAULTS["observer"], "observations": [
+                {"term_id": "lighting.form_shadow", "level": "estimated", "note": "the ball reads flat"}]}
+    records.append(base, log)                                       # what the run signs, unreplaced
+    records.append(base | {"observer": OBSERVER}, log)              # what a model that read step six sends
+    records.append(base | {"observer": config.DEFAULTS["observer"]}, log)
+    assert doctor.run(cfg)["observed"] == {"observations": 3, "observer_unnamed": 2}
+    assert "observed" not in doctor.pinned_view(doctor.snapshot(cfg))
+
+
 def test_doctor_lock_and_drift(tmp_path):
     cfg = config.load(tmp_path)
     assert doctor.run(cfg)["status"] == "unlocked"
