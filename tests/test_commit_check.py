@@ -135,6 +135,14 @@ def test_commit_checker_rejects_unavailable_evidence_and_malformed_policy(tmp_pa
         rejected(repo, valid.replace("Signed-off-by:", extra + "Signed-off-by:"), fragment)
     git(repo, "commit", "-m", valid)
 
+    # ... and the same number change in a resolver's file needs none: adding one tool rewrites the
+    # sizes of every wheel in it, and `uv sync --locked` is what actually holds such a file
+    lock = 'version = 1\n\n[[package]]\nname = "x"\n\n[package.sdist]\nsize = %d\n'
+    stage(repo, "uv.lock", lock % 20538)
+    git(repo, "commit", "-m", message("package", subject="build(package): pin the resolved tree"))
+    stage(repo, "uv.lock", lock % 16994982)
+    git(repo, "commit", "-m", message("package", subject="build(package): add a development tool"))
+
     shallow = tmp_path / "shallow"
     git(repo, "clone", "--depth", "1", repo.as_uri(), str(shallow))
     result = run(shallow, sys.executable, "tools/commit_check.py", "--rev", "HEAD")

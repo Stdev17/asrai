@@ -56,6 +56,11 @@ ROOT_FILES = {
 OWNER_NAMES = {name for _, name in OWNER_PREFIXES} | set(ROOT_FILES.values()) | {"root"}
 TYPES = {"feat", "fix", "docs", "chore", "refactor", "test", "perf", "build", "ci", "revert", "style"}
 KNOWN_TRAILERS = {"owners", "fixes", "values", "deviation", "source", "spec", "co-authored-by", "signed-off-by", "refs"}
+# Outside Values: a resolver writes these numbers, not an author. Wheel sizes and the indices
+# that shift when any dependency moves are not magnitudes anyone chose, and the evidence such a
+# file has is `uv sync --locked` in the gate, which checks the whole of it against pyproject
+# rather than one leaf at a time. Human decision, recorded in conventions.md section 5.
+GENERATED = ("uv.lock",)
 SHA = re.compile(r"[0-9a-f]{7,64}")
 AUTHORITY = re.compile(r"\b(fallback|graceful|defensive|best-effort|compatib\w*|intelligent|robust|workaround)\b", re.I)
 BUNDLING = re.compile(r"\balso\b|\bwhile (?:i'm|we're|i am|we are) (?:here|at it)\b", re.I)
@@ -134,14 +139,14 @@ def numeric_values(path, text):
         for index, line in enumerate(text.splitlines()):
             if line.strip():
                 collect(json.loads(line), str(index))
-    elif suffix == ".toml" or path == "uv.lock":
+    elif suffix in (".toml", ".lock"):
         collect(tomllib.loads(text), "")
     return values
 
 
 def changed_values(diff):
     for path, (before, after) in diff.blobs.items():
-        if pathlib.Path(path).suffix not in {".py", ".json", ".jsonl", ".toml"} and path != "uv.lock":
+        if path in GENERATED or pathlib.Path(path).suffix not in {".py", ".json", ".jsonl", ".toml", ".lock"}:
             continue
         old = numeric_values(path, diff.content(before))
         new = numeric_values(path, diff.content(after))

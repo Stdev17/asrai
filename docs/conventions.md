@@ -336,6 +336,14 @@ number in a test is not evidence that the test pins that parameter; run the test
 actual dependency. The checker validates `Source` syntax; it cannot infer external copying or
 human approval from Git. A passing hook is not a provenance or authority verdict.
 
+**A generated lockfile is outside `Values`.** The numbers in `uv.lock` are the resolver's — wheel
+sizes, and the indices that shift when any dependency moves — rather than magnitudes an author
+chose, and adding one development tool rewrites them wholesale. The evidence a lockfile has is
+`uv sync --locked` in the gate, which checks the whole file against `pyproject.toml` instead of one
+leaf at a time. Decided on 2026-09-18, when the first lockfile change under this policy arrived;
+the exemption is the tuple `GENERATED` in [`commit_check.py`](../tools/commit_check.py) and covers
+that file alone, so a second generated file is a decision and not an inference.
+
 Install and exercise the hooks as described in [runbook.md §7](runbook.md#7-landing-a-change).
 `commit-msg` checks message structure. `reference-transaction` checks the actual new commit objects
 before local branch or detached-HEAD updates, including `amend`. Existing reachable history,
