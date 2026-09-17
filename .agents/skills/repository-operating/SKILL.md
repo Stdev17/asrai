@@ -157,7 +157,8 @@ a leak that cannot travel cannot propagate.
 
 A repository sets one threshold on a boundary and then uses it to answer two different questions. They
 coincide while the repository is small and separate as it grows, so say which is being asked before
-responding to the number. The number itself belongs to the binding — for asrai, conventions §0 — and
+responding to the number. The number itself belongs to the binding — for asrai,
+[`conventions.md`](../../../docs/conventions.md#0-owner-boundaries) §0 — and
 is deliberately not repeated here.
 
 | question | what crossing it means | response |
@@ -186,27 +187,34 @@ the defect this repository has already fixed twice.
 Mechanise the rule whose violation is a string, and only once a second real instance exists. A check
 written for one hypothetical case is the speculative scaffolding these documents forbid elsewhere.
 
-| rule | mechanisable as | instances today |
-|---|---|---|
-| every file in an enumerated directory appears in its index | membership | one real drift; worth writing |
-| a write-policy glob agrees with the tool that applies it | glob against tool scope | two |
-| a cross-boundary signature appears in two READMEs | string equality | none; wait for the second level |
-| a README names a node two hops away | name reachability | none |
-| a naming decision cites a name that resolves to more than one surface | the name against the surfaces carrying it | one; the other rows already write the call form |
-| a no-authority realm cited as the reason for a rule | string, path against citation | cheap to run and to keep |
-| a realm's stated command verifier does not run | execution | cheap |
-| a rule stated in two documents | — | not mechanisable; review obligation |
-| a document that is semantically stale | — | not mechanisable; this is what a stamp and a dated review exist for |
+| rule | mechanisable as |
+|---|---|
+| every file in an enumerated directory appears in its index | membership |
+| a write-policy glob agrees with the tool that applies it | glob against tool scope |
+| a cross-boundary signature appears in two READMEs | string equality |
+| a README names a node two hops away | name reachability |
+| a naming decision cites a name that resolves to more than one surface | the name against the surfaces carrying it |
+| a no-authority realm cited as the reason for a rule | string, path against citation |
+| a realm's stated command verifier does not run | execution |
+| a rule stated in two documents | — |
+| a document that is semantically stale | — |
+
+How many instances a repository actually has, which of these it has written, and what each written one
+is called are facts about that repository and live in its binding, never here. A count copied into this
+file goes stale the week a check is written and nothing catches it — the same argument that keeps the
+realm ledger out of this file, applied to the row below it. **asrai's is
+[`docs/runbook.md`](../../../docs/runbook.md) §1.**
 
 Say which of these hold and which do not. Claiming a gate that does not exist is the same defect as an
-axis reading `pass` on evidence it never had.
+axis reading `pass` on evidence it never had, and so is describing a written check as still to be
+written.
 
 ## Hooks
 
 A deterministic repository question belongs in a script, not in this file: a model should spend its
 turn on whether a document is *right*, not on recomputing what Git already knows. Where such a check
-exists it is named above, runs from the repository's landing checks, and is called by name — do not
-read a hook's implementation into context in order to decide whether to run it.
+exists, the binding names it and it runs from that repository's landing checks; call it by name and do
+not read a hook's implementation into context in order to decide whether to run it.
 
 ## Before you change an operating document
 

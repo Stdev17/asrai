@@ -57,6 +57,31 @@ The link and translation scripts check repository facts outside `pytest`. The wh
 the installed distribution in a fresh environment, without an editable checkout. CI runs these same
 commands; its workflow and required-check setup are described in [`.github/README.md`](../.github/README.md).
 
+### Which document rule each check covers
+
+The [repository-operating skill](../.agents/skills/repository-operating/SKILL.md) lists the rules about
+operating documents that a machine could enforce, and deliberately keeps no count: how many instances
+this repository has, and which of them are written, are facts about this repository. They are here.
+The threshold for writing one is a **second real instance**; a check written for a single hypothetical
+case is scaffolding.
+
+| rule | checked by | instances here |
+|---|---|---|
+| every file in an enumerated directory appears in its index | `check_links.py` | one drift, in `docs/review/` |
+| a write-policy glob agrees with the tool that applies it | `check_translations.py`, which scopes `i18n/<lang>/**` in code | two |
+| a number stated in prose matches what computes it | `pytest`, against [`../tests/claims.json`](../tests/claims.json) | every registered claim |
+| a naming decision cites a name resolving to more than one surface | not written | one: `ledger` in `conventions.md` §1a, fixed in place |
+| a cross-boundary signature appears in two READMEs | not written | none; there is one level |
+| a README names a node two hops away | not written | none |
+| a no-authority realm cited as the reason for a rule | not written | not audited |
+| a realm's stated command verifier does not run | not written | not audited; `support` declares no command of its own |
+| a rule stated in two documents | not mechanisable | a review obligation |
+| a document that is semantically stale | not mechanisable | what §5's stamp and a dated review exist for |
+
+A row moving from **not written** to a script name is a change to this table in the same commit as the
+script. A row whose count reaches two is the signal to write one, and the reason this table keeps counts
+that look useless while they are one.
+
 ## 2. Where a thing gets written
 
 | you have | it goes | and it is |
