@@ -9,6 +9,9 @@ import validate_stock
 
 from asrai import vocab
 
+# what the vocabulary says has no directly measurable value: only a proxy, a word or a comparison.
+UNMEASURABLE = ("proxy_only", "qualitative", "relational")
+
 
 def test_stock_corpus_validates():
     report = validate_stock.validate(vocab.DATA)          # raises with the reason on any failure
@@ -64,6 +67,13 @@ def test_surfaces_map_onto_the_vocabulary_and_the_skill():
         assert s["decided_by"] in doc["decided_by"], s["id"]
         # a surface that claims a ledger field must be one the measurement reaches, and the reverse
         assert bool(s["ledger"]) == (s["decided_by"] != "observer"), s["id"]
+        # a measurement tier records its finding under terms[0] at `asserted`, so that term has to be
+        # one the vocabulary says can be measured at all. proxy_only, qualitative and relational say it
+        # cannot, and asserting one from a measurement is invariant 3's claim broken on the observation
+        # side, where `lint` does not reach. Nothing in the lighting pass trips this; every term the
+        # readability family would record is proxy_only, so this is the guard that meets it first.
+        if s["decided_by"] == "measurement":
+            assert vocab.index()[s["terms"][0]]["quantification"]["mode"] not in UNMEASURABLE, s["id"]
     assert doc["style_exemption"]["term"] in vocab.index()
 
 

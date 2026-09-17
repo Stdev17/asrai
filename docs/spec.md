@@ -222,6 +222,14 @@ Qualified levels: `asserted` (measurement-backed, or the same at all three scale
 (model-only, or two scales agree), `unknown` (scales disagree, no evidence region, pairwise flipped).
 `unknown` never becomes a change.
 
+**A measurement never asserts a term the vocabulary calls `proxy_only`, `qualitative` or `relational`**
+`[decided]`. Those have no directly measurable value, so a measurement of a proxy is recorded either
+under the term that was actually measured, or under the proxy term at `estimated`. Invariant 3 is this
+rule on the instruction side, where `lint` enforces it; nothing enforced it on the observation side,
+which is reachable for any surface whose `decided_by` is `measurement`. The check is on the surface
+policy rather than on the record, because the observer's three-scale route to `asserted` is open to
+any term and only asrai's own measurement is constrained here.
+
 Pairwise, both orders, no scores. Three axes, never summed: `direction_compliance`, `asset_cohesion`,
 `intentional_contrast`, each `pass | warn | fail | unknown`.
 
