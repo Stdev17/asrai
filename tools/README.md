@@ -14,7 +14,7 @@ None of these ships in the wheel; each is run with `uv run python tools/<name>.p
 | `commit_check.py` | checks commit structure, asrai owners, changed numeric literals and conditional trailers; missing Git evidence fails | installed hooks, `--rev`, `--range`, or `--selftest`; see [runbook §7](../docs/runbook.md#7-landing-a-change) |
 | `check_wheel.py` | builds a wheel, exports hashed runtime requirements, installs them into a temporary environment, checks installed CLI/MCP/data and immutable input bytes, and writes `dist/repro/` | before landing or releasing; choose a new `--out` directory for repeat runs |
 
-`hooks/` holds the two Git hooks themselves — `commit-msg` and `reference-transaction` — which is why
+`hooks/` holds the Git hooks themselves — `commit-msg` and `reference-transaction` — which is why
 they carry no `.py` and are not in the table above. They are shell entry points that call
 `commit_check.py`, installed by pointing Git at this directory:
 

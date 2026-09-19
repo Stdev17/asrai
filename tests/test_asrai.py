@@ -289,8 +289,8 @@ def test_the_claims_scanner_finds_a_magnitude_and_not_a_reference():
         assert all(found(spelling) == {value} for spelling in scanner.numerals(value)), value
     assert found("`measure.v1` on 2026-09-17, Python 3.14, runbook §1, tier 2, tiers 1 and 2, e2 at L1") == set()
     assert found("spec.md section 7.1 and §7.1 both point at the surface pass") == set()
-    # a numbered item inside a comment carries two markers, and stripping only the outer one leaves the
-    # inner looking like a magnitude. The item number is not a claim at either depth
+    # a numbered item inside a comment carries a marker inside a marker, and stripping only the outer
+    # one leaves the inner looking like a magnitude. An item number is not a claim at either depth
     assert found("# 1. a directory carries its own README") == set()
     assert found("1. a directory carries its own README") == set()
     assert found("# 4. two lists, and 12 of them are drawn") == {2, 12}
@@ -385,7 +385,7 @@ def test_every_number_the_documents_claim_is_the_number_the_repository_has():
 def test_every_index_names_what_the_repository_has():
     """A directory README is where a contributor looks to find out what already exists, and until now
     nothing checked one against its directory. `claims.json` holds the numbers the documents state and
-    `check_links.py` holds the links between them; the gap between those two is a list that has quietly
+    `check_links.py` holds the links between them; the gap left between them is a list that has quietly
     stopped listing everything. `test_profile.py` was in neither the table nor the graph of
     tests/README for three days, and `tools/hooks/` was named in no index at all.
 
@@ -394,7 +394,7 @@ def test_every_index_names_what_the_repository_has():
     one flood fill, written once in `light` and once in `measure`, because no page said the first one
     existed.
 
-    Four mechanical claims. Every tracked directory is documented. Every table that lists files lists
+    Each claim is mechanical. Every tracked directory is documented. Every table that lists files lists
     all of them. Every public name a table advertises is one its module defines. And a drawing that
     names a set of files names the same set as the table beside it."""
     import ast
@@ -453,7 +453,7 @@ def test_every_index_names_what_the_repository_has():
         phantom += [f"src/asrai/README.md says {mod} exposes {n}, which it does not define"
                     for n in sorted(set(re.findall(r"`(\w+)`", cell.group(1))) - public)]
 
-    # 4. two lists spelled a second time. The MCP table mirrors the tools `server.py` decorates and the
+    # 4. a list spelled a second time. The MCP table mirrors the tools `server.py` decorates and the
     # tests diagram mirrors the table under it; a second spelling is a second thing to forget
     tools = set(re.findall(r"@_guard\ndef (\w+)\(", read("src/asrai/server.py")))
     mirrored = set(re.findall(r"^\| `(\w+)` \| `asrai", package, re.M))
