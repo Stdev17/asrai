@@ -6,15 +6,18 @@ fixture`) structural rather than a promise.
 
 This page is the **feature realm's interior**, one level below the
 [realm ledger](../../docs/architecture.md). Module count is not responsibility count: every module
-drawn in the graph below owns an invariant, while `cli`, `server`, `profile` and `__init__` do not.
-`run` is drawn and owns one: it is the only module that opens the asset, and the only one that
-presents what a run concluded. `reading` is drawn and owns one too, which is why it is a module and
-not a section of `run`: presenting a run is not a question about light, and a renderer that lived
-inside a family would be a renderer with a branch per family. The graph stays inside the node and
-owner limits §0 of [conventions.md](../../docs/conventions.md) sets; crossing either is the signal to
-stop and review scope, never to shrink the drawing.
-`profile` is the exception worth naming: it projects a cache, and the `cache` realm owns nothing by
-construction, so a module that only writes one cannot own an invariant either.
+drawn in the graph below owns an invariant, while `cli`, `server`, `profile`, `reading` and
+`__init__` do not. `run` is drawn and owns one: it is the only module that opens the asset, and the
+only one that presents what a run concluded. The graph stays inside the node and owner limits §0 of
+[conventions.md](../../docs/conventions.md) sets; crossing either is the signal to stop and review
+scope, never to shrink the drawing.
+`profile` and `reading` are undrawn for the same reason: **a projection owns nothing.** `profile`
+projects a cache, and the `cache` realm owns nothing by construction. `reading` projects a run's findings under a
+reader profile, and the rule it looks like it holds -- judgment outranks expression -- is `run`'s:
+`ledger` takes the findings out of the family's return and hands over those alone, so there is no
+verdict in the module to move and nothing there to enforce. It is a separate file for legibility and
+not for ownership, because a renderer living inside a family would be a renderer with a branch per
+family.
 
 ## Owner dependencies
 
@@ -23,8 +26,10 @@ crossing that boundary, and a wrapped line is part of the same signature. `DATA:
 `SILHOUETTE_ALPHA: int` describe inferred constant types, not newly declared interfaces. Solid edges
 include Python references; dashed edges are data-only contracts, including values passed through
 transports. `light` constructs observation dictionaries that `records` validates when submitted, and
-finding dictionaries that `reading` renders; it calls neither module. Findings ride back inside
-`pass_`'s return, `run` takes them out and hands them to `reading`, and they reach no transport: a
+finding dictionaries that `reading` renders; it calls neither module. The finding seam runs
+`light` -> `run` -> `reading` and is not drawn, because a graph of owner dependencies cannot end at a
+module that owns nothing. Findings ride back inside `pass_`'s return, `run` takes them out and hands
+them to `reading`, and they reach no transport: a
 reply carrying both them and the sentences built from them would say one thing twice under different
 names, with nothing to stop the copies drifting apart.
 
@@ -33,7 +38,6 @@ flowchart TB
     CONFIG["config"]
     RUN["run"]
     LIGHT["light"]
-    READING["reading"]
     DOCTOR["doctor"]
     MEASURE["measure"]
     RECORDS["records"]
@@ -41,15 +45,12 @@ flowchart TB
 
     LIGHT -->|"load(path: Path)<br/>→ tuple[np.ndarray, dict]<br/>luminance(rgb: np.ndarray)<br/>→ np.ndarray<br/>hsl(rgb: np.ndarray)<br/>→ tuple[np.ndarray,<br/>np.ndarray, np.ndarray]<br/>_r(x) → float<br/>layer_index(value, where)<br/>→ int #124; None<br/>SILHOUETTE_ALPHA: int"| MEASURE
     RUN -->|"pass_(ctx: dict,<br/>out_dir: Path #124; None,<br/>answers: dict #124; None)<br/>→ dict"| LIGHT
-    RUN -->|"sentences(<br/>findings: list[dict] #124; None,<br/>profile: str,<br/>overlay: dict #124; None)<br/>→ list[str]"| READING
     RUN -->|"load(path: Path)<br/>→ tuple[np.ndarray, dict]<br/>layer_index(value, where)<br/>→ int #124; None<br/>SILHOUETTE_ALPHA: int"| MEASURE
     LIGHT -->|"DATA: Path<br/>term_id: str"| VOCAB
-    READING -->|"DATA: Path"| VOCAB
     DOCTOR -->|"sha256_file(path)<br/>→ str"| RECORDS
     DOCTOR -->|"pack() → dict[str, Any]<br/>index()<br/>→ dict[str, dict[str, Any]]<br/>DATA: Path"| VOCAB
     RECORDS -->|"index()<br/>→ dict[str, dict[str, Any]]<br/>lint_instruction(<br/>request: dict[str, Any])<br/>→ list[str]"| VOCAB
     LIGHT -.->|"observation.v1: dict"| RECORDS
-    LIGHT -.->|"finding: {say, terms,<br/>settled, basis, evidence}"| READING
     DOCTOR -.->|"cfg: dict"| CONFIG
     RECORDS -..->|"scale: 'native' #124;<br/>'target' #124; 'thumbnail'"| MEASURE
 ```
@@ -68,7 +69,7 @@ Python APIs, so the graph cannot be recovered faithfully from an import count. N
 | `measure.py` | deterministic V0 measurement with Pillow and numpy | `load`, `measure`, `luminance`, `hsl`, `stats` | same bytes in, same JSON out. It never writes a file, and it refuses above 12 Mpx before decoding |
 | `run.py` | one run: the asset read once, its subjects, the identity a form is stamped with, and everything the run then says | `open_run`, `ledger`, `SUBJECTS_MAX` | every family in a run sees the same pixels, the same subjects and the same `run_sha256`, and none of them decides who hears what it found. A family is handed a run and cannot open a file, choose a subject, name a run or address a reader, so families cannot disagree about the thing they are all looking at, or speak about it in as many voices as there are of them |
 | `light.py` | the surface pass: `surfaces.v1` instantiated as a two-phase ledger over a run | `pass_`, `surfaces` | direction may be measured; magnitude may not be invented. Every number it returns is a measurement, a count or a sign |
-| `reading.py` | every surface that presents a run: the reader profiles and the sentences one reader is handed | `sentences`, `profiles` | judgment outranks expression. A reading is a projection of findings under a profile and there is no verdict in the module to move, so what changes per reader is what is said and never what is true |
+| `reading.py` | nothing. It projects a run's findings under a reader profile, and `run` owns both the findings and the rule | `sentences`, `profiles` | none. *Judgment outranks expression* is `run`'s invariant, and this module is what it is about rather than what holds it: `ledger` hands over findings and no verdict, so what changes per reader is what is said and never what is true |
 | `records.py` | append-only JSONL — `observation.v1`, `pairwise.v1`, `instruction.v2` | `validate`, `append`, `read`, `canonical_json`, `sha256_file`, `new_id` | invariants 6 and 12 — nothing is edited or deleted, and `L2_ONLY` terms stay `unknown` at L1 |
 | `doctor.py` | the environment report and `asrai.lock.json` | `run`, `snapshot`, `tool_version`, `pinned_view` | invariant 14 — every run can say what it ran with, and drift is reported |
 | `profile.py` | the overlay: what a team's records demonstrate about the vocabulary, cached beside them | `project`, `overlay`, `digest` | none. It is a projection of `records.jsonl`, and the [`cache` realm](../../docs/architecture.md) owns no invariant: a wrong row is deleted, never repaired |
