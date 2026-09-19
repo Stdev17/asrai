@@ -24,6 +24,82 @@ be, on the day the policy changed. Their wording is unchanged; only the shape is
 
 ---
 
+## 2026-09-20 · verified at `b6f53e2` · Claude Opus 5
+
+Both questions `2026-09-18-the-run-answers-once.md` §6 left to the author are answered and built. The
+axes reached `observation.v1`, and the presentation layer reached the run owner — the latter as a
+change of seam and not only of file, which is the part worth reading. Nothing in the entry below is
+superseded; this adds to it.
+
+**State.**
+
+- phase: 1 (core and transports) and 1b (surface pass) remain complete; phase 2 is not implemented
+- last_acceptance_passed: 75 tests on CPython 3.14.7, mypy clean over twenty-one source files. Links:
+  0 broken, 0 unindexed. Translation stamps: 3 current, 0 stale, 0 broken. Commit gate: every one of
+  the twenty-two unpushed commits passes, warnings only. `check_claims_diff` reports one advisory,
+  named and answered in the 2026-09-20 review. Not re-run this session: the wheel build and its install
+  smoke test, the stdio MCP smoke test on its own, the reproducibility bundle, and Python 3.11
+- in_progress: everything is local. Remote CI execution, DCO bootstrap, required-check activation and
+  release publication are untouched and still unverified. `check_dco.py` cannot run outside a runner —
+  it wants `DCO_BASE_SHA` — so the DCO gate has still never executed anywhere
+- next_slice: unchanged — remote publication when authorized, then phase 2 (recipes, adapters, alpha
+  policy, recipe hashes, preview/apply/diff). Carried forward: whether the repository-operating work in
+  the origin repository yields a domain-agnostic form of `check_claims_diff.py`, and the readability
+  family, which is what makes the axes reduction and the gate order testable. Removed from this list,
+  because they are done: the three questions of `2026-09-18-the-run-answers-once.md` §6
+- next_command: the landing checks in `runbook.md` §1
+- working_tree: main, `core.hooksPath=tools/hooks` active, clean but for the untracked `.codex/`, which
+  `9ea08f1` meant to ignore and did not — there is no `codex` entry in `.gitignore`, so `git add -A`
+  keeps staging it and the hook keeps rejecting it as `Owners misses root`. Ignore it or commit it; it
+  is the author's file and nothing here touched it. Nothing pushed, no repository setting changed
+
+**What landed.**
+
+- **The axes are in the record.** `direction_compliance`, `asset_cohesion` and `intentional_contrast`
+  travel with the observations they were concluded from, so the corpus holds what was decided and not
+  only what was seen. Optional, because an observation written by hand has no run behind it and old
+  records stay readable (`conventions.md` §1); all three or none, because a subset lets a reader take
+  silence for a pass. On the record and not on an item: the judgment is the run's, and `instruction.v2`
+  already spends the singular `axis` on where a change is placed. `spec.md` §4 and §7.1, `conventions.md`
+  §1a and `SKILL.md` moved in the same commit
+- **A dotted section number is a reference.** The claims scanner's reference pattern stopped at the
+  first run of digits, so `section 7.1` was read as a reference to `section 7` plus a magnitude of one.
+  Half-recognising a shape is worse than not recognising it, because what is left over looks exactly
+  like the thing being hunted — the same defect as the thousands separator, one commit earlier
+- **Every surface that presents a run belongs to the run owner, and a family reports findings.** The
+  file move on its own would have been a lie: `light.sentences` read `diffuse`, `cast_shadow` and
+  `bright_side`, so carried into `run.py` unchanged it would have taught the run owner what a shaded
+  mass is, and a second family would have needed a branch. So the seam moved with it. A family returns
+  a finding — a sentence, the surfaces it points at, whether a measurement settled it, what decided it,
+  the angle it turned on — and `asrai.reading` renders findings under a profile. `run.ledger` takes the
+  profile and the overlay, removes the findings before they can reach the wire, and attaches the
+  reading. Neither transport imports a family any more
+- **Two deletions with one reason.** `for_reader` existed so `None` meant one thing in both transports;
+  `ledger` became that one place, leaving it one caller and one line. `_profile(None)` fell back to
+  `untrained`, so `None` meant *no reading* at one layer and *the plain reading* at another — the
+  two-meanings-one-word failure of `conventions.md` §1, reachable only from a test
+
+**One measurement worth keeping.**
+
+- **The move is provably silent.** Every reading the package can produce — six fixtures, three form
+  states, three profiles, with and without an overlay, plus phase one: one hundred and twenty-six
+  readings and one hundred and sixty-two sentences — is byte for byte what `008eadc` produced. That is
+  the invariant the whole layer exists under, and it is cheap to re-measure: run the old package and
+  the new one over the same fixtures and diff. Five mutations were run against the new rule and all
+  five go red, three of them on a structural test over the import graph, which is the only kind that
+  survives a contributor who has not read the review
+
+**What is still open.** The axes do not reduce across families, families are not ordered, and a run
+with no family is unreachable — unchanged, and unchanged for the same reason: with one family each is
+an identity function with no enforcer or a branch no call can enter, and abstention still has to be
+told apart from `unknown` before the reduction can be written. The model-facing half of the
+presentation layer — a family's execution steps assembled onto a response the model already receives,
+which is what `2026-09-17-family-and-run.md` §5 pairs with the reader half — does not exist. It is what
+would prove the new seam carries more than one audience, and building it now would be a second consumer
+invented to justify the first.
+
+---
+
 ## 2026-09-18 · verified at `53f7b87` · Claude Opus 5
 
 The run owner was given a judgment. `250a335` had given it the asset — one decode, one set of subjects,
