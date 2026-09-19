@@ -1,4 +1,4 @@
-<!-- translation-of: README.md@250a3358d33036001aa1cf25f6d0b9de4214bbb4 -->
+<!-- translation-of: README.md@793617fa1a938d0448e8326efdfee682fdb79439 -->
 > 原文 [README.md](../../../README.md) の翻訳です。**英語が正典**であり、食い違う箇所は原文が優先します。
 > 翻訳が原文より遅れていないかは `uv run python tools/check_translations.py` が知らせます。
 
@@ -84,7 +84,7 @@ flowchart TD
 
 | どこ | なに |
 |---|---|
-| [`src/asrai/`](../../../src/asrai/README.md) | パッケージ本体。コアモジュール 10 個の上にトランスポート 2 つ |
+| [`src/asrai/`](../../../src/asrai/README.md) | パッケージ本体。コアモジュール 10 個の上に CLI と MCP のトランスポート |
 | [`src/asrai/data/`](../../../src/asrai/data/README.md) | ホイールと一緒に入るものすべて |
 | [`src/asrai/data/skill/`](../../../src/asrai/data/skill/README.md) | エージェントが読む `SKILL.md` と、仕様を落とさない規則 |
 | [`src/asrai/data/stock/`](../../../src/asrai/data/stock/README.md) | 語彙 v2、サーフェス、スキーマ、整合性マニフェスト |

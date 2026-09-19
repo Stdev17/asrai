@@ -1,4 +1,4 @@
-<!-- translation-of: README.md@250a3358d33036001aa1cf25f6d0b9de4214bbb4 -->
+<!-- translation-of: README.md@793617fa1a938d0448e8326efdfee682fdb79439 -->
 > 本文是原文 [README.md](../../../README.md) 的翻译。**英文为正本**，如有出入以原文为准。
 > 译文是否落后于原文，由 `uv run python tools/check_translations.py` 给出。
 
@@ -81,7 +81,7 @@ flowchart TD
 
 | 位置 | 内容 |
 |---|---|
-| [`src/asrai/`](../../../src/asrai/README.md) | 包本体：10 个核心模块之上的两种传输方式 |
+| [`src/asrai/`](../../../src/asrai/README.md) | 包本体：10 个核心模块之上的 CLI 与 MCP 传输方式 |
 | [`src/asrai/data/`](../../../src/asrai/data/README.md) | 随 wheel 一起安装的一切 |
 | [`src/asrai/data/skill/`](../../../src/asrai/data/skill/README.md) | 面向智能体的 `SKILL.md` 与“不丢失规格”规则 |
 | [`src/asrai/data/stock/`](../../../src/asrai/data/stock/README.md) | 词表 v2、表面、schema、完整性清单 |

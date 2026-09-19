@@ -1,4 +1,4 @@
-<!-- translation-of: README.md@250a3358d33036001aa1cf25f6d0b9de4214bbb4 -->
+<!-- translation-of: README.md@793617fa1a938d0448e8326efdfee682fdb79439 -->
 > 원문 [README.md](../../../README.md)의 번역이다. **영어가 정본이며**, 어긋나는 곳은 원문이 이긴다.
 > 번역이 원문보다 뒤처졌는지는 `uv run python tools/check_translations.py`가 알려준다.
 
@@ -82,7 +82,7 @@ flowchart TD
 
 | 어디 | 무엇 |
 |---|---|
-| [`src/asrai/`](../../../src/asrai/README.md) | 패키지. 코어 모듈 10개 위에 트랜스포트 2개 |
+| [`src/asrai/`](../../../src/asrai/README.md) | 패키지. 코어 모듈 10개 위에 CLI와 MCP 트랜스포트 |
 | [`src/asrai/data/`](../../../src/asrai/data/README.md) | 휠과 함께 설치되는 모든 것 |
 | [`src/asrai/data/skill/`](../../../src/asrai/data/skill/README.md) | 에이전트가 읽는 `SKILL.md`와 스펙 누락 금지 규칙 |
 | [`src/asrai/data/stock/`](../../../src/asrai/data/stock/README.md) | 어휘 v2, 서피스, 스키마, 무결성 매니페스트 |
