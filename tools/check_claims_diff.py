@@ -49,7 +49,10 @@ DROP = (re.compile(r"`[^`]*`"),                       # an id in code voice is a
                    r"|figures?|tables?)\s+(?:\d+(?:\.\d+)*|one|two|three|four|five|six|seven|eight|nine|ten)"
                    r"(?:\s*(?:,|and)\s*(?:\d+(?:\.\d+)*|one|two|three|four|five|six|seven|eight|nine|ten))*\b",
                    re.I),
-        re.compile(r"^\s*(?:[-*+]|\d+[.)]|#{1,6})\s+"))
+        # markers stack: a numbered list inside a comment carries the comment's `#` and the item's
+        # `1.`, and stripping only the outer one leaves the inner one looking exactly like a
+        # magnitude. Same shape as the dotted section reference, one level down
+        re.compile(r"^\s*(?:(?:[-*+]|\d+[.)]|#{1,6})\s+)+"))
 NUMERAL = re.compile(r"\b\d{1,3}(?:,\d{3})+\b|\b\d+(?:\.\d+)?\b")   # a separator is punctuation
 
 
