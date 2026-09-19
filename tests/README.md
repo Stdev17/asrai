@@ -10,11 +10,12 @@ so a change to `vocab.v2.json` fails the same command a change to `light.py` doe
 
 ```mermaid
 flowchart TD
-    PYTEST[pytest] --> ASRAI[test_asrai] & CORPUS[test_corpus] & FIXTURES[test_fixtures] & LIGHT[test_light] & DCO[test_dco] & COMMITS[test_commit_check]
+    PYTEST[pytest] --> ASRAI[test_asrai] & CORPUS[test_corpus] & FIXTURES[test_fixtures] & LIGHT[test_light] & PROFILE[test_profile] & DCO[test_dco] & COMMITS[test_commit_check]
     ASRAI --> TRANSPORTS["both transports<br/>malformed input"]
     CORPUS --> STOCK["shipped data<br/>skill agreement"]
     FIXTURES --> VALUES["exact JSON values"]
-    LIGHT --> SURFACE["surface pass<br/>perturbations"]
+    LIGHT --> SURFACE["surface pass, the run that<br/>owns it, the readings it gives"]
+    PROFILE --> OVERLAY["the overlay<br/>as a cache"]
 ```
 
 Collect the current counts with `uv run pytest --collect-only -q`; parametrised tests count separately.
@@ -26,7 +27,8 @@ Collect the current counts with `uv run pytest --collect-only -q`; parametrised 
 | `test_dco.py` | new commits need real signoff trailers; legacy history is exempt and unavailable history cannot pass |
 | `test_commit_check.py` | real Git hooks accept/reject commit trees, message-only and staged amendments, owner-crossing renames, merges and linked worktrees; unavailable evidence and malformed trailers fail |
 | `test_fixtures.py` | `measure` reproduces the committed JSON values for each of the six images, the CLI and the core agree, and a fully transparent asset is reported as empty rather than measured |
-| `test_light.py` | the surface pass: direction, emitters, key fit, the form, the answered phase, depth, the three modes, the estimator noise floor on every direction, the mirror check, capture boxes and what a capture could not read, subject masks, holds, and the production perturbations |
+| `test_light.py` | the surface pass and the run that owns it. The pass: direction, emitters, key fit, the form, the answered phase, depth, the three modes, the estimator noise floor on every direction, the mirror check, capture boxes and what a capture could not read, subject masks, holds, and the production perturbations. The run: that it opens the asset and names the subjects alone, that a form belongs to the run it was filled for, that the record it builds is one the `record` tool stores, and that an axis saying warn or fail is backed by an observation. What presents it: three profiles saying one verdict three ways with the verdict and record byte-identical under each, the corpus overriding vocabulary and nothing else, and the import graph that stops a family choosing its own reader |
+| `test_profile.py` | the overlay is a projection and never a source: a scope nobody wrote about is absent rather than clean, an append to the records reprojects it while deleting the cache costs only time, and a term the shipped vocabulary no longer carries is dropped rather than guessed at |
 
 The [runbook](../docs/runbook.md) also requires repository link/stamp checks and a fresh wheel install.
 `tools/check_wheel.py` checks the installed CLI and MCP from outside the checkout; it is intentionally
