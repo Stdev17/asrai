@@ -375,3 +375,88 @@ def test_every_number_the_documents_claim_is_the_number_the_repository_has():
     assert not unanchored, unanchored
     assert not absent, absent
     assert not untranslated, untranslated
+
+
+def test_every_index_names_what_the_repository_has():
+    """A directory README is where a contributor looks to find out what already exists, and until now
+    nothing checked one against its directory. `claims.json` holds the numbers the documents state and
+    `check_links.py` holds the links between them; the gap between those two is a list that has quietly
+    stopped listing everything. `test_profile.py` was in neither the table nor the graph of
+    tests/README for three days, and `tools/hooks/` was named in no index at all.
+
+    The cost is not cosmetic. An index that undercounts sends the next contributor to write a second
+    copy of something that is already here, which is a defect this repository has paid for in code:
+    one flood fill, written once in `light` and once in `measure`, because no page said the first one
+    existed.
+
+    Four mechanical claims. Every tracked directory is documented. Every table that lists files lists
+    all of them. Every public name a table advertises is one its module defines. And a drawing that
+    names a set of files names the same set as the table beside it."""
+    import ast
+    import re
+    from pathlib import Path, PurePosixPath
+
+    root = Path(__file__).resolve().parent.parent
+
+    def read(doc: str) -> str:
+        return (root / doc).read_text("utf-8")
+
+    # 1. a directory carries its own README, or the one above it names it as a path: `hooks/`, never
+    # the bare word inside a sentence about hooks. A passing mention must not stand in for an entry
+    tracked = subprocess.run(["git", "-C", str(root), "ls-files"], capture_output=True,
+                             text=True, check=True).stdout.split()
+    undocumented = []
+    for d in sorted({PurePosixPath(f).parent for f in tracked if "/" in f}):
+        if (root / d / "README.md").exists():
+            continue
+        above = root / d.parent / "README.md"
+        if above.exists() and re.search(rf"\b{re.escape(d.name)}/", above.read_text("utf-8")):
+            continue
+        undocumented.append(str(d))
+
+    # 2. a listed file. The row anchor is `| `name` |` at the start of a line, so prose naming a file
+    # can neither satisfy a row nor break one. tools/README.md names its scripts in running text
+    # instead, which is why that one is asked in one direction: every tool is named, and a name is not
+    # held to being a tool
+    indexes = (
+        ("src/asrai/README.md", r"^\| `([a-z_]+\.py)` \|", "src/asrai", "*.py", True),
+        ("tests/README.md", r"^\| `(test_\w+\.py)` \|", "tests", "test_*.py", True),
+        ("tools/README.md", r"`(\w+\.py)`", "tools", "*.py", False),
+    )
+    unlisted, phantom = [], []
+    for doc, anchor, folder, glob, both in indexes:
+        named = set(re.findall(anchor, read(doc), re.M))
+        have = {p.name for p in (root / folder).glob(glob)}
+        unlisted += [f"{doc} does not name {n}" for n in sorted(have - named)]
+        if both:
+            phantom += [f"{doc} names {n}, which {folder}/ does not have" for n in sorted(named - have)]
+
+    # 3. the public surface a table advertises. This is the row that goes stale in the same commit that
+    # moves a function out of a module, and the one a reader trusts most: it is read as the module's API
+    package = read("src/asrai/README.md")
+    for mod in sorted(p.name for p in (root / "src" / "asrai").glob("*.py")):
+        cell = re.search(rf"^\| `{re.escape(mod)}` \|[^|]*\|([^|]*)\|", package, re.M)
+        if cell is None:
+            continue                          # an unlisted module is already an entry in `unlisted`
+        public = set()
+        for node in ast.parse((root / "src" / "asrai" / mod).read_text("utf-8")).body:
+            if isinstance(node, (ast.FunctionDef, ast.ClassDef)) and not node.name.startswith("_"):
+                public.add(node.name)
+            bound = (node.targets if isinstance(node, ast.Assign)
+                     else [node.target] if isinstance(node, ast.AnnAssign) else [])
+            public |= {t.id for t in bound if isinstance(t, ast.Name) and t.id.isupper()}
+        phantom += [f"src/asrai/README.md says {mod} exposes {n}, which it does not define"
+                    for n in sorted(set(re.findall(r"`(\w+)`", cell.group(1))) - public)]
+
+    # 4. two lists spelled a second time. The MCP table mirrors the tools `server.py` decorates and the
+    # tests diagram mirrors the table under it; a second spelling is a second thing to forget
+    tools = set(re.findall(r"@_guard\ndef (\w+)\(", read("src/asrai/server.py")))
+    mirrored = set(re.findall(r"^\| `(\w+)` \| `asrai", package, re.M))
+    drawn = set(re.findall(r"\[(test_\w+)\]", read("tests/README.md")))
+    suite = {p.stem for p in (root / "tests").glob("test_*.py")}
+
+    assert not undocumented, f"no README, and the one above does not name it: {undocumented}"
+    assert not unlisted, unlisted
+    assert not phantom, phantom
+    assert tools == mirrored, f"the MCP tool table and server.py disagree: {sorted(tools ^ mirrored)}"
+    assert drawn == suite, f"the tests diagram and the test files disagree: {sorted(drawn ^ suite)}"
