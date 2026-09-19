@@ -51,11 +51,11 @@
     },
     {
       "id": "package.modules",
-      "value": 11,
+      "value": 12,
       "truth": "*.py under src/asrai",
       "claimed_in": {
-        "README.md": "eleven modules",
-        "src/asrai/README.md": "Eleven modules"
+        "README.md": "twelve modules",
+        "src/asrai/README.md": "Twelve modules"
       }
     },
     {
@@ -252,10 +252,10 @@
     },
     {
       "id": "package.core_modules",
-      "value": 9,
+      "value": 10,
       "truth": "*.py under src/asrai that is not a transport (cli.py, server.py)",
       "claimed_in": {
-        "README.md": "nine core modules"
+        "README.md": "ten core modules"
       }
     }
   ]

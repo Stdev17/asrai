@@ -4,6 +4,12 @@ Hand-written changes for users and contributors. An unreleased entry is not a pu
 
 ## Unreleased
 
+- Move every surface that presents a run to the run owner: `asrai.reading` holds the reader profiles
+  and the sentences, the lighting pass reports typed findings instead of prose, and neither transport
+  imports a family any more. Nothing a caller sees changes — every reading is byte-identical — but a
+  second family now inherits one voice instead of bringing its own. `light.sentences`,
+  `light.for_reader` and `light.profiles` are gone; `--profile` and the `profile` tool argument are
+  unchanged.
 - Add a `persona-build` skill: end-user personas as spec-perturbation mode 2 over an artifact that already
   exists, recorded as projections with what they may and may not claim, rather than as descriptions of
   people.

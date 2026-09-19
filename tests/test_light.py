@@ -1,12 +1,14 @@
 """light_ledger: a Lambertian disc lit from the upper-left must point there, answer to the lamp placed
 there, reject the decoy, mirror with the image, and turn a filled form into verdicts and a record."""
+import ast
 import json
+from pathlib import Path
 
 import numpy as np
 import pytest
 from PIL import Image
 
-from asrai import config, light, records, run
+from asrai import config, light, reading, records, run
 
 # The bound the estimators are held to. Registered in claims.json and stated in docs/spec.md,
 # surfaces.v1.json and light.py's own docstring: moving any one of them fails the suite.
@@ -262,16 +264,19 @@ def test_an_unanswered_surface_is_unknown_and_an_answered_one_excepts_only_what_
 def test_the_reader_with_no_training_gets_a_sentence_and_the_verdict_does_not_move(tmp_path):
     """spec.md section 1 owes reader one an id, a box, a direction, in a sentence, and requires that
     `unknown` never read as fine. It also fixes the direction of authority: expression is a projection
-    of a verdict, so producing it may not change one. That is structural here — `sentences` takes the
-    finished result and returns strings — and this pins it, because the cheap way to add a profile
-    later is to thread it into `ledger`, which is exactly what must not happen."""
+    of a verdict, so producing it may not change one. That is structural here — the family reports
+    findings, `reading` turns findings into strings, and there is no verdict in the module that writes
+    them — and this pins the consequence: one asset and one set of answers, read with a profile and
+    read without one, agree on the verdict."""
     disc(45).save(tmp_path / "u.png")                     # lit from the lower right, lamp at the upper left
     form = run.ledger(tmp_path / "u.png", BALL)["form"]
     form["emitters"] = {"e1": "lamp", "e2": "paint"}
-    out = run.ledger(tmp_path / "u.png", BALL, answers=form, out_dir=tmp_path / "o")
-    before = json.dumps(out["verdict"], sort_keys=True)
-    said = light.sentences(out)
-    assert json.dumps(out["verdict"], sort_keys=True) == before      # expression yields: it reads, never writes
+    plain = run.ledger(tmp_path / "u.png", BALL, answers=form, out_dir=tmp_path / "o")
+    out = run.ledger(tmp_path / "u.png", BALL, answers=form, out_dir=tmp_path / "o", profile="untrained")
+    said = out["sentences"]
+    assert json.dumps(out["verdict"], sort_keys=True) == json.dumps(plain["verdict"], sort_keys=True)
+    assert "sentences" not in plain                  # no profile is the default
+    assert "findings" not in out                     # a family reports them to be said, never published
 
     disagreement = next(s for s in said if "lit side" in s)
     assert "ball" in disagreement and "50,30 to 80,80" in disagreement and "lower right" in disagreement
@@ -287,32 +292,43 @@ def test_the_reader_with_no_training_gets_a_sentence_and_the_verdict_does_not_mo
     # unfilled form is not a measurement that failed. Collapsing either pair is the defect this file
     # has now carried three times
     assert next(s for s in said if s.startswith("e1")).endswith("too bright to read, so nothing could be checked against it.")
-    lone = run.ledger(scene(tmp_path / "s.png", flat=True))   # no shading to place a shaded mass by
-    flat = light.sentences(run.ledger(tmp_path / "s.png", answers=lone["form"]))
+    sp = scene(tmp_path / "s.png", flat=True)             # no shading to place a shaded mass by
+    flat = run.ledger(sp, answers=run.ledger(sp)["form"], profile="untrained")["sentences"]
     assert any("too faint to measure" in s for s in flat) and any("no one has looked" in s for s in flat)
 
     # phase one has no verdict to project, and an empty reading would read as a clean one
-    assert light.sentences(lone) == ["Nothing has been judged yet. This is the measurement half; the "
-                                     "form it returned has to be answered before anything here can pass or fail."]
-    assert "sentences" not in light.for_reader(lone, None)           # no profile is the default
-    assert light.for_reader(out, "artist")["verdict"] is out["verdict"]   # the same object, unwrapped
+    assert run.ledger(sp, profile="untrained")["sentences"] == [
+        "Nothing has been judged yet. This is the measurement half; the form it returned has to be "
+        "answered before anything here can pass or fail."]
     with pytest.raises(ValueError, match="unknown profile"):
-        light.sentences(out, "art director")
+        run.ledger(sp, profile="art director")
 
 
 def test_three_profiles_say_one_verdict_three_ways_and_none_of_them_moves_it(tmp_path):
     """The gate the 2026-09-17 review specifies: a profile is a view, so one asset and one set of
     answers must produce the same verdict under every profile. What differs is the saying. The scene is
-    in the contested band deliberately, because that is where all four axes have something to do."""
+    in the contested band deliberately, because that is where every profile axis has something to do.
+
+    Each reading is its own run, which is what profiles.v1.json's invariant actually claims: not that
+    one finished result renders three ways, but that three runs asked for three readers agree byte for
+    byte on the verdict and on the record."""
     disc(180).save(tmp_path / "a.png")                    # 37.9 degrees off: too far to pass, too close to fail
     form = run.ledger(tmp_path / "a.png", BALL)["form"]
     form["emitters"] = {"e1": "lamp", "e2": "paint"}
     form["subjects"] = {"ambient": {"no": ["ball"]}}
-    out = run.ledger(tmp_path / "a.png", BALL, answers=form, out_dir=tmp_path / "o")
 
-    frozen = json.dumps(out["verdict"], sort_keys=True), json.dumps(out["record"], sort_keys=True)
-    said = {p["id"]: light.sentences(out, p["id"]) for p in light.profiles()["profiles"]}
-    assert (json.dumps(out["verdict"], sort_keys=True), json.dumps(out["record"], sort_keys=True)) == frozen
+    def read(pid=None, seen=None):
+        return run.ledger(tmp_path / "a.png", BALL, answers=form, out_dir=tmp_path / "o",
+                          profile=pid, overlay=seen)
+
+    frozen = read()
+    frozen = json.dumps(frozen["verdict"], sort_keys=True), json.dumps(frozen["record"], sort_keys=True)
+    said = {}
+    for row in reading.profiles()["profiles"]:
+        one = read(row["id"])
+        assert (json.dumps(one["verdict"], sort_keys=True),
+                json.dumps(one["record"], sort_keys=True)) == frozen
+        said[row["id"]] = one["sentences"]
     assert len({tuple(v) for v in said.values()}) == 3          # three readings, and they are not the same
 
     band = {k: next(s for s in v if "lit side" in s) for k, v in said.items()}
@@ -328,10 +344,14 @@ def test_three_profiles_say_one_verdict_three_ways_and_none_of_them_moves_it(tmp
     disc(225).save(tmp_path / "b.png")                    # dead on: the measurement decides alone
     f2 = run.ledger(tmp_path / "b.png", BALL)["form"]
     f2["emitters"] = {"e1": "lamp", "e2": "paint"}
-    settled = run.ledger(tmp_path / "b.png", BALL, answers=f2, out_dir=tmp_path / "o2")
-    assert any("agrees with e1" in s for s in light.sentences(settled, "untrained"))
-    assert not any("agrees with e1" in s for s in light.sentences(settled, "art_director"))
-    assert any("no one has looked" in s for s in light.sentences(settled, "art_director"))
+
+    def settled(pid):
+        return run.ledger(tmp_path / "b.png", BALL, answers=f2, out_dir=tmp_path / "o2",
+                          profile=pid)["sentences"]
+
+    assert any("agrees with e1" in s for s in settled("untrained"))
+    assert not any("agrees with e1" in s for s in settled("art_director"))
+    assert any("no one has looked" in s for s in settled("art_director"))
 
 
 def test_the_corpus_overrides_the_profile_on_vocabulary_and_on_nothing_else(tmp_path):
@@ -345,25 +365,53 @@ def test_the_corpus_overrides_the_profile_on_vocabulary_and_on_nothing_else(tmp_
     form = run.ledger(tmp_path / "a.png", BALL)["form"]
     form["emitters"] = {"e1": "lamp", "e2": "paint"}
     form["subjects"] = {"ambient": {"no": ["ball"]}}
-    out = run.ledger(tmp_path / "a.png", BALL, answers=form, out_dir=tmp_path / "o")
 
-    plain = next(s for s in light.sentences(out, "untrained") if "missing or inconsistent" in s)
+    def read(pid=None, seen=None):
+        return run.ledger(tmp_path / "a.png", BALL, answers=form, out_dir=tmp_path / "o",
+                          profile=pid, overlay=seen)
+
+    plain = next(s for s in read("untrained")["sentences"] if "missing or inconsistent" in s)
     assert "lighting.ambient" not in plain                     # nobody here has used it
 
     seen = {"term:lighting.ambient": {"state": "used", "evidence": ["observation_x"], "at": None}}
-    named = light.sentences(out, "untrained", seen)
+    named = read("untrained", seen)["sentences"]
     assert "lighting.ambient" in next(s for s in named if "missing or inconsistent" in s)
     # a term the corpus has not written about is still plain, in the same sentence-set
     assert "value.highlight" not in " ".join(named)
 
     # the other three axes do not move: the art director still loses what the measurement settled and
     # still receives the angle, whatever the corpus happens to have written about
-    band = next(s for s in light.sentences(out, "art_director", seen) if "lit side" in s)
+    band = next(s for s in read("art_director", seen)["sentences"] if "lit side" in s)
     assert "37.875 degrees" in band and "(observer)" not in band
-    assert light.sentences(out, "artist", seen) == light.sentences(out, "artist")   # already `assume`
+    assert read("artist", seen)["sentences"] == read("artist")["sentences"]   # already `assume`
 
-    assert json.dumps(out["verdict"], sort_keys=True) == json.dumps(
-        light.for_reader(out, "untrained", seen)["verdict"], sort_keys=True)
+    assert json.dumps(read("untrained", seen)["verdict"], sort_keys=True) == json.dumps(
+        read()["verdict"], sort_keys=True)
+
+
+FAMILIES = ("light",)
+
+
+def test_the_run_owns_every_surface_that_presents_it():
+    """`2026-09-17-family-and-run.md` section 5: every surface that presents a run belongs to the run
+    owner, and none of them may move a verdict. The three readings above pin the second half; this pins
+    the first, which is the half a later commit can undo without anything going red, because wiring a
+    transport straight to a family's renderer works perfectly and costs nothing until the second family
+    arrives with a voice of its own.
+
+    Both halves are import edges, and deleting either is the mutation this catches. A transport that
+    imported a family would be one audience hearing that family's words. A presentation layer importing
+    one would be a renderer with a branch per family: the same defect wearing the run owner's name."""
+    def imports(name: str) -> set:
+        tree = ast.parse((Path(light.__file__).parent / f"{name}.py").read_text("utf-8"))
+        return {node.module.split(".")[0] if node.module else alias.name
+                for node in ast.walk(tree) if isinstance(node, ast.ImportFrom) and node.level == 1
+                for alias in node.names}
+
+    for transport in ("cli", "server"):
+        assert not imports(transport) & set(FAMILIES), f"{transport} asks a family, not the run"
+    assert not imports("reading") & set(FAMILIES), "the presentation layer knows which family spoke"
+    assert "reading" not in imports("light"), "a family reaches for its own reader"
 
 
 def test_no_alpha_and_no_subjects(tmp_path):

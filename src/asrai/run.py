@@ -32,7 +32,7 @@ from pathlib import Path
 
 import numpy as np
 
-from . import config, light, measure, records
+from . import config, light, measure, reading, records
 from .measure import SILHOUETTE_ALPHA
 
 SUBJECTS_MAX = 16            # the most a reviewer is shown at once, largest box first
@@ -235,17 +235,33 @@ def _backed(axes: dict, record: dict | None) -> None:
 
 def ledger(path: Path, subjects: list[dict] | None = None, capture: str | None = None,
            out_dir: Path | None = None, mirror: bool = False, answers: dict | None = None,
-           observer: dict | None = None) -> dict:
-    """One run, judged by the families it asks, and recorded once. Today it asks one, and the ordering
-    rule it will need is already written down: families run in the gate order of `spec.md` section 7 and
-    never read each other's verdicts. A second family arrives as a row here, not as a second tool.
+           observer: dict | None = None, profile: str | None = None,
+           overlay: dict | None = None) -> dict:
+    """One run, judged by the families it asks, recorded once and said once. Today it asks one, and the
+    ordering rule it will need is already written down: families run in the gate order of `spec.md`
+    section 7 and never read each other's verdicts. A second family arrives as a row here, not as a
+    second tool.
 
-    A family returns the observations it made; the record they go in is assembled here, so that what a
-    run says and what it stores cannot be two different things."""
+    A family returns the observations it made and the findings it made them on; the record they go in
+    and the reading they are said in are both assembled here, so that what a run says, what it stores
+    and what it reads aloud cannot be three different things.
+
+    `findings` never leaves this function. A family reports them to be presented, not to be published,
+    and a reply carrying both them and the sentences built from them would say one thing twice under
+    different names -- with nothing to stop the copies drifting apart.
+
+    `profile` is `None` by default and that is the absence of a reading rather than a fourth reader: a
+    result is complete before any profile is applied, both transports pass their own through, and the
+    reading is attached here so neither of them has to know which family produced it. `overlay` is the
+    `scopes` map of `profile.overlay`, read by a caller that has a corpus; nothing below this line
+    knows what a team directory is."""
     ctx = open_run(path, subjects, capture, mirror)
     out = light.pass_(ctx, out_dir, answers)
+    findings = out.pop("findings", None)
     if "observations" in out:
         axes = out["verdict"]["axes"]
         out["record"] = _record(ctx, out.pop("observations"), out.pop("context"), observer, axes)
         _backed(axes, out["record"])
+    if profile is not None:
+        out["sentences"] = reading.sentences(findings, profile, overlay)
     return out

@@ -73,7 +73,7 @@ uv run python tools/make_fixtures.py    # 의도적으로 바꾼 뒤 tests/fixtu
 
 ```mermaid
 flowchart TD
-    ROOT["asrai/"] --> SRC["src/asrai/<br/>모듈 11개"] & DOCS["docs/<br/>계약, 규약, 상태"] & TESTS["tests/<br/>유일한 게이트"] & TOOLS["tools/<br/>코퍼스 스크립트"]
+    ROOT["asrai/"] --> SRC["src/asrai/<br/>모듈 12개"] & DOCS["docs/<br/>계약, 규약, 상태"] & TESTS["tests/<br/>유일한 게이트"] & TOOLS["tools/<br/>코퍼스 스크립트"]
     SRC --> DATA["data/<br/>휠에 실린다"]
     DATA --> SKILL["skill/<br/>SKILL.md"] & STOCK["stock/<br/>어휘, 서피스, 로케일"]
     DOCS --> REVIEW["review/<br/>날짜 박힌 결정"]
@@ -82,7 +82,7 @@ flowchart TD
 
 | 어디 | 무엇 |
 |---|---|
-| [`src/asrai/`](../../../src/asrai/README.md) | 패키지. 코어 모듈 9개 위에 트랜스포트 2개 |
+| [`src/asrai/`](../../../src/asrai/README.md) | 패키지. 코어 모듈 10개 위에 트랜스포트 2개 |
 | [`src/asrai/data/`](../../../src/asrai/data/README.md) | 휠과 함께 설치되는 모든 것 |
 | [`src/asrai/data/skill/`](../../../src/asrai/data/skill/README.md) | 에이전트가 읽는 `SKILL.md`와 스펙 누락 금지 규칙 |
 | [`src/asrai/data/stock/`](../../../src/asrai/data/stock/README.md) | 어휘 v2, 서피스, 스키마, 무결성 매니페스트 |

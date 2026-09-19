@@ -46,7 +46,6 @@ from .measure import SILHOUETTE_ALPHA, _r
 SCHEMA = "light_ledger.v1"
 ANSWERS = "light_answers.v1"
 SURFACES = vocab.DATA / "surfaces.v1.json"
-PROFILES = vocab.DATA / "profiles.v1.json"
 LABEL_LONG_SIDE = 256       # emitter blobs are labelled on a downscaled mask (pure-python flood fill)
 EMITTER_MIN_Y = 0.30        # linear luminance floor (sRGB ~0.58): a dark scene must not promote mid-tones
 EMITTER_PERCENTILE = 99     # ... and a candidate is at least EMITTER_FRACTION as bright as the image's
@@ -97,23 +96,6 @@ BRIGHT_COLOR, FIT_COLOR, SHADOW_COLOR = (255, 220, 0), (0, 255, 255), (170, 90, 
 @functools.cache
 def surfaces() -> dict:
     return json.loads(SURFACES.read_text("utf-8"))
-
-
-@functools.cache
-def profiles() -> dict:
-    return json.loads(PROFILES.read_text("utf-8"))
-
-
-def _profile(pid: str | None) -> dict:
-    """A profile selects a rendering. `None` is a supported reading and not a fourth profile: it is the
-    default surface, which is what `untrained` renders, because that is the one reader who has nothing
-    else to fall back to."""
-    if pid is None:
-        pid = "untrained"
-    row = next((p for p in profiles()["profiles"] if p["id"] == pid), None)
-    if row is None:
-        raise ValueError(f"unknown profile {pid!r}; one of {[p['id'] for p in profiles()['profiles']]}")
-    return row
 
 
 def _surface(sid: str) -> dict:
@@ -676,94 +658,82 @@ def _facing(vec) -> str:
     return FACINGS[int((math.degrees(math.atan2(vec[1], vec[0])) % 360 + 22.5) % 360 // 45)]
 
 
-def for_reader(result: dict, profile: str | None, overlay: dict | None = None) -> dict:
-    """The result with one reader's reading of it attached, under `sentences`.
+def _findings(result: dict) -> list[dict]:
+    """What this pass found, one row per finding, in the shape every family reports in.
 
-    `None` attaches nothing. That is not an empty reading but the absence of one: a result is complete
-    before any profile is applied, so no profile is the default and both transports say so the same
-    way. The verdict this wraps is untouched, which is the whole contract -- see profiles.v1.json.
+    A row is a sentence and the four things a reader profile may do to it: withhold it when a
+    measurement settled it on its own, name the surfaces it points at, say what decided it, attach the
+    angle a contested one turned on. The family writes the sentence, because only the family knows what
+    a lighting finding is. It never decides who hears one -- `reading` does that, for every family at
+    once, which is what keeps a run from speaking in as many voices as it has families.
 
-    `overlay` is the `scopes` map of `profile.overlay`, or nothing. This module never reads a corpus:
-    a caller that has one passes what it found, so the renderer stays a pure function of what it is
-    given and the feature that knows about team directories stays where it belongs."""
-    return result if profile is None else result | {"sentences": sentences(result, profile, overlay)}
-
-
-def sentences(result: dict, profile: str | None = None, overlay: dict | None = None) -> list[str]:
-    """Say a finished verdict to one reader, one line per finding. What spec.md section 1 owes the
-    reader with no art training is an id, a box, a direction, in a sentence they can hand to whoever
-    fixes it; the other two readers are owed the same findings shaped differently, and profiles.v1.json
-    holds which.
-
-    This is a projection. It takes the verdict and returns text, so it can never be the thing that
-    decides one -- expression yields to judgment by construction here, not by a rule someone has to
-    remember. Nothing it returns is new information; what changes per profile is what is said, never
-    what is true, and the test pins that by comparing the verdict across all three.
-
-    Silence is the failure mode section 1 exists to prevent, so a surface nobody answered is said out
-    loud under every profile. An omitted line reads as a clean one, which is the defect this repository
-    has now fixed three times. The art director's `settled: silence` is not that: it drops findings a
-    measurement decided, which stay in the observation record and are read there."""
-    p = _profile(profile)
-    seen = set(overlay or ())
-    verdict = result.get("verdict")
-    if not verdict:
-        return ["Nothing has been judged yet. This is the measurement half; the form it returned has "
-                "to be answered before anything here can pass or fail."]
+    Surfaces travel as `{label, term}` beside a `say` that ends at its colon, rather than joined into
+    it. Whether a term id may be said belongs to the reader and to the corpus, and a sentence handed
+    over with the ids already baked in could not be unsaid for the reader who has no vocabulary.
+    """
+    verdict = result["verdict"]
     boxes = {s["id"]: s["bbox"] for s in result["subjects"]}
-    out = []
+    out: list[dict] = []
+
+    def row(say: str, terms: list[dict] | None = None, settled: bool = False,
+            basis: str | None = None, evidence: float | None = None) -> None:
+        out.append({"say": say, "terms": terms or [], "settled": settled,
+                    "basis": basis, "evidence": evidence})
+
     for v in verdict["subjects"]:
         sid = v["id"]
         where = "%s (box %d,%d to %d,%d)" % (sid, *boxes[sid])
         lit = next((s["bright_side"] for s in result["subjects"] if s["id"] == sid), None)
         facing = _facing(lit["vector"]) if lit else None
-        settled = p["settled"] == "say" or v["basis"] != "measurement"
-        if v["diffuse"] == "disagrees" and settled:
-            out.append(f"The lit side of {where} faces {facing}, which is not where the light it should "
-                       f"answer to ({v['expected_key']}) is." + _said(p, v["basis"], v["residual_deg"]))
-        elif v["diffuse"] == "agrees" and facing and settled:
-            out.append(f"The lit side of {where} faces {facing}, and that agrees with "
-                       f"{v['verdict_emitter']}." + _said(p, v["basis"], v["residual_deg"]))
+        # `settled` is the measurement deciding alone, which is the one thing a profile may silence.
+        # The contested band below is never marked settled: it is what that silence exists to leave
+        settled = v["basis"] == "measurement"
+        if v["diffuse"] == "disagrees":
+            row(f"The lit side of {where} faces {facing}, which is not where the light it should "
+                f"answer to ({v['expected_key']}) is.",
+                settled=settled, basis=v["basis"], evidence=v["residual_deg"])
+        elif v["diffuse"] == "agrees" and facing:
+            row(f"The lit side of {where} faces {facing}, and that agrees with "
+                f"{v['verdict_emitter']}.", settled=settled, basis=v["basis"], evidence=v["residual_deg"])
         elif v["diffuse"] == "unknown" and v["expected_key"]:
             # the contested band itself: the measurement placed the lit side and declined to rule on
             # it, and nobody answered. Saying nothing here is the defect this whole file keeps having
-            out.append(f"The lit side of {where} faces {facing}, and whether that answers to "
-                       f"{v['expected_key']} is undecided — too far off to pass and too close to fail, "
-                       f"and nobody has ruled." + _said(p, v["basis"], v["residual_deg"]))
-        if v.get("cast_shadow") == "no" and (p["settled"] == "say" or v.get("shadow_basis") != "measurement"):
-            out.append(f"The shaded part of {where} is not opposite its lit side, so its shadow and its "
-                       f"light disagree." + _said(p, v.get("shadow_basis"), v.get("shadow_opposition_deg")))
-        # several surface labels contain their own "and", so these lists are joined on semicolons;
-        # `_join` is for ids, which do not
-        wrong = _labels(v, "no", p, seen, skip="cast_shadow")
+            row(f"The lit side of {where} faces {facing}, and whether that answers to "
+                f"{v['expected_key']} is undecided — too far off to pass and too close to fail, "
+                f"and nobody has ruled.", basis=v["basis"], evidence=v["residual_deg"])
+        if v.get("cast_shadow") == "no":
+            row(f"The shaded part of {where} is not opposite its lit side, so its shadow and its "
+                f"light disagree.", settled=v.get("shadow_basis") == "measurement",
+                basis=v.get("shadow_basis"), evidence=v.get("shadow_opposition_deg"))
+        wrong = _surfaces_at(v, "no", skip="cast_shadow")
         if wrong:
-            out.append(f"On {where}, these are missing or inconsistent with the rest of the frame: {wrong}."
-                       + _said(p, "observer", None))
+            row(f"On {where}, these are missing or inconsistent with the rest of the frame:",
+                terms=wrong, basis="observer")
         # two different kinds of not-knowing, and collapsing them is the defect this file has had three
         # times: the measurement failing to read a shaded mass is not the observer declining to look
         if v.get("cast_shadow") == "unknown" and v.get("shadow_basis") == "none":
-            out.append(f"The shaded part of {where} was too faint to measure, so nothing here can say "
-                       f"which way its shadow falls.")
-        unseen = _labels(v, "unknown", p, seen, skip="cast_shadow" if v.get("shadow_basis") == "none" else None)
+            row(f"The shaded part of {where} was too faint to measure, so nothing here can say "
+                f"which way its shadow falls.")
+        unseen = _surfaces_at(v, "unknown", skip="cast_shadow" if v.get("shadow_basis") == "none" else None)
         if unseen:
-            out.append(f"Nobody has decided these on {where}, which is not the same as fine — it means "
-                       f"no one has looked: {unseen}.")
+            row(f"Nobody has decided these on {where}, which is not the same as fine — it means "
+                f"no one has looked:", terms=unseen)
     # `unclassified` and `unreadable` are not the same hold and must not be said as one: the first is
     # nobody having judged the blob, the second a confirmed light whose surroundings could not be read
     held = [e["id"] for e in verdict["emitters"] if e["verdict"] == "unclassified"]
     if held:
-        out.append(f"{_join(held)} {'is a bright area' if len(held) == 1 else 'are bright areas'} nobody "
-                   f"has said is a light or not, so nothing in the frame was judged against "
-                   f"{'it' if len(held) == 1 else 'them'}.")
+        row(f"{_join(held)} {'is a bright area' if len(held) == 1 else 'are bright areas'} nobody "
+            f"has said is a light or not, so nothing in the frame was judged against "
+            f"{'it' if len(held) == 1 else 'them'}.")
     blind = [e["id"] for e in verdict["emitters"] if e["verdict"] == "unreadable"]
     if blind:
-        out.append(f"{_join(blind)} {'is a light' if len(blind) == 1 else 'are lights'}, but the area "
-                   f"around {'it' if len(blind) == 1 else 'them'} is too bright to read, so nothing could "
-                   f"be checked against {'it' if len(blind) == 1 else 'them'}.")
+        row(f"{_join(blind)} {'is a light' if len(blind) == 1 else 'are lights'}, but the area "
+            f"around {'it' if len(blind) == 1 else 'them'} is too bright to read, so nothing could "
+            f"be checked against {'it' if len(blind) == 1 else 'them'}.")
     dark = [e["id"] for e in verdict["emitters"] if e["verdict"] == "lights_nothing"]
     if dark:
-        out.append(f"{_join(dark)} {'is a light' if len(dark) == 1 else 'are lights'} that nothing in the "
-                   f"frame takes {'its' if len(dark) == 1 else 'their'} light from.")
+        row(f"{_join(dark)} {'is a light' if len(dark) == 1 else 'are lights'} that nothing in the "
+            f"frame takes {'its' if len(dark) == 1 else 'their'} light from.")
     return out
 
 
@@ -771,37 +741,19 @@ def _join(items: list[str]) -> str:
     return items[0] if len(items) == 1 else ", ".join(items[:-1]) + " and " + items[-1]
 
 
-def _labels(v: dict, value: str, p: dict, seen: set, skip: str | None = None) -> str:
-    """The surface labels at one verdict value, each carrying its term id when this reader may read one.
+def _surfaces_at(v: dict, value: str, skip: str | None = None) -> list[dict]:
+    """The surfaces of one subject at one verdict value, each with the term that names it.
 
-    The overlay overrides `vocabulary: avoid`, and only that axis. A term this corpus has written about
-    is what this team says out loud, so naming it is the local idiom rather than jargon, and the
-    hundreds of terms nobody here has ever used stay out of a sentence meant to be acted on. A reader
-    who needs the canonical term goes and asks an artist, which is a cheaper escape than a renderer
-    guessing which words are safe.
-
-    The other three axes are untouched. The overlay is evidence about vocabulary and about nothing
-    else; deriving what to suppress or what to enrich from which terms a team happens to write would
-    be an inference the evidence does not carry."""
+    Both halves travel and the reader decides which of them is said, because the choice turns on who
+    is listening and on what this team has written -- neither of which this family knows. Deciding it
+    here would put the reader's affair inside the finding, where no profile could reach it."""
     out = []
     for k in _subject_surfaces():
         if v[k["id"]] != value or k["id"] == skip:
             continue
         surf = _surface(k["id"])
-        tid = surf["terms"][0]
-        named = p["vocabulary"] != "avoid" or f"term:{tid}" in seen
-        out.append(f"{surf['label'].lower()} ({tid})" if named else surf["label"].lower())
-    return "; ".join(out)
-
-
-def _said(p: dict, basis: str | None, evidence: float | None) -> str:
-    """What a line adds beyond the finding: who decided it, or the angle the contested band turned on.
-    Both are suffixes, so neither can change the sentence that carries them."""
-    if p["basis"] == "show" and basis in ("measurement", "observer"):
-        return f" ({basis})"
-    if p["contested"] == "hand_over" and evidence is not None:
-        return f" ({evidence:g} degrees)"
-    return ""
+        out.append({"label": surf["label"].lower(), "term": surf["terms"][0]})
+    return out
 
 
 def _arrow(d: ImageDraw.ImageDraw, start, vec, length: float, color, lw: int) -> tuple[float, float]:
@@ -900,6 +852,7 @@ def pass_(ctx: dict, out_dir: Path | None = None, answers: dict | None = None) -
         verdict = _verdict(rows, live, held, agreement, key_fit, ans)
         out |= {"verdict": verdict, "observations": _observations(verdict, emitters, rows, ans),
                 "context": {"lighting_mode": ans["mode"]}}
+        out["findings"] = _findings(out)
     else:
         out["form"], out["questions"] = _form(rows, live, agreement, run)
     if out_dir is not None:
